@@ -1,0 +1,1 @@
+{ "id": "test/p_hips", "name": "Testpuppe Hüfte", "tier": "detail", "anchor": [0,0,0], "ops": [ { "op": "box", "at": [-4,13,-2], "size": [8,3,5], "color": "metal" } ] }

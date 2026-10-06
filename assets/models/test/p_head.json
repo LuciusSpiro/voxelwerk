@@ -1,0 +1,1 @@
+{ "id": "test/p_head", "name": "Testpuppe Kopf", "tier": "detail", "anchor": [0,0,0], "ops": [ { "op": "box", "at": [-3,25,-3], "size": [6,6,6], "color": "secondary" }, { "op": "box", "at": [-2,27,3], "size": [4,1,1], "color": "glass" } ] }

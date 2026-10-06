@@ -1,0 +1,1 @@
+{ "id": "test/p_lowerarm", "name": "Testpuppe Unterarm (links)", "tier": "detail", "anchor": [0,0,0], "ops": [ { "op": "box", "at": [4,12,-1], "size": [3,5,3], "color": "metal_light" } ] }

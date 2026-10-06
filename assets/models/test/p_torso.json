@@ -1,0 +1,1 @@
+{ "id": "test/p_torso", "name": "Testpuppe Rumpf", "tier": "detail", "anchor": [0,0,0], "ops": [ { "op": "box", "at": [-4,16,-2], "size": [8,9,5], "color": "primary" }, { "op": "box", "at": [-1,22,3], "size": [2,2,1], "color": "glow" } ] }

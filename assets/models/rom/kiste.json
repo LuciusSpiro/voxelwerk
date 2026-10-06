@@ -1,0 +1,25 @@
+{
+  "id": "rom/kiste",
+  "name": "Versorgungskiste (Rom)",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["prop", "rom", "kiste", "deckung"],
+  "footprint": [0.75, 0.6],
+  "params": {
+    "w": { "default": 12, "min": 6, "max": 24, "step": 1, "label": "Breite (Voxel)" },
+    "h": { "default": 9, "min": 4, "max": 16, "step": 1, "label": "Höhe (Voxel)" },
+    "d": { "default": 10, "min": 6, "max": 20, "step": 1, "label": "Tiefe (Voxel)" },
+    "light": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Statuslicht" }
+  },
+  "ops": [
+    { "op": "box", "name": "Korpus", "at": [0, 0, 0], "size": ["w", "h", "d"], "color": "metal_dark" },
+    { "op": "box", "name": "Frontpaneel", "at": [1, 1, "d"], "size": ["w-2", "h-2", 1], "color": { "frame": "trim", "fill": "primary", "axes": "xy" }, "mode": "add" },
+    { "op": "box", "name": "Rückpaneel", "at": [1, 1, -1], "size": ["w-2", "h-2", 1], "color": { "frame": "trim", "fill": "primary", "axes": "xy" } },
+    { "op": "box", "name": "Deckelkante", "at": [0, "h-1", 0], "size": ["w", 1, "d"], "color": "metal" },
+    { "op": "box", "name": "Griff", "mirror": "x", "mirrorAt": "w/2", "at": [-1, "h-3", 2], "size": [1, 1, "d-4"], "color": "metal_light" },
+    { "op": "box", "name": "Kufe", "at": [1, -1, 1], "size": ["w-2", 1, "d-2"], "color": "rubber" },
+    { "op": "box", "name": "Plakette", "at": ["floor(w/2)-2", "floor(h/2)-1", "d+1"], "size": [4, 2, 1], "color": "trim" },
+    { "op": "box", "name": "Statuslicht", "if": "light", "at": ["w-3", "h-3", "d+1"], "size": [1, 1, 1], "color": "glow" }
+  ],
+  "anchor": ["w/2", -1, "d/2"]
+}

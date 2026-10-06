@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voxelwerk</title>
+<script type="importmap">
+{ "imports": { "three": "../vendor/three.module.js", "three/addons/": "../vendor/addons/" } }
+</script>
+<style>
+  :root { --bg:#12151c; --panel:#1a1f29; --line:#2a3242; --text:#e8e4d8; --muted:#8e9aab; --accent:#d4a23a; --ok:#8fd06a; --err:#e0473c; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--text); font: 13px/1.4 system-ui, "Segoe UI", sans-serif; }
+  #app { display:grid; grid-template-columns: 240px 1fr 340px; height:100%; }
+  aside, #side { background:var(--panel); border-right:1px solid var(--line); overflow:auto; }
+  #side { border-right:0; border-left:1px solid var(--line); display:flex; flex-direction:column; }
+  h1 { font-size:14px; margin:0; padding:10px 12px; border-bottom:1px solid var(--line); letter-spacing:.04em; }
+  h1 b { color:var(--accent); }
+  h2 { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:12px 12px 4px; }
+  #search { width:calc(100% - 24px); margin:8px 12px; background:#0f1218; border:1px solid var(--line); color:var(--text); padding:5px 8px; border-radius:4px; }
+  .item { padding:3px 12px 3px 18px; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#cfd6e0; }
+  .item:hover { background:#232a37; }
+  .item.on { background:#2b3446; color:#fff; box-shadow: inset 2px 0 0 var(--accent); }
+  .folder { padding:3px 12px; color:var(--muted); font-size:12px; }
+  #view { position:relative; min-width:0; }
+  #view canvas { display:block; }
+  #hud { position:absolute; left:10px; bottom:8px; color:var(--muted); font: 11px ui-monospace, Consolas, monospace; pointer-events:none; text-shadow:0 1px 2px #000; white-space:pre; }
+  #title { position:absolute; left:12px; top:10px; font-size:15px; text-shadow:0 1px 3px #000; pointer-events:none; }
+  #title small { display:block; color:var(--muted); font-size:12px; }
+  .sec { padding:8px 12px; border-bottom:1px solid var(--line); }
+  .row { display:flex; align-items:center; gap:8px; margin:4px 0; }
+  .row label { flex:0 0 120px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .row input[type=range] { flex:1; }
+  .row .val { flex:0 0 36px; text-align:right; font-family: ui-monospace, Consolas, monospace; }
+  select, button { background:#0f1218; color:var(--text); border:1px solid var(--line); border-radius:4px; padding:4px 8px; font:inherit; }
+  button { cursor:pointer; } button:hover { border-color:var(--accent); }
+  button.primary { background:#3a2e14; border-color:var(--accent); }
+  .btns { display:flex; gap:6px; flex-wrap:wrap; }
+  #json { flex:1; min-height:200px; width:100%; resize:none; background:#0d1016; color:#d8dee8; border:0; border-top:1px solid var(--line); padding:8px 10px; font: 12px/1.45 ui-monospace, Consolas, monospace; tab-size:2; white-space:pre; }
+  #msg { padding:6px 12px; font-size:12px; min-height:28px; border-top:1px solid var(--line); white-space:pre-wrap; }
+  #msg.err { color:var(--err); } #msg.ok { color:var(--ok); }
+  .chip { display:inline-block; padding:1px 6px; border:1px solid var(--line); border-radius:10px; color:var(--muted); font-size:11px; margin-right:4px; }
+  body.shot #app { grid-template-columns: 1fr !important; grid-template-rows: 1fr !important; } body.shot aside, body.shot #side, body.shot #hud { display:none; }
+  @media (max-width: 900px) { body:not(.shot) #app { grid-template-columns: 1fr; grid-template-rows: 200px 60vh auto; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <aside>
+    <h1><b>VOXEL</b>WERK</h1>
+    <input id="search" placeholder="Suchen …">
+    <div id="lib"></div>
+  </aside>
+  <main id="view">
+    <div id="title"></div>
+    <div id="hud"></div>
+  </main>
+  <section id="side">
+    <div class="sec" id="controls"></div>
+    <div class="sec btns">
+      <button class="primary" id="apply" title="Strg+Enter">Anwenden</button>
+      <button id="save" title="Strg+S">Speichern</button>
+      <button id="revert">Verwerfen</button>
+      <button id="vox">.vox-Export</button>
+      <button id="shot">Bild</button>
+    </div>
+    <textarea id="json" spellcheck="false"></textarea>
+    <div id="msg"></div>
+  </section>
+</div>
+<script type="module" src="./editor.js"></script>
+</body>
+</html>

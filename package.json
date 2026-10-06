@@ -1,0 +1,13 @@
+{
+  "name": "voxelwerk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Voxel-Asset-Pipeline und Editor für das Coop-Spiel (Rezepte → Voxel → three.js)",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node tools/check.js",
+    "shots": "node tools/shots.cjs"
+  },
+  "engines": { "node": ">=22" }
+}
