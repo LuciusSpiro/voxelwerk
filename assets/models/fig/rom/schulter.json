@@ -1,0 +1,24 @@
+{
+  "id": "fig/rom/schulter",
+  "name": "Oberarm mit segmentierter Schulterplatte (links) – Legionär/Centurio",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["figur", "rom", "arm", "ruestung"],
+  "params": {
+    "rank": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "Rang (0 Legionär, 1 Centurio)" }
+  },
+  "ops": [
+    { "name": "Unteranzug", "op": "use", "model": "fig/basis/oberarm" },
+    { "name": "Schultersegment oben", "op": "box", "at": [4, 23, -2], "size": [4, 2, 5], "color": { "stripes": [{ "shade": "secondary", "f": 0.75 }, "secondary"], "axis": "y", "period": 1 } },
+    { "name": "Schultersegment Mitte", "op": "box", "at": [5, 21, -2], "size": [3, 2, 5], "color": { "stripes": [{ "shade": "secondary", "f": 0.75 }, "secondary"], "axis": "y", "period": 1 } },
+    { "name": "Schultersegment unten", "op": "box", "at": [5, 19, -2], "size": [3, 2, 5], "color": { "stripes": ["trim", "secondary"], "axis": "y", "period": 1 } },
+    { "name": "Segmente innen offen", "op": "box", "at": [4, 19, -1], "size": [1, 4, 3], "color": "primary" },
+    { "name": "Kanten rund", "op": "box", "at": [7, 24, -2], "size": [1, 1, 1], "mode": "carve", "mirror": "z", "mirrorAt": 0.5 },
+    { "name": "Schulterniete", "op": "box", "at": [7, 23, 0], "size": [1, 1, 1], "color": "trim" },
+    { "name": "Centurio Goldsegmente", "if": "rank", "op": "box", "at": [4, 21, -2], "size": [4, 1, 5], "color": "trim", "mode": "paint" },
+    { "name": "Centurio Goldkante oben", "if": "rank", "op": "box", "at": [4, 23, 2], "size": [4, 1, 1], "color": "trim", "mode": "paint", "mirror": "z", "mirrorAt": 0.5 },
+    { "name": "Bizepsband", "op": "box", "at": [4, 17, -1], "size": [3, 1, 3], "color": "metal" }
+  ],
+  "variants": { "centurio": { "rank": 1 } },
+  "anchor": [0, 0, 0]
+}

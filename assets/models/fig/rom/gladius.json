@@ -1,0 +1,23 @@
+{
+  "id": "fig/rom/gladius",
+  "name": "Gladius (Vibroklinge) – Anbau oder in der Scheide am Gürtel",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["figur", "rom", "waffe", "anbau"],
+  "params": {
+    "sheathed": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "In der Scheide" },
+    "rank": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "Rang (Goldscheide)" }
+  },
+  "ops": [
+    { "name": "Knauf", "op": "box", "at": [0, 3, 0], "size": [1, 1, 1], "color": "trim" },
+    { "name": "Griff", "op": "box", "at": [0, 1, 0], "size": [1, 2, 1], "color": { "stripes": ["leather", { "shade": "leather", "f": 0.75 }], "axis": "y", "period": 1 } },
+    { "name": "Parierstück", "op": "box", "at": [-1, 0, 0], "size": [3, 1, 1], "color": "metal" },
+    { "name": "Klinge", "if": "!sheathed", "op": "box", "at": [0, -8, 0], "size": [1, 8, 1], "color": "metal_light" },
+    { "name": "Schneide leuchtet", "if": "!sheathed", "op": "box", "at": [0, -8, 0], "size": [1, 1, 1], "color": { "role": "glow", "emit": 1.8 }, "jitter": false },
+    { "name": "Scheide", "if": "sheathed", "op": "box", "at": [0, -7, 0], "size": [1, 7, 1], "color": { "stripes": ["metal_dark", "metal_dark", "metal_dark", { "role": "trim" }], "axis": "y", "period": 1 } },
+    { "name": "Scheide Gold", "if": "sheathed && rank", "op": "box", "at": [0, -7, 0], "size": [1, 7, 1], "color": { "stripes": ["trim", "metal_light"], "axis": "y", "period": 2 } },
+    { "name": "Ortband", "if": "sheathed", "op": "box", "at": [0, -8, 0], "size": [1, 1, 1], "color": "trim" }
+  ],
+  "variants": { "scheide": { "sheathed": 1 } },
+  "anchor": [0.5, 2, 0.5]
+}

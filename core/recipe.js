@@ -100,7 +100,8 @@ function runOps(ops, scope, T, ctx, path) {
 }
 
 function runOp(op, scope, T, ctx, path) {
-  if (op.if !== undefined && !evalNum(op.if, scope)) return;
+  // "if" erst nach dem Aufklappen von "repeat" auswerten, damit die Schleifenvariable verfügbar ist
+  if (op.if !== undefined && !op.repeat && !evalNum(op.if, scope)) return;
   if (op.repeat) {
     const n = evalNum(op.repeat.count, scope), step = evalVec(op.repeat.step || [0, 0, 0], scope), v = op.repeat.var || 'i';
     const { repeat, ...single } = op;
@@ -168,7 +169,10 @@ function opUse(op, scope, T, ctx) {
   const params = {};
   for (const [k, v] of Object.entries(op.params || {})) params[k] = typeof v === 'string' && !(sub.params?.[k]?.options) ? evalNum(v, scope) : v;
   if (params.seed === undefined) params.seed = ctx.seed;
-  const env = op.palette || op.colors ? { ...ctx.env, palette: ctx.env.resolvePalette(op.palette || ctx.palette.id, op.colors) } : ctx.env;
+  // Farbüberschreibungen des Elternteils (z. B. Crew-Akzent der Figur) bleiben erhalten
+  const env = op.palette || op.colors
+    ? { ...ctx.env, palette: ctx.env.resolvePalette(op.palette || ctx.palette.id, { ...(ctx.palette.overrides || {}), ...(op.colors || {}) }) }
+    : ctx.env;
   const built = buildModel(sub, params, env, ctx.depth + 1);
   const Tt = compose(localT(op, scope, T), translate(-built.anchor[0], -built.anchor[1], -built.anchor[2]));
   const mode = op.mode || 'add';

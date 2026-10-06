@@ -60,6 +60,8 @@ async function select(kind, id, keep = false) {
   try {
     const obj = await lib.load(kind, id);
     if (!keep) { state.params = {}; state.palette = url.get('palette') || null; }
+    // Parameter per URL: &p.open=1&p.w=20
+    for (const [k, v] of url) if (k.startsWith('p.') && kind === 'models') state.params[k.slice(2)] = isNaN(+v) ? v : +v;
     state.kind = kind; state.id = id; state.saved = formatJSON(obj);
     $('#json').value = state.saved;
     history.replaceState(null, '', `?${kind.slice(0, -1)}=${id}${state.mood ? '&mood=' + state.mood : ''}${SHOT ? '&shot=1' : ''}`);
@@ -100,7 +102,7 @@ async function preview() {
     const box = new THREE.Box3().setFromObject(o);
     const g = stage(o); if (url.get('ref') !== '0') g.add(scaleRef(box.max.x + 0.6));
     viewer.setContent(g); viewer.bounds = box.union(new THREE.Box3(new THREE.Vector3(-1, 0, -1), new THREE.Vector3(1, 1.94, 1)));
-    viewer.setMood(lib.get('moods', state.mood || 'planet_day'), viewer.bounds);
+    viewer.setMood(lib.get('moods', state.mood || 'planet_day'), viewer.bounds, { fog: false });
     viewer.frameContent({ elev: +(url.get('elev') ?? 28), az: +(url.get('az') ?? 35), pad: 1.05 });
     title = m.name || id; sub = `${id} · ${TIERS[built.tier].label} (${TIERS[built.tier].voxelsPerMeter} Voxel/m)`;
     hud = `${dims.join('×')} Voxel = ${dims.map((d) => (d * s).toFixed(2)).join(' × ')} m · ${built.grid.size.toLocaleString('de-DE')} Voxel · ${(built.mesh.lit.quads + built.mesh.emit.quads).toLocaleString('de-DE')} Quads`;
@@ -109,8 +111,8 @@ async function preview() {
     const f = figureObject(lib, id, { palette: state.palette || undefined, phase: 0 });
     f.pose = state.pose || 'stand'; applyPose(f, f.pose, 0);
     const g = stage(f.root); g.add(scaleRef(1.0));
-    viewer.setContent(g, [f]); viewer.bounds = new THREE.Box3(new THREE.Vector3(-0.8, 0, -0.6), new THREE.Vector3(1.3, 2.0, 0.6));
-    viewer.setMood(lib.get('moods', state.mood || 'planet_day'), viewer.bounds);
+    viewer.setContent(g, [f]); viewer.bounds = new THREE.Box3(new THREE.Vector3(-0.8, 0, -0.6), new THREE.Vector3(1.3, 2.4, 0.6));
+    viewer.setMood(lib.get('moods', state.mood || 'planet_day'), viewer.bounds, { fog: false });
     viewer.frameContent({ elev: +(url.get('elev') ?? 14), az: +(url.get('az') ?? 30), pad: 0.75 });
     title = lib.get('figures', id).name || id; sub = `${id} · Rig ${lib.get('figures', id).rig}`;
     hud = `${f.root.userData.voxels.toLocaleString('de-DE')} Voxel`;

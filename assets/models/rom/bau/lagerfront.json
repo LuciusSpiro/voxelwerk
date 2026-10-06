@@ -1,0 +1,23 @@
+{
+  "id": "rom/bau/lagerfront",
+  "name": "Lagerfront: Turm – Mauer – Tor – Mauer – Turm (Rom, Zusammenbau)",
+  "tier": "architecture",
+  "palette": "rom",
+  "tags": ["architektur", "rom", "befestigung", "zusammenbau"],
+  "footprint": [24, 2],
+  "params": {
+    "wall": { "default": 16, "min": 4, "max": 64, "step": 4, "label": "Mauerlänge je Seite (Voxel, Vielfache von 4)" },
+    "open": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "Tor offen" },
+    "towers": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Ecktürme" }
+  },
+  "variants": { "lang": { "wall": 32 }, "offen": { "open": 1 } },
+  "let": { "gx": "12+wall+20", "total": "24+2*wall+40" },
+  "ops": [
+    { "op": "use", "name": "Wachturm West", "if": "towers", "model": "rom/bau/wachturm", "params": { "banner": 0 }, "at": [6, 0, 2], "rot": 180 },
+    { "op": "use", "name": "Mauer West", "model": "rom/bau/mauer", "params": { "len": "wall" }, "at": ["12+wall/2", 0, 2] },
+    { "op": "use", "name": "Tor", "model": "rom/bau/tor", "params": { "open": "open" }, "at": ["gx", 0, 2] },
+    { "op": "use", "name": "Mauer Ost", "model": "rom/bau/mauer", "params": { "len": "wall" }, "at": ["gx+20+wall/2", 0, 2] },
+    { "op": "use", "name": "Wachturm Ost", "if": "towers", "model": "rom/bau/wachturm", "params": { "banner": 0 }, "at": ["total-6", 0, 2], "rot": 180 }
+  ],
+  "anchor": ["total/2", 0, 2]
+}

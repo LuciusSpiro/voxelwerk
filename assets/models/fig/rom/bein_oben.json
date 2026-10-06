@@ -1,0 +1,13 @@
+{
+  "id": "fig/rom/bein_oben",
+  "name": "Oberschenkel (links) mit Panzerplatte – Legionär/Centurio",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["figur", "rom", "bein", "ruestung"],
+  "ops": [
+    { "name": "Unteranzug", "op": "use", "model": "fig/basis/oberschenkel" },
+    { "name": "Schenkelplatte", "op": "box", "at": [1, 8, 1], "size": [3, 3, 1], "color": { "stripes": [{ "shade": "metal", "f": 0.85 }, "metal"], "axis": "y", "period": 1 }, "mode": "paint" },
+    { "name": "Schenkelplatte außen", "op": "box", "at": [3, 8, -1], "size": [1, 3, 3], "color": "metal", "mode": "paint" }
+  ],
+  "anchor": [0, 0, 0]
+}

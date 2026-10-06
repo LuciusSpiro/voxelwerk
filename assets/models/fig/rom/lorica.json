@@ -1,0 +1,38 @@
+{
+  "id": "fig/rom/lorica",
+  "name": "Lorica Segmentata (Powerarmor) – Rumpf Legionär/Centurio",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["figur", "rom", "rumpf", "ruestung"],
+  "params": {
+    "rank": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "Rang (0 Legionär, 1 Centurio)" },
+    "pack": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Energietornister" }
+  },
+  "ops": [
+    { "name": "Unteranzug", "op": "use", "model": "fig/basis/rumpf" },
+    { "name": "Gurtreifen", "op": "box", "at": [-4, 16, -3], "size": [8, 2, 6], "repeat": { "count": 3, "step": [0, 2, 0] },
+      "color": { "stripes": [{ "shade": "secondary", "f": 0.72 }, "secondary"], "axis": "y", "period": 1 } },
+    { "name": "Reifen-Seitenschräge", "op": "box", "at": [3, 16, -3], "size": [1, 6, 1], "mode": "carve", "mirror": "xz", "mirrorAt": { "x": 0, "z": 0 } },
+    { "name": "Brustplatte", "op": "box", "at": [-4, 22, -3], "size": [8, 3, 7], "color": "secondary" },
+    { "name": "Brustplatte Goldkante", "op": "box", "at": [-4, 22, -3], "size": [8, 1, 7], "color": "trim", "mode": "paint" },
+    { "name": "Brustplatte Mittelgrat", "op": "box", "at": [-1, 23, 3], "size": [2, 2, 1], "color": { "shade": "secondary", "f": 0.85 }, "mode": "paint" },
+    { "name": "Halsausschnitt", "op": "box", "at": [-2, 24, -2], "size": [4, 1, 4], "color": "metal_dark" },
+    { "name": "Schulterriemen", "op": "box", "at": [2, 24, -3], "size": [1, 1, 7], "color": "metal", "mirror": "x", "mirrorAt": 0 },
+    { "name": "Verschluss vorn", "op": "box", "at": [-1, 16, 2], "size": [2, 6, 1], "color": { "stripes": ["metal_dark", "metal"], "axis": "y", "period": 1 }, "mode": "paint" },
+    { "name": "Reifen-Nieten", "op": "box", "at": [2, 17, 2], "size": [1, 1, 1], "repeat": { "count": 3, "step": [0, 2, 0] }, "color": "metal_light", "mode": "paint", "mirror": "x", "mirrorAt": 0 },
+
+    { "name": "Phalerae-Gurt", "if": "rank", "op": "box", "at": [2, 16, 3], "size": [1, 6, 1], "color": "leather", "mirror": "x", "mirrorAt": 0 },
+    { "name": "Phalerae-Querriemen", "if": "rank", "op": "box", "at": [-3, 21, 3], "size": [6, 1, 1], "color": "leather" },
+    { "name": "Phalerae", "if": "rank", "op": "box", "at": [2, 17, 4], "size": [1, 1, 1], "repeat": { "count": 3, "step": [0, 2, 0] }, "color": "trim", "mirror": "x", "mirrorAt": 0 },
+    { "name": "Phalera Mitte", "if": "rank", "op": "box", "at": [-1, 18, 3], "size": [2, 2, 1], "color": "trim" },
+    { "name": "Phalera Mitte Kern", "if": "rank", "op": "box", "at": [-1, 18, 4], "size": [2, 2, 1], "color": { "role": "glow2", "emit": 1.6 }, "jitter": false },
+    { "name": "Brustplatte Goldoberkante", "if": "rank", "op": "box", "at": [-4, 24, -3], "size": [8, 1, 7], "color": "trim", "mode": "paint" },
+    { "name": "Halsausschnitt neu", "if": "rank", "op": "box", "at": [-2, 24, -2], "size": [4, 1, 4], "color": "metal_dark" },
+
+    { "name": "Tornister", "if": "pack", "op": "box", "at": [-3, 17, -4], "size": [6, 6, 1], "color": { "frame": "metal_dark", "fill": "metal", "axes": "xy", "width": 1 } },
+    { "name": "Tornister Lüfter", "if": "pack", "op": "box", "at": [-2, 19, -5], "size": [4, 2, 1], "color": { "stripes": ["metal_dark", { "role": "glow", "emit": 1.2 }], "axis": "y", "period": 1 }, "jitter": false },
+    { "name": "Tornister Goldplatte", "if": "pack", "op": "box", "at": [-1, 22, -5], "size": [2, 1, 1], "color": "trim" }
+  ],
+  "variants": { "centurio": { "rank": 1 }, "ohne_tornister": { "pack": 0 } },
+  "anchor": [0, 0, 0]
+}

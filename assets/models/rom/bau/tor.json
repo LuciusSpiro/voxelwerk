@@ -1,0 +1,73 @@
+{
+  "id": "rom/bau/tor",
+  "name": "Porta – Lagertor mit Energiefeld (Rom)",
+  "tier": "architecture",
+  "palette": "rom",
+  "tags": ["architektur", "rom", "tor", "befestigung", "porta"],
+  "footprint": [10, 2.25],
+  "params": {
+    "open": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "Offen (0 = Energiefeld an, 1 = aus)" },
+    "eagle": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Adlerstatue auf der Attika" },
+    "banners": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Banner an den Türmen" }
+  },
+  "variants": { "offen": { "open": 1 }, "schlicht": { "eagle": 0, "banners": 0 } },
+  "ops": [
+    { "op": "group", "name": "Torturm (links, gespiegelt nach rechts)", "mirror": "x", "mirrorAt": 20, "ops": [
+      { "op": "box", "name": "Turm-Sockel", "at": [0, 0, -2], "size": [12, 3, 8], "color": { "noise": ["stone_dark", { "shade": "stone_dark", "f": 0.9 }, "stone"], "weights": [3, 2, 1], "cell": 2 } },
+      { "op": "box", "name": "Sockel-Abdeckung", "at": [0, 2, -2], "size": [12, 1, 8], "color": "stone_light", "mode": "paint" },
+      { "op": "box", "name": "Turmkörper", "at": [0, 3, -2], "size": [12, 19, 8], "color": "secondary" },
+      { "op": "box", "name": "Panzerband rot", "at": [0, 3, -2], "size": [12, 3, 8], "color": "primary", "mode": "paint" },
+      { "op": "box", "name": "Energiefuge Front", "at": [0, 6, 5], "size": [12, 1, 1], "color": { "role": "glow", "emit": 1.3 }, "mode": "paint", "jitter": false },
+      { "op": "box", "name": "Paneel-Fugen", "repeat": { "count": 2, "step": [0, 5, 0] }, "at": [0, 11, -2], "size": [12, 1, 8], "color": { "shade": "secondary", "f": 0.8 }, "mode": "paint" },
+      { "op": "box", "name": "Eckpilaster", "mirror": "x", "mirrorAt": 6, "at": [0, 3, 6], "size": [2, 19, 1], "color": { "frame": "metal_light", "fill": "metal", "axes": "x" } },
+      { "op": "box", "name": "Pilaster-Fuß gold", "mirror": "x", "mirrorAt": 6, "at": [0, 3, 6], "size": [2, 1, 1], "color": "trim" },
+      { "op": "box", "name": "Pilaster-Kapitell gold", "mirror": "x", "mirrorAt": 6, "at": [0, 21, 6], "size": [2, 1, 1], "color": "trim" },
+      { "op": "use", "name": "Banner", "if": "banners", "model": "rom/bau/banner", "params": { "w": 6, "h": 10 }, "at": [6, 8, 6] },
+      { "op": "box", "name": "Sehschlitz Front", "mirror": "x", "mirrorAt": 6, "at": [3, 18, 5], "size": [1, 3, 1], "color": "glass", "mode": "paint" },
+      { "op": "box", "name": "Sehschlitz Außenseite", "at": [0, 17, 0], "size": [1, 3, 1], "color": "glass", "mode": "paint" },
+      { "op": "box", "name": "Sehschlitz Außenseite 2", "at": [0, 17, 3], "size": [1, 3, 1], "color": "glass", "mode": "paint" },
+      { "op": "box", "name": "Goldband unter Gesims", "at": [0, 21, -2], "size": [12, 1, 8], "color": "trim", "mode": "paint" },
+      { "op": "box", "name": "Turmgesims", "at": [-1, 22, -3], "size": [14, 1, 10], "color": "secondary" },
+      { "op": "box", "name": "Turmgesims Unterkante", "at": [-1, 22, -3], "size": [14, 1, 10], "color": { "frame": "metal", "fill": "secondary", "axes": "xz" }, "mode": "paint" },
+      { "op": "box", "name": "Plattform", "at": [0, 22, -2], "size": [12, 1, 7], "color": { "stripes": ["paving", "paving_dark"], "axis": "x", "period": 2 } },
+      { "op": "use", "name": "Zinnen Front", "model": "rom/bau/zinnen", "params": { "len": 12 }, "at": [0, 23, 5] },
+      { "op": "use", "name": "Zinnen hinten", "model": "rom/bau/zinnen", "params": { "len": 12, "lights": 0 }, "at": [0, 23, -3] },
+      { "op": "box", "name": "Brüstung Seite", "mirror": "x", "mirrorAt": 6, "at": [-1, 23, -3], "size": [1, 2, 10], "color": { "frame": "primary", "fill": "primary", "axes": "y" } },
+      { "op": "box", "name": "Brüstung Seite Kappe", "mirror": "x", "mirrorAt": 6, "at": [-1, 24, -3], "size": [1, 1, 10], "color": "metal" },
+      { "op": "line", "name": "Sensormast", "from": [2.5, 23, -0.5], "to": [2.5, 28, -0.5], "r": 0.5, "color": "metal_light" },
+      { "op": "box", "name": "Mastleuchte", "at": [2, 28, -1], "size": [1, 1, 1], "color": "glow2", "jitter": false }
+    ] },
+
+    { "op": "box", "name": "Bogenbau", "at": [12, 0, -1], "size": [16, 24, 6], "color": "secondary" },
+    { "op": "box", "name": "Bogenbau Sockel", "at": [12, 0, -1], "size": [16, 3, 6], "color": { "noise": ["stone_dark", "stone"], "weights": [3, 1], "cell": 2 }, "mode": "paint" },
+    { "op": "cyl", "name": "Laibung (vor dem Ausschneiden)", "axis": "z", "at": [20, 10, -1], "r": 9, "h": 6, "color": "metal", "mode": "paint" },
+    { "op": "box", "name": "Turm-Laibung", "mirror": "x", "mirrorAt": 20, "at": [11, 0, -2], "size": [1, 10, 8], "color": "metal", "mode": "paint" },
+    { "op": "box", "name": "Laibung Fuß rot", "mirror": "x", "mirrorAt": 20, "at": [11, 0, -2], "size": [1, 3, 8], "color": { "shade": "primary", "f": 0.85 }, "mode": "paint" },
+    { "op": "box", "name": "Durchgang", "at": [12, 0, -4], "size": [16, 10, 12], "mode": "carve" },
+    { "op": "cyl", "name": "Bogen", "axis": "z", "at": [20, 10, -4], "r": 8, "h": 12, "mode": "carve" },
+
+    { "op": "cyl", "name": "Archivolte vorn", "axis": "z", "at": [20, 10, 5], "r": 10, "hollow": 2, "h": 1, "arc": [0, 180], "color": "secondary" },
+    { "op": "cyl", "name": "Archivolte Goldlippe", "axis": "z", "at": [20, 10, 5], "r": 8.95, "hollow": 0.95, "h": 1, "arc": [0, 180], "color": "trim" },
+    { "op": "cyl", "name": "Archivolte Außenkante", "axis": "z", "at": [20, 10, 5], "r": 10, "hollow": 1, "h": 1, "arc": [0, 180], "color": { "shade": "secondary", "f": 0.85 }, "mode": "paint" },
+    { "op": "cyl", "name": "Archivolte hinten", "axis": "z", "at": [20, 10, -2], "r": 10, "hollow": 2, "h": 1, "arc": [0, 180], "color": "stone_light" },
+    { "op": "box", "name": "Kämpfer", "mirror": "x", "mirrorAt": 20, "at": [10, 9, 5], "size": [3, 1, 2], "color": "metal_light" },
+    { "op": "box", "name": "Schlussstein", "at": [19, 16, 4], "size": [2, 4, 3], "color": "trim" },
+    { "op": "box", "name": "Schlussstein Leuchtkern", "at": [19, 17, 7], "size": [2, 1, 1], "color": { "role": "glow", "emit": 1.0 }, "jitter": false },
+
+    { "op": "box", "name": "Tabula (Inschriftfeld)", "at": [13, 20, 5], "size": [14, 3, 1], "color": { "frame": "trim", "fill": "metal_dark", "axes": "xy" } },
+    { "op": "box", "name": "Inschrift", "at": [15, 21, 5], "size": [10, 1, 1], "color": { "noise": ["trim", "trim", "metal_dark"], "seed": 3 }, "jitter": false },
+    { "op": "box", "name": "Tabula-Henkel", "mirror": "x", "mirrorAt": 20, "at": [12, 21, 5], "size": [1, 1, 1], "color": "trim" },
+    { "op": "box", "name": "Goldband Attika", "at": [12, 23, -1], "size": [16, 1, 6], "color": "trim", "mode": "paint" },
+    { "op": "box", "name": "Attika-Gesims", "at": [11, 24, -2], "size": [18, 1, 8], "color": { "frame": "metal", "fill": "secondary", "axes": "z" } },
+    { "op": "box", "name": "Attika-Abdeckung", "at": [12, 25, -1], "size": [16, 1, 6], "color": "secondary" },
+    { "op": "box", "name": "Statuensockel", "if": "eagle", "at": [17, 26, 0], "size": [6, 1, 4], "color": "metal_dark" },
+    { "op": "use", "name": "Adlerstatue", "if": "eagle", "model": "rom/bau/adler", "params": { "d": 2 }, "at": [20, 27, 1] },
+
+    { "op": "box", "name": "Emitter-Schiene", "mirror": "x", "mirrorAt": 20, "at": [12, 0, 1], "size": [1, 10, 2], "color": { "frame": "metal_light", "fill": "metal", "axes": "y" } },
+    { "op": "box", "name": "Emitter-Düse", "mirror": "x", "mirrorAt": 20, "at": [12, 4, 1], "size": [1, 2, 2], "color": { "role": "glow", "emit": 1.4 }, "jitter": false, "if": "!open" },
+    { "op": "box", "name": "Emitter-Düse aus", "mirror": "x", "mirrorAt": 20, "at": [12, 4, 1], "size": [1, 2, 2], "color": "glass", "if": "open" },
+    { "op": "box", "name": "Feld-Linie", "if": "!open", "mirror": "x", "mirrorAt": 20, "repeat": { "count": 2, "step": [3, 0, 0] }, "at": [14, 0, 2], "size": [1, 18, 1], "color": { "role": "glow", "emit": 1.1 }, "jitter": false },
+    { "op": "box", "name": "Feld-Querlinie", "if": "!open", "at": [13, 5, 2], "size": [14, 1, 1], "color": { "role": "glow", "emit": 0.9 }, "jitter": false }
+  ],
+  "anchor": [20, 0, 2]
+}

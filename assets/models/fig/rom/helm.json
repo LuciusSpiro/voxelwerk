@@ -1,0 +1,44 @@
+{
+  "id": "fig/rom/helm",
+  "name": "Galea-Helm (Sci-Fi) mit Sensorkamm – Kopfteil Legionär/Centurio",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["figur", "rom", "kopf", "helm"],
+  "notes": "Geschlossener Helm über dem 4er-Basiskopf: Schale 6×5×7. rank 0 = Längskamm, rank 1 = Querkamm (Centurio).",
+  "params": {
+    "rank": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "Rang (0 Legionär, 1 Centurio)" }
+  },
+  "ops": [
+    { "name": "Halsdichtung", "op": "box", "at": [-2, 25, -2], "size": [4, 1, 4], "color": "metal_dark" },
+    { "name": "Helmschale", "op": "box", "at": [-3, 26, -3], "size": [6, 5, 7], "color": "secondary" },
+    { "name": "Kalotte", "op": "box", "at": [-2, 31, -2], "size": [4, 1, 5], "color": { "shade": "secondary", "f": 1.05 } },
+    { "name": "Schalenkanten oben", "op": "box", "at": [2, 30, -3], "size": [1, 1, 1], "mode": "carve", "mirror": "xz", "mirrorAt": { "x": 0, "z": 0.5 } },
+    { "name": "Stirnband", "op": "box", "at": [-3, 29, -3], "size": [6, 1, 7], "color": "metal", "mode": "paint" },
+    { "name": "Stirnband Gold (Centurio)", "if": "rank", "op": "box", "at": [-3, 29, -3], "size": [6, 1, 7], "color": "trim", "mode": "paint" },
+    { "name": "Stirnschirm", "op": "box", "at": [-3, 29, 4], "size": [6, 1, 1], "color": "trim" },
+    { "name": "Visier", "op": "box", "at": [-2, 26, 3], "size": [4, 3, 1], "color": "glass", "jitter": false },
+    { "name": "Leuchtschlitz", "op": "box", "at": [-2, 28, 3], "size": [4, 1, 1], "color": { "role": "glow", "emit": 1.25 }, "jitter": false },
+    { "name": "Kinnschutz", "op": "box", "at": [-1, 26, 4], "size": [2, 1, 1], "color": "metal" },
+    { "name": "Wangenklappen", "op": "box", "at": [2, 25, 0], "size": [1, 4, 4], "color": { "frame": "trim", "fill": "secondary", "axes": "z", "width": 1 }, "mirror": "x", "mirrorAt": 0 },
+    { "name": "Wangenklappen außen", "op": "box", "at": [3, 26, 1], "size": [1, 2, 2], "color": { "shade": "secondary", "f": 0.9 }, "mirror": "x", "mirrorAt": 0 },
+    { "name": "Wangen Gold (Centurio)", "if": "rank", "op": "box", "at": [3, 26, 1], "size": [1, 2, 2], "color": "trim", "mirror": "x", "mirrorAt": 0 },
+    { "name": "Nackenschirm", "op": "box", "at": [-3, 25, -4], "size": [6, 3, 1], "color": { "stripes": ["trim", { "shade": "secondary", "f": 0.85 }, "secondary"], "axis": "y", "period": 1 } },
+    { "name": "Nackenschirm Flügel", "op": "box", "at": [-3, 25, -5], "size": [6, 1, 1], "color": "secondary" },
+    { "name": "Ohrsensor", "op": "box", "at": [3, 28, -2], "size": [1, 2, 2], "color": "metal", "mirror": "x", "mirrorAt": 0 },
+    { "name": "Ohrsensor LED", "op": "box", "at": [3, 29, -1], "size": [1, 1, 1], "color": { "role": "glow", "emit": 0.9 }, "jitter": false, "mirror": "x", "mirrorAt": 0 },
+
+    { "name": "Kammhalter (Legionär)", "if": "!rank", "op": "box", "at": [-1, 32, -2], "size": [2, 1, 5], "color": "metal" },
+    { "name": "Kammfinne (Legionär)", "if": "!rank", "op": "box", "at": [-1, 33, -3], "size": [2, 2, 7], "color": { "stripes": ["primary", { "shade": "primary", "f": 0.8 }], "axis": "z", "period": 1 } },
+    { "name": "Kammfinne oben", "if": "!rank", "op": "box", "at": [-1, 35, -2], "size": [2, 1, 5], "color": { "stripes": ["primary", { "shade": "primary", "f": 0.8 }], "axis": "z", "period": 1 } },
+    { "name": "Kamm Nachlauf", "if": "!rank", "op": "box", "at": [-1, 32, -4], "size": [2, 2, 1], "color": { "shade": "primary", "f": 0.85 } },
+    { "name": "Kamm Sensor", "if": "!rank", "op": "box", "at": [-1, 34, 3], "size": [2, 1, 1], "color": { "role": "glow", "emit": 1.2 }, "jitter": false },
+
+    { "name": "Kammhalter (Centurio)", "if": "rank", "op": "box", "at": [-3, 32, -1], "size": [6, 1, 2], "color": "trim" },
+    { "name": "Querkamm (Centurio)", "if": "rank", "op": "box", "at": [-5, 33, -1], "size": [10, 2, 2], "color": { "stripes": ["primary", { "shade": "primary", "f": 0.8 }], "axis": "x", "period": 1 } },
+    { "name": "Querkamm oben", "if": "rank", "op": "box", "at": [-4, 35, -1], "size": [8, 1, 2], "color": { "stripes": ["primary", { "shade": "primary", "f": 0.8 }], "axis": "x", "period": 1 } },
+    { "name": "Querkamm Goldspitzen", "if": "rank", "op": "box", "at": [5, 33, -1], "size": [1, 2, 2], "color": "trim", "mirror": "x", "mirrorAt": 0 },
+    { "name": "Querkamm Sensor", "if": "rank", "op": "box", "at": [-1, 34, 1], "size": [2, 1, 1], "color": { "role": "glow", "emit": 1.2 }, "jitter": false }
+  ],
+  "variants": { "centurio": { "rank": 1 } },
+  "anchor": [0, 0, 0]
+}

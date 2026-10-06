@@ -59,7 +59,7 @@ export function resolvePalette(id, getPalette, overrides) {
   };
   for (const p of chain) for (const [name, v] of Object.entries(p.roles || {})) put(name, v);
   for (const [name, v] of Object.entries(overrides || {})) put(name, v);
-  return { id, roles };
+  return { id, roles, overrides: overrides || {} };
 }
 
 /**

@@ -1,0 +1,51 @@
+{
+  "id": "rom/zellenregal",
+  "name": "Zellenregal für Energie-Amphoren (Rom)",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["prop", "rom", "energie", "lager", "regal"],
+  "footprint": [1.4, 1.4],
+  "params": {
+    "n": { "default": 3, "min": 1, "max": 5, "step": 1, "label": "Zellen je Reihe" },
+    "rows": { "default": 2, "min": 1, "max": 2, "step": 1, "label": "Reihen" },
+    "fill": { "default": 6, "min": 0, "max": 10, "step": 1, "label": "eingesetzte Zellen" }
+  },
+  "let": {
+    "W": "n*10 + 4",
+    "D": "rows*10 + 2",
+    "x0": "-(n-1)*5",
+    "z0": "rows == 2 ? 5 : 0"
+  },
+  "variants": {
+    "einreihig": { "rows": 1, "n": 4, "fill": 4 },
+    "teilweise": { "fill": 4 },
+    "leer": { "fill": 0 }
+  },
+  "ops": [
+    { "op": "box", "name": "Bodenplatte", "at": ["-W/2", 0, "-D/2"], "size": ["W", 2, "D"], "color": "metal_dark" },
+    { "op": "box", "name": "Bodenplatte Deckschicht", "at": ["-W/2+1", 1, "-D/2+1"], "size": ["W-2", 1, "D-2"], "color": { "stripes": ["metal", "metal_dark"], "axis": "x", "period": 1 } },
+    { "op": "box", "name": "Sockelband vorn", "at": ["-W/2", 0, "D/2"], "size": ["W", 1, 1], "color": "trim", "mirror": "z", "mirrorAt": 0 },
+    { "op": "group", "name": "Reihe", "at": [0, 0, "z0"], "repeat": { "count": "rows", "step": [0, 0, -10], "var": "r" }, "ops": [
+      { "op": "group", "name": "Platz", "at": ["x0", 0, 0], "repeat": { "count": "n", "step": [10, 0, 0], "var": "i" }, "ops": [
+        { "op": "cyl", "name": "Mulde", "at": [0, 1, 0], "r": 3, "h": 1, "color": "metal_light" },
+        { "op": "cyl", "name": "Kontaktplatte", "at": [0, 1, 0], "r": 1.2, "h": 1, "color": { "role": "glow", "emit": 0.8 }, "jitter": false, "if": "r*n + i >= fill" },
+        { "op": "use", "name": "Zelle", "if": "r*n + i < fill", "model": "rom/energiezelle", "at": [0, 2, 0], "params": { "charge": "(i*3 + r*2 + seed) % 5", "band": "(i + r + seed) % 3 == 2 ? 2 : 1" } },
+        { "op": "cyl", "name": "Halsklammer", "at": [0, 12, 0], "r": 2.6, "hollow": 1, "h": 1, "color": "metal" },
+        { "op": "box", "name": "Ladeanzeige", "if": "r == 0", "at": [-1, 0, "D/2 - z0"], "size": [2, 1, 1], "color": "glow", "jitter": false, "mode": "paint" }
+      ] },
+      { "op": "box", "name": "Haltestange", "at": ["-W/2", 12, 0], "size": ["W", 1, 1], "color": "metal", "mode": "under" },
+      { "op": "box", "name": "Haltestange hinten", "at": ["-W/2", 12, -1], "size": ["W", 1, 1], "color": "metal_dark", "mode": "under" }
+    ] },
+    { "op": "box", "name": "Pfosten", "at": ["-W/2", 2, "-D/2"], "size": [2, 12, 2], "color": "metal", "mirror": "xz", "mirrorAt": { "x": 0, "z": 0 } },
+    { "op": "box", "name": "Pfostenkappe", "at": ["-W/2", 14, "-D/2"], "size": [2, 1, 2], "color": "trim", "mirror": "xz", "mirrorAt": { "x": 0, "z": 0 } },
+    { "op": "box", "name": "Seitenwange", "at": ["-W/2", 2, "-D/2+2"], "size": [1, 10, "D-4"], "color": { "frame": "trim", "fill": "primary", "axes": "yz" }, "mirror": "x", "mirrorAt": 0 },
+    { "op": "box", "name": "Oberer Längsholm", "at": ["-W/2", 13, "-D/2"], "size": ["W", 1, 1], "color": "metal_light", "mirror": "z", "mirrorAt": 0 },
+    { "op": "box", "name": "Steuerkasten", "at": ["W/2", 2, -3], "size": [2, 6, 6], "color": "metal_dark" },
+    { "op": "box", "name": "Steuerkasten Anzeige", "at": ["W/2+2", 5, -2], "size": [1, 2, 4], "color": "glass" },
+    { "op": "box", "name": "Steuerkasten LED", "at": ["W/2+2", 6, -2], "size": [1, 1, 1], "color": "glow2", "jitter": false },
+    { "op": "box", "name": "Steuerkasten LED 2", "at": ["W/2+2", 6, 1], "size": [1, 1, 1], "color": "glow", "jitter": false },
+    { "op": "line", "name": "Zuleitung", "from": ["W/2+1.5", 2.5, 2.5], "to": ["W/2+3.5", 0.5, 5.5], "r": 0.5, "color": "rubber" },
+    { "op": "line", "name": "Zuleitung Boden", "from": ["W/2+3.5", 0.5, 5.5], "to": ["W/2+3.5", 0.5, 12.5], "r": 0.5, "color": "rubber" }
+  ],
+  "anchor": [0, 0, 0]
+}

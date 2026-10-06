@@ -1,0 +1,26 @@
+{
+  "id": "rom/bau/pflaster",
+  "name": "Pflasterplatte / Straßenbelag (Rom)",
+  "tier": "architecture",
+  "palette": "rom",
+  "tags": ["architektur", "rom", "boden", "pflaster", "kachelbar"],
+  "footprint": [2, 2],
+  "params": {
+    "w": { "default": 8, "min": 4, "max": 64, "step": 4, "label": "Breite x (Voxel, Vielfache von 4 = nahtlos)" },
+    "d": { "default": 8, "min": 4, "max": 64, "step": 4, "label": "Tiefe z (Voxel, Vielfache von 4 = nahtlos)" },
+    "muster": { "default": 0, "min": 0, "max": 2, "step": 1, "label": "Muster (0 = 1-m-Platten mit Fugen, 1 = unregelmäßig, 2 = Fahrbahnstreifen)" },
+    "curb": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "Bordstein an den Längsseiten (z = 0 und z = d-1, +1 Voxel)" }
+  },
+  "variants": { "unregelmaessig": { "muster": 1 }, "strasse": { "w": 16, "d": 16, "muster": 2, "curb": 1 } },
+  "ops": [
+    { "op": "box", "name": "Platten 1 m", "if": "muster == 0", "at": [0, 0, 0], "size": ["w", 1, "d"], "color": { "noise": ["paving", "paving", "stone", { "shade": "paving", "f": 0.93 }], "cell": 4 } },
+    { "op": "box", "name": "Fugen längs", "if": "muster == 0", "repeat": { "count": "floor(w/4)", "step": [4, 0, 0] }, "at": [0, 0, 0], "size": [1, 1, "d"], "color": { "shade": "paving_dark", "f": 1.08 }, "mode": "paint" },
+    { "op": "box", "name": "Fugen quer", "if": "muster == 0", "repeat": { "count": "floor(d/4)", "step": [0, 0, 4] }, "at": [0, 0, 0], "size": ["w", 1, 1], "color": { "shade": "paving_dark", "f": 1.08 }, "mode": "paint" },
+    { "op": "box", "name": "Unregelmäßige Steine", "if": "muster == 1", "at": [0, 0, 0], "size": ["w", 1, "d"], "color": { "noise": ["paving", "paving_dark", "stone", "stone_dark", "paving"], "weights": [4, 2, 2, 1, 2], "cell": 2 } },
+    { "op": "box", "name": "Fahrbahn", "if": "muster == 2", "at": [0, 0, 0], "size": ["w", 1, "d"], "color": { "noise": ["paving_dark", { "shade": "paving_dark", "f": 0.92 }, "paving"], "weights": [3, 2, 1], "cell": 2 } },
+    { "op": "box", "name": "Mittelmarkierung", "if": "muster == 2", "at": [0, 0, "floor(d/2)"], "size": ["w", 1, 1], "color": { "stripes": ["trim", "trim", "paving_dark", "paving_dark"], "axis": "x" }, "mode": "paint" },
+    { "op": "box", "name": "Bordstein", "if": "curb", "mirror": "z", "mirrorAt": "d/2", "at": [0, 0, 0], "size": ["w", 2, 1], "color": { "frame": "stone_light", "fill": "stone_light", "axes": "x" } },
+    { "op": "box", "name": "Bordstein-Fuge", "if": "curb", "mirror": "z", "mirrorAt": "d/2", "repeat": { "count": "floor(w/4)", "step": [4, 0, 0] }, "at": [0, 1, 0], "size": [1, 1, 1], "color": "stone" }
+  ],
+  "anchor": ["w/2", 0, "d/2"]
+}

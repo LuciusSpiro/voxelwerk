@@ -74,13 +74,13 @@ export class Viewer {
   }
 
   /** Stimmung (assets/moods/*.json) anwenden. */
-  setMood(mood, focus) {
+  setMood(mood, focus, opt = {}) {
     this.mood = mood;
     this.lights.clear();
     const box = focus || this.bounds || new THREE.Box3(new THREE.Vector3(-5, 0, -5), new THREE.Vector3(5, 3, 5));
     const center = box.getCenter(new THREE.Vector3()), radius = Math.max(4, box.getSize(new THREE.Vector3()).length() / 2);
     this.scene.background = col(mood.background ?? '#202630');
-    this.scene.fog = mood.fog ? new THREE.Fog(col(mood.fog.color), radius * (mood.fog.near ?? 2), radius * (mood.fog.far ?? 6)) : null;
+    this.scene.fog = mood.fog && opt.fog !== false ?new THREE.Fog(col(mood.fog.color), radius * (mood.fog.near ?? 2), radius * (mood.fog.far ?? 6)) : null;
     const hemi = new THREE.HemisphereLight(col(mood.hemi?.sky ?? '#a0b4c8'), col(mood.hemi?.ground ?? '#40382c'), mood.hemi?.intensity ?? 1.0);
     this.lights.add(hemi);
     if (mood.ambient) this.lights.add(new THREE.AmbientLight(col(mood.ambient.color), mood.ambient.intensity));

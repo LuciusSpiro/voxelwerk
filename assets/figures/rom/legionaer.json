@@ -1,0 +1,27 @@
+{
+  "id": "rom/legionaer",
+  "name": "Legionär (Sci-Fi-Powerarmor)",
+  "rig": "human",
+  "palette": "rom",
+  "tags": ["figur", "rom", "soldat"],
+  "notes": "Teile mit Parameter rank (0 Legionär / 1 Centurio). Posen: stand, attention, guard, shield_guard, salute, walk, aim (mit Gewehr statt Pilum). Anbauten: handR Pilum, handL Scutum, back Umhang.",
+  "params": { "rank": 0, "pack": 0 },
+  "parts": {
+    "head": { "model": "fig/rom/helm" },
+    "torso": { "model": "fig/rom/lorica" },
+    "hips": { "model": "fig/rom/cingulum" },
+    "upperArmL": { "model": "fig/rom/schulter" },
+    "upperArmR": { "model": "fig/rom/schulter", "mirror": true },
+    "lowerArmL": { "model": "fig/rom/armschiene" },
+    "lowerArmR": { "model": "fig/rom/armschiene", "mirror": true },
+    "thighL": { "model": "fig/rom/bein_oben" },
+    "thighR": { "model": "fig/rom/bein_oben", "mirror": true },
+    "shinL": { "model": "fig/rom/ocrea" },
+    "shinR": { "model": "fig/rom/ocrea", "mirror": true }
+  },
+  "attach": {
+    "handR": { "model": "fig/rom/pilum" },
+    "handL": { "model": "fig/rom/scutum" },
+    "back": { "model": "fig/rom/umhang", "params": { "bottom": 15, "z": -4 } }
+  }
+}

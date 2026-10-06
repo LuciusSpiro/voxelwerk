@@ -1,0 +1,32 @@
+{
+  "id": "fig/rom/scutum",
+  "name": "Scutum (gewölbter Energieschild, ~1,1 × 0,7 m) – Anbau Hand",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["figur", "rom", "schild", "anbau"],
+  "notes": "Vorderseite nach +z, Griff (Anker) mittig hinter dem Schildbuckel. Im Stehen hängt der Schild senkrecht vor der linken Körperseite. Ornament: Goldrand, Spina, Buckel, vier Blitzstrahlen, Flügel.",
+  "params": {
+    "h": { "default": 18, "min": 12, "max": 22, "step": 2, "label": "Höhe (Voxel)" }
+  },
+  "let": { "y0": "-floor(h/2)", "y1": "ceil(h/2)-1" },
+  "ops": [
+    { "name": "Schale", "op": "cyl", "at": [0.5, "y0", -4.5], "r": 10, "hollow": 1, "h": "h", "arc": [327, 33], "color": "primary" },
+    { "name": "Rand Gold oben", "op": "box", "at": [-7, "y1", -12], "size": [15, 1, 24], "color": "trim", "mode": "paint" },
+    { "name": "Rand Gold unten", "op": "box", "at": [-7, "y0", -12], "size": [15, 1, 24], "color": "trim", "mode": "paint" },
+    { "name": "Rand Gold seitlich", "op": "box", "at": [4, "y0", -12], "size": [1, "h", 24], "color": "trim", "mode": "paint", "mirror": "x", "mirrorAt": 0.5 },
+    { "name": "Spina oben", "op": "box", "at": [0, 2, -12], "size": [1, "y1-2", 24], "color": "trim", "mode": "paint" },
+    { "name": "Spina unten", "op": "box", "at": [0, "y0+1", -12], "size": [1, "-y0-3", 24], "color": "trim", "mode": "paint" },
+    { "name": "Blitze oben", "op": "box", "at": [2, 2, -12], "size": [1, 1, 24], "repeat": { "count": 3, "step": [1, 1, 0] }, "color": "trim", "mode": "paint", "mirror": "x", "mirrorAt": 0.5 },
+    { "name": "Blitze unten", "op": "box", "at": [2, -2, -12], "size": [1, 1, 24], "repeat": { "count": 3, "step": [1, -1, 0] }, "color": "trim", "mode": "paint", "mirror": "x", "mirrorAt": 0.5 },
+    { "name": "Blitz-Zacken", "op": "box", "at": [2, 0, -12], "size": [2, 1, 24], "color": "trim", "mode": "paint", "mirror": "x", "mirrorAt": 0.5 },
+    { "name": "Flügel oben", "op": "box", "at": [2, "y1-2", -12], "size": [3, 1, 24], "color": { "shade": "trim", "f": 0.85 }, "mode": "paint", "mirror": "x", "mirrorAt": 0.5 },
+    { "name": "Flügel unten", "op": "box", "at": [2, "y0+2", -12], "size": [3, 1, 24], "color": { "shade": "trim", "f": 0.85 }, "mode": "paint", "mirror": "x", "mirrorAt": 0.5 },
+    { "name": "Emitterkante", "op": "box", "at": [5, "y0+1", -12], "size": [1, "h-2", 24], "color": { "role": "glow", "emit": 1.0 }, "mode": "paint", "jitter": false, "mirror": "x", "mirrorAt": 0.5 },
+    { "name": "Innenschale", "op": "cyl", "at": [0.5, "y0", -4.5], "r": 9, "hollow": 1, "h": "h", "arc": [325, 35], "color": "metal_dark", "mode": "under" },
+    { "name": "Schildbuckel", "op": "box", "at": [-1, -1, 6], "size": [3, 3, 1], "color": "metal_light" },
+    { "name": "Buckel-Emitter", "op": "box", "at": [0, 0, 7], "size": [1, 1, 1], "color": { "role": "glow", "emit": 1.4 }, "jitter": false },
+    { "name": "Buckel-Nieten", "op": "box", "at": [-1, -1, 7], "size": [1, 1, 1], "color": "trim", "mirror": "xy", "mirrorAt": 0.5 },
+    { "name": "Griffbügel", "op": "box", "at": [-1, -1, 2], "size": [3, 1, 1], "color": "metal" }
+  ],
+  "anchor": [0.5, 0, 0.5]
+}

@@ -102,7 +102,7 @@ export function figureObject(lib, figId, opts = {}) {
   for (const [jn, a] of Object.entries({ ...(fig.attach || {}), ...(opts.attach || {}) })) {
     if (!a) continue;
     const joint = joints[jn]; if (!joint) throw new Error(`Figur ${figId}: Anbaupunkt "${jn}" fehlt im Rig`);
-    const o = modelObject(lib, a.model, { params: a.params, palette: a.palette || palette, colors });
+    const o = modelObject(lib, a.model, { params: lib.partParams(a.model, fig.params, a.params), palette: a.palette || palette, colors, mirrorX: !!a.mirror });
     if (a.rot) o.rotation.set(a.rot[0] * D2R, a.rot[1] * D2R, a.rot[2] * D2R);
     if (a.offset) o.position.set(a.offset[0] * s, a.offset[1] * s, a.offset[2] * s);
     joint.add(o); voxels += o.userData.voxels;

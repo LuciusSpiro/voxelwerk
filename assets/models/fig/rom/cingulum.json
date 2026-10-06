@@ -1,0 +1,30 @@
+{
+  "id": "fig/rom/cingulum",
+  "name": "Hüfte mit Cingulum, Pteruges-Lamellen und Gladius – Legionär/Centurio",
+  "tier": "detail",
+  "palette": "rom",
+  "tags": ["figur", "rom", "huefte", "ruestung"],
+  "params": {
+    "rank": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "Rang (0 Legionär, 1 Centurio)" },
+    "sword": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Gladius am Gürtel" }
+  },
+  "ops": [
+    { "name": "Unteranzug", "op": "use", "model": "fig/basis/huefte" },
+    { "name": "Gürtel", "op": "box", "at": [-4, 15, -3], "size": [8, 1, 6], "color": { "stripes": ["metal_dark", "trim"], "axis": "x", "period": 2 } },
+    { "name": "Gürtelschnalle", "op": "box", "at": [-1, 15, 3], "size": [2, 1, 1], "color": "trim" },
+    { "name": "Hüftplatte", "op": "box", "at": [-4, 13, 2], "size": [8, 2, 1], "color": { "shade": "secondary", "f": 0.85 } },
+    { "name": "Hüftplatte hinten", "op": "box", "at": [-4, 13, -3], "size": [8, 2, 1], "color": { "shade": "secondary", "f": 0.85 } },
+    { "name": "Pteruges vorn", "op": "box", "at": [-4, 10, 2], "size": [8, 3, 1], "color": { "stripes": ["secondary", { "shade": "primary", "f": 0.7 }], "axis": "x", "period": 1 } },
+    { "name": "Pteruges hinten", "op": "box", "at": [-4, 10, -3], "size": [8, 3, 1], "color": { "stripes": ["secondary", { "shade": "primary", "f": 0.7 }], "axis": "x", "period": 1 } },
+    { "name": "Pteruges Seiten", "op": "box", "at": [3, 11, -3], "size": [1, 2, 6], "color": { "stripes": ["secondary", { "shade": "primary", "f": 0.7 }], "axis": "z", "period": 1 }, "mirror": "x", "mirrorAt": 0 },
+    { "name": "Seiten innen frei", "op": "box", "at": [3, 11, -1], "size": [1, 2, 3], "mode": "carve", "mirror": "x", "mirrorAt": 0 },
+    { "name": "Lamellen-Spitzen", "op": "box", "at": [-4, 10, -3], "size": [8, 1, 6], "color": "metal", "mode": "paint" },
+    { "name": "Lamellen-Spitzen Gold", "if": "rank", "op": "box", "at": [-4, 10, -3], "size": [8, 1, 6], "color": "trim", "mode": "paint" },
+    { "name": "Schurz (Balteus)", "op": "box", "at": [-1, 10, 3], "size": [2, 5, 1], "color": { "stripes": ["metal_dark", "trim"], "axis": "y", "period": 1, "offset": 1 } },
+    { "name": "Schurz-Endbeschlag", "op": "box", "at": [-1, 9, 3], "size": [2, 1, 1], "color": "trim" },
+    { "name": "Gladius rechts", "if": "sword && !rank", "op": "use", "model": "fig/rom/gladius", "params": { "sheathed": 1, "rank": 0 }, "at": [-4.5, 17, -2.5] },
+    { "name": "Gladius links (Centurio)", "if": "sword && rank", "op": "use", "model": "fig/rom/gladius", "params": { "sheathed": 1, "rank": 1 }, "at": [4.5, 17, -2.5] }
+  ],
+  "variants": { "centurio": { "rank": 1 } },
+  "anchor": [0, 0, 0]
+}

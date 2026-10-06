@@ -1,0 +1,82 @@
+// Erzeugt assets/scenes/rom-aussenposten.json (Terrain aus gen-terrain + Platzierungen)
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
+const R = 'C:/Users/k.klein/privat/Gametest/voxelwerk';
+const { formatJSON } = await import('file:///' + R + '/core/format.js');
+const t = JSON.parse(execFileSync('node', [R + '/tools/gen-terrain.js', 'rom-aussenposten']).toString());
+const have = (id) => fs.existsSync(`${R}/assets/models/${id}.json`);
+const fig = (id) => fs.existsSync(`${R}/assets/figures/${id}.json`);
+
+const place = [
+  { model: 'rom/bau/lagerfront', at: [18, 10], params: { wall: 32 } },
+  // Via: gepflasterte Straße durch das Tor (4 m breit, Platten à 4 × 4 m)
+  { model: 'rom/bau/pflaster', at: [18, 1], params: { w: 16, d: 16, muster: 2 }, row: { count: 2, step: [0, 4] } },
+  { model: 'rom/bau/pflaster', at: [18, 13.5], rot: 90, params: { w: 16, d: 16, muster: 2, curb: 1 }, row: { count: 4, step: [0, 4] } },
+  // Lagerinneres
+  { model: 'rom/zellenregal', at: [7.5, 5.5], rot: 0 },
+  { model: 'rom/zellenregal', at: [7.5, 2.5], params: { seed: 2 }, variant: 'teilweise' },
+  { model: 'rom/kiste', at: [11, 6], params: { w: 22, h: 8, d: 9 } },
+  { model: 'rom/kiste', at: [11.1, 6.05], y: 1.57, params: { w: 16, h: 14, d: 14, seed: 1 } },
+  { model: 'rom/kiste', at: [12.6, 7.4], rot: 90, params: { w: 9, h: 7, d: 7, ammo: 1, light: 0, lid: 0 } },
+  { model: 'rom/waffenstaender', at: [25, 6.5], rot: 180 },
+  { model: 'rom/waffenstaender', at: [27.4, 6.5], rot: 180, params: { seed: 3 } },
+  { model: 'rom/energiezelle', at: [29.5, 7.2] }, { model: 'rom/energiezelle', at: [30.1, 7.5], params: { seed: 1 } },
+  // Vorplatz außen
+  { model: 'rom/kiste', at: [13.2, 12.3], params: { w: 14, h: 6, d: 12, light: 0, lid: 2 } },
+  { model: 'rom/kiste', at: [13.2, 12.3], y: 1.44, params: { w: 9, h: 7, d: 7, ammo: 1, light: 0, lid: 0 } },
+  { model: 'rom/energiezelle', at: [12.2, 13.1] }, { model: 'rom/energiezelle', at: [12.7, 13.6], params: { seed: 2 } },
+  { model: 'rom/energiezelle', at: [24.1, 12.4], params: { seed: 4 } },
+  { model: 'rom/kiste', at: [23.2, 12.6], rot: 90 },
+  { model: 'rom/standarte', at: [21.6, 12.2] },
+  { model: 'rom/barriere', at: [26.5, 14.5], rot: 0 },
+  { model: 'rom/barriere', at: [9.5, 14.5], rot: 0 },
+  { model: 'rom/laterne', at: [15.3, 14.2] }, { model: 'rom/laterne', at: [20.7, 14.2] },
+  { model: 'rom/laterne', at: [15.3, 20.2] }, { model: 'rom/laterne', at: [20.7, 20.2] },
+  // Natur
+  { model: 'natur/zypresse', at: [3, 15], params: { seed: 1 }, palette: 'planet_mediterran' },
+  { model: 'natur/zypresse', at: [4.5, 18.5], params: { seed: 2 }, palette: 'planet_mediterran' },
+  { model: 'natur/zypresse', at: [2.2, 22.5], params: { seed: 3 }, palette: 'planet_mediterran' },
+  { model: 'natur/zypresse', at: [33.5, 24.5], params: { seed: 4 }, palette: 'planet_mediterran' },
+  { model: 'natur/zypresse', at: [31, 26], params: { seed: 5 }, palette: 'planet_mediterran' },
+].filter((p) => have(p.model)).map(({ variant, ...p }) => p);
+
+const scatter = [
+  { model: ['natur/gras'].filter(have), on: '.,', density: 0.55, perCell: 3, palette: 'planet_mediterran' },
+  { model: ['natur/stein'].filter(have), on: '.,^:', density: 0.12, palette: 'planet_mediterran' },
+].filter((s) => s.model.length);
+
+const figures = [
+  { figure: 'rom/legionaer', at: [15.7, 11.4], rot: 0, pose: 'guard' },
+  { figure: 'rom/legionaer', at: [20.3, 11.4], rot: 0, pose: 'guard' },
+  { figure: 'rom/legionaer', at: [18.0, 12.6], rot: 0, pose: 'attention' },
+  { figure: 'rom/legionaer', at: [26.2, 7.6], rot: 180, pose: 'stand' },
+  { figure: 'crew/nova', at: [17.0, 15.4], rot: 170, pose: 'talk' },
+  { figure: 'crew/juno', at: [18.7, 15.9], rot: 190, pose: 'arms_crossed' },
+  { figure: 'crew/tami', at: [19.8, 15.0], rot: 220, pose: 'inspect' },
+].filter((f) => fig(f.figure));
+
+const scene = {
+  id: 'rom-aussenposten',
+  name: 'Römischer Außenposten (Kolonie, mediterran)',
+  palette: 'rom',
+  mood: 'planet_day',
+  terrain: {
+    palette: 'planet_mediterran', depth: 3,
+    legend: {
+      '.': { top: { noise: ['grass', 'grass_dark', 'grass_light'], weights: [3, 2, 1] }, sub: 'soil', fill: { noise: ['soil_dark', 'rock_dark'] } },
+      ',': { top: { noise: ['grass_light', 'sand'], weights: [2, 1] }, sub: 'soil', fill: { noise: ['soil_dark', 'rock_dark'] } },
+      ':': { top: { noise: ['soil', 'sand'], weights: [2, 1] }, sub: 'soil', fill: 'soil_dark' },
+      '#': { top: { noise: ['sand', 'paving'], weights: [3, 1] }, sub: 'soil', fill: 'soil_dark' },
+      '^': { top: { noise: ['rock', 'rock_dark'] }, sub: 'rock', fill: 'rock_dark' },
+    },
+    rows: t.rows, heights: t.heights,
+  },
+  place, scatter, figures,
+  cameras: {
+    uebersicht: { target: [18, 1.5, 12], dist: 50, elev: 36, az: 28, fov: 30 },
+    tor: { target: [18, 2.2, 13], dist: 22, elev: 24, az: 22, fov: 30 },
+    crew: { target: [18.3, 2.0, 14.0], dist: 11, elev: 20, az: 20, fov: 30 },
+  },
+};
+fs.writeFileSync(`${R}/assets/scenes/rom-aussenposten.json`, formatJSON(scene));
+console.log('Szene geschrieben:', place.length, 'Platzierungen,', figures.length, 'Figuren,', scatter.length, 'Streuungen');

@@ -64,7 +64,7 @@ for (const id of idx.figures.filter(want)) {
     }
     for (const [jn, a] of Object.entries(f.attach || {})) {
       if (!rig.joints[jn]) { err(`${id}: Anbaupunkt "${jn}" fehlt im Rig`); continue; }
-      vox += lib.build(a.model, { params: a.params, palette: a.palette || f.palette, colors: f.colors }).grid.size;
+      vox += lib.build(a.model, { params: lib.partParams(a.model, f.params, a.params), palette: a.palette || f.palette, colors: f.colors }).grid.size;
     }
     const missing = Object.keys(rig.joints).filter((j) => !['root', 'back', 'handL', 'handR'].includes(j) && !f.parts?.[j]);
     if (missing.length) warn(`${id}: Gelenke ohne Teil: ${missing.join(', ')}`);

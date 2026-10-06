@@ -1,0 +1,40 @@
+{
+  "id": "rom/bau/mauer",
+  "name": "Lagermauer-Segment (Rom, gepanzert)",
+  "tier": "architecture",
+  "palette": "rom",
+  "tags": ["architektur", "rom", "mauer", "befestigung", "kachelbar"],
+  "footprint": [4, 1.5],
+  "params": {
+    "len": { "default": 16, "min": 4, "max": 64, "step": 4, "label": "Länge (Voxel entlang x, Vielfache von 4 = nahtlos)" },
+    "lights": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Energiefuge + Emitter an" }
+  },
+  "variants": { "kurz": { "len": 8 }, "lang": { "len": 32 }, "dunkel": { "lights": 0 } },
+  "let": { "ribs": "ceil(len/8)-1" },
+  "ops": [
+    { "op": "box", "name": "Sockel", "at": [0, 0, -1], "size": ["len", 2, 6], "color": { "noise": ["stone_dark", { "shade": "stone_dark", "f": 0.9 }, "stone"], "weights": [3, 2, 1], "cell": 2 } },
+    { "op": "box", "name": "Sockel-Abdeckung", "at": [0, 2, -1], "size": ["len", 1, 6], "color": "stone_light" },
+    { "op": "box", "name": "Kern", "at": [0, 3, 0], "size": ["len", 6, 3], "color": "metal_dark" },
+    { "op": "box", "name": "Panzerband rot", "at": [0, 3, 3], "size": ["len", 2, 1], "color": "primary" },
+    { "op": "box", "name": "Energiefuge", "if": "lights", "at": [0, 5, 3], "size": ["len", 1, 1], "color": { "role": "glow", "emit": 1.3 }, "jitter": false },
+    { "op": "box", "name": "Fuge dunkel", "if": "!lights", "at": [0, 5, 3], "size": ["len", 1, 1], "color": "glass" },
+    { "op": "box", "name": "Keramikpaneele", "at": [0, 6, 3], "size": ["len", 3, 1], "color": "secondary" },
+    { "op": "box", "name": "Paneel-Stoßfuge", "repeat": { "count": "floor(len/8)", "step": [8, 0, 0] }, "at": [4, 6, 3], "size": [1, 3, 1], "color": { "shade": "secondary", "f": 0.72 } },
+    { "op": "box", "name": "Halbrippe links", "at": [0, 3, 3], "size": [1, 6, 2], "color": "metal" },
+    { "op": "box", "name": "Halbrippe rechts", "at": ["len-1", 3, 3], "size": [1, 6, 2], "color": "metal" },
+    { "op": "box", "name": "Rippe", "repeat": { "count": "ribs", "step": [8, 0, 0] }, "at": [7, 3, 3], "size": [2, 6, 2], "color": { "frame": "metal_light", "fill": "metal", "axes": "x" } },
+    { "op": "box", "name": "Rippen-Fuß rot", "repeat": { "count": "ribs", "step": [8, 0, 0] }, "at": [7, 3, 4], "size": [2, 2, 1], "color": { "shade": "primary", "f": 0.8 } },
+    { "op": "box", "name": "Wehrgang-Platte", "at": [0, 9, -1], "size": ["len", 1, 7], "color": "metal_dark" },
+    { "op": "box", "name": "Gesims außen", "at": [0, 9, 5], "size": ["len", 1, 1], "color": "secondary" },
+    { "op": "box", "name": "Gesims-Gold über Rippe", "repeat": { "count": "ribs", "step": [8, 0, 0] }, "at": [7, 9, 5], "size": [2, 1, 1], "color": "trim" },
+    { "op": "box", "name": "Gesims-Gold Halbrippe", "at": [0, 9, 5], "size": [1, 1, 1], "color": "trim", "mirror": "x", "mirrorAt": "len/2" },
+    { "op": "box", "name": "Laufbelag", "at": [0, 9, -1], "size": ["len", 1, 4], "color": { "stripes": ["paving", "paving", "paving_dark"], "axis": "x", "period": 1 } },
+    { "op": "use", "name": "Zinnenkranz", "model": "rom/bau/zinnen", "params": { "len": "len", "lights": "lights" }, "at": [0, 10, 3] },
+    { "op": "box", "name": "Innenseite Paneele", "at": [0, 3, 0], "size": ["len", 6, 1], "color": { "stripes": ["stone_light", "stone_light", "stone_light", "stone_dark"], "axis": "x", "offset": 2 } },
+    { "op": "box", "name": "Innenseite Band rot", "at": [0, 3, 0], "size": ["len", 1, 1], "color": { "shade": "primary", "f": 0.85 } },
+    { "op": "box", "name": "Innen-Strebe", "repeat": { "count": "ribs", "step": [8, 0, 0] }, "at": [7, 3, -1], "size": [2, 6, 1], "color": "metal" },
+    { "op": "box", "name": "Innen-Halbstrebe", "at": [0, 3, -1], "size": [1, 6, 1], "color": "metal", "mirror": "x", "mirrorAt": "len/2" },
+    { "op": "box", "name": "Innen-Leuchte", "if": "lights", "repeat": { "count": "ribs", "step": [8, 0, 0] }, "at": [7, 7, -2], "size": [1, 1, 1], "color": { "role": "glow2", "emit": 0.8 }, "jitter": false }
+  ],
+  "anchor": ["len/2", 0, 2]
+}
