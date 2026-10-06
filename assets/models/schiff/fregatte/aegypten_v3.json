@@ -1,0 +1,4401 @@
+{
+ "id": "schiff/fregatte/aegypten_v3",
+ "name": "Mandjet – ägyptische Scheibe (3. Fassung)",
+ "tier": "architecture",
+ "palette": "aegypten",
+ "tags": [
+  "schiff",
+  "fregatte",
+  "aegypten",
+  "rohmodell"
+ ],
+ "footprint": [
+  80,
+  95
+ ],
+ "ops": [
+  {
+   "op": "cyl",
+   "name": "Scheibe",
+   "at": [
+    0,
+    -6,
+    0
+   ],
+   "r": 160,
+   "h": 6,
+   "color": "primary"
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Unterschale",
+   "at": [
+    0,
+    -6,
+    0
+   ],
+   "r": [
+    140,
+    12,
+    140
+   ],
+   "color": "metal",
+   "half": "-y"
+  },
+  {
+   "op": "box",
+   "name": "Unterschale Ring",
+   "at": [
+    -160,
+    -14,
+    -160
+   ],
+   "size": [
+    320,
+    1,
+    320
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "cyl",
+   "name": "Rand",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "r": 160,
+   "h": 5,
+   "color": "primary",
+   "r2": 152,
+   "hollow": 26
+  },
+  {
+   "op": "cyl",
+   "name": "Randkante gold",
+   "at": [
+    0,
+    4,
+    0
+   ],
+   "r": 152,
+   "h": 1,
+   "color": "trim",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Innenkante Licht",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "r": 133,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 1.6
+   },
+   "hollow": 1,
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Feld",
+   "at": [
+    0,
+    -1,
+    0
+   ],
+   "r": 133,
+   "h": 1,
+   "color": {
+    "shade": "primary",
+    "f": 0.8
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Randband Lapis",
+   "at": [
+    0,
+    -6,
+    0
+   ],
+   "r": 160,
+   "h": 3,
+   "color": "secondary",
+   "hollow": 1,
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 1",
+   "at": [
+    159,
+    -5,
+    -1
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 2",
+   "at": [
+    155,
+    -5,
+    34
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 3",
+   "at": [
+    143,
+    -5,
+    68
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 4",
+   "at": [
+    124,
+    -5,
+    98
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 5",
+   "at": [
+    98,
+    -5,
+    124
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 6",
+   "at": [
+    68,
+    -5,
+    143
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 7",
+   "at": [
+    34,
+    -5,
+    155
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 8",
+   "at": [
+    -1,
+    -5,
+    159
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 9",
+   "at": [
+    -36,
+    -5,
+    155
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 10",
+   "at": [
+    -70,
+    -5,
+    143
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 11",
+   "at": [
+    -100,
+    -5,
+    124
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 12",
+   "at": [
+    -126,
+    -5,
+    98
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 13",
+   "at": [
+    -145,
+    -5,
+    68
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 14",
+   "at": [
+    -157,
+    -5,
+    34
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 15",
+   "at": [
+    -161,
+    -5,
+    -1
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 16",
+   "at": [
+    -157,
+    -5,
+    -36
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 17",
+   "at": [
+    -145,
+    -5,
+    -70
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 18",
+   "at": [
+    -126,
+    -5,
+    -100
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 19",
+   "at": [
+    -100,
+    -5,
+    -126
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 20",
+   "at": [
+    -70,
+    -5,
+    -145
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 21",
+   "at": [
+    -36,
+    -5,
+    -157
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 22",
+   "at": [
+    -1,
+    -5,
+    -161
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 23",
+   "at": [
+    34,
+    -5,
+    -157
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 24",
+   "at": [
+    68,
+    -5,
+    -145
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 25",
+   "at": [
+    98,
+    -5,
+    -126
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 26",
+   "at": [
+    124,
+    -5,
+    -100
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 27",
+   "at": [
+    143,
+    -5,
+    -70
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Randlicht 28",
+   "at": [
+    155,
+    -5,
+    -36
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 1",
+   "at": [
+    -47,
+    -1,
+    -82
+   ],
+   "size": [
+    10,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 1",
+   "at": [
+    -47,
+    -1,
+    -107
+   ],
+   "size": [
+    1,
+    1,
+    26
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 1",
+   "at": [
+    -46.5,
+    0,
+    -106.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 2",
+   "at": [
+    103,
+    -1,
+    9
+   ],
+   "size": [
+    10,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 2",
+   "at": [
+    103,
+    -1,
+    9
+   ],
+   "size": [
+    1,
+    1,
+    22
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 2",
+   "at": [
+    103.5,
+    0,
+    30.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 3",
+   "at": [
+    -106,
+    -1,
+    21
+   ],
+   "size": [
+    10,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 3",
+   "at": [
+    -106,
+    -1,
+    6
+   ],
+   "size": [
+    1,
+    1,
+    16
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 3",
+   "at": [
+    -106,
+    -1,
+    6
+   ],
+   "size": [
+    27,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 3",
+   "at": [
+    -79.5,
+    0,
+    6.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 4",
+   "at": [
+    -109,
+    -1,
+    22
+   ],
+   "size": [
+    18,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 4",
+   "at": [
+    -92,
+    -1,
+    10
+   ],
+   "size": [
+    1,
+    1,
+    13
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 4",
+   "at": [
+    -91.5,
+    0,
+    10.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 5",
+   "at": [
+    28,
+    -1,
+    26
+   ],
+   "size": [
+    15,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 5",
+   "at": [
+    42,
+    -1,
+    15
+   ],
+   "size": [
+    1,
+    1,
+    12
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 5",
+   "at": [
+    42.5,
+    0,
+    15.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 6",
+   "at": [
+    38,
+    -1,
+    -68
+   ],
+   "size": [
+    26,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 6",
+   "at": [
+    63,
+    -1,
+    -68
+   ],
+   "size": [
+    1,
+    1,
+    19
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 6",
+   "at": [
+    63,
+    -1,
+    -50
+   ],
+   "size": [
+    27,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 6",
+   "at": [
+    89.5,
+    0,
+    -49.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 7",
+   "at": [
+    -41,
+    -1,
+    -44
+   ],
+   "size": [
+    14,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 7",
+   "at": [
+    -41,
+    -1,
+    -44
+   ],
+   "size": [
+    1,
+    1,
+    11
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 7",
+   "at": [
+    -40.5,
+    0,
+    -33.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 8",
+   "at": [
+    35,
+    -1,
+    -102
+   ],
+   "size": [
+    25,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 8",
+   "at": [
+    59,
+    -1,
+    -102
+   ],
+   "size": [
+    1,
+    1,
+    14
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 8",
+   "at": [
+    59.5,
+    0,
+    -88.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 9",
+   "at": [
+    89,
+    -1,
+    -40
+   ],
+   "size": [
+    20,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 9",
+   "at": [
+    108,
+    -1,
+    -40
+   ],
+   "size": [
+    1,
+    1,
+    27
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 9",
+   "at": [
+    98,
+    -1,
+    -14
+   ],
+   "size": [
+    11,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 9",
+   "at": [
+    98.5,
+    0,
+    -13.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 10",
+   "at": [
+    -61,
+    -1,
+    1
+   ],
+   "size": [
+    11,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 10",
+   "at": [
+    -61,
+    -1,
+    1
+   ],
+   "size": [
+    1,
+    1,
+    18
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 10",
+   "at": [
+    -61,
+    -1,
+    18
+   ],
+   "size": [
+    18,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 10",
+   "at": [
+    -44,
+    -1,
+    -1
+   ],
+   "size": [
+    1,
+    1,
+    20
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 10",
+   "at": [
+    -43.5,
+    0,
+    -0.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 11",
+   "at": [
+    76,
+    -1,
+    -47
+   ],
+   "size": [
+    16,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 11",
+   "at": [
+    91,
+    -1,
+    -47
+   ],
+   "size": [
+    1,
+    1,
+    21
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 11",
+   "at": [
+    91.5,
+    0,
+    -26.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 12",
+   "at": [
+    89,
+    -1,
+    -10
+   ],
+   "size": [
+    17,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 12",
+   "at": [
+    105,
+    -1,
+    -10
+   ],
+   "size": [
+    1,
+    1,
+    20
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 12",
+   "at": [
+    90,
+    -1,
+    9
+   ],
+   "size": [
+    16,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 12",
+   "at": [
+    90,
+    -1,
+    -1
+   ],
+   "size": [
+    1,
+    1,
+    11
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 12",
+   "at": [
+    90.5,
+    0,
+    -0.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 13",
+   "at": [
+    -97,
+    -1,
+    -61
+   ],
+   "size": [
+    16,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 13",
+   "at": [
+    -96.5,
+    0,
+    -60.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 14",
+   "at": [
+    -53,
+    -1,
+    -48
+   ],
+   "size": [
+    13,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 14",
+   "at": [
+    -41,
+    -1,
+    -48
+   ],
+   "size": [
+    1,
+    1,
+    26
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 14",
+   "at": [
+    -40.5,
+    0,
+    -22.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 15",
+   "at": [
+    24,
+    -1,
+    24
+   ],
+   "size": [
+    13,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 15",
+   "at": [
+    24,
+    -1,
+    24
+   ],
+   "size": [
+    1,
+    1,
+    23
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 15",
+   "at": [
+    24,
+    -1,
+    46
+   ],
+   "size": [
+    21,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 15",
+   "at": [
+    44.5,
+    0,
+    46.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 16",
+   "at": [
+    -67,
+    -1,
+    -8
+   ],
+   "size": [
+    12,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 16",
+   "at": [
+    -56,
+    -1,
+    -17
+   ],
+   "size": [
+    1,
+    1,
+    10
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 16",
+   "at": [
+    -55.5,
+    0,
+    -16.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 17",
+   "at": [
+    -101,
+    -1,
+    17
+   ],
+   "size": [
+    20,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 17",
+   "at": [
+    -101,
+    -1,
+    7
+   ],
+   "size": [
+    1,
+    1,
+    11
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 17",
+   "at": [
+    -100.5,
+    0,
+    7.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 18",
+   "at": [
+    37,
+    -1,
+    -24
+   ],
+   "size": [
+    17,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 18",
+   "at": [
+    53,
+    -1,
+    -24
+   ],
+   "size": [
+    1,
+    1,
+    20
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 18",
+   "at": [
+    53.5,
+    0,
+    -4.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 19",
+   "at": [
+    97,
+    -1,
+    4
+   ],
+   "size": [
+    24,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 19",
+   "at": [
+    120,
+    -1,
+    -13
+   ],
+   "size": [
+    1,
+    1,
+    18
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 19",
+   "at": [
+    108,
+    -1,
+    -13
+   ],
+   "size": [
+    13,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 19",
+   "at": [
+    108.5,
+    0,
+    -12.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 20",
+   "at": [
+    71,
+    -1,
+    -33
+   ],
+   "size": [
+    17,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 20",
+   "at": [
+    87,
+    -1,
+    -46
+   ],
+   "size": [
+    1,
+    1,
+    14
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 20",
+   "at": [
+    87,
+    -1,
+    -46
+   ],
+   "size": [
+    15,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 20",
+   "at": [
+    101,
+    -1,
+    -58
+   ],
+   "size": [
+    1,
+    1,
+    13
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 20",
+   "at": [
+    101.5,
+    0,
+    -57.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 21",
+   "at": [
+    74,
+    -1,
+    15
+   ],
+   "size": [
+    11,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 21",
+   "at": [
+    84,
+    -1,
+    15
+   ],
+   "size": [
+    1,
+    1,
+    25
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 21",
+   "at": [
+    84,
+    -1,
+    39
+   ],
+   "size": [
+    14,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 21",
+   "at": [
+    97.5,
+    0,
+    39.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 22",
+   "at": [
+    77,
+    -1,
+    -63
+   ],
+   "size": [
+    26,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 22",
+   "at": [
+    102.5,
+    0,
+    -62.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 23",
+   "at": [
+    71,
+    -1,
+    -59
+   ],
+   "size": [
+    16,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 23",
+   "at": [
+    71,
+    -1,
+    -59
+   ],
+   "size": [
+    1,
+    1,
+    25
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 23",
+   "at": [
+    52,
+    -1,
+    -35
+   ],
+   "size": [
+    20,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 23",
+   "at": [
+    52.5,
+    0,
+    -34.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 24",
+   "at": [
+    -49,
+    -1,
+    0
+   ],
+   "size": [
+    15,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 24",
+   "at": [
+    -35,
+    -1,
+    0
+   ],
+   "size": [
+    1,
+    1,
+    23
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 24",
+   "at": [
+    -54,
+    -1,
+    22
+   ],
+   "size": [
+    20,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 24",
+   "at": [
+    -53.5,
+    0,
+    22.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 25",
+   "at": [
+    -34,
+    -1,
+    -68
+   ],
+   "size": [
+    9,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 25",
+   "at": [
+    -26,
+    -1,
+    -87
+   ],
+   "size": [
+    1,
+    1,
+    20
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 25",
+   "at": [
+    -25.5,
+    0,
+    -86.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 26",
+   "at": [
+    57,
+    -1,
+    62
+   ],
+   "size": [
+    24,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 26",
+   "at": [
+    57,
+    -1,
+    62
+   ],
+   "size": [
+    1,
+    1,
+    22
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 26",
+   "at": [
+    57.5,
+    0,
+    83.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 27",
+   "at": [
+    44,
+    -1,
+    -19
+   ],
+   "size": [
+    21,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 27",
+   "at": [
+    44,
+    -1,
+    -32
+   ],
+   "size": [
+    1,
+    1,
+    14
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 27",
+   "at": [
+    32,
+    -1,
+    -32
+   ],
+   "size": [
+    13,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 27",
+   "at": [
+    32.5,
+    0,
+    -31.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 28",
+   "at": [
+    -82,
+    -1,
+    31
+   ],
+   "size": [
+    13,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 28",
+   "at": [
+    -70,
+    -1,
+    12
+   ],
+   "size": [
+    1,
+    1,
+    20
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 28",
+   "at": [
+    -95,
+    -1,
+    12
+   ],
+   "size": [
+    26,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 28",
+   "at": [
+    -94.5,
+    0,
+    12.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 29",
+   "at": [
+    73,
+    -1,
+    65
+   ],
+   "size": [
+    12,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 29",
+   "at": [
+    73,
+    -1,
+    44
+   ],
+   "size": [
+    1,
+    1,
+    22
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 29",
+   "at": [
+    59,
+    -1,
+    44
+   ],
+   "size": [
+    15,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 29",
+   "at": [
+    59,
+    -1,
+    28
+   ],
+   "size": [
+    1,
+    1,
+    17
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 29",
+   "at": [
+    59.5,
+    0,
+    28.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 30",
+   "at": [
+    -66,
+    -1,
+    19
+   ],
+   "size": [
+    13,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 30",
+   "at": [
+    -66,
+    -1,
+    19
+   ],
+   "size": [
+    1,
+    1,
+    20
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 30",
+   "at": [
+    -66,
+    -1,
+    38
+   ],
+   "size": [
+    27,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 30",
+   "at": [
+    -39.5,
+    0,
+    38.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 31",
+   "at": [
+    79,
+    -1,
+    8
+   ],
+   "size": [
+    26,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 31",
+   "at": [
+    79,
+    -1,
+    -16
+   ],
+   "size": [
+    1,
+    1,
+    25
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 31",
+   "at": [
+    79.5,
+    0,
+    -15.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 32",
+   "at": [
+    95,
+    -1,
+    -8
+   ],
+   "size": [
+    9,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 32",
+   "at": [
+    95,
+    -1,
+    -21
+   ],
+   "size": [
+    1,
+    1,
+    14
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 32",
+   "at": [
+    95.5,
+    0,
+    -20.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 33",
+   "at": [
+    65,
+    -1,
+    -90
+   ],
+   "size": [
+    10,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 33",
+   "at": [
+    74,
+    -1,
+    -90
+   ],
+   "size": [
+    1,
+    1,
+    25
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 33",
+   "at": [
+    63,
+    -1,
+    -66
+   ],
+   "size": [
+    12,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 33",
+   "at": [
+    63,
+    -1,
+    -81
+   ],
+   "size": [
+    1,
+    1,
+    16
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 33",
+   "at": [
+    63.5,
+    0,
+    -80.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 34",
+   "at": [
+    57,
+    -1,
+    -50
+   ],
+   "size": [
+    25,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 34",
+   "at": [
+    81,
+    -1,
+    -74
+   ],
+   "size": [
+    1,
+    1,
+    25
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 34",
+   "at": [
+    81.5,
+    0,
+    -73.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 35",
+   "at": [
+    74,
+    -1,
+    -6
+   ],
+   "size": [
+    22,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 35",
+   "at": [
+    74,
+    -1,
+    -6
+   ],
+   "size": [
+    1,
+    1,
+    21
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 35",
+   "at": [
+    74.5,
+    0,
+    14.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 36",
+   "at": [
+    -40,
+    -1,
+    -102
+   ],
+   "size": [
+    16,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 36",
+   "at": [
+    -25,
+    -1,
+    -112
+   ],
+   "size": [
+    1,
+    1,
+    11
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 36",
+   "at": [
+    -42,
+    -1,
+    -112
+   ],
+   "size": [
+    18,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 36",
+   "at": [
+    -42,
+    -1,
+    -112
+   ],
+   "size": [
+    1,
+    1,
+    13
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 36",
+   "at": [
+    -41.5,
+    0,
+    -99.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 37",
+   "at": [
+    -106,
+    -1,
+    -56
+   ],
+   "size": [
+    23,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 37",
+   "at": [
+    -106,
+    -1,
+    -56
+   ],
+   "size": [
+    1,
+    1,
+    12
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 37",
+   "at": [
+    -105.5,
+    0,
+    -44.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 38",
+   "at": [
+    91,
+    -1,
+    4
+   ],
+   "size": [
+    16,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 38",
+   "at": [
+    91,
+    -1,
+    4
+   ],
+   "size": [
+    1,
+    1,
+    22
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 38",
+   "at": [
+    91.5,
+    0,
+    25.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 39",
+   "at": [
+    -97,
+    -1,
+    64
+   ],
+   "size": [
+    9,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 39",
+   "at": [
+    -88.5,
+    0,
+    64.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 40",
+   "at": [
+    -53,
+    -1,
+    12
+   ],
+   "size": [
+    18,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 40",
+   "at": [
+    -53,
+    -1,
+    1
+   ],
+   "size": [
+    1,
+    1,
+    12
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 40",
+   "at": [
+    -64,
+    -1,
+    1
+   ],
+   "size": [
+    12,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 40",
+   "at": [
+    -64,
+    -1,
+    1
+   ],
+   "size": [
+    1,
+    1,
+    17
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 40",
+   "at": [
+    -63.5,
+    0,
+    17.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 41",
+   "at": [
+    79,
+    -1,
+    -74
+   ],
+   "size": [
+    13,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 41",
+   "at": [
+    91,
+    -1,
+    -74
+   ],
+   "size": [
+    1,
+    1,
+    17
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 41",
+   "at": [
+    91,
+    -1,
+    -58
+   ],
+   "size": [
+    13,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 41",
+   "at": [
+    103.5,
+    0,
+    -57.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 42",
+   "at": [
+    43,
+    -1,
+    -37
+   ],
+   "size": [
+    17,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 42",
+   "at": [
+    43,
+    -1,
+    -37
+   ],
+   "size": [
+    1,
+    1,
+    14
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 42",
+   "at": [
+    43.5,
+    0,
+    -23.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 43",
+   "at": [
+    -69,
+    -1,
+    -99
+   ],
+   "size": [
+    16,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 43",
+   "at": [
+    -68.5,
+    0,
+    -98.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 44",
+   "at": [
+    -50,
+    -1,
+    21
+   ],
+   "size": [
+    17,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 44",
+   "at": [
+    -50,
+    -1,
+    12
+   ],
+   "size": [
+    1,
+    1,
+    10
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 44",
+   "at": [
+    -61,
+    -1,
+    12
+   ],
+   "size": [
+    12,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 44",
+   "at": [
+    -60.5,
+    0,
+    12.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 45",
+   "at": [
+    -91,
+    -1,
+    -69
+   ],
+   "size": [
+    18,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 45",
+   "at": [
+    -91,
+    -1,
+    -69
+   ],
+   "size": [
+    1,
+    1,
+    18
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 45",
+   "at": [
+    -90.5,
+    0,
+    -51.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 46",
+   "at": [
+    -67,
+    -1,
+    -32
+   ],
+   "size": [
+    17,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Leiterbahn 46",
+   "at": [
+    -67,
+    -1,
+    -40
+   ],
+   "size": [
+    1,
+    1,
+    9
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Knoten 46",
+   "at": [
+    -66.5,
+    0,
+    -39.5
+   ],
+   "r": 1.6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "loft",
+   "name": "Rumpfrücken",
+   "sections": [
+    {
+     "z": -150,
+     "w": 30,
+     "up": 16,
+     "down": 4,
+     "bevel": 6
+    },
+    {
+     "z": -60,
+     "w": 46,
+     "up": 20,
+     "down": 4,
+     "bevel": 8
+    },
+    {
+     "z": 120,
+     "w": 42,
+     "up": 18,
+     "down": 4,
+     "bevel": 8
+    },
+    {
+     "z": 168,
+     "w": 36,
+     "up": 16,
+     "down": 4,
+     "bevel": 6
+    }
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Rückenrippen",
+   "at": [
+    -24,
+    8,
+    -100
+   ],
+   "size": [
+    48,
+    13,
+    2
+   ],
+   "color": {
+    "shade": "stone",
+    "f": 0.75
+   },
+   "mode": "paint",
+   "repeat": {
+    "count": 18,
+    "step": [
+     0,
+     0,
+     12
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Lufteinlass",
+   "at": [
+    -24,
+    2,
+    "-40 + i*40"
+   ],
+   "size": [
+    48,
+    8,
+    12
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "dark",
+    "axes": "yz"
+   },
+   "mode": "paint",
+   "repeat": {
+    "count": 4,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Rückenlicht",
+   "at": [
+    -1,
+    20,
+    -60
+   ],
+   "size": [
+    2,
+    1,
+    220
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Pyramide",
+   "at": [
+    "-28 + i",
+    "18 + i*2",
+    "-148 + i"
+   ],
+   "size": [
+    "56 - 2*i",
+    2,
+    "56 - 2*i"
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 27,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pyramidenkante",
+   "at": [
+    "-28 + i",
+    "19 + i*2",
+    "-148 + i"
+   ],
+   "size": [
+    "56 - 2*i",
+    1,
+    "56 - 2*i"
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint",
+   "repeat": {
+    "count": 27,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pyramidenglyphen",
+   "at": [
+    -30,
+    20,
+    -121
+   ],
+   "size": [
+    60,
+    54,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.5
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Pyramidenband",
+   "at": [
+    -30,
+    44,
+    -150
+   ],
+   "size": [
+    60,
+    1,
+    60
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.5
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Pyramidion",
+   "at": [
+    -2,
+    72,
+    -122
+   ],
+   "size": [
+    4,
+    4,
+    4
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 2.6
+   },
+   "jitter": false
+  },
+  {
+   "op": "loft",
+   "name": "Nemes-Kopftuch",
+   "sections": [
+    {
+     "z": 156,
+     "w": 42,
+     "up": 30,
+     "down": 12,
+     "bevel": 9,
+     "y": 10
+    },
+    {
+     "z": 180,
+     "w": 36,
+     "up": 28,
+     "down": 10,
+     "bevel": 8,
+     "y": 10
+    },
+    {
+     "z": 192,
+     "w": 26,
+     "up": 24,
+     "down": 6,
+     "bevel": 6,
+     "y": 10
+    }
+   ],
+   "color": {
+    "stripes": [
+     "trim",
+     "secondary"
+    ],
+    "axis": "y",
+    "period": 3
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kopftuch Laschen",
+   "at": [
+    13,
+    -14,
+    178
+   ],
+   "size": [
+    7,
+    24,
+    8
+   ],
+   "color": {
+    "stripes": [
+     "trim",
+     "secondary"
+    ],
+    "axis": "y",
+    "period": 3
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Gesicht",
+   "at": [
+    0,
+    16,
+    196
+   ],
+   "r": [
+    11,
+    14,
+    8
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Augen",
+   "at": [
+    3,
+    20,
+    202
+   ],
+   "size": [
+    5,
+    2,
+    2
+   ],
+   "color": "dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Lidstrich",
+   "at": [
+    2,
+    22,
+    203
+   ],
+   "size": [
+    7,
+    1,
+    1
+   ],
+   "color": "secondary",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Augenglanz",
+   "at": [
+    5,
+    20,
+    204
+   ],
+   "size": [
+    1,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.4
+   },
+   "jitter": false,
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Nase",
+   "at": [
+    -1,
+    13,
+    203
+   ],
+   "size": [
+    2,
+    5,
+    2
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 0.85
+   }
+  },
+  {
+   "op": "box",
+   "name": "Mund",
+   "at": [
+    -3,
+    7,
+    203
+   ],
+   "size": [
+    6,
+    1,
+    1
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 0.6
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zeremonialbart",
+   "at": [
+    -2,
+    -5,
+    196
+   ],
+   "size": [
+    4,
+    9,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "trim",
+     "secondary"
+    ],
+    "axis": "y",
+    "period": 2
+   }
+  },
+  {
+   "op": "box",
+   "name": "Uräus",
+   "at": [
+    -1,
+    30,
+    197
+   ],
+   "size": [
+    2,
+    6,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Uräus Kopf",
+   "at": [
+    -2,
+    35,
+    198
+   ],
+   "size": [
+    4,
+    2,
+    3
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.0
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Bugkanone",
+   "from": [
+    6,
+    -6,
+    176
+   ],
+   "to": [
+    6,
+    -6,
+    232
+   ],
+   "r": 1.6,
+   "color": "metal_dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Bugkanone unten",
+   "from": [
+    13,
+    -12,
+    172
+   ],
+   "to": [
+    13,
+    -12,
+    222
+   ],
+   "r": 1.4,
+   "color": "metal_dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "cyl",
+   "name": "Sonnenantrieb Gehäuse",
+   "at": [
+    0,
+    6,
+    -160
+   ],
+   "r": 12,
+   "h": 14,
+   "color": "stone",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Sonnenantrieb Glocke",
+   "at": [
+    0,
+    6,
+    -163
+   ],
+   "r": 14,
+   "h": 4,
+   "color": "trim",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Sonnenantrieb Glut",
+   "at": [
+    0,
+    6,
+    -161
+   ],
+   "r": 10,
+   "h": 2,
+   "color": {
+    "role": "glow2",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Sonnenantrieb Kern",
+   "at": [
+    0,
+    6,
+    -162
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Sonnenantrieb Ring 1",
+   "at": [
+    0,
+    6,
+    -154
+   ],
+   "r": 13,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Sonnenantrieb Ring 2",
+   "at": [
+    0,
+    6,
+    -150
+   ],
+   "r": 13,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Rücken Sockel",
+   "at": [
+    0,
+    20,
+    60
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Rücken Gehäuse",
+   "at": [
+    -5,
+    22,
+    55
+   ],
+   "size": [
+    10,
+    3,
+    11
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm Rücken Rohr L",
+   "from": [
+    -1.5,
+    23.5,
+    65
+   ],
+   "to": [
+    -1.5,
+    23.5,
+    84
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Rücken Rohr R",
+   "from": [
+    1.5,
+    23.5,
+    65
+   ],
+   "to": [
+    1.5,
+    23.5,
+    84
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm unten Sockel",
+   "at": [
+    0,
+    -20,
+    60
+   ],
+   "r": 5,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm unten Gehäuse",
+   "at": [
+    -4,
+    -23,
+    56
+   ],
+   "size": [
+    8,
+    3,
+    9
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm unten Rohr L",
+   "from": [
+    -1.5,
+    -21.5,
+    64
+   ],
+   "to": [
+    -1.5,
+    -21.5,
+    80
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm unten Rohr R",
+   "from": [
+    1.5,
+    -21.5,
+    64
+   ],
+   "to": [
+    1.5,
+    -21.5,
+    80
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  0
+ ]
+}

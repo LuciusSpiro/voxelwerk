@@ -1,0 +1,1733 @@
+{
+ "id": "schiff/fregatte/babylon_v2",
+ "name": "(2. Fassung) Tafelschiff – babylonische Fregatte (Rohmodell)",
+ "tier": "architecture",
+ "palette": "babylon",
+ "tags": [
+  "schiff",
+  "fregatte",
+  "rohmodell",
+  "babylon"
+ ],
+ "footprint": [
+  50,
+  100
+ ],
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Grundrumpf",
+   "sections": [
+    {
+     "z": 0,
+     "w": 76,
+     "up": 12,
+     "down": 12,
+     "bevel": 8
+    },
+    {
+     "z": 40,
+     "w": 90,
+     "up": 14,
+     "down": 14,
+     "bevel": 10
+    },
+    {
+     "z": 260,
+     "w": 84,
+     "up": 14,
+     "down": 14,
+     "bevel": 10
+    },
+    {
+     "z": 310,
+     "w": 50,
+     "up": 10,
+     "down": 10,
+     "bevel": 8
+    },
+    {
+     "z": 330,
+     "w": 30,
+     "up": 7,
+     "down": 7,
+     "bevel": 5
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Kachelband",
+   "at": [
+    -50,
+    -4,
+    -10
+   ],
+   "size": [
+    100,
+    8,
+    360
+   ],
+   "color": {
+    "checker": [
+     "primary",
+     {
+      "shade": "primary",
+      "f": 1.3
+     }
+    ],
+    "period": 1
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Tierfries",
+   "at": [
+    -50,
+    -1,
+    20
+   ],
+   "size": [
+    100,
+    2,
+    4
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 24,
+    "step": [
+     0,
+     0,
+     12
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Ockerkante",
+   "at": [
+    -50,
+    11,
+    -10
+   ],
+   "size": [
+    100,
+    2,
+    360
+   ],
+   "color": "secondary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Ockerkante unten",
+   "at": [
+    -50,
+    -13,
+    -10
+   ],
+   "size": [
+    100,
+    2,
+    360
+   ],
+   "color": "secondary",
+   "mode": "paint"
+  },
+  {
+   "op": "loft",
+   "name": "Terrasse 1 oben",
+   "sections": [
+    {
+     "z": 30,
+     "w": 70,
+     "up": 6,
+     "down": 0,
+     "bevel": 3,
+     "y": 13
+    },
+    {
+     "z": 250,
+     "w": 70,
+     "up": 6,
+     "down": 0,
+     "bevel": 3,
+     "y": 13
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "loft",
+   "name": "Terrasse 1 unten",
+   "sections": [
+    {
+     "z": 30,
+     "w": 70,
+     "up": 0,
+     "down": 6,
+     "bevel": 3,
+     "y": -13
+    },
+    {
+     "z": 250,
+     "w": 70,
+     "up": 0,
+     "down": 6,
+     "bevel": 3,
+     "y": -13
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Lichtfuge 1",
+   "at": [
+    -36,
+    13,
+    30
+   ],
+   "size": [
+    72,
+    1,
+    220
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Lichtfuge 1 unten",
+   "at": [
+    -36,
+    -14,
+    30
+   ],
+   "size": [
+    72,
+    1,
+    220
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "loft",
+   "name": "Terrasse 2 oben",
+   "sections": [
+    {
+     "z": 50,
+     "w": 54,
+     "up": 6,
+     "down": 0,
+     "bevel": 3,
+     "y": 19
+    },
+    {
+     "z": 230,
+     "w": 54,
+     "up": 6,
+     "down": 0,
+     "bevel": 3,
+     "y": 19
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "loft",
+   "name": "Terrasse 2 unten",
+   "sections": [
+    {
+     "z": 50,
+     "w": 54,
+     "up": 0,
+     "down": 6,
+     "bevel": 3,
+     "y": -19
+    },
+    {
+     "z": 230,
+     "w": 54,
+     "up": 0,
+     "down": 6,
+     "bevel": 3,
+     "y": -19
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Lichtfuge 2",
+   "at": [
+    -28,
+    19,
+    50
+   ],
+   "size": [
+    56,
+    1,
+    180
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Lichtfuge 2 unten",
+   "at": [
+    -28,
+    -20,
+    50
+   ],
+   "size": [
+    56,
+    1,
+    180
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "loft",
+   "name": "Terrasse 3 oben",
+   "sections": [
+    {
+     "z": 70,
+     "w": 38,
+     "up": 6,
+     "down": 0,
+     "bevel": 3,
+     "y": 25
+    },
+    {
+     "z": 210,
+     "w": 38,
+     "up": 6,
+     "down": 0,
+     "bevel": 3,
+     "y": 25
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "loft",
+   "name": "Terrasse 3 unten",
+   "sections": [
+    {
+     "z": 70,
+     "w": 38,
+     "up": 0,
+     "down": 6,
+     "bevel": 3,
+     "y": -25
+    },
+    {
+     "z": 210,
+     "w": 38,
+     "up": 0,
+     "down": 6,
+     "bevel": 3,
+     "y": -25
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Lichtfuge 3",
+   "at": [
+    -20,
+    25,
+    70
+   ],
+   "size": [
+    40,
+    1,
+    140
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Lichtfuge 3 unten",
+   "at": [
+    -20,
+    -26,
+    70
+   ],
+   "size": [
+    40,
+    1,
+    140
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "loft",
+   "name": "Terrasse 4 oben",
+   "sections": [
+    {
+     "z": 95,
+     "w": 24,
+     "up": 7,
+     "down": 0,
+     "bevel": 3,
+     "y": 31
+    },
+    {
+     "z": 185,
+     "w": 24,
+     "up": 7,
+     "down": 0,
+     "bevel": 3,
+     "y": 31
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "loft",
+   "name": "Terrasse 4 unten",
+   "sections": [
+    {
+     "z": 95,
+     "w": 24,
+     "up": 0,
+     "down": 7,
+     "bevel": 3,
+     "y": -31
+    },
+    {
+     "z": 185,
+     "w": 24,
+     "up": 0,
+     "down": 7,
+     "bevel": 3,
+     "y": -31
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Lichtfuge 4",
+   "at": [
+    -13,
+    31,
+    95
+   ],
+   "size": [
+    26,
+    1,
+    90
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Lichtfuge 4 unten",
+   "at": [
+    -13,
+    -32,
+    95
+   ],
+   "size": [
+    26,
+    1,
+    90
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "loft",
+   "name": "Sternwarte",
+   "sections": [
+    {
+     "z": 120,
+     "w": 14,
+     "up": 8,
+     "down": 0,
+     "bevel": 3,
+     "y": 38,
+     "round": 0.5
+    },
+    {
+     "z": 160,
+     "w": 14,
+     "up": 8,
+     "down": 0,
+     "bevel": 3,
+     "y": 38,
+     "round": 0.5
+    }
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Sternenkuppel",
+   "at": [
+    0,
+    45,
+    140
+   ],
+   "r": [
+    7,
+    6,
+    10
+   ],
+   "color": "glass",
+   "half": "+y"
+  },
+  {
+   "op": "box",
+   "name": "Achtstrahliger Stern",
+   "at": [
+    -2,
+    51,
+    138
+   ],
+   "size": [
+    4,
+    4,
+    4
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 2.4
+   },
+   "jitter": false
+  },
+  {
+   "op": "group",
+   "name": "Lamassu-Schwinge",
+   "ops": [
+    {
+     "op": "box",
+     "name": "Federreihe",
+     "at": [
+      "44 + i*7",
+      "-2 + i*3",
+      "200 - i*12"
+     ],
+     "size": [
+      7,
+      3,
+      "100 - i*8"
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "primary",
+      "axes": "xz"
+     },
+     "repeat": {
+      "count": 6,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "box",
+     "name": "Schwingenleuchte",
+     "at": [
+      86,
+      14,
+      125
+     ],
+     "size": [
+      3,
+      2,
+      3
+     ],
+     "color": {
+      "role": "glow",
+      "emit": 2.2
+     },
+     "jitter": false
+    },
+    {
+     "op": "box",
+     "name": "Drohnenbucht",
+     "at": [
+      41,
+      -6,
+      "90 + i*30"
+     ],
+     "size": [
+      4,
+      6,
+      14
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "dark",
+      "axes": "yz"
+     },
+     "repeat": {
+      "count": 4,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "group",
+   "name": "Netzhorn",
+   "ops": [
+    {
+     "op": "loft",
+     "name": "Horn",
+     "sections": [
+      {
+       "z": 300,
+       "w": 10,
+       "up": 6,
+       "down": 6,
+       "bevel": 3,
+       "x": 26
+      },
+      {
+       "z": 350,
+       "w": 7,
+       "up": 4,
+       "down": 4,
+       "bevel": 2,
+       "x": 30
+      },
+      {
+       "z": 380,
+       "w": 4,
+       "up": 3,
+       "down": 3,
+       "bevel": 1,
+       "x": 24
+      }
+     ],
+     "color": "trim"
+    },
+    {
+     "op": "box",
+     "name": "Hornspitze",
+     "at": [
+      22,
+      -2,
+      380
+     ],
+     "size": [
+      4,
+      4,
+      4
+     ],
+     "color": {
+      "role": "glow",
+      "emit": 2.4
+     },
+     "jitter": false
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Marduks Netz",
+   "at": [
+    -24,
+    -6,
+    370
+   ],
+   "size": [
+    48,
+    12,
+    1
+   ],
+   "color": {
+    "checker": [
+     {
+      "role": "glow",
+      "emit": 1.3
+     },
+     "dark"
+    ],
+    "period": 2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Schicksalstafel",
+   "at": [
+    -8,
+    -6,
+    330
+   ],
+   "size": [
+    16,
+    12,
+    3
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xy"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Tafelschrift",
+   "at": [
+    -6,
+    "-3 + i*3",
+    333
+   ],
+   "size": [
+    12,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.8
+   },
+   "jitter": false,
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Heckstufen",
+   "at": [
+    "-34 + i*4",
+    "-10 + i*2",
+    "-6 - i*3"
+   ],
+   "size": [
+    "68 - i*8",
+    "20 - i*4",
+    4
+   ],
+   "color": "primary",
+   "repeat": {
+    "count": 4,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Düse",
+   "at": [
+    -27,
+    0,
+    -18
+   ],
+   "r": 7,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Ring",
+   "at": [
+    -27,
+    0,
+    -14
+   ],
+   "r": 8,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Glut",
+   "at": [
+    -27,
+    0,
+    -19
+   ],
+   "r": 5,
+   "h": 1,
+   "color": {
+    "role": "glow2",
+    "emit": 2.4
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Düse",
+   "at": [
+    -9,
+    0,
+    -18
+   ],
+   "r": 7,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Ring",
+   "at": [
+    -9,
+    0,
+    -14
+   ],
+   "r": 8,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Glut",
+   "at": [
+    -9,
+    0,
+    -19
+   ],
+   "r": 5,
+   "h": 1,
+   "color": {
+    "role": "glow2",
+    "emit": 2.4
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 3 Düse",
+   "at": [
+    9,
+    0,
+    -18
+   ],
+   "r": 7,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 3 Ring",
+   "at": [
+    9,
+    0,
+    -14
+   ],
+   "r": 8,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 3 Glut",
+   "at": [
+    9,
+    0,
+    -19
+   ],
+   "r": 5,
+   "h": 1,
+   "color": {
+    "role": "glow2",
+    "emit": 2.4
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 4 Düse",
+   "at": [
+    27,
+    0,
+    -18
+   ],
+   "r": 7,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 4 Ring",
+   "at": [
+    27,
+    0,
+    -14
+   ],
+   "r": 8,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 4 Glut",
+   "at": [
+    27,
+    0,
+    -19
+   ],
+   "r": 5,
+   "h": 1,
+   "color": {
+    "role": "glow2",
+    "emit": 2.4
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Fensterreihe",
+   "at": [
+    -48,
+    6,
+    30
+   ],
+   "size": [
+    96,
+    1,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 43,
+    "step": [
+     0,
+     0,
+     6
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 1",
+   "at": [
+    38,
+    10,
+    63
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 2",
+   "at": [
+    -41,
+    8,
+    62
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 3",
+   "at": [
+    -37,
+    10,
+    184
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 4",
+   "at": [
+    41,
+    6,
+    138
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 5",
+   "at": [
+    -37,
+    12,
+    53
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 6",
+   "at": [
+    -38,
+    9,
+    188
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 7",
+   "at": [
+    40,
+    7,
+    82
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 8",
+   "at": [
+    39,
+    7,
+    151
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 9",
+   "at": [
+    -41,
+    5,
+    242
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 10",
+   "at": [
+    -40,
+    7,
+    222
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 11",
+   "at": [
+    38,
+    9,
+    98
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 12",
+   "at": [
+    38,
+    8,
+    200
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 13",
+   "at": [
+    -40,
+    7,
+    219
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 14",
+   "at": [
+    41,
+    6,
+    79
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 15",
+   "at": [
+    40,
+    8,
+    73
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 16",
+   "at": [
+    39,
+    6,
+    243
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 17",
+   "at": [
+    -38,
+    8,
+    241
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 18",
+   "at": [
+    37,
+    8,
+    252
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 19",
+   "at": [
+    -37,
+    12,
+    47
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 20",
+   "at": [
+    -36,
+    12,
+    88
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 21",
+   "at": [
+    38,
+    7,
+    234
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 22",
+   "at": [
+    37,
+    8,
+    246
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 23",
+   "at": [
+    -37,
+    11,
+    93
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 24",
+   "at": [
+    -37,
+    10,
+    221
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 25",
+   "at": [
+    39,
+    9,
+    52
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 26",
+   "at": [
+    -36,
+    11,
+    220
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 27",
+   "at": [
+    -40,
+    7,
+    155
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 28",
+   "at": [
+    -39,
+    8,
+    196
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 29",
+   "at": [
+    -37,
+    11,
+    77
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 30",
+   "at": [
+    -39,
+    8,
+    204
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 31",
+   "at": [
+    -40,
+    7,
+    167
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 32",
+   "at": [
+    -37,
+    10,
+    190
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 33",
+   "at": [
+    -38,
+    9,
+    212
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 34",
+   "at": [
+    -39,
+    8,
+    201
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 35",
+   "at": [
+    40,
+    7,
+    106
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 36",
+   "at": [
+    40,
+    7,
+    125
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 37",
+   "at": [
+    -39,
+    7,
+    257
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 38",
+   "at": [
+    39,
+    7,
+    31
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 39",
+   "at": [
+    40,
+    5,
+    257
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 40",
+   "at": [
+    -39,
+    8,
+    214
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 41",
+   "at": [
+    -37,
+    9,
+    239
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 42",
+   "at": [
+    -38,
+    9,
+    161
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 43",
+   "at": [
+    -40,
+    8,
+    117
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 44",
+   "at": [
+    39,
+    9,
+    44
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 45",
+   "at": [
+    -40,
+    6,
+    236
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 46",
+   "at": [
+    -36,
+    11,
+    152
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 47",
+   "at": [
+    -39,
+    9,
+    142
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 48",
+   "at": [
+    -39,
+    8,
+    202
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 49",
+   "at": [
+    -36,
+    12,
+    126
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 50",
+   "at": [
+    -38,
+    8,
+    225
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  170
+ ]
+}

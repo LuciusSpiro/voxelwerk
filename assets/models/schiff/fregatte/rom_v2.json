@@ -1,0 +1,1896 @@
+{
+ "id": "schiff/fregatte/rom_v2",
+ "name": "(2. Fassung) Quinquereme – römische Fregatte (Rohmodell)",
+ "tier": "architecture",
+ "palette": "rom",
+ "tags": [
+  "schiff",
+  "fregatte",
+  "rohmodell",
+  "rom"
+ ],
+ "footprint": [
+  40,
+  100
+ ],
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Rumpf",
+   "sections": [
+    {
+     "z": 0,
+     "w": 60,
+     "up": 16,
+     "down": 14,
+     "bevel": 9
+    },
+    {
+     "z": 50,
+     "w": 70,
+     "up": 18,
+     "down": 16,
+     "bevel": 11
+    },
+    {
+     "z": 200,
+     "w": 62,
+     "up": 17,
+     "down": 14,
+     "bevel": 10
+    },
+    {
+     "z": 300,
+     "w": 32,
+     "up": 11,
+     "down": 8,
+     "bevel": 6
+    },
+    {
+     "z": 350,
+     "w": 6,
+     "up": 4,
+     "down": 3,
+     "bevel": 2
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Unterseite Gunmetal",
+   "at": [
+    -40,
+    -16,
+    -10
+   ],
+   "size": [
+    80,
+    9,
+    380
+   ],
+   "color": "metal",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Rotes Panzerband",
+   "at": [
+    -40,
+    6,
+    -10
+   ],
+   "size": [
+    80,
+    4,
+    380
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Goldkante",
+   "at": [
+    -40,
+    10,
+    -10
+   ],
+   "size": [
+    80,
+    1,
+    380
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Plattenfugen",
+   "at": [
+    -40,
+    -16,
+    40
+   ],
+   "size": [
+    80,
+    40,
+    1
+   ],
+   "color": {
+    "shade": "secondary",
+    "f": 0.75
+   },
+   "mode": "paint",
+   "repeat": {
+    "count": 9,
+    "step": [
+     0,
+     0,
+     30
+    ]
+   }
+  },
+  {
+   "op": "loft",
+   "name": "Lorica-Rücken",
+   "sections": [
+    {
+     "z": 30,
+     "w": 26,
+     "up": 27,
+     "down": 0,
+     "bevel": 9
+    },
+    {
+     "z": 240,
+     "w": 20,
+     "up": 24,
+     "down": 0,
+     "bevel": 8
+    },
+    {
+     "z": 290,
+     "w": 8,
+     "up": 14,
+     "down": 0,
+     "bevel": 4
+    }
+   ],
+   "color": {
+    "stripes": [
+     "primary",
+     "primary",
+     {
+      "shade": "primary",
+      "f": 0.8
+     },
+     "trim"
+    ],
+    "axis": "z",
+    "period": 3
+   }
+  },
+  {
+   "op": "loft",
+   "name": "Rammklinge",
+   "sections": [
+    {
+     "z": 330,
+     "w": 14,
+     "up": 2,
+     "down": 6,
+     "bevel": 2,
+     "y": -4
+    },
+    {
+     "z": 392,
+     "w": 2,
+     "up": 1,
+     "down": 1,
+     "y": -6
+    }
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "loft",
+   "name": "Rammklinge Grat",
+   "sections": [
+    {
+     "z": 330,
+     "w": 4,
+     "up": 4,
+     "down": 0,
+     "y": -2
+    },
+    {
+     "z": 380,
+     "w": 1,
+     "up": 1,
+     "down": 0,
+     "y": -5
+    }
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 0.7
+   }
+  },
+  {
+   "op": "loft",
+   "name": "Brücke (Galea)",
+   "sections": [
+    {
+     "z": 196,
+     "w": 10,
+     "up": 22,
+     "down": 0,
+     "bevel": 4,
+     "y": 20,
+     "round": 0.6
+    },
+    {
+     "z": 212,
+     "w": 22,
+     "up": 30,
+     "down": 0,
+     "bevel": 6,
+     "y": 14,
+     "round": 0.6
+    },
+    {
+     "z": 250,
+     "w": 18,
+     "up": 26,
+     "down": 0,
+     "bevel": 6,
+     "y": 14,
+     "round": 0.6
+    },
+    {
+     "z": 262,
+     "w": 8,
+     "up": 18,
+     "down": 0,
+     "bevel": 3,
+     "y": 14
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Sehschlitz",
+   "at": [
+    -12,
+    38,
+    238
+   ],
+   "size": [
+    24,
+    2,
+    30
+   ],
+   "color": "glass",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Helmkamm",
+   "at": [
+    -1,
+    44,
+    200
+   ],
+   "size": [
+    2,
+    5,
+    52
+   ],
+   "color": {
+    "stripes": [
+     "primary",
+     "cloth"
+    ],
+    "axis": "z",
+    "period": 2
+   }
+  },
+  {
+   "op": "group",
+   "name": "Adlerschwinge",
+   "ops": [
+    {
+     "op": "box",
+     "name": "Schwungfeder",
+     "at": [
+      33,
+      "2 + i",
+      "150 - i*7"
+     ],
+     "size": [
+      7,
+      3,
+      "64 - i*5"
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "primary",
+      "axes": "xz"
+     },
+     "repeat": {
+      "count": 7,
+      "step": [
+       7,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "box",
+     "name": "Kühlrippen",
+     "at": [
+      33,
+      "4 + i",
+      "152 - i*7"
+     ],
+     "size": [
+      7,
+      1,
+      "60 - i*5"
+     ],
+     "color": {
+      "stripes": [
+       {
+        "shade": "primary",
+        "f": 0.7
+       },
+       "primary"
+      ],
+      "axis": "z",
+      "period": 2
+     },
+     "mode": "paint",
+     "repeat": {
+      "count": 7,
+      "step": [
+       7,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "box",
+     "name": "Schwingenleuchte",
+     "at": [
+      80,
+      10,
+      109
+     ],
+     "size": [
+      3,
+      2,
+      3
+     ],
+     "color": {
+      "role": "glow",
+      "emit": 2.2
+     },
+     "jitter": false
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "group",
+   "name": "Batterie",
+   "ops": [
+    {
+     "op": "cyl",
+     "name": "Turm",
+     "at": [
+      24,
+      12,
+      "70 + i*36"
+     ],
+     "r": 4,
+     "h": 3,
+     "color": "metal",
+     "repeat": {
+      "count": 5,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "line",
+     "name": "Rohr",
+     "from": [
+      26,
+      14,
+      "70 + i*36"
+     ],
+     "to": [
+      36,
+      14,
+      "76 + i*36"
+     ],
+     "r": 1,
+     "color": "metal_dark",
+     "repeat": {
+      "count": 5,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Antriebsblock",
+   "at": [
+    -32,
+    -14,
+    -28
+   ],
+   "size": [
+    64,
+    30,
+    30
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xy"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Antriebsfugen",
+   "at": [
+    -32,
+    -14,
+    -20
+   ],
+   "size": [
+    64,
+    30,
+    1
+   ],
+   "color": "metal_dark",
+   "mode": "paint",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     7
+    ]
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Düse",
+   "at": [
+    -18,
+    -4,
+    -34
+   ],
+   "r": 8,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Ring",
+   "at": [
+    -18,
+    -4,
+    -30
+   ],
+   "r": 9,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Glut",
+   "at": [
+    -18,
+    -4,
+    -35
+   ],
+   "r": 6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Düse",
+   "at": [
+    0,
+    -4,
+    -34
+   ],
+   "r": 8,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Ring",
+   "at": [
+    0,
+    -4,
+    -30
+   ],
+   "r": 9,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Glut",
+   "at": [
+    0,
+    -4,
+    -35
+   ],
+   "r": 6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 3 Düse",
+   "at": [
+    18,
+    -4,
+    -34
+   ],
+   "r": 8,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 3 Ring",
+   "at": [
+    18,
+    -4,
+    -30
+   ],
+   "r": 9,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 3 Glut",
+   "at": [
+    18,
+    -4,
+    -35
+   ],
+   "r": 6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 4 Düse",
+   "at": [
+    -9,
+    8,
+    -34
+   ],
+   "r": 8,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 4 Ring",
+   "at": [
+    -9,
+    8,
+    -30
+   ],
+   "r": 9,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 4 Glut",
+   "at": [
+    -9,
+    8,
+    -35
+   ],
+   "r": 6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 5 Düse",
+   "at": [
+    9,
+    8,
+    -34
+   ],
+   "r": 8,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 5 Ring",
+   "at": [
+    9,
+    8,
+    -30
+   ],
+   "r": 9,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 5 Glut",
+   "at": [
+    9,
+    8,
+    -35
+   ],
+   "r": 6,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Fensterreihe",
+   "at": [
+    -38,
+    -2,
+    30
+   ],
+   "size": [
+    76,
+    1,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 43,
+    "step": [
+     0,
+     0,
+     6
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Fensterreihe unten",
+   "at": [
+    -38,
+    -8,
+    50
+   ],
+   "size": [
+    76,
+    1,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 27,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Hangarluke",
+   "at": [
+    -14,
+    -17,
+    120
+   ],
+   "size": [
+    28,
+    1,
+    40
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Antenne",
+   "from": [
+    -6,
+    33,
+    60
+   ],
+   "to": [
+    -6,
+    46,
+    58
+   ],
+   "r": 0.6,
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Antennenlicht",
+   "at": [
+    -7,
+    46,
+    57
+   ],
+   "size": [
+    1,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.4
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Adler-Bugzier",
+   "at": [
+    -6,
+    6,
+    318
+   ],
+   "size": [
+    12,
+    6,
+    6
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Adler-Bugzier Flügel",
+   "at": [
+    6,
+    8,
+    314
+   ],
+   "size": [
+    10,
+    2,
+    6
+   ],
+   "color": "trim",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 1",
+   "at": [
+    -20,
+    17,
+    52
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 2",
+   "at": [
+    22,
+    17,
+    127
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 3",
+   "at": [
+    -27,
+    8,
+    219
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 4",
+   "at": [
+    20,
+    16,
+    21
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 5",
+   "at": [
+    -27,
+    13,
+    33
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 6",
+   "at": [
+    -28,
+    7,
+    215
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 7",
+   "at": [
+    20,
+    10,
+    244
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 8",
+   "at": [
+    -14,
+    17,
+    196
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 9",
+   "at": [
+    -14,
+    13,
+    255
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 10",
+   "at": [
+    -17,
+    17,
+    171
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 11",
+   "at": [
+    25,
+    14,
+    117
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 12",
+   "at": [
+    19,
+    14,
+    226
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 13",
+   "at": [
+    -17,
+    16,
+    207
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 14",
+   "at": [
+    21,
+    14,
+    211
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 15",
+   "at": [
+    14,
+    9,
+    280
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 16",
+   "at": [
+    18,
+    17,
+    35
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 17",
+   "at": [
+    -18,
+    7,
+    277
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 18",
+   "at": [
+    21,
+    17,
+    122
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 19",
+   "at": [
+    -14,
+    15,
+    227
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 20",
+   "at": [
+    26,
+    11,
+    200
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 21",
+   "at": [
+    14,
+    16,
+    22
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 22",
+   "at": [
+    -28,
+    10,
+    189
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 23",
+   "at": [
+    -27,
+    13,
+    137
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 24",
+   "at": [
+    27,
+    14,
+    66
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 25",
+   "at": [
+    -26,
+    16,
+    56
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 26",
+   "at": [
+    20,
+    17,
+    163
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 27",
+   "at": [
+    -21,
+    17,
+    114
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 28",
+   "at": [
+    -24,
+    17,
+    105
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 29",
+   "at": [
+    14,
+    17,
+    159
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 30",
+   "at": [
+    16,
+    17,
+    184
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 31",
+   "at": [
+    -21,
+    17,
+    32
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 32",
+   "at": [
+    22,
+    17,
+    116
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 33",
+   "at": [
+    -15,
+    14,
+    241
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 34",
+   "at": [
+    -27,
+    7,
+    223
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 35",
+   "at": [
+    18,
+    17,
+    102
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 36",
+   "at": [
+    14,
+    14,
+    238
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 37",
+   "at": [
+    -15,
+    17,
+    44
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 38",
+   "at": [
+    26,
+    15,
+    59
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 39",
+   "at": [
+    19,
+    17,
+    101
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 40",
+   "at": [
+    -28,
+    13,
+    39
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 41",
+   "at": [
+    -18,
+    6,
+    280
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 42",
+   "at": [
+    -16,
+    17,
+    197
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 43",
+   "at": [
+    14,
+    15,
+    219
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 44",
+   "at": [
+    -18,
+    17,
+    122
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 45",
+   "at": [
+    22,
+    17,
+    89
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 46",
+   "at": [
+    -15,
+    17,
+    156
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 47",
+   "at": [
+    25,
+    10,
+    214
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 48",
+   "at": [
+    21,
+    17,
+    140
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 49",
+   "at": [
+    -26,
+    16,
+    63
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 50",
+   "at": [
+    -18,
+    17,
+    129
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 51",
+   "at": [
+    25,
+    13,
+    150
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 52",
+   "at": [
+    -20,
+    17,
+    73
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 53",
+   "at": [
+    25,
+    15,
+    84
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 54",
+   "at": [
+    -24,
+    16,
+    134
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 55",
+   "at": [
+    -22,
+    17,
+    43
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 56",
+   "at": [
+    -23,
+    10,
+    231
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 57",
+   "at": [
+    -16,
+    17,
+    142
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 58",
+   "at": [
+    -18,
+    17,
+    79
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 59",
+   "at": [
+    15,
+    17,
+    143
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 60",
+   "at": [
+    26,
+    14,
+    72
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 61",
+   "at": [
+    23,
+    15,
+    170
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 62",
+   "at": [
+    17,
+    9,
+    264
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 63",
+   "at": [
+    -15,
+    17,
+    182
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 64",
+   "at": [
+    -28,
+    11,
+    171
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 65",
+   "at": [
+    -24,
+    14,
+    182
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 66",
+   "at": [
+    -21,
+    17,
+    148
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 67",
+   "at": [
+    14,
+    16,
+    202
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 68",
+   "at": [
+    -23,
+    16,
+    163
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 69",
+   "at": [
+    -23,
+    15,
+    193
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 70",
+   "at": [
+    -22,
+    17,
+    67
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  180
+ ]
+}

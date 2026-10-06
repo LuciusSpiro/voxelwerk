@@ -104,9 +104,13 @@ Formen (Koordinaten in Voxeln der Modellstufe; `at` ist bei `box`/`wedge` die Ec
 | `cyl` | `at` = Mittelpunkt der Grundfläche (Halbzahlen erlaubt: `[0, 0, 0]` = Mitte zwischen 4 Voxeln), `r`, `h`, optional `axis` (`y` Standard, `x`, `z`), `r2` (Radius am Ende → Kegel), `hollow` (Wandstärke), `arc` [von, bis] Grad |
 | `ellipsoid` | `at` = Mittelpunkt, `r` (Zahl oder [rx,ry,rz]), optional `half` (`"+y"` = nur obere Hälfte) |
 | `line` | `from`, `to` (Punkte), `r` (Dicke als Radius, 0.5 = ein Voxel) – Kabel, Streben, Speere, Äste |
+| `loft` | Rumpf aus Querschnitten entlang z: `sections` [{ `z`, `w`, `up`, `down` (oder `h`), `x`, `y`, `bevel`, `round` }] – zwischen den z-Werten linear interpoliert. Querschnitt = Rechteck `w` breit von `y-down` bis `y+up`, Mitte `x`; `bevel` = Fase an den Ecken (Voxel), `round` 1 = Ellipse. Für Schiffsrümpfe, Gondeln, Hälse |
 | `group` | `ops`, optional `at` (Verschiebung), `rot` (90er-Schritte um y) mit `pivot` [x,z] |
 | `use` | Teilmodell: `model`, `params`, `at` (wohin der **Anker** des Teilmodells kommt), `rot`, `pivot`, optional `palette`/`colors` |
 | `vox` | `.vox` einsetzen: `file` (relativ zu `assets/`, z. B. `"vox/rom/helm.vox"`), `at`, `remap` { "Paletten-Index": Farbangabe } |
+
+Achtung `mirror` + `repeat` mit Schritt quer zur Spiegelebene: Die Spiegelkopie wird in **dieselbe** Richtung
+weitergeschoben (läuft also nach außen weg). Solche Reihen in eine `group` mit `mirror` packen – dann stimmt es.
 
 Hinweis: Bei kleinen Radien treffen `arc`/`hollow` oft keine Voxelmitte. Für schmale Streifen auf runden
 Körpern lieber eine dünne `box` mit `mode: "paint"` durch den Körper legen.

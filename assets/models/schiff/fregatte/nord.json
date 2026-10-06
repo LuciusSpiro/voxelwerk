@@ -1,0 +1,4685 @@
+{
+ "id": "schiff/fregatte/nord",
+ "name": "Wolfsschiff der Germanen (4. Fassung)",
+ "tier": "architecture",
+ "palette": "nord",
+ "tags": [
+  "schiff",
+  "fregatte",
+  "nord",
+  "rohmodell"
+ ],
+ "footprint": [
+  45,
+  125
+ ],
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Achterschiff",
+   "sections": [
+    {
+     "z": 0,
+     "w": 56,
+     "up": 24,
+     "down": 22,
+     "bevel": 6
+    },
+    {
+     "z": 92,
+     "w": 56,
+     "up": 24,
+     "down": 22,
+     "bevel": 6
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "loft",
+   "name": "Spant 1",
+   "sections": [
+    {
+     "z": 92,
+     "w": 60,
+     "up": 26,
+     "down": 24,
+     "bevel": 7
+    },
+    {
+     "z": 98,
+     "w": 60,
+     "up": 26,
+     "down": 24,
+     "bevel": 7
+    }
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "loft",
+   "name": "Mittschiff",
+   "sections": [
+    {
+     "z": 98,
+     "w": 52,
+     "up": 22,
+     "down": 22,
+     "bevel": 6
+    },
+    {
+     "z": 262,
+     "w": 52,
+     "up": 22,
+     "down": 22,
+     "bevel": 6
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "loft",
+   "name": "Spant 2",
+   "sections": [
+    {
+     "z": 262,
+     "w": 56,
+     "up": 24,
+     "down": 24,
+     "bevel": 7
+    },
+    {
+     "z": 268,
+     "w": 56,
+     "up": 24,
+     "down": 24,
+     "bevel": 7
+    }
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "loft",
+   "name": "Vorschiff",
+   "sections": [
+    {
+     "z": 268,
+     "w": 48,
+     "up": 20,
+     "down": 22,
+     "bevel": 6
+    },
+    {
+     "z": 334,
+     "w": 46,
+     "up": 20,
+     "down": 24,
+     "bevel": 6
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "loft",
+   "name": "Bugblock",
+   "sections": [
+    {
+     "z": 334,
+     "w": 44,
+     "up": 22,
+     "down": 26,
+     "bevel": 6
+    },
+    {
+     "z": 364,
+     "w": 40,
+     "up": 22,
+     "down": 28,
+     "bevel": 6
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "loft",
+   "name": "Bugklinge",
+   "sections": [
+    {
+     "z": 340,
+     "w": 10,
+     "up": 6,
+     "down": 10,
+     "bevel": 2,
+     "y": -22
+    },
+    {
+     "z": 372,
+     "w": 6,
+     "up": 4,
+     "down": 8,
+     "bevel": 1,
+     "y": -34
+    },
+    {
+     "z": 404,
+     "w": 2,
+     "up": 1,
+     "down": 3,
+     "y": -46
+    }
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "loft",
+   "name": "Kielklinge",
+   "sections": [
+    {
+     "z": 120,
+     "w": 6,
+     "up": 0,
+     "down": 16,
+     "bevel": 1,
+     "y": -20
+    },
+    {
+     "z": 300,
+     "w": 6,
+     "up": 0,
+     "down": 12,
+     "bevel": 1,
+     "y": -20
+    }
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Knotenwerk Achtern",
+   "at": [
+    -36,
+    -14,
+    14
+   ],
+   "size": [
+    72,
+    26,
+    66
+   ],
+   "color": {
+    "frame": "metal_light",
+    "fill": {
+     "checker": [
+      "primary",
+      {
+       "shade": "primary",
+       "f": 1.18
+      }
+     ],
+     "period": 1
+    },
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Knotenwerk Mitte",
+   "at": [
+    -36,
+    -16,
+    112
+   ],
+   "size": [
+    72,
+    14,
+    66
+   ],
+   "color": {
+    "frame": "metal_light",
+    "fill": {
+     "checker": [
+      "primary",
+      {
+       "shade": "primary",
+       "f": 1.18
+      }
+     ],
+     "period": 1
+    },
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Knotenwerk Vorn",
+   "at": [
+    -36,
+    -14,
+    276
+   ],
+   "size": [
+    72,
+    26,
+    52
+   ],
+   "color": {
+    "frame": "metal_light",
+    "fill": {
+     "checker": [
+      "primary",
+      {
+       "shade": "primary",
+       "f": 1.18
+      }
+     ],
+     "period": 1
+    },
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Knotenwerk Bug",
+   "at": [
+    -36,
+    -20,
+    338
+   ],
+   "size": [
+    72,
+    34,
+    22
+   ],
+   "color": {
+    "frame": "metal_light",
+    "fill": {
+     "checker": [
+      "primary",
+      {
+       "shade": "primary",
+       "f": 1.18
+      }
+     ],
+     "period": 1
+    },
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Runen Bug",
+   "at": [
+    -36,
+    "-12 + i*8",
+    341
+   ],
+   "size": [
+    72,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.6
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Runen Bug 2",
+   "at": [
+    -36,
+    "-10 + i*8",
+    346
+   ],
+   "size": [
+    72,
+    2,
+    1
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.6
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Runen Bug 3",
+   "at": [
+    -36,
+    "-12 + i*8",
+    351
+   ],
+   "size": [
+    72,
+    3,
+    1
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.6
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Flottentafel",
+   "at": [
+    -36,
+    4,
+    284
+   ],
+   "size": [
+    72,
+    8,
+    40
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal_dark",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Flottenschrift",
+   "at": [
+    -36,
+    6,
+    288
+   ],
+   "size": [
+    72,
+    3,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 8,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Runenband",
+   "at": [
+    -36,
+    14,
+    6
+   ],
+   "size": [
+    72,
+    1,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 40,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Lichtpforten",
+   "at": [
+    -36,
+    2,
+    196
+   ],
+   "size": [
+    72,
+    3,
+    3
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 2.4
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 5,
+    "step": [
+     0,
+     0,
+     9
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Geschützdeck",
+   "at": [
+    -28,
+    -6,
+    120
+   ],
+   "size": [
+    56,
+    1,
+    130
+   ],
+   "color": "metal_dark",
+   "mode": "paint",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     4,
+     0
+    ]
+   }
+  },
+  {
+   "op": "group",
+   "name": "Breitseite",
+   "ops": [
+    {
+     "op": "box",
+     "name": "Breitseite Pforte",
+     "at": [
+      24,
+      -13,
+      123
+     ],
+     "size": [
+      4,
+      3,
+      4
+     ],
+     "color": "dark",
+     "mode": "paint",
+     "repeat": {
+      "count": 10,
+      "step": [
+       0,
+       0,
+       12
+      ]
+     }
+    },
+    {
+     "op": "line",
+     "name": "Breitseite Rohr",
+     "from": [
+      25,
+      -12,
+      124.5
+     ],
+     "to": [
+      34,
+      -12,
+      124.5
+     ],
+     "r": 1,
+     "color": "metal_dark",
+     "repeat": {
+      "count": 10,
+      "step": [
+       0,
+       0,
+       12
+      ]
+     }
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Fensterreihe",
+   "at": [
+    -32,
+    10,
+    100
+   ],
+   "size": [
+    64,
+    1,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.0
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 26,
+    "step": [
+     0,
+     0,
+     6
+    ]
+   }
+  },
+  {
+   "op": "line",
+   "name": "Bugkanone",
+   "from": [
+    -14,
+    -12,
+    360
+   ],
+   "to": [
+    -14,
+    -12,
+    400
+   ],
+   "r": 1.6,
+   "color": "metal_dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "loft",
+   "name": "Wolfsschädel",
+   "sections": [
+    {
+     "z": 354,
+     "w": 20,
+     "up": 14,
+     "down": 6,
+     "bevel": 4,
+     "y": 18
+    },
+    {
+     "z": 370,
+     "w": 18,
+     "up": 13,
+     "down": 5,
+     "bevel": 4,
+     "y": 19
+    },
+    {
+     "z": 380,
+     "w": 13,
+     "up": 9,
+     "down": 4,
+     "bevel": 3,
+     "y": 19
+    }
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "loft",
+   "name": "Schnauze",
+   "sections": [
+    {
+     "z": 377,
+     "w": 12,
+     "up": 5,
+     "down": 3,
+     "bevel": 2,
+     "y": 17
+    },
+    {
+     "z": 396,
+     "w": 8,
+     "up": 4,
+     "down": 2,
+     "bevel": 1,
+     "y": 16
+    }
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "loft",
+   "name": "Unterkiefer",
+   "sections": [
+    {
+     "z": 374,
+     "w": 11,
+     "up": 2,
+     "down": 4,
+     "bevel": 1,
+     "y": 10
+    },
+    {
+     "z": 394,
+     "w": 7,
+     "up": 1,
+     "down": 3,
+     "bevel": 1,
+     "y": 8
+    }
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Rachen",
+   "at": [
+    -5,
+    9,
+    378
+   ],
+   "size": [
+    10,
+    7,
+    16
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 0.8
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Fänge oben",
+   "at": [
+    -5,
+    12,
+    "381 + i*4"
+   ],
+   "size": [
+    1,
+    3,
+    1
+   ],
+   "color": "trim",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Fänge unten",
+   "at": [
+    -4,
+    9,
+    "380 + i*4"
+   ],
+   "size": [
+    1,
+    3,
+    1
+   ],
+   "color": "trim",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Nase",
+   "at": [
+    -2,
+    20,
+    394
+   ],
+   "size": [
+    4,
+    2,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Augen",
+   "at": [
+    6,
+    24,
+    376
+   ],
+   "size": [
+    2,
+    2,
+    3
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 3.0
+   },
+   "jitter": false,
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Brauenwulst",
+   "at": [
+    4,
+    26,
+    373
+   ],
+   "size": [
+    6,
+    2,
+    6
+   ],
+   "color": "metal",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Ohr",
+   "from": [
+    7,
+    30,
+    364
+   ],
+   "to": [
+    10,
+    42,
+    356
+   ],
+   "r": 2.2,
+   "color": "metal_light",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Nackenfell 1",
+   "from": [
+    9,
+    26,
+    358
+   ],
+   "to": [
+    16,
+    30,
+    346
+   ],
+   "r": 1.8,
+   "color": "metal_light",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Nackenfell 2",
+   "from": [
+    9,
+    21,
+    358
+   ],
+   "to": [
+    17,
+    24,
+    344
+   ],
+   "r": 1.6,
+   "color": "metal",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Nackenfell 3",
+   "from": [
+    9,
+    16,
+    358
+   ],
+   "to": [
+    18,
+    18,
+    342
+   ],
+   "r": 1.4,
+   "color": "metal_light",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Turmstufe 1",
+   "at": [
+    -18,
+    22,
+    146
+   ],
+   "size": [
+    36,
+    18,
+    56
+   ],
+   "color": {
+    "frame": "metal_dark",
+    "fill": "secondary",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turmstufe 2",
+   "at": [
+    -13,
+    40,
+    152
+   ],
+   "size": [
+    26,
+    18,
+    42
+   ],
+   "color": {
+    "frame": "metal_dark",
+    "fill": "secondary",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turmstufe 3",
+   "at": [
+    -9,
+    58,
+    158
+   ],
+   "size": [
+    18,
+    14,
+    28
+   ],
+   "color": {
+    "frame": "metal_dark",
+    "fill": "primary",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turmkrone",
+   "at": [
+    -6,
+    72,
+    162
+   ],
+   "size": [
+    12,
+    8,
+    18
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turmfenster",
+   "at": [
+    -14,
+    52,
+    152
+   ],
+   "size": [
+    28,
+    2,
+    42
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Turmtafel",
+   "at": [
+    -19,
+    30,
+    160
+   ],
+   "size": [
+    38,
+    6,
+    30
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal_dark",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Turmtafelschrift",
+   "at": [
+    -19,
+    32,
+    164
+   ],
+   "size": [
+    38,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 6,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "line",
+   "name": "Mast",
+   "from": [
+    0,
+    80,
+    170
+   ],
+   "to": [
+    0,
+    104,
+    170
+   ],
+   "r": 1.2,
+   "color": "metal"
+  },
+  {
+   "op": "line",
+   "name": "Antenne",
+   "from": [
+    5,
+    80,
+    164
+   ],
+   "to": [
+    6,
+    94,
+    160
+   ],
+   "r": 0.7,
+   "color": "metal_light"
+  },
+  {
+   "op": "line",
+   "name": "Valknut 1 a",
+   "from": [
+    -8,
+    44,
+    195
+   ],
+   "to": [
+    2,
+    44,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Valknut 1 b",
+   "from": [
+    2,
+    44,
+    195
+   ],
+   "to": [
+    -3,
+    53,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Valknut 1 c",
+   "from": [
+    -3,
+    53,
+    195
+   ],
+   "to": [
+    -8,
+    44,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Valknut 2 a",
+   "from": [
+    -2,
+    44,
+    195
+   ],
+   "to": [
+    8,
+    44,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Valknut 2 b",
+   "from": [
+    8,
+    44,
+    195
+   ],
+   "to": [
+    3,
+    53,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Valknut 2 c",
+   "from": [
+    3,
+    53,
+    195
+   ],
+   "to": [
+    -2,
+    44,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Valknut 3 a",
+   "from": [
+    -5,
+    49,
+    195
+   ],
+   "to": [
+    5,
+    49,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Valknut 3 b",
+   "from": [
+    5,
+    49,
+    195
+   ],
+   "to": [
+    0,
+    58,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "line",
+   "name": "Valknut 3 c",
+   "from": [
+    0,
+    58,
+    195
+   ],
+   "to": [
+    -5,
+    49,
+    195
+   ],
+   "r": 0.6,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Turm 1 Sockel",
+   "at": [
+    0,
+    40,
+    206
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 1 Gehäuse",
+   "at": [
+    -5,
+    42,
+    201
+   ],
+   "size": [
+    10,
+    4,
+    11
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm 1 Blende",
+   "at": [
+    -4,
+    42,
+    211
+   ],
+   "size": [
+    8,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 1 Rohr L",
+   "from": [
+    -2,
+    44,
+    212
+   ],
+   "to": [
+    -2,
+    44,
+    236
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 1 Rohr R",
+   "from": [
+    2,
+    44,
+    212
+   ],
+   "to": [
+    2,
+    44,
+    236
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 1 Mündung",
+   "at": [
+    -3,
+    43,
+    235
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm 2 Sockel",
+   "at": [
+    0,
+    22,
+    222
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 2 Gehäuse",
+   "at": [
+    -5,
+    24,
+    217
+   ],
+   "size": [
+    10,
+    4,
+    11
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm 2 Blende",
+   "at": [
+    -4,
+    24,
+    227
+   ],
+   "size": [
+    8,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 2 Rohr L",
+   "from": [
+    -2,
+    26,
+    228
+   ],
+   "to": [
+    -2,
+    26,
+    252
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 2 Rohr R",
+   "from": [
+    2,
+    26,
+    228
+   ],
+   "to": [
+    2,
+    26,
+    252
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 2 Mündung",
+   "at": [
+    -3,
+    25,
+    251
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm 3 Sockel",
+   "at": [
+    0,
+    22,
+    250
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 3 Gehäuse",
+   "at": [
+    -5,
+    24,
+    245
+   ],
+   "size": [
+    10,
+    4,
+    11
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm 3 Blende",
+   "at": [
+    -4,
+    24,
+    255
+   ],
+   "size": [
+    8,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 3 Rohr L",
+   "from": [
+    -2,
+    26,
+    256
+   ],
+   "to": [
+    -2,
+    26,
+    280
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 3 Rohr R",
+   "from": [
+    2,
+    26,
+    256
+   ],
+   "to": [
+    2,
+    26,
+    280
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 3 Mündung",
+   "at": [
+    -3,
+    25,
+    279
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm 4 Sockel",
+   "at": [
+    0,
+    20,
+    290
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 4 Gehäuse",
+   "at": [
+    -5,
+    22,
+    285
+   ],
+   "size": [
+    10,
+    4,
+    11
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm 4 Blende",
+   "at": [
+    -4,
+    22,
+    295
+   ],
+   "size": [
+    8,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 4 Rohr L",
+   "from": [
+    -2,
+    24,
+    296
+   ],
+   "to": [
+    -2,
+    24,
+    320
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 4 Rohr R",
+   "from": [
+    2,
+    24,
+    296
+   ],
+   "to": [
+    2,
+    24,
+    320
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 4 Mündung",
+   "at": [
+    -3,
+    23,
+    319
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm 5 Sockel",
+   "at": [
+    0,
+    20,
+    318
+   ],
+   "r": 5,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 5 Gehäuse",
+   "at": [
+    -4,
+    22,
+    314
+   ],
+   "size": [
+    8,
+    4,
+    9
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm 5 Blende",
+   "at": [
+    -3,
+    22,
+    322
+   ],
+   "size": [
+    6,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 5 Rohr L",
+   "from": [
+    -2,
+    24,
+    323
+   ],
+   "to": [
+    -2,
+    24,
+    343
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 5 Rohr R",
+   "from": [
+    2,
+    24,
+    323
+   ],
+   "to": [
+    2,
+    24,
+    343
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 5 Mündung",
+   "at": [
+    -3,
+    23,
+    342
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm 6 Sockel",
+   "at": [
+    0,
+    22,
+    120
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 6 Gehäuse",
+   "at": [
+    -5,
+    24,
+    115
+   ],
+   "size": [
+    10,
+    4,
+    11
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm 6 Blende",
+   "at": [
+    -4,
+    24,
+    125
+   ],
+   "size": [
+    8,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 6 Rohr L",
+   "from": [
+    -2,
+    26,
+    126
+   ],
+   "to": [
+    -2,
+    26,
+    150
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 6 Rohr R",
+   "from": [
+    2,
+    26,
+    126
+   ],
+   "to": [
+    2,
+    26,
+    150
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 6 Mündung",
+   "at": [
+    -3,
+    25,
+    149
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm 7 Sockel",
+   "at": [
+    0,
+    22,
+    96
+   ],
+   "r": 5,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 7 Gehäuse",
+   "at": [
+    -4,
+    24,
+    92
+   ],
+   "size": [
+    8,
+    4,
+    9
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm 7 Blende",
+   "at": [
+    -3,
+    24,
+    100
+   ],
+   "size": [
+    6,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 7 Rohr L",
+   "from": [
+    -2,
+    26,
+    101
+   ],
+   "to": [
+    -2,
+    26,
+    121
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 7 Rohr R",
+   "from": [
+    2,
+    26,
+    101
+   ],
+   "to": [
+    2,
+    26,
+    121
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 7 Mündung",
+   "at": [
+    -3,
+    25,
+    120
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke L1 Sockel",
+   "at": [
+    -20,
+    22,
+    130
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L1 Gehäuse",
+   "at": [
+    -23,
+    24,
+    127
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L1 Blende",
+   "at": [
+    -22,
+    24,
+    133
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L1 Rohr L",
+   "from": [
+    -22,
+    26,
+    134
+   ],
+   "to": [
+    -22,
+    26,
+    150
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L1 Rohr R",
+   "from": [
+    -18,
+    26,
+    134
+   ],
+   "to": [
+    -18,
+    26,
+    150
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L1 Mündung",
+   "at": [
+    -23,
+    25,
+    149
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke R1 Sockel",
+   "at": [
+    20,
+    22,
+    130
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R1 Gehäuse",
+   "at": [
+    17,
+    24,
+    127
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R1 Blende",
+   "at": [
+    18,
+    24,
+    133
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R1 Rohr L",
+   "from": [
+    18,
+    26,
+    134
+   ],
+   "to": [
+    18,
+    26,
+    150
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R1 Rohr R",
+   "from": [
+    22,
+    26,
+    134
+   ],
+   "to": [
+    22,
+    26,
+    150
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R1 Mündung",
+   "at": [
+    17,
+    25,
+    149
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke L2 Sockel",
+   "at": [
+    -20,
+    22,
+    230
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L2 Gehäuse",
+   "at": [
+    -23,
+    24,
+    227
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L2 Blende",
+   "at": [
+    -22,
+    24,
+    233
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L2 Rohr L",
+   "from": [
+    -22,
+    26,
+    234
+   ],
+   "to": [
+    -22,
+    26,
+    250
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L2 Rohr R",
+   "from": [
+    -18,
+    26,
+    234
+   ],
+   "to": [
+    -18,
+    26,
+    250
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L2 Mündung",
+   "at": [
+    -23,
+    25,
+    249
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke R2 Sockel",
+   "at": [
+    20,
+    22,
+    230
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R2 Gehäuse",
+   "at": [
+    17,
+    24,
+    227
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R2 Blende",
+   "at": [
+    18,
+    24,
+    233
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R2 Rohr L",
+   "from": [
+    18,
+    26,
+    234
+   ],
+   "to": [
+    18,
+    26,
+    250
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R2 Rohr R",
+   "from": [
+    22,
+    26,
+    234
+   ],
+   "to": [
+    22,
+    26,
+    250
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R2 Mündung",
+   "at": [
+    17,
+    25,
+    249
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "group",
+   "name": "Tragfläche",
+   "ops": [
+    {
+     "op": "box",
+     "name": "Fläche 1",
+     "at": [
+      24,
+      -2,
+      20
+     ],
+     "size": [
+      2,
+      10,
+      180
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 1 Vorderkante",
+     "at": [
+      24,
+      -2,
+      196
+     ],
+     "size": [
+      2,
+      10,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 1 Hinterkante",
+     "at": [
+      24,
+      -2,
+      20
+     ],
+     "size": [
+      2,
+      10,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 2",
+     "at": [
+      26,
+      -3,
+      21
+     ],
+     "size": [
+      2,
+      10,
+      177
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 2 Vorderkante",
+     "at": [
+      26,
+      -3,
+      194
+     ],
+     "size": [
+      2,
+      10,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 2 Hinterkante",
+     "at": [
+      26,
+      -3,
+      21
+     ],
+     "size": [
+      2,
+      10,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 3",
+     "at": [
+      28,
+      -4,
+      22
+     ],
+     "size": [
+      2,
+      10,
+      174
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 3 Vorderkante",
+     "at": [
+      28,
+      -4,
+      192
+     ],
+     "size": [
+      2,
+      10,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 3 Hinterkante",
+     "at": [
+      28,
+      -4,
+      22
+     ],
+     "size": [
+      2,
+      10,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 4",
+     "at": [
+      30,
+      -5,
+      23
+     ],
+     "size": [
+      2,
+      10,
+      171
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 4 Vorderkante",
+     "at": [
+      30,
+      -5,
+      190
+     ],
+     "size": [
+      2,
+      10,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 4 Hinterkante",
+     "at": [
+      30,
+      -5,
+      23
+     ],
+     "size": [
+      2,
+      10,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 5",
+     "at": [
+      32,
+      -6,
+      24
+     ],
+     "size": [
+      2,
+      10,
+      168
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 5 Vorderkante",
+     "at": [
+      32,
+      -6,
+      188
+     ],
+     "size": [
+      2,
+      10,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 5 Hinterkante",
+     "at": [
+      32,
+      -6,
+      24
+     ],
+     "size": [
+      2,
+      10,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 6",
+     "at": [
+      34,
+      -6,
+      25
+     ],
+     "size": [
+      2,
+      10,
+      165
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 6 Vorderkante",
+     "at": [
+      34,
+      -6,
+      186
+     ],
+     "size": [
+      2,
+      10,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 6 Hinterkante",
+     "at": [
+      34,
+      -6,
+      25
+     ],
+     "size": [
+      2,
+      10,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 7",
+     "at": [
+      36,
+      -7,
+      26
+     ],
+     "size": [
+      2,
+      10,
+      162
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 7 Vorderkante",
+     "at": [
+      36,
+      -7,
+      184
+     ],
+     "size": [
+      2,
+      10,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 7 Hinterkante",
+     "at": [
+      36,
+      -7,
+      26
+     ],
+     "size": [
+      2,
+      10,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 8",
+     "at": [
+      38,
+      -8,
+      27
+     ],
+     "size": [
+      2,
+      10,
+      159
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 8 Vorderkante",
+     "at": [
+      38,
+      -8,
+      182
+     ],
+     "size": [
+      2,
+      10,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 8 Hinterkante",
+     "at": [
+      38,
+      -8,
+      27
+     ],
+     "size": [
+      2,
+      10,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 9",
+     "at": [
+      40,
+      -9,
+      28
+     ],
+     "size": [
+      2,
+      9,
+      156
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 9 Vorderkante",
+     "at": [
+      40,
+      -9,
+      180
+     ],
+     "size": [
+      2,
+      9,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 9 Hinterkante",
+     "at": [
+      40,
+      -9,
+      28
+     ],
+     "size": [
+      2,
+      9,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 10",
+     "at": [
+      42,
+      -10,
+      29
+     ],
+     "size": [
+      2,
+      9,
+      153
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 10 Vorderkante",
+     "at": [
+      42,
+      -10,
+      178
+     ],
+     "size": [
+      2,
+      9,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 10 Hinterkante",
+     "at": [
+      42,
+      -10,
+      29
+     ],
+     "size": [
+      2,
+      9,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 11",
+     "at": [
+      44,
+      -11,
+      30
+     ],
+     "size": [
+      2,
+      9,
+      150
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 11 Vorderkante",
+     "at": [
+      44,
+      -11,
+      176
+     ],
+     "size": [
+      2,
+      9,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 11 Hinterkante",
+     "at": [
+      44,
+      -11,
+      30
+     ],
+     "size": [
+      2,
+      9,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 12",
+     "at": [
+      46,
+      -12,
+      31
+     ],
+     "size": [
+      2,
+      9,
+      147
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 12 Vorderkante",
+     "at": [
+      46,
+      -12,
+      174
+     ],
+     "size": [
+      2,
+      9,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 12 Hinterkante",
+     "at": [
+      46,
+      -12,
+      31
+     ],
+     "size": [
+      2,
+      9,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 13",
+     "at": [
+      48,
+      -13,
+      32
+     ],
+     "size": [
+      2,
+      9,
+      144
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 13 Vorderkante",
+     "at": [
+      48,
+      -13,
+      172
+     ],
+     "size": [
+      2,
+      9,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 13 Hinterkante",
+     "at": [
+      48,
+      -13,
+      32
+     ],
+     "size": [
+      2,
+      9,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 14",
+     "at": [
+      50,
+      -14,
+      33
+     ],
+     "size": [
+      2,
+      9,
+      141
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 14 Vorderkante",
+     "at": [
+      50,
+      -14,
+      170
+     ],
+     "size": [
+      2,
+      9,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 14 Hinterkante",
+     "at": [
+      50,
+      -14,
+      33
+     ],
+     "size": [
+      2,
+      9,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 15",
+     "at": [
+      52,
+      -15,
+      34
+     ],
+     "size": [
+      2,
+      9,
+      138
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 15 Vorderkante",
+     "at": [
+      52,
+      -15,
+      168
+     ],
+     "size": [
+      2,
+      9,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 15 Hinterkante",
+     "at": [
+      52,
+      -15,
+      34
+     ],
+     "size": [
+      2,
+      9,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 16",
+     "at": [
+      54,
+      -16,
+      35
+     ],
+     "size": [
+      2,
+      9,
+      135
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 16 Vorderkante",
+     "at": [
+      54,
+      -16,
+      166
+     ],
+     "size": [
+      2,
+      9,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 16 Hinterkante",
+     "at": [
+      54,
+      -16,
+      35
+     ],
+     "size": [
+      2,
+      9,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 17",
+     "at": [
+      56,
+      -16,
+      36
+     ],
+     "size": [
+      2,
+      8,
+      132
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 17 Vorderkante",
+     "at": [
+      56,
+      -16,
+      164
+     ],
+     "size": [
+      2,
+      8,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 17 Hinterkante",
+     "at": [
+      56,
+      -16,
+      36
+     ],
+     "size": [
+      2,
+      8,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 18",
+     "at": [
+      58,
+      -17,
+      37
+     ],
+     "size": [
+      2,
+      8,
+      129
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 18 Vorderkante",
+     "at": [
+      58,
+      -17,
+      162
+     ],
+     "size": [
+      2,
+      8,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 18 Hinterkante",
+     "at": [
+      58,
+      -17,
+      37
+     ],
+     "size": [
+      2,
+      8,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 19",
+     "at": [
+      60,
+      -18,
+      38
+     ],
+     "size": [
+      2,
+      8,
+      126
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 19 Vorderkante",
+     "at": [
+      60,
+      -18,
+      160
+     ],
+     "size": [
+      2,
+      8,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 19 Hinterkante",
+     "at": [
+      60,
+      -18,
+      38
+     ],
+     "size": [
+      2,
+      8,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 20",
+     "at": [
+      62,
+      -19,
+      39
+     ],
+     "size": [
+      2,
+      8,
+      123
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 20 Vorderkante",
+     "at": [
+      62,
+      -19,
+      158
+     ],
+     "size": [
+      2,
+      8,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 20 Hinterkante",
+     "at": [
+      62,
+      -19,
+      39
+     ],
+     "size": [
+      2,
+      8,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 21",
+     "at": [
+      64,
+      -20,
+      40
+     ],
+     "size": [
+      2,
+      8,
+      120
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 21 Vorderkante",
+     "at": [
+      64,
+      -20,
+      156
+     ],
+     "size": [
+      2,
+      8,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 21 Hinterkante",
+     "at": [
+      64,
+      -20,
+      40
+     ],
+     "size": [
+      2,
+      8,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 22",
+     "at": [
+      66,
+      -21,
+      41
+     ],
+     "size": [
+      2,
+      8,
+      117
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 22 Vorderkante",
+     "at": [
+      66,
+      -21,
+      154
+     ],
+     "size": [
+      2,
+      8,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 22 Hinterkante",
+     "at": [
+      66,
+      -21,
+      41
+     ],
+     "size": [
+      2,
+      8,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 23",
+     "at": [
+      68,
+      -22,
+      42
+     ],
+     "size": [
+      2,
+      8,
+      114
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 23 Vorderkante",
+     "at": [
+      68,
+      -22,
+      152
+     ],
+     "size": [
+      2,
+      8,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 23 Hinterkante",
+     "at": [
+      68,
+      -22,
+      42
+     ],
+     "size": [
+      2,
+      8,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 24",
+     "at": [
+      70,
+      -23,
+      43
+     ],
+     "size": [
+      2,
+      8,
+      111
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 24 Vorderkante",
+     "at": [
+      70,
+      -23,
+      150
+     ],
+     "size": [
+      2,
+      8,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 24 Hinterkante",
+     "at": [
+      70,
+      -23,
+      43
+     ],
+     "size": [
+      2,
+      8,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 25",
+     "at": [
+      72,
+      -24,
+      44
+     ],
+     "size": [
+      2,
+      7,
+      108
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 25 Vorderkante",
+     "at": [
+      72,
+      -24,
+      148
+     ],
+     "size": [
+      2,
+      7,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 25 Hinterkante",
+     "at": [
+      72,
+      -24,
+      44
+     ],
+     "size": [
+      2,
+      7,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 26",
+     "at": [
+      74,
+      -24,
+      45
+     ],
+     "size": [
+      2,
+      7,
+      105
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 26 Vorderkante",
+     "at": [
+      74,
+      -24,
+      146
+     ],
+     "size": [
+      2,
+      7,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 26 Hinterkante",
+     "at": [
+      74,
+      -24,
+      45
+     ],
+     "size": [
+      2,
+      7,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 27",
+     "at": [
+      76,
+      -25,
+      46
+     ],
+     "size": [
+      2,
+      7,
+      102
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 27 Vorderkante",
+     "at": [
+      76,
+      -25,
+      144
+     ],
+     "size": [
+      2,
+      7,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 27 Hinterkante",
+     "at": [
+      76,
+      -25,
+      46
+     ],
+     "size": [
+      2,
+      7,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 28",
+     "at": [
+      78,
+      -26,
+      47
+     ],
+     "size": [
+      2,
+      7,
+      99
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 28 Vorderkante",
+     "at": [
+      78,
+      -26,
+      142
+     ],
+     "size": [
+      2,
+      7,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 28 Hinterkante",
+     "at": [
+      78,
+      -26,
+      47
+     ],
+     "size": [
+      2,
+      7,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 29",
+     "at": [
+      80,
+      -27,
+      48
+     ],
+     "size": [
+      2,
+      7,
+      96
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 29 Vorderkante",
+     "at": [
+      80,
+      -27,
+      140
+     ],
+     "size": [
+      2,
+      7,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 29 Hinterkante",
+     "at": [
+      80,
+      -27,
+      48
+     ],
+     "size": [
+      2,
+      7,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 30",
+     "at": [
+      82,
+      -28,
+      49
+     ],
+     "size": [
+      2,
+      7,
+      93
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 30 Vorderkante",
+     "at": [
+      82,
+      -28,
+      138
+     ],
+     "size": [
+      2,
+      7,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 30 Hinterkante",
+     "at": [
+      82,
+      -28,
+      49
+     ],
+     "size": [
+      2,
+      7,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 31",
+     "at": [
+      84,
+      -29,
+      50
+     ],
+     "size": [
+      2,
+      7,
+      90
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 31 Vorderkante",
+     "at": [
+      84,
+      -29,
+      136
+     ],
+     "size": [
+      2,
+      7,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 31 Hinterkante",
+     "at": [
+      84,
+      -29,
+      50
+     ],
+     "size": [
+      2,
+      7,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 32",
+     "at": [
+      86,
+      -30,
+      51
+     ],
+     "size": [
+      2,
+      7,
+      87
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 32 Vorderkante",
+     "at": [
+      86,
+      -30,
+      134
+     ],
+     "size": [
+      2,
+      7,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 32 Hinterkante",
+     "at": [
+      86,
+      -30,
+      51
+     ],
+     "size": [
+      2,
+      7,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 33",
+     "at": [
+      88,
+      -31,
+      52
+     ],
+     "size": [
+      2,
+      6,
+      84
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 33 Vorderkante",
+     "at": [
+      88,
+      -31,
+      132
+     ],
+     "size": [
+      2,
+      6,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 33 Hinterkante",
+     "at": [
+      88,
+      -31,
+      52
+     ],
+     "size": [
+      2,
+      6,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 34",
+     "at": [
+      90,
+      -32,
+      53
+     ],
+     "size": [
+      2,
+      6,
+      81
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 34 Vorderkante",
+     "at": [
+      90,
+      -32,
+      130
+     ],
+     "size": [
+      2,
+      6,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 34 Hinterkante",
+     "at": [
+      90,
+      -32,
+      53
+     ],
+     "size": [
+      2,
+      6,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 35",
+     "at": [
+      92,
+      -33,
+      54
+     ],
+     "size": [
+      2,
+      6,
+      78
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 35 Vorderkante",
+     "at": [
+      92,
+      -33,
+      128
+     ],
+     "size": [
+      2,
+      6,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 35 Hinterkante",
+     "at": [
+      92,
+      -33,
+      54
+     ],
+     "size": [
+      2,
+      6,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 36",
+     "at": [
+      94,
+      -34,
+      55
+     ],
+     "size": [
+      2,
+      6,
+      75
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 36 Vorderkante",
+     "at": [
+      94,
+      -34,
+      126
+     ],
+     "size": [
+      2,
+      6,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 36 Hinterkante",
+     "at": [
+      94,
+      -34,
+      55
+     ],
+     "size": [
+      2,
+      6,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 37",
+     "at": [
+      96,
+      -34,
+      56
+     ],
+     "size": [
+      2,
+      6,
+      72
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 37 Vorderkante",
+     "at": [
+      96,
+      -34,
+      124
+     ],
+     "size": [
+      2,
+      6,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 37 Hinterkante",
+     "at": [
+      96,
+      -34,
+      56
+     ],
+     "size": [
+      2,
+      6,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 38",
+     "at": [
+      98,
+      -35,
+      57
+     ],
+     "size": [
+      2,
+      6,
+      69
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 38 Vorderkante",
+     "at": [
+      98,
+      -35,
+      122
+     ],
+     "size": [
+      2,
+      6,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 38 Hinterkante",
+     "at": [
+      98,
+      -35,
+      57
+     ],
+     "size": [
+      2,
+      6,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 39",
+     "at": [
+      100,
+      -36,
+      58
+     ],
+     "size": [
+      2,
+      6,
+      66
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 39 Vorderkante",
+     "at": [
+      100,
+      -36,
+      120
+     ],
+     "size": [
+      2,
+      6,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 39 Hinterkante",
+     "at": [
+      100,
+      -36,
+      58
+     ],
+     "size": [
+      2,
+      6,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 40",
+     "at": [
+      102,
+      -37,
+      59
+     ],
+     "size": [
+      2,
+      6,
+      63
+     ],
+     "color": "primary"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 40 Vorderkante",
+     "at": [
+      102,
+      -37,
+      118
+     ],
+     "size": [
+      2,
+      6,
+      4
+     ],
+     "color": "metal_light"
+    },
+    {
+     "op": "box",
+     "name": "Fläche 40 Hinterkante",
+     "at": [
+      102,
+      -37,
+      59
+     ],
+     "size": [
+      2,
+      6,
+      3
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "line",
+     "name": "Holm",
+     "from": [
+      26,
+      9,
+      120
+     ],
+     "to": [
+      100,
+      -26,
+      90
+     ],
+     "r": 2.2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Holm 2",
+     "from": [
+      26,
+      7,
+      170
+     ],
+     "to": [
+      100,
+      -28,
+      120
+     ],
+     "r": 1.6,
+     "color": "secondary"
+    },
+    {
+     "op": "box",
+     "name": "Plattenfugen",
+     "at": [
+      24,
+      -50,
+      "50 + i*22"
+     ],
+     "size": [
+      82,
+      60,
+      1
+     ],
+     "color": "metal_dark",
+     "mode": "paint",
+     "repeat": {
+      "count": 7,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "box",
+     "name": "Runenband Fläche",
+     "at": [
+      24,
+      -50,
+      160
+     ],
+     "size": [
+      80,
+      60,
+      2
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 1.4
+     },
+     "mode": "paint",
+     "jitter": false
+    },
+    {
+     "op": "box",
+     "name": "Fläche Rotfeld",
+     "at": [
+      70,
+      -50,
+      96
+     ],
+     "size": [
+      22,
+      60,
+      20
+     ],
+     "color": "cloth",
+     "mode": "paint"
+    },
+    {
+     "op": "cyl",
+     "name": "Spitzengondel",
+     "at": [
+      106,
+      -32,
+      30
+     ],
+     "r": 8,
+     "h": 130,
+     "color": "metal",
+     "axis": "z"
+    },
+    {
+     "op": "cyl",
+     "name": "Spitzengondel Ringe",
+     "at": [
+      106,
+      -32,
+      50
+     ],
+     "r": 9,
+     "h": 3,
+     "color": "metal_dark",
+     "axis": "z",
+     "repeat": {
+      "count": 5,
+      "step": [
+       0,
+       0,
+       22
+      ]
+     }
+    },
+    {
+     "op": "cyl",
+     "name": "Spitzengondel Bug",
+     "at": [
+      106,
+      -32,
+      160
+     ],
+     "r": 8,
+     "h": 14,
+     "color": "metal_dark",
+     "axis": "z",
+     "r2": 4
+    },
+    {
+     "op": "line",
+     "name": "Disruptor",
+     "from": [
+      106,
+      -32,
+      172
+     ],
+     "to": [
+      106,
+      -32,
+      210
+     ],
+     "r": 2.4,
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Disruptor Mündung",
+     "at": [
+      103,
+      -35,
+      208
+     ],
+     "size": [
+      6,
+      6,
+      4
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 2.6
+     },
+     "jitter": false
+    },
+    {
+     "op": "cyl",
+     "name": "Spitzengondel Glut",
+     "at": [
+      106,
+      -32,
+      29
+     ],
+     "r": 5,
+     "h": 1,
+     "color": {
+      "role": "glow2",
+      "emit": 2.6
+     },
+     "axis": "z",
+     "jitter": false
+    },
+    {
+     "op": "box",
+     "name": "Pylon",
+     "at": [
+      62,
+      -26,
+      120
+     ],
+     "size": [
+      6,
+      8,
+      30
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "cyl",
+     "name": "Unterflügelkanone",
+     "at": [
+      65,
+      -30,
+      100
+     ],
+     "r": 4,
+     "h": 60,
+     "color": "metal",
+     "axis": "z"
+    },
+    {
+     "op": "line",
+     "name": "Unterflügelrohr",
+     "from": [
+      65,
+      -30,
+      160
+     ],
+     "to": [
+      65,
+      -30,
+      190
+     ],
+     "r": 1.6,
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Pylon 2",
+     "at": [
+      86,
+      -36,
+      90
+     ],
+     "size": [
+      6,
+      8,
+      26
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "line",
+     "name": "Torpedorohr",
+     "from": [
+      89,
+      -40,
+      80
+     ],
+     "to": [
+      89,
+      -40,
+      150
+     ],
+     "r": 2.5,
+     "color": "metal"
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Antriebsjoch",
+   "at": [
+    -30,
+    -24,
+    -12
+   ],
+   "size": [
+    60,
+    48,
+    12
+   ],
+   "color": {
+    "frame": "metal_light",
+    "fill": "metal_dark",
+    "axes": "xy"
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk Gehäuse",
+   "at": [
+    0,
+    4,
+    -56
+   ],
+   "r": 13,
+   "h": 56,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk Glocke",
+   "at": [
+    0,
+    4,
+    -60
+   ],
+   "r": 15,
+   "h": 5,
+   "color": "metal_light",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk Glut",
+   "at": [
+    0,
+    4,
+    -58
+   ],
+   "r": 12,
+   "h": 2,
+   "color": {
+    "role": "glow2",
+    "emit": 2.8
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk Kern",
+   "at": [
+    0,
+    4,
+    -59
+   ],
+   "r": 6,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk Ring 1",
+   "at": [
+    0,
+    4,
+    -50
+   ],
+   "r": 14,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk Ring 2",
+   "at": [
+    0,
+    4,
+    -36
+   ],
+   "r": 14,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk Ring 3",
+   "at": [
+    0,
+    4,
+    -21
+   ],
+   "r": 14,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk Ring 4",
+   "at": [
+    0,
+    4,
+    -6
+   ],
+   "r": 14,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk L Gehäuse",
+   "at": [
+    -20,
+    -10,
+    -44
+   ],
+   "r": 8,
+   "h": 44,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk L Glocke",
+   "at": [
+    -20,
+    -10,
+    -48
+   ],
+   "r": 10,
+   "h": 5,
+   "color": "metal_light",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk L Glut",
+   "at": [
+    -20,
+    -10,
+    -46
+   ],
+   "r": 7,
+   "h": 2,
+   "color": {
+    "role": "glow2",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk L Kern",
+   "at": [
+    -20,
+    -10,
+    -47
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk L Ring 1",
+   "at": [
+    -20,
+    -10,
+    -38
+   ],
+   "r": 9,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk L Ring 2",
+   "at": [
+    -20,
+    -10,
+    -22
+   ],
+   "r": 9,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk L Ring 3",
+   "at": [
+    -20,
+    -10,
+    -6
+   ],
+   "r": 9,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk R Gehäuse",
+   "at": [
+    20,
+    -10,
+    -44
+   ],
+   "r": 8,
+   "h": 44,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk R Glocke",
+   "at": [
+    20,
+    -10,
+    -48
+   ],
+   "r": 10,
+   "h": 5,
+   "color": "metal_light",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk R Glut",
+   "at": [
+    20,
+    -10,
+    -46
+   ],
+   "r": 7,
+   "h": 2,
+   "color": {
+    "role": "glow2",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk R Kern",
+   "at": [
+    20,
+    -10,
+    -47
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk R Ring 1",
+   "at": [
+    20,
+    -10,
+    -38
+   ],
+   "r": 9,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk R Ring 2",
+   "at": [
+    20,
+    -10,
+    -22
+   ],
+   "r": 9,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk R Ring 3",
+   "at": [
+    20,
+    -10,
+    -6
+   ],
+   "r": 9,
+   "h": 3,
+   "color": "metal_light",
+   "axis": "z"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  180
+ ]
+}

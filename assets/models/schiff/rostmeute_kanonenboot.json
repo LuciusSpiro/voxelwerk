@@ -1,0 +1,54 @@
+{
+  "id": "schiff/rostmeute_kanonenboot",
+  "name": "Rostmeute-Kanonenboot (Rohmodell)",
+  "tier": "architecture",
+  "palette": "rostmeute",
+  "tags": ["schiff", "piraten", "gegner", "rohmodell"],
+  "footprint": [26, 48],
+  "ops": [
+    { "op": "box", "name": "Rumpf", "at": [2, 8, 16], "size": [60, 24, 144], "color": { "noise": ["primary", { "shade": "primary", "f": 0.88 }], "weights": [4, 1], "cell": 4 } },
+    { "op": "box", "name": "Rumpf Flanken", "at": [0, 11, 16], "size": [64, 18, 144], "color": "primary" },
+    { "op": "box", "name": "Bugstufen", "repeat": { "count": 6, "step": [4, 0, 4] }, "at": [0, 10, 160], "size": ["64 - i*8", "22 - i*2", 4], "color": "primary" },
+    { "op": "box", "name": "Rumpf oben hell", "at": [0, 29, 16], "size": [64, 3, 170], "color": { "shade": "primary", "f": 1.15 }, "mode": "paint" },
+    { "op": "box", "name": "Rumpf unten dunkel", "at": [0, 8, 16], "size": [64, 5, 170], "color": "leather", "mode": "paint" },
+    { "op": "cyl", "name": "Rammsporn", "axis": "z", "at": [32, 19, 184], "r": 8, "r2": 1, "h": 18, "color": "trim" },
+    { "op": "box", "name": "Rammsporn Schatten", "at": [20, 11, 184], "size": [24, 7, 18], "color": "metal_light", "mode": "paint" },
+
+    { "op": "box", "name": "Panzerplatten", "repeat": { "count": 3, "step": [0, 0, 40] }, "at": [6, 31, 30], "size": [20, 1, 22], "color": { "shade": "primary", "f": 0.75 }, "mode": "paint" },
+    { "op": "box", "name": "Flicken stahlblau", "at": [40, 31, 128], "size": [14, 1, 14], "color": "secondary", "mode": "paint" },
+    { "op": "box", "name": "Flicken Nieten", "repeat": { "count": 2, "step": [10, 0, 0] }, "at": [41, 32, 129], "size": [1, 1, 12], "color": "dark" },
+    { "op": "box", "name": "Seitenflicken", "at": [63, 14, 140], "size": [1, 10, 12], "color": "secondary", "mode": "paint" },
+    { "op": "box", "name": "Warnstreifen", "mirror": "x", "mirrorAt": 32, "at": [0, 26, 20], "size": [1, 2, 120], "color": { "stripes": ["warning", "dark"], "axis": "z", "period": 3 }, "mode": "paint" },
+
+    { "op": "box", "name": "Oberdeck", "at": [12, 32, 24], "size": [40, 4, 124], "color": { "shade": "primary", "f": 1.05 } },
+    { "op": "box", "name": "Oberdeck Kante", "at": [12, 32, 24], "size": [40, 1, 124], "color": "leather", "mode": "paint" },
+    { "op": "box", "name": "Frachtkiste 1", "at": [15, 36, 30], "size": [10, 6, 14], "color": { "frame": "metal_dark", "fill": "secondary", "axes": "xy" } },
+    { "op": "box", "name": "Frachtkiste 2", "at": [30, 36, 34], "size": [14, 5, 10], "color": { "frame": "metal_dark", "fill": "leather", "axes": "zy" } },
+    { "op": "box", "name": "Frachtkiste 3", "at": [33, 41, 36], "size": [8, 4, 6], "color": "trim" },
+
+    { "op": "box", "name": "Brückenturm", "at": [20, 36, 80], "size": [24, 12, 32], "color": "metal_dark" },
+    { "op": "box", "name": "Brückenturm oben", "at": [23, 48, 86], "size": [18, 6, 22], "color": "metal" },
+    { "op": "box", "name": "Brückenfenster", "at": [23, 50, 107], "size": [18, 2, 1], "color": "glass", "mode": "paint" },
+    { "op": "box", "name": "Rote Augen", "mirror": "x", "mirrorAt": 32, "at": [26, 50, 108], "size": [2, 2, 1], "color": { "role": "glow", "emit": 2.4 }, "jitter": false },
+    { "op": "box", "name": "Turm Warnband", "at": [20, 44, 80], "size": [24, 1, 32], "color": { "stripes": ["warning", "dark"], "axis": "x", "period": 3 }, "mode": "paint" },
+
+    { "op": "group", "name": "Sponson", "mirror": "x", "mirrorAt": 32, "ops": [
+      { "op": "box", "name": "Sponsonkasten", "at": [64, 12, 50], "size": [8, 14, 80], "color": "leather" },
+      { "op": "box", "name": "Sponson oben", "at": [64, 25, 50], "size": [8, 1, 80], "color": "primary", "mode": "paint" },
+      { "op": "cyl", "name": "Turm", "repeat": { "count": 2, "step": [0, 0, 38] }, "at": [68, 26, 70], "r": 7, "h": 4, "color": "secondary" },
+      { "op": "cyl", "name": "Turmkuppel", "repeat": { "count": 2, "step": [0, 0, 38] }, "at": [68, 30, 70], "r": 4, "h": 2, "color": "metal_light" },
+      { "op": "line", "name": "Rohr vorn", "repeat": { "count": 2, "step": [0, 0, 38] }, "from": [72, 28, 68], "to": [88, 28, 68], "r": 1, "color": "metal_dark" },
+      { "op": "line", "name": "Rohr hinten", "repeat": { "count": 2, "step": [0, 0, 38] }, "from": [72, 28, 72], "to": [88, 28, 72], "r": 1, "color": "metal_dark" }
+    ] },
+
+    { "op": "group", "name": "Triebwerke", "repeat": { "count": 3, "step": [18, 0, 0] }, "ops": [
+      { "op": "cyl", "name": "Düse", "axis": "z", "at": [14, 20, 10], "r": 6, "h": 6, "color": "metal_dark" },
+      { "op": "cyl", "name": "Düsenring", "axis": "z", "at": [14, 20, 14], "r": 7, "h": 2, "color": "metal" },
+      { "op": "cyl", "name": "Glut", "axis": "z", "at": [14, 20, 9], "r": 4, "h": 1, "color": { "role": "glow2", "emit": 2.2 }, "jitter": false }
+    ] },
+
+    { "op": "line", "name": "Antenne", "from": [14, 36, 60], "to": [8, 52, 52], "r": 0.6, "color": "metal_light" },
+    { "op": "box", "name": "Antennenlicht", "at": [7, 52, 51], "size": [1, 1, 1], "color": { "role": "glow", "emit": 2.0 }, "jitter": false }
+  ],
+  "anchor": [32, 20, 96]
+}

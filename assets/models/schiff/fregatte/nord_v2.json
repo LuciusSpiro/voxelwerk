@@ -1,0 +1,1506 @@
+{
+ "id": "schiff/fregatte/nord_v2",
+ "name": "(2. Fassung) Drakkar – nordische Fregatte (Rohmodell)",
+ "tier": "architecture",
+ "palette": "nord",
+ "tags": [
+  "schiff",
+  "fregatte",
+  "rohmodell",
+  "nord"
+ ],
+ "footprint": [
+  60,
+  110
+ ],
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Leib",
+   "sections": [
+    {
+     "z": 0,
+     "w": 26,
+     "up": 12,
+     "down": 12,
+     "round": 1
+    },
+    {
+     "z": 40,
+     "w": 34,
+     "up": 16,
+     "down": 14,
+     "round": 0.9
+    },
+    {
+     "z": 200,
+     "w": 30,
+     "up": 15,
+     "down": 12,
+     "round": 0.9
+    },
+    {
+     "z": 290,
+     "w": 20,
+     "up": 12,
+     "down": 9,
+     "round": 0.9
+    },
+    {
+     "z": 320,
+     "w": 14,
+     "up": 10,
+     "down": 7,
+     "round": 0.9
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Schuppenplatten",
+   "at": [
+    -20,
+    -14,
+    0
+   ],
+   "size": [
+    40,
+    32,
+    330
+   ],
+   "color": {
+    "stripes": [
+     "primary",
+     "secondary"
+    ],
+    "axis": "z",
+    "period": 4
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Bauch",
+   "at": [
+    -20,
+    -14,
+    0
+   ],
+   "size": [
+    40,
+    8,
+    330
+   ],
+   "color": "metal_dark",
+   "mode": "paint"
+  },
+  {
+   "op": "loft",
+   "name": "Rückenkamm",
+   "sections": [
+    {
+     "z": 30,
+     "w": 6,
+     "up": 22,
+     "down": 0,
+     "bevel": 2
+    },
+    {
+     "z": 280,
+     "w": 4,
+     "up": 16,
+     "down": 0,
+     "bevel": 1
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "line",
+   "name": "Rückendorn",
+   "from": [
+    0,
+    20,
+    "40 + i*20"
+   ],
+   "to": [
+    0,
+    30,
+    "30 + i*20"
+   ],
+   "r": 1.2,
+   "color": "trim",
+   "repeat": {
+    "count": 12,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Runenleitung",
+   "at": [
+    -1,
+    21,
+    34
+   ],
+   "size": [
+    2,
+    1,
+    240
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.6
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "loft",
+   "name": "Hals",
+   "sections": [
+    {
+     "z": 310,
+     "w": 16,
+     "up": 12,
+     "down": 8,
+     "y": 2,
+     "round": 0.8
+    },
+    {
+     "z": 340,
+     "w": 14,
+     "up": 10,
+     "down": 6,
+     "y": 8,
+     "round": 0.8
+    }
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "loft",
+   "name": "Schädel",
+   "sections": [
+    {
+     "z": 336,
+     "w": 18,
+     "up": 10,
+     "down": 6,
+     "bevel": 3,
+     "y": 10
+    },
+    {
+     "z": 360,
+     "w": 16,
+     "up": 9,
+     "down": 5,
+     "bevel": 3,
+     "y": 11
+    },
+    {
+     "z": 372,
+     "w": 10,
+     "up": 6,
+     "down": 3,
+     "bevel": 2,
+     "y": 11
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "loft",
+   "name": "Hakenschnabel",
+   "sections": [
+    {
+     "z": 366,
+     "w": 10,
+     "up": 6,
+     "down": 3,
+     "bevel": 2,
+     "y": 12
+    },
+    {
+     "z": 386,
+     "w": 6,
+     "up": 4,
+     "down": 4,
+     "bevel": 1,
+     "y": 8
+    },
+    {
+     "z": 394,
+     "w": 3,
+     "up": 2,
+     "down": 6,
+     "y": 2
+    }
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "loft",
+   "name": "Unterkiefer",
+   "sections": [
+    {
+     "z": 350,
+     "w": 12,
+     "up": 2,
+     "down": 4,
+     "bevel": 1,
+     "y": 4
+    },
+    {
+     "z": 378,
+     "w": 6,
+     "up": 2,
+     "down": 3,
+     "bevel": 1,
+     "y": 3
+    }
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Reißzähne",
+   "at": [
+    -5,
+    3,
+    "356 + i*4"
+   ],
+   "size": [
+    1,
+    4,
+    1
+   ],
+   "color": "trim",
+   "repeat": {
+    "count": 5,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Augen",
+   "at": [
+    7,
+    16,
+    360
+   ],
+   "size": [
+    2,
+    2,
+    5
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 2.8
+   },
+   "jitter": false,
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Kriegsbemalung",
+   "at": [
+    -12,
+    8,
+    354
+   ],
+   "size": [
+    24,
+    10,
+    3
+   ],
+   "color": "cloth",
+   "mode": "paint"
+  },
+  {
+   "op": "line",
+   "name": "Horn",
+   "from": [
+    7,
+    20,
+    348
+   ],
+   "to": [
+    16,
+    30,
+    322
+   ],
+   "r": 2,
+   "color": "trim",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Hornspitze",
+   "from": [
+    16,
+    30,
+    322
+   ],
+   "to": [
+    18,
+    36,
+    310
+   ],
+   "r": 1.2,
+   "color": "cloth",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Kammfeder",
+   "from": [
+    0,
+    21,
+    350
+   ],
+   "to": [
+    0,
+    38,
+    324
+   ],
+   "r": 1.5,
+   "color": "cloth"
+  },
+  {
+   "op": "group",
+   "name": "Enterklaue",
+   "ops": [
+    {
+     "op": "line",
+     "name": "Klauenarm",
+     "from": [
+      8,
+      -12,
+      "290 + i*10"
+     ],
+     "to": [
+      14,
+      -24,
+      "300 + i*10"
+     ],
+     "r": 1.6,
+     "color": "metal",
+     "repeat": {
+      "count": 3,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "line",
+     "name": "Kralle",
+     "from": [
+      14,
+      -24,
+      "300 + i*10"
+     ],
+     "to": [
+      11,
+      -28,
+      "308 + i*10"
+     ],
+     "r": 1.2,
+     "color": "trim",
+     "repeat": {
+      "count": 3,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "group",
+   "name": "Schwinge",
+   "ops": [
+    {
+     "op": "loft",
+     "name": "Schwingenwurzel",
+     "sections": [
+      {
+       "z": 150,
+       "w": 10,
+       "up": 8,
+       "down": 4,
+       "bevel": 2,
+       "x": 18
+      },
+      {
+       "z": 230,
+       "w": 10,
+       "up": 8,
+       "down": 4,
+       "bevel": 2,
+       "x": 18
+      }
+     ],
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Armknochen",
+     "from": [
+      18,
+      8,
+      220
+     ],
+     "to": [
+      56,
+      16,
+      212
+     ],
+     "r": 3,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Handknochen",
+     "from": [
+      56,
+      16,
+      212
+     ],
+     "to": [
+      104,
+      22,
+      198
+     ],
+     "r": 2.5,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Dorn am Bug der Schwinge",
+     "from": [
+      56,
+      16,
+      212
+     ],
+     "to": [
+      60,
+      20,
+      226
+     ],
+     "r": 1.5,
+     "color": "trim"
+    },
+    {
+     "op": "line",
+     "name": "Dorn am Bug der Schwinge 2",
+     "from": [
+      100,
+      22,
+      199
+     ],
+     "to": [
+      106,
+      25,
+      214
+     ],
+     "r": 1.5,
+     "color": "trim"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 1",
+     "from": [
+      104,
+      22,
+      198.0
+     ],
+     "to": [
+      118,
+      18.0,
+      170
+     ],
+     "r": 2.2,
+     "color": "cloth"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 2",
+     "from": [
+      97,
+      21,
+      199.5
+     ],
+     "to": [
+      108,
+      16.8,
+      163
+     ],
+     "r": 2.2,
+     "color": "cloth"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 3",
+     "from": [
+      90,
+      20,
+      201.0
+     ],
+     "to": [
+      98,
+      15.6,
+      156
+     ],
+     "r": 2.2,
+     "color": "cloth"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 4",
+     "from": [
+      83,
+      19,
+      202.5
+     ],
+     "to": [
+      88,
+      14.4,
+      149
+     ],
+     "r": 2.2,
+     "color": "primary"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 5",
+     "from": [
+      76,
+      18,
+      204.0
+     ],
+     "to": [
+      78,
+      13.2,
+      142
+     ],
+     "r": 2.2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 6",
+     "from": [
+      69,
+      17,
+      205.5
+     ],
+     "to": [
+      68,
+      12.0,
+      135
+     ],
+     "r": 2.2,
+     "color": "primary"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 7",
+     "from": [
+      62,
+      16,
+      207.0
+     ],
+     "to": [
+      58,
+      10.8,
+      128
+     ],
+     "r": 2.2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 8",
+     "from": [
+      55,
+      15,
+      208.5
+     ],
+     "to": [
+      48,
+      9.6,
+      121
+     ],
+     "r": 2.2,
+     "color": "primary"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 9",
+     "from": [
+      48,
+      14,
+      210.0
+     ],
+     "to": [
+      38,
+      8.4,
+      114
+     ],
+     "r": 2.2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Klingenfeder 10",
+     "from": [
+      41,
+      13,
+      211.5
+     ],
+     "to": [
+      28,
+      7.200000000000001,
+      107
+     ],
+     "r": 2.2,
+     "color": "primary"
+    },
+    {
+     "op": "line",
+     "name": "Federglut 1",
+     "from": [
+      118,
+      18.0,
+      170
+     ],
+     "to": [
+      116,
+      18.0,
+      176
+     ],
+     "r": 1,
+     "color": {
+      "role": "glow",
+      "emit": 1.8
+     },
+     "jitter": false
+    },
+    {
+     "op": "line",
+     "name": "Federglut 4",
+     "from": [
+      88,
+      14.4,
+      149
+     ],
+     "to": [
+      86,
+      14.4,
+      155
+     ],
+     "r": 1,
+     "color": {
+      "role": "glow",
+      "emit": 1.8
+     },
+     "jitter": false
+    },
+    {
+     "op": "line",
+     "name": "Federglut 7",
+     "from": [
+      58,
+      10.8,
+      128
+     ],
+     "to": [
+      56,
+      10.8,
+      134
+     ],
+     "r": 1,
+     "color": {
+      "role": "glow",
+      "emit": 1.8
+     },
+     "jitter": false
+    },
+    {
+     "op": "line",
+     "name": "Federglut 10",
+     "from": [
+      28,
+      7.200000000000001,
+      107
+     ],
+     "to": [
+      26,
+      7.200000000000001,
+      113
+     ],
+     "r": 1,
+     "color": {
+      "role": "glow",
+      "emit": 1.8
+     },
+     "jitter": false
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "group",
+   "name": "Schwanzfächer",
+   "ops": [
+    {
+     "op": "line",
+     "name": "Steuerfeder -3",
+     "from": [
+      0,
+      4,
+      10
+     ],
+     "to": [
+      -27,
+      9,
+      -28
+     ],
+     "r": 2,
+     "color": "cloth"
+    },
+    {
+     "op": "line",
+     "name": "Steuerfeder -2",
+     "from": [
+      0,
+      4,
+      10
+     ],
+     "to": [
+      -18,
+      8,
+      -32
+     ],
+     "r": 2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Steuerfeder -1",
+     "from": [
+      0,
+      4,
+      10
+     ],
+     "to": [
+      -9,
+      7,
+      -36
+     ],
+     "r": 2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Steuerfeder 0",
+     "from": [
+      0,
+      4,
+      10
+     ],
+     "to": [
+      0,
+      6,
+      -40
+     ],
+     "r": 2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Steuerfeder 1",
+     "from": [
+      0,
+      4,
+      10
+     ],
+     "to": [
+      9,
+      7,
+      -36
+     ],
+     "r": 2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Steuerfeder 2",
+     "from": [
+      0,
+      4,
+      10
+     ],
+     "to": [
+      18,
+      8,
+      -32
+     ],
+     "r": 2,
+     "color": "secondary"
+    },
+    {
+     "op": "line",
+     "name": "Steuerfeder 3",
+     "from": [
+      0,
+      4,
+      10
+     ],
+     "to": [
+      27,
+      9,
+      -28
+     ],
+     "r": 2,
+     "color": "cloth"
+    }
+   ]
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 1 Düse",
+   "at": [
+    -8,
+    0,
+    -2
+   ],
+   "r": 6,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 1 Ring",
+   "at": [
+    -8,
+    0,
+    2
+   ],
+   "r": 7,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 1 Glut",
+   "at": [
+    -8,
+    0,
+    -3
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 2 Düse",
+   "at": [
+    8,
+    0,
+    -2
+   ],
+   "r": 6,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 2 Ring",
+   "at": [
+    8,
+    0,
+    2
+   ],
+   "r": 7,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 2 Glut",
+   "at": [
+    8,
+    0,
+    -3
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 3 Düse",
+   "at": [
+    0,
+    -8,
+    -2
+   ],
+   "r": 6,
+   "h": 6,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 3 Ring",
+   "at": [
+    0,
+    -8,
+    2
+   ],
+   "r": 7,
+   "h": 2,
+   "color": "metal_light",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Frosttriebwerk 3 Glut",
+   "at": [
+    0,
+    -8,
+    -3
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Fensterreihe",
+   "at": [
+    -20,
+    2,
+    60
+   ],
+   "size": [
+    40,
+    1,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 27,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 1",
+   "at": [
+    -5,
+    15,
+    117
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 2",
+   "at": [
+    -8,
+    15,
+    63
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 3",
+   "at": [
+    -11,
+    15,
+    96
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 4",
+   "at": [
+    -7,
+    13,
+    251
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 5",
+   "at": [
+    -6,
+    12,
+    277
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 6",
+   "at": [
+    -4,
+    13,
+    244
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 7",
+   "at": [
+    -7,
+    15,
+    119
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 8",
+   "at": [
+    7,
+    15,
+    126
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 9",
+   "at": [
+    4,
+    15,
+    103
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 10",
+   "at": [
+    -10,
+    12,
+    279
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 11",
+   "at": [
+    4,
+    15,
+    89
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 12",
+   "at": [
+    7,
+    15,
+    113
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 13",
+   "at": [
+    -7,
+    15,
+    99
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 14",
+   "at": [
+    -11,
+    15,
+    60
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 15",
+   "at": [
+    8,
+    15,
+    111
+   ],
+   "size": [
+    2,
+    1,
+    5
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 16",
+   "at": [
+    8,
+    15,
+    160
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 17",
+   "at": [
+    -8,
+    14,
+    212
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 18",
+   "at": [
+    -6,
+    14,
+    202
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 19",
+   "at": [
+    -4,
+    15,
+    87
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 20",
+   "at": [
+    11,
+    15,
+    190
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 21",
+   "at": [
+    5,
+    15,
+    90
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 22",
+   "at": [
+    -11,
+    14,
+    221
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 23",
+   "at": [
+    6,
+    15,
+    197
+   ],
+   "size": [
+    3,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 24",
+   "at": [
+    -7,
+    15,
+    114
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 25",
+   "at": [
+    -11,
+    15,
+    131
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 26",
+   "at": [
+    9,
+    15,
+    123
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 27",
+   "at": [
+    -8,
+    13,
+    238
+   ],
+   "size": [
+    3,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 28",
+   "at": [
+    7,
+    14,
+    214
+   ],
+   "size": [
+    2,
+    1,
+    3
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 29",
+   "at": [
+    7,
+    15,
+    89
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Kleinteil 30",
+   "at": [
+    -8,
+    15,
+    104
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
+   "color": "metal"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  180
+ ]
+}

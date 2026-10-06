@@ -135,6 +135,7 @@ function runOp(op, scope, T, ctx, path) {
     case 'ellipsoid': return shapeEllipsoid(op, s, T, ctx);
     case 'line': return shapeLine(op, s, T, ctx);
     case 'wedge': return shapeWedge(op, s, T, ctx);
+    case 'loft': return shapeLoft(op, s, T, ctx);
     default: throw new Error(`Unbekannter Bauschritt "${op.op}"`);
   }
 }
@@ -278,6 +279,52 @@ function shapeLine(op, scope, T, ctx) {
     const d = Math.hypot(p[0] - ab[0] * t, p[1] - ab[1] * t, p[2] - ab[2] * t);
     if (d > r + 0.01) continue;
     write(ctx, Tl, x, y, z, mode, col, [x - lo[0], y - lo[1], z - lo[2], size], jit);
+  }
+}
+
+/**
+ * Rumpf aus Querschnitten entlang z (Schiffe, Rümpfe, Gondeln). sections: [{ z, w, up, down, x, y, bevel, round }]
+ * werden zwischen den z-Werten linear interpoliert. Querschnitt: Rechteck w breit, von y-down bis y+up,
+ * Mitte x; bevel = Fase an den Ecken (Voxel); round 1 = Ellipse statt Rechteck (Zwischenwerte mischen).
+ */
+function shapeLoft(op, scope, T, ctx) {
+  const secs = (op.sections || []).map((s) => {
+    const n = (k, d) => (s[k] !== undefined ? evalNum(s[k], scope) : d);
+    const h = n('h', 0);
+    return { z: n('z', 0), w: n('w', 1), up: n('up', h / 2), down: n('down', h / 2), x: n('x', 0), y: n('y', 0), bevel: n('bevel', 0), round: n('round', 0) };
+  }).sort((a, b) => a.z - b.z);
+  if (secs.length < 2) throw new Error('loft braucht mindestens 2 Querschnitte');
+  const Tl = localT(op, scope, T), col = colorFn(op, ctx), mode = op.mode || 'add', jit = op.jitter !== false;
+  const hol = op.hollow !== undefined ? evalNum(op.hollow, scope) : 0;   // Wandstärke; 0 = massiv
+  const z0 = Math.round(secs[0].z), z1 = Math.round(secs[secs.length - 1].z);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  let maxW = 0, maxU = 0, maxD = 0;
+  for (const s of secs) { maxW = Math.max(maxW, s.w); maxU = Math.max(maxU, s.y + s.up); maxD = Math.max(maxD, s.down - s.y); }
+  const size = [Math.ceil(maxW), Math.ceil(maxU + maxD), z1 - z0];
+  let k = 0;
+  for (let z = z0; z < z1; z++) {
+    const zc = z + 0.5;
+    while (k < secs.length - 2 && zc > secs[k + 1].z) k++;
+    const A = secs[k], B = secs[k + 1], t = Math.max(0, Math.min(1, (zc - A.z) / ((B.z - A.z) || 1)));
+    const w = lerp(A.w, B.w, t), up = lerp(A.up, B.up, t), down = lerp(A.down, B.down, t);
+    const cx = lerp(A.x, B.x, t), cy = lerp(A.y, B.y, t), bev = lerp(A.bevel, B.bevel, t), rnd = lerp(A.round, B.round, t);
+    if (w <= 0 || up + down <= 0) continue;
+    const hw = w / 2, mid = cy + (up - down) / 2, hh = (up + down) / 2;
+    for (let x = Math.floor(cx - hw); x < Math.ceil(cx + hw); x++) for (let y = Math.floor(cy - down); y < Math.ceil(cy + up); y++) {
+      const dx = Math.abs(x + 0.5 - cx), dy = Math.abs(y + 0.5 - mid);
+      if (dx > hw || dy > hh) continue;
+      if (bev > 0 && (hw - dx) + (hh - dy) < bev) continue;
+      if (rnd > 0 && (dx / hw) ** 2 + (dy / hh) ** 2 > 1 + (1 - rnd) * 1.5) continue;
+      if (hol > 0 && z >= z0 + hol && z < z1 - hol) {
+        // nur die Hülle schreiben: Punkte tief im Inneren auslassen
+        const ihw = hw - hol, ihh = hh - hol;
+        const inside = ihw > 0 && ihh > 0 && dx < ihw && dy < ihh &&
+          (bev <= 0 || (hw - dx) + (hh - dy) >= bev + hol * 1.5) &&
+          (rnd < 0.5 || (dx / ihw) ** 2 + (dy / ihh) ** 2 <= 1);
+        if (inside) continue;
+      }
+      write(ctx, Tl, x, y, z, mode, col, [Math.floor(x - (cx - maxW / 2)), Math.floor(y + maxD), z - z0, size], jit);
+    }
   }
 }
 

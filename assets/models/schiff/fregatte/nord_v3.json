@@ -1,0 +1,1691 @@
+{
+ "id": "schiff/fregatte/nord_v3",
+ "name": "Drakkar – Fregatte der Germanen (3. Fassung)",
+ "tier": "architecture",
+ "palette": "nord",
+ "tags": [
+  "schiff",
+  "fregatte",
+  "nord",
+  "rohmodell"
+ ],
+ "footprint": [
+  45,
+  120
+ ],
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Rumpf",
+   "sections": [
+    {
+     "z": 0,
+     "w": 44,
+     "up": 16,
+     "down": 20,
+     "bevel": 5
+    },
+    {
+     "z": 60,
+     "w": 48,
+     "up": 18,
+     "down": 22,
+     "bevel": 6
+    },
+    {
+     "z": 250,
+     "w": 46,
+     "up": 18,
+     "down": 22,
+     "bevel": 6
+    },
+    {
+     "z": 310,
+     "w": 36,
+     "up": 16,
+     "down": 20,
+     "bevel": 5
+    },
+    {
+     "z": 340,
+     "w": 24,
+     "up": 14,
+     "down": 16,
+     "bevel": 4
+    }
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Plattengänge",
+   "at": [
+    -30,
+    -22,
+    0
+   ],
+   "size": [
+    60,
+    40,
+    350
+   ],
+   "color": {
+    "stripes": [
+     "metal",
+     {
+      "shade": "metal",
+      "f": 0.82
+     }
+    ],
+    "axis": "y",
+    "period": 4
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Runenplatten",
+   "at": [
+    -30,
+    -14,
+    70
+   ],
+   "size": [
+    60,
+    22,
+    60
+   ],
+   "color": {
+    "frame": "metal_dark",
+    "fill": "stone_dark",
+    "axes": "yz"
+   },
+   "mode": "paint",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     72
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Runen",
+   "at": [
+    -30,
+    -6,
+    76
+   ],
+   "size": [
+    60,
+    1,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.6
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 26,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Runen 2",
+   "at": [
+    -30,
+    -10,
+    80
+   ],
+   "size": [
+    60,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.6
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 26,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kriegsbemalung",
+   "at": [
+    -30,
+    4,
+    280
+   ],
+   "size": [
+    60,
+    6,
+    3
+   ],
+   "color": "cloth",
+   "mode": "paint",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Fensterreihe",
+   "at": [
+    -28,
+    10,
+    20
+   ],
+   "size": [
+    56,
+    1,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 40,
+    "step": [
+     0,
+     0,
+     7
+    ]
+   }
+  },
+  {
+   "op": "group",
+   "name": "Breitseite",
+   "ops": [
+    {
+     "op": "box",
+     "name": "Breitseite Pforte 1",
+     "at": [
+      21,
+      -1,
+      89
+     ],
+     "size": [
+      4,
+      3,
+      4
+     ],
+     "color": "dark",
+     "mode": "paint",
+     "repeat": {
+      "count": 15,
+      "step": [
+       0,
+       0,
+       14
+      ]
+     }
+    },
+    {
+     "op": "line",
+     "name": "Breitseite Rohr 1",
+     "from": [
+      22,
+      0,
+      91
+     ],
+     "to": [
+      30,
+      0,
+      91
+     ],
+     "r": 0.9,
+     "color": "metal_dark",
+     "repeat": {
+      "count": 15,
+      "step": [
+       0,
+       0,
+       14
+      ]
+     }
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "loft",
+   "name": "Steven",
+   "sections": [
+    {
+     "z": 330,
+     "w": 22,
+     "up": 14,
+     "down": 16,
+     "bevel": 4
+    },
+    {
+     "z": 356,
+     "w": 16,
+     "up": 12,
+     "down": 10,
+     "bevel": 3,
+     "y": 14
+    },
+    {
+     "z": 376,
+     "w": 14,
+     "up": 10,
+     "down": 8,
+     "bevel": 3,
+     "y": 30
+    }
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Stevenschuppen",
+   "at": [
+    -14,
+    0,
+    330
+   ],
+   "size": [
+    28,
+    46,
+    48
+   ],
+   "color": {
+    "stripes": [
+     "metal",
+     "secondary"
+    ],
+    "axis": "y",
+    "period": 3
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "loft",
+   "name": "Schädel",
+   "sections": [
+    {
+     "z": 372,
+     "w": 20,
+     "up": 10,
+     "down": 8,
+     "bevel": 3,
+     "y": 36
+    },
+    {
+     "z": 396,
+     "w": 18,
+     "up": 9,
+     "down": 6,
+     "bevel": 3,
+     "y": 37
+    },
+    {
+     "z": 410,
+     "w": 12,
+     "up": 6,
+     "down": 3,
+     "bevel": 2,
+     "y": 36
+    }
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Stirnpanzer",
+   "at": [
+    -9,
+    42,
+    376
+   ],
+   "size": [
+    18,
+    4,
+    22
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "loft",
+   "name": "Hakenschnabel",
+   "sections": [
+    {
+     "z": 404,
+     "w": 12,
+     "up": 6,
+     "down": 3,
+     "bevel": 2,
+     "y": 37
+    },
+    {
+     "z": 424,
+     "w": 7,
+     "up": 4,
+     "down": 5,
+     "bevel": 1,
+     "y": 32
+    },
+    {
+     "z": 434,
+     "w": 3,
+     "up": 2,
+     "down": 9,
+     "y": 24
+    }
+   ],
+   "color": "metal_light"
+  },
+  {
+   "op": "loft",
+   "name": "Unterkiefer",
+   "sections": [
+    {
+     "z": 388,
+     "w": 14,
+     "up": 2,
+     "down": 5,
+     "bevel": 2,
+     "y": 28
+    },
+    {
+     "z": 418,
+     "w": 7,
+     "up": 2,
+     "down": 4,
+     "bevel": 1,
+     "y": 26
+    }
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Reißzähne",
+   "at": [
+    -6,
+    25,
+    "394 + i*4"
+   ],
+   "size": [
+    1,
+    5,
+    1
+   ],
+   "color": "trim",
+   "repeat": {
+    "count": 6,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Augen",
+   "at": [
+    8,
+    40,
+    396
+   ],
+   "size": [
+    2,
+    3,
+    6
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 3.0
+   },
+   "jitter": false,
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Blutstreifen",
+   "at": [
+    -11,
+    34,
+    394
+   ],
+   "size": [
+    22,
+    4,
+    2
+   ],
+   "color": "cloth",
+   "mode": "paint"
+  },
+  {
+   "op": "line",
+   "name": "Horn",
+   "from": [
+    7,
+    45,
+    384
+   ],
+   "to": [
+    20,
+    58,
+    352
+   ],
+   "r": 2.2,
+   "color": "trim",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Hornspitze",
+   "from": [
+    20,
+    58,
+    352
+   ],
+   "to": [
+    22,
+    66,
+    338
+   ],
+   "r": 1.3,
+   "color": "cloth",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Nackenstachel",
+   "from": [
+    0,
+    44,
+    "380 - i*9"
+   ],
+   "to": [
+    0,
+    "58 - i*2",
+    "366 - i*9"
+   ],
+   "r": 1.3,
+   "color": "trim",
+   "repeat": {
+    "count": 5,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Langhaus",
+   "at": [
+    -14,
+    18,
+    140
+   ],
+   "size": [
+    28,
+    14,
+    80
+   ],
+   "color": {
+    "frame": "metal_dark",
+    "fill": "stone_dark",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "wedge",
+   "name": "Langhausdach",
+   "at": [
+    -18,
+    32,
+    136
+   ],
+   "size": [
+    36,
+    18,
+    88
+   ],
+   "color": {
+    "stripes": [
+     "metal",
+     "metal_dark"
+    ],
+    "axis": "z",
+    "period": 3
+   },
+   "gable": "x"
+  },
+  {
+   "op": "line",
+   "name": "Firstdrachen vorn",
+   "from": [
+    0,
+    49,
+    222
+   ],
+   "to": [
+    0,
+    56,
+    230
+   ],
+   "r": 1.2,
+   "color": "trim"
+  },
+  {
+   "op": "line",
+   "name": "Firstdrachen hinten",
+   "from": [
+    0,
+    49,
+    136
+   ],
+   "to": [
+    0,
+    56,
+    128
+   ],
+   "r": 1.2,
+   "color": "trim"
+  },
+  {
+   "op": "group",
+   "name": "Valknut",
+   "ops": [
+    {
+     "op": "line",
+     "name": "Dreieck a",
+     "from": [
+      -15,
+      21,
+      168
+     ],
+     "to": [
+      -15,
+      21,
+      192
+     ],
+     "r": 0.6,
+     "color": {
+      "role": "glow",
+      "emit": 2.0
+     },
+     "jitter": false
+    },
+    {
+     "op": "line",
+     "name": "Dreieck b",
+     "from": [
+      -15,
+      21,
+      192
+     ],
+     "to": [
+      -15,
+      30,
+      180
+     ],
+     "r": 0.6,
+     "color": {
+      "role": "glow",
+      "emit": 2.0
+     },
+     "jitter": false
+    },
+    {
+     "op": "line",
+     "name": "Dreieck c",
+     "from": [
+      -15,
+      30,
+      180
+     ],
+     "to": [
+      -15,
+      21,
+      168
+     ],
+     "r": 0.6,
+     "color": {
+      "role": "glow",
+      "emit": 2.0
+     },
+     "jitter": false
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Hallenfenster",
+   "at": [
+    -15,
+    24,
+    146
+   ],
+   "size": [
+    30,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 8,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Wachturm",
+   "at": [
+    -8,
+    18,
+    64
+   ],
+   "size": [
+    16,
+    42,
+    16
+   ],
+   "color": {
+    "frame": "metal_dark",
+    "fill": "stone_dark",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Wachturm Plattform",
+   "at": [
+    -11,
+    60,
+    61
+   ],
+   "size": [
+    22,
+    3,
+    22
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Zinnen",
+   "at": [
+    -11,
+    63,
+    61
+   ],
+   "size": [
+    2,
+    3,
+    22
+   ],
+   "color": "metal_dark",
+   "repeat": {
+    "count": 6,
+    "step": [
+     4,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Turmhelm",
+   "at": [
+    0,
+    63,
+    72
+   ],
+   "r": 7,
+   "h": 18,
+   "color": "metal",
+   "r2": 1
+  },
+  {
+   "op": "line",
+   "name": "Turmmast",
+   "from": [
+    0,
+    81,
+    72
+   ],
+   "to": [
+    0,
+    96,
+    72
+   ],
+   "r": 0.7,
+   "color": "metal_light"
+  },
+  {
+   "op": "cyl",
+   "name": "Spitzturm",
+   "at": [
+    12,
+    18,
+    112
+   ],
+   "r": 4,
+   "h": 34,
+   "color": {
+    "frame": "metal_dark",
+    "fill": "stone_dark",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Spitzturm Helm",
+   "at": [
+    12,
+    52,
+    112
+   ],
+   "r": 5,
+   "h": 14,
+   "color": "metal",
+   "r2": 1
+  },
+  {
+   "op": "box",
+   "name": "Turmfenster",
+   "at": [
+    -9,
+    50,
+    64
+   ],
+   "size": [
+    18,
+    2,
+    18
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.4
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Turm oben 1 Sockel",
+   "at": [
+    0,
+    18,
+    240
+   ],
+   "r": 5,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm oben 1 Gehäuse",
+   "at": [
+    -4,
+    20,
+    236
+   ],
+   "size": [
+    8,
+    3,
+    9
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm oben 1 Rohr L",
+   "from": [
+    -1.5,
+    21.5,
+    244
+   ],
+   "to": [
+    -1.5,
+    21.5,
+    260
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm oben 1 Rohr R",
+   "from": [
+    1.5,
+    21.5,
+    244
+   ],
+   "to": [
+    1.5,
+    21.5,
+    260
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm oben 2 Sockel",
+   "at": [
+    0,
+    18,
+    272
+   ],
+   "r": 5,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm oben 2 Gehäuse",
+   "at": [
+    -4,
+    20,
+    268
+   ],
+   "size": [
+    8,
+    3,
+    9
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm oben 2 Rohr L",
+   "from": [
+    -1.5,
+    21.5,
+    276
+   ],
+   "to": [
+    -1.5,
+    21.5,
+    292
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm oben 2 Rohr R",
+   "from": [
+    1.5,
+    21.5,
+    276
+   ],
+   "to": [
+    1.5,
+    21.5,
+    292
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke L1 Sockel",
+   "at": [
+    -18,
+    17,
+    110
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L1 Gehäuse",
+   "at": [
+    -21,
+    19,
+    107
+   ],
+   "size": [
+    6,
+    3,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L1 Rohr L",
+   "from": [
+    -19.5,
+    20.5,
+    113
+   ],
+   "to": [
+    -19.5,
+    20.5,
+    126
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L1 Rohr R",
+   "from": [
+    -16.5,
+    20.5,
+    113
+   ],
+   "to": [
+    -16.5,
+    20.5,
+    126
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke R1 Sockel",
+   "at": [
+    18,
+    17,
+    110
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R1 Gehäuse",
+   "at": [
+    15,
+    19,
+    107
+   ],
+   "size": [
+    6,
+    3,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R1 Rohr L",
+   "from": [
+    16.5,
+    20.5,
+    113
+   ],
+   "to": [
+    16.5,
+    20.5,
+    126
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R1 Rohr R",
+   "from": [
+    19.5,
+    20.5,
+    113
+   ],
+   "to": [
+    19.5,
+    20.5,
+    126
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke L2 Sockel",
+   "at": [
+    -18,
+    17,
+    300
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L2 Gehäuse",
+   "at": [
+    -21,
+    19,
+    297
+   ],
+   "size": [
+    6,
+    3,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L2 Rohr L",
+   "from": [
+    -19.5,
+    20.5,
+    303
+   ],
+   "to": [
+    -19.5,
+    20.5,
+    316
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L2 Rohr R",
+   "from": [
+    -16.5,
+    20.5,
+    303
+   ],
+   "to": [
+    -16.5,
+    20.5,
+    316
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke R2 Sockel",
+   "at": [
+    18,
+    17,
+    300
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R2 Gehäuse",
+   "at": [
+    15,
+    19,
+    297
+   ],
+   "size": [
+    6,
+    3,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R2 Rohr L",
+   "from": [
+    16.5,
+    20.5,
+    303
+   ],
+   "to": [
+    16.5,
+    20.5,
+    316
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R2 Rohr R",
+   "from": [
+    19.5,
+    20.5,
+    303
+   ],
+   "to": [
+    19.5,
+    20.5,
+    316
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm unten Sockel",
+   "at": [
+    0,
+    -24,
+    200
+   ],
+   "r": 5,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm unten Gehäuse",
+   "at": [
+    -4,
+    -27,
+    196
+   ],
+   "size": [
+    8,
+    3,
+    9
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "line",
+   "name": "Turm unten Rohr L",
+   "from": [
+    -1.5,
+    -25.5,
+    204
+   ],
+   "to": [
+    -1.5,
+    -25.5,
+    220
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm unten Rohr R",
+   "from": [
+    1.5,
+    -25.5,
+    204
+   ],
+   "to": [
+    1.5,
+    -25.5,
+    220
+   ],
+   "r": 0.8,
+   "color": "metal_dark"
+  },
+  {
+   "op": "group",
+   "name": "Heckschwinge",
+   "ops": [
+    {
+     "op": "box",
+     "name": "Schwingenplatte",
+     "at": [
+      "22 + i*6",
+      "-2 - i",
+      "20 - i*6"
+     ],
+     "size": [
+      6,
+      3,
+      "92 - i*6"
+     ],
+     "color": {
+      "frame": "metal_dark",
+      "fill": "metal",
+      "axes": "xz"
+     },
+     "repeat": {
+      "count": 9,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "box",
+     "name": "Schwingenrunen",
+     "at": [
+      "22 + i*6",
+      "1 - i",
+      "40 - i*6"
+     ],
+     "size": [
+      6,
+      1,
+      2
+     ],
+     "color": {
+      "role": "glow",
+      "emit": 1.5
+     },
+     "mode": "paint",
+     "jitter": false,
+     "repeat": {
+      "count": 9,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "box",
+     "name": "Blutspitzen",
+     "at": [
+      62,
+      -14,
+      -40
+     ],
+     "size": [
+      20,
+      14,
+      30
+     ],
+     "color": "cloth",
+     "mode": "paint"
+    },
+    {
+     "op": "cyl",
+     "name": "Gondel",
+     "at": [
+      76,
+      -10,
+      -38
+     ],
+     "r": 7,
+     "h": 56,
+     "color": "metal_dark",
+     "axis": "z"
+    },
+    {
+     "op": "cyl",
+     "name": "Gondelringe",
+     "at": [
+      76,
+      -10,
+      -30
+     ],
+     "r": 8,
+     "h": 2,
+     "color": "trim",
+     "axis": "z",
+     "repeat": {
+      "count": 4,
+      "step": [
+       0,
+       0,
+       14
+      ]
+     }
+    },
+    {
+     "op": "cyl",
+     "name": "Gondelglut",
+     "at": [
+      76,
+      -10,
+      -39
+     ],
+     "r": 5,
+     "h": 1,
+     "color": {
+      "role": "glow",
+      "emit": 2.6
+     },
+     "axis": "z",
+     "jitter": false
+    },
+    {
+     "op": "line",
+     "name": "Gondelkanone",
+     "from": [
+      76,
+      -10,
+      18
+     ],
+     "to": [
+      76,
+      -10,
+      46
+     ],
+     "r": 1.6,
+     "color": "metal_dark"
+    },
+    {
+     "op": "line",
+     "name": "Schwingendorn",
+     "from": [
+      80,
+      -10,
+      46
+     ],
+     "to": [
+      84,
+      -8,
+      56
+     ],
+     "r": 1,
+     "color": "trim"
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk L Gehäuse",
+   "at": [
+    -11,
+    0,
+    -40
+   ],
+   "r": 10,
+   "h": 42,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk L Glocke",
+   "at": [
+    -11,
+    0,
+    -43
+   ],
+   "r": 12,
+   "h": 4,
+   "color": "trim",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk L Glut",
+   "at": [
+    -11,
+    0,
+    -41
+   ],
+   "r": 8,
+   "h": 2,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk L Kern",
+   "at": [
+    -11,
+    0,
+    -42
+   ],
+   "r": 3,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk L Ring 1",
+   "at": [
+    -11,
+    0,
+    -34
+   ],
+   "r": 11,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk L Ring 2",
+   "at": [
+    -11,
+    0,
+    -24
+   ],
+   "r": 11,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk L Ring 3",
+   "at": [
+    -11,
+    0,
+    -13
+   ],
+   "r": 11,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk L Ring 4",
+   "at": [
+    -11,
+    0,
+    -2
+   ],
+   "r": 11,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk R Gehäuse",
+   "at": [
+    11,
+    0,
+    -40
+   ],
+   "r": 10,
+   "h": 42,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk R Glocke",
+   "at": [
+    11,
+    0,
+    -43
+   ],
+   "r": 12,
+   "h": 4,
+   "color": "trim",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk R Glut",
+   "at": [
+    11,
+    0,
+    -41
+   ],
+   "r": 8,
+   "h": 2,
+   "color": {
+    "role": "glow",
+    "emit": 2.6
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk R Kern",
+   "at": [
+    11,
+    0,
+    -42
+   ],
+   "r": 3,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk R Ring 1",
+   "at": [
+    11,
+    0,
+    -34
+   ],
+   "r": 11,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk R Ring 2",
+   "at": [
+    11,
+    0,
+    -24
+   ],
+   "r": 11,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk R Ring 3",
+   "at": [
+    11,
+    0,
+    -13
+   ],
+   "r": 11,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Haupttriebwerk R Ring 4",
+   "at": [
+    11,
+    0,
+    -2
+   ],
+   "r": 11,
+   "h": 2,
+   "color": "trim",
+   "axis": "z"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  170
+ ]
+}

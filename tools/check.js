@@ -47,6 +47,7 @@ for (const id of idx.models.filter(want)) {
         try { await fs.writeFile(f, gridToVox(b.grid)); } catch (e) { warn(`${id}: .vox-Export: ${e.message}`); }
       }
     }
+    if ((lib.buildCache.size || 0) > 0 && (m.tags || []).includes('schiff')) lib.buildCache.clear();   // große Schiffe nicht im Speicher halten
   } catch (e) { err(`${id}: ${e.message}`); }
 }
 

@@ -1,0 +1,1087 @@
+{
+ "id": "schiff/frachter/babylon",
+ "name": "Quffa – Frachter (babylon)",
+ "tier": "architecture",
+ "palette": "babylon",
+ "tags": [
+  "schiff",
+  "frachter",
+  "babylon",
+  "rohmodell"
+ ],
+ "footprint": [
+  13.0,
+  90.0
+ ],
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Rumpf",
+   "sections": [
+    {
+     "z": 0,
+     "w": 52,
+     "up": 17,
+     "down": 17,
+     "bevel": 3
+    },
+    {
+     "z": 342,
+     "w": 52,
+     "up": 17,
+     "down": 17,
+     "bevel": 3
+    },
+    {
+     "z": 360,
+     "w": 47,
+     "up": 14,
+     "down": 14,
+     "bevel": 3
+    }
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Kiel",
+   "at": [
+    -13,
+    -25,
+    54
+   ],
+   "size": [
+    26,
+    8,
+    234
+   ],
+   "color": {
+    "frame": "stone_light",
+    "fill": "stone_dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kielstreben",
+   "at": [
+    -15,
+    -25,
+    54
+   ],
+   "size": [
+    30,
+    8,
+    4
+   ],
+   "color": "stone_dark",
+   "repeat": {
+    "count": 9,
+    "step": [
+     0,
+     0,
+     24
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kante oben",
+   "at": [
+    -28,
+    16,
+    0
+   ],
+   "size": [
+    56,
+    1,
+    360
+   ],
+   "color": "stone_light",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zinnen L",
+   "at": [
+    -26,
+    17,
+    2
+   ],
+   "size": [
+    3,
+    3,
+    2
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 88,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zinnen R",
+   "at": [
+    23,
+    17,
+    2
+   ],
+   "size": [
+    3,
+    3,
+    2
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 88,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Feld",
+   "at": [
+    -30,
+    -13,
+    216
+   ],
+   "size": [
+    60,
+    26,
+    47
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Leib",
+   "at": [
+    -30,
+    -4,
+    227
+   ],
+   "size": [
+    60,
+    6,
+    20
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Beine",
+   "at": [
+    -30,
+    -10,
+    229
+   ],
+   "size": [
+    60,
+    6,
+    3
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 4,
+    "step": [
+     0,
+     0,
+     6
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Kopf",
+   "at": [
+    -30,
+    3,
+    246
+   ],
+   "size": [
+    60,
+    6,
+    5
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Schwinge",
+   "at": [
+    -30,
+    2,
+    226
+   ],
+   "size": [
+    60,
+    6,
+    20
+   ],
+   "color": {
+    "stripes": [
+     "trim",
+     {
+      "shade": "trim",
+      "f": 0.8
+     }
+    ],
+    "axis": "z",
+    "period": 2
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Achterfeld",
+   "at": [
+    -30,
+    -11,
+    18
+   ],
+   "size": [
+    60,
+    19,
+    72
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Achterfiguren",
+   "at": [
+    -30,
+    -8,
+    25
+   ],
+   "size": [
+    60,
+    12,
+    4
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 6,
+    "step": [
+     0,
+     0,
+     10
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Bugfeld",
+   "at": [
+    -30,
+    -13,
+    310
+   ],
+   "size": [
+    60,
+    26,
+    43
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Keilschrift",
+   "at": [
+    -30,
+    -2,
+    321
+   ],
+   "size": [
+    60,
+    4,
+    2
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 9,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Mittelfries",
+   "at": [
+    -30,
+    -16,
+    97
+   ],
+   "size": [
+    60,
+    5,
+    108
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Schießscharten",
+   "at": [
+    -30,
+    11,
+    97
+   ],
+   "size": [
+    60,
+    1,
+    2
+   ],
+   "color": "dark",
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 14,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Sonnenscheibe Bug",
+   "at": [
+    0,
+    0,
+    360
+   ],
+   "r": [
+    5,
+    5,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Sonnenflügel Bug",
+   "at": [
+    5,
+    -1,
+    359
+   ],
+   "size": [
+    13,
+    3,
+    2
+   ],
+   "color": "trim",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Kiste 1-1",
+   "at": [
+    -22,
+    17,
+    100
+   ],
+   "size": [
+    20,
+    10,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 11",
+   "at": [
+    2,
+    17,
+    100
+   ],
+   "size": [
+    20,
+    10,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 2-1",
+   "at": [
+    -22,
+    17,
+    142
+   ],
+   "size": [
+    20,
+    16,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "primary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 21",
+   "at": [
+    2,
+    17,
+    142
+   ],
+   "size": [
+    20,
+    16,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "primary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 3-1",
+   "at": [
+    -22,
+    17,
+    184
+   ],
+   "size": [
+    20,
+    10,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 31",
+   "at": [
+    2,
+    17,
+    184
+   ],
+   "size": [
+    20,
+    10,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 4-1",
+   "at": [
+    -22,
+    17,
+    226
+   ],
+   "size": [
+    20,
+    16,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "primary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 41",
+   "at": [
+    2,
+    17,
+    226
+   ],
+   "size": [
+    20,
+    16,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "primary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 5-1",
+   "at": [
+    -22,
+    17,
+    268
+   ],
+   "size": [
+    20,
+    10,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kiste 51",
+   "at": [
+    2,
+    17,
+    268
+   ],
+   "size": [
+    20,
+    10,
+    34
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 1",
+   "at": [
+    -17,
+    17,
+    20
+   ],
+   "size": [
+    34,
+    8,
+    60
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 1",
+   "at": [
+    -18,
+    20,
+    19
+   ],
+   "size": [
+    36,
+    2,
+    62
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnen 1",
+   "at": [
+    -17,
+    24,
+    20
+   ],
+   "size": [
+    34,
+    1,
+    60
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 1",
+   "at": [
+    -4,
+    17,
+    79
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 2",
+   "at": [
+    -13,
+    25,
+    27
+   ],
+   "size": [
+    26,
+    8,
+    46
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 2",
+   "at": [
+    -14,
+    28,
+    26
+   ],
+   "size": [
+    28,
+    2,
+    48
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnen 2",
+   "at": [
+    -13,
+    32,
+    27
+   ],
+   "size": [
+    26,
+    1,
+    46
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 2",
+   "at": [
+    -4,
+    25,
+    72
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 3",
+   "at": [
+    -9,
+    33,
+    34
+   ],
+   "size": [
+    18,
+    8,
+    32
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 3",
+   "at": [
+    -10,
+    36,
+    33
+   ],
+   "size": [
+    20,
+    2,
+    34
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnen 3",
+   "at": [
+    -9,
+    40,
+    34
+   ],
+   "size": [
+    18,
+    1,
+    32
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 3",
+   "at": [
+    -4,
+    33,
+    65
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Schrein",
+   "at": [
+    -5,
+    41,
+    44
+   ],
+   "size": [
+    10,
+    8,
+    14
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "primary",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Antriebsjoch",
+   "at": [
+    -22,
+    -17,
+    -10
+   ],
+   "size": [
+    44,
+    34,
+    10
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xy"
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Gehäuse",
+   "at": [
+    0,
+    7,
+    -40
+   ],
+   "r": 10,
+   "h": 40,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Glocke",
+   "at": [
+    0,
+    7,
+    -44
+   ],
+   "r": 12,
+   "h": 5,
+   "color": "stone_dark",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Glut",
+   "at": [
+    0,
+    7,
+    -42
+   ],
+   "r": 9,
+   "h": 2,
+   "color": {
+    "role": "glow2",
+    "emit": 2.4
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Kern",
+   "at": [
+    0,
+    7,
+    -43
+   ],
+   "r": 5,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Ring 1",
+   "at": [
+    0,
+    7,
+    -34
+   ],
+   "r": 11,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Ring 2",
+   "at": [
+    0,
+    7,
+    -20
+   ],
+   "r": 11,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Ring 3",
+   "at": [
+    0,
+    7,
+    -6
+   ],
+   "r": 11,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Gehäuse",
+   "at": [
+    0,
+    -9,
+    -36
+   ],
+   "r": 9,
+   "h": 36,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Glocke",
+   "at": [
+    0,
+    -9,
+    -40
+   ],
+   "r": 11,
+   "h": 5,
+   "color": "stone_dark",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Glut",
+   "at": [
+    0,
+    -9,
+    -38
+   ],
+   "r": 8,
+   "h": 2,
+   "color": {
+    "role": "glow2",
+    "emit": 2.4
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Kern",
+   "at": [
+    0,
+    -9,
+    -39
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Ring 1",
+   "at": [
+    0,
+    -9,
+    -30
+   ],
+   "r": 10,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Ring 2",
+   "at": [
+    0,
+    -9,
+    -18
+   ],
+   "r": 10,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Ring 3",
+   "at": [
+    0,
+    -9,
+    -6
+   ],
+   "r": 10,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  180
+ ]
+}

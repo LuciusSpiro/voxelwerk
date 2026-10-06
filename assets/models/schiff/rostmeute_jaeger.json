@@ -1,0 +1,41 @@
+{
+  "id": "schiff/rostmeute_jaeger",
+  "name": "Rostmeute-Jäger (Rohmodell)",
+  "tier": "architecture",
+  "palette": "rostmeute",
+  "tags": ["schiff", "piraten", "gegner", "rohmodell"],
+  "footprint": [13, 14],
+  "ops": [
+    { "op": "box", "name": "Rumpf hinten", "at": [17, 10, 4], "size": [14, 9, 24], "color": { "noise": ["primary", { "shade": "primary", "f": 0.85 }], "weights": [3, 1], "cell": 2 } },
+    { "op": "box", "name": "Rumpf Spitze", "repeat": { "count": 6, "step": [0, 0, 4] }, "at": ["18 + i", "11 + floor(i/2)", 28], "size": ["12 - i*2", "7 - floor(i/2)*2", 4], "color": "primary" },
+    { "op": "box", "name": "Knochenschnabel", "at": [0, 0, 40], "size": [48, 30, 12], "color": "trim", "mode": "paint" },
+    { "op": "box", "name": "Rumpf oben hell", "at": [17, 18, 4], "size": [14, 1, 24], "color": { "shade": "primary", "f": 1.15 }, "mode": "paint" },
+    { "op": "box", "name": "Rumpf unten dunkel", "at": [17, 10, 4], "size": [14, 2, 24], "color": "leather", "mode": "paint" },
+
+    { "op": "box", "name": "Flügel Backbord", "repeat": { "count": 4, "step": [3, 0, -2] }, "at": [31, 13, 20], "size": [3, 2, "10 - i"], "color": "leather" },
+    { "op": "box", "name": "Gondel Backbord (groß)", "at": [42, 9, 2], "size": [8, 10, 20], "color": "primary" },
+    { "op": "box", "name": "Gondel Backbord Flicken", "at": [42, 18, 8], "size": [8, 1, 8], "color": "secondary", "mode": "paint" },
+    { "op": "box", "name": "Flügel Steuerbord", "repeat": { "count": 3, "step": [-3, 0, -2] }, "at": [14, 13, 18], "size": [3, 2, "9 - i"], "color": "metal" },
+    { "op": "box", "name": "Gondel Steuerbord (klein)", "at": [2, 11, 4], "size": [7, 7, 14], "color": "metal" },
+    { "op": "box", "name": "Warnstreifen", "at": [2, 17, 6], "size": [7, 1, 10], "color": { "stripes": ["warning", "dark"], "axis": "z", "period": 2 }, "mode": "paint" },
+
+    { "op": "cyl", "name": "Triebwerk Rumpf", "axis": "z", "at": [24, 14.5, 2], "r": 4, "h": 2, "color": "metal_dark" },
+    { "op": "cyl", "name": "Glut Rumpf", "axis": "z", "at": [24, 14.5, 1], "r": 3, "h": 1, "color": { "role": "glow2", "emit": 2.2 }, "jitter": false },
+    { "op": "cyl", "name": "Triebwerk Backbord", "axis": "z", "at": [46, 14, 0], "r": 4, "h": 2, "color": "metal_dark" },
+    { "op": "cyl", "name": "Glut Backbord", "axis": "z", "at": [46, 14, -1], "r": 3, "h": 1, "color": { "role": "glow2", "emit": 2.2 }, "jitter": false },
+    { "op": "cyl", "name": "Glut Steuerbord", "axis": "z", "at": [5.5, 14.5, 3], "r": 2.5, "h": 1, "color": { "role": "glow2", "emit": 2.2 }, "jitter": false },
+
+    { "op": "box", "name": "Cockpit", "at": [20, 19, 18], "size": [8, 3, 10], "color": { "frame": "metal_dark", "fill": "glass", "axes": "xz" } },
+    { "op": "wedge", "name": "Cockpitscheibe", "at": [20, 19, 28], "size": [8, 3, 4], "slope": "+z", "color": "glass" },
+    { "op": "box", "name": "Scheibenglanz", "at": [21, 21, 20], "size": [6, 1, 2], "color": { "shade": "glass", "f": 1.8 }, "mode": "paint" },
+    { "op": "box", "name": "Panzerplatte", "at": [18, 19, 6], "size": [9, 1, 9], "color": "secondary" },
+    { "op": "box", "name": "Nieten", "repeat": { "count": 3, "step": [3, 0, 0] }, "at": [19, 20, 7], "size": [1, 1, 1], "color": "dark" },
+
+    { "op": "box", "name": "Rotes Auge", "at": [21, 14, 35], "size": [6, 2, 2], "color": { "role": "glow", "emit": 2.4 }, "jitter": false },
+    { "op": "line", "name": "Kanone Backbord", "from": [46, 11, 22], "to": [46, 11, 36], "r": 1, "color": "metal_dark" },
+    { "op": "line", "name": "Kanone Steuerbord", "from": [5, 12, 18], "to": [5, 12, 28], "r": 0.8, "color": "metal_dark" },
+    { "op": "line", "name": "Antenne", "from": [45, 19, 6], "to": [41, 29, 1], "r": 0.5, "color": "metal_light" },
+    { "op": "box", "name": "Antennenlicht", "at": [40, 29, 0], "size": [1, 1, 1], "color": { "role": "glow", "emit": 2.0 }, "jitter": false }
+  ],
+  "anchor": [24, 14, 24]
+}

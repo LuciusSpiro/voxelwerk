@@ -1,0 +1,86 @@
+{
+  "id": "fregatten-vergleich",
+  "name": "Fregatten der fünf Völker im Vergleich (mit Lerche)",
+  "palette": "base",
+  "mood": "space",
+  "place": [
+    {
+      "model": "schiff/fregatte/rom",
+      "at": [
+        0,
+        0
+      ],
+      "y": 0,
+      "palette": "rom"
+    },
+    {
+      "model": "schiff/fregatte/nord",
+      "at": [
+        40,
+        0
+      ],
+      "y": 0,
+      "palette": "nord"
+    },
+    {
+      "model": "schiff/fregatte/aegypten",
+      "at": [
+        85,
+        0
+      ],
+      "y": 0,
+      "palette": "aegypten"
+    },
+    {
+      "model": "schiff/fregatte/babylon",
+      "at": [
+        125,
+        0
+      ],
+      "y": 0,
+      "palette": "babylon"
+    },
+    {
+      "model": "schiff/fregatte/himmelsreich",
+      "at": [
+        170,
+        0
+      ],
+      "y": 0,
+      "palette": "himmelsreich"
+    },
+    {
+      "model": "schiff/lerche",
+      "at": [
+        200,
+        -10
+      ],
+      "y": 0,
+      "palette": "lerche"
+    }
+  ],
+  "cameras": {
+    "oben": {
+      "target": [
+        100,
+        0,
+        0
+      ],
+      "dist": 380,
+      "elev": 89,
+      "az": 0,
+      "fov": 30
+    },
+    "schraeg": {
+      "target": [
+        100,
+        0,
+        5
+      ],
+      "dist": 360,
+      "elev": 24,
+      "az": 150,
+      "fov": 30
+    }
+  }
+}

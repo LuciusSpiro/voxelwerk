@@ -1,0 +1,85 @@
+{
+  "id": "schiff/lerche",
+  "name": "KRS Lerche (Rohmodell)",
+  "tier": "architecture",
+  "palette": "lerche",
+  "tags": ["schiff", "crew", "rohmodell"],
+  "footprint": [24, 63],
+  "params": {
+    "m3": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "M3-Bewaffnung (Batterien + Lanze)" },
+    "wings": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Flügel mit Gondeln" }
+  },
+  "variants": { "m2": { "m3": 0 } },
+  "ops": [
+    { "op": "cyl", "name": "Antriebsring", "axis": "z", "at": [28, 50, 4], "r": 34, "h": 4, "hollow": 4, "color": "trim" },
+    { "op": "cyl", "name": "Ringfeld", "axis": "z", "at": [28, 50, 5], "r": 30, "h": 2, "hollow": 1, "color": { "role": "glow", "emit": 1.4 }, "jitter": false },
+    { "op": "line", "name": "Ringstrebe oben", "mirror": "x", "mirrorAt": 28, "from": [14, 60, 12], "to": [6, 72, 6], "r": 1.5, "color": "metal_dark" },
+    { "op": "line", "name": "Ringstrebe unten", "mirror": "x", "mirrorAt": 28, "from": [14, 40, 12], "to": [6, 28, 6], "r": 1.5, "color": "metal_dark" },
+
+    { "op": "box", "name": "Antriebsmodul", "at": [10, 39, 8], "size": [36, 22, 32], "color": "primary" },
+    { "op": "box", "name": "Antriebsmodul Kante", "at": [12, 38, 8], "size": [32, 24, 32], "color": "primary", "mode": "under" },
+    { "op": "box", "name": "Antriebsmodul oben hell", "at": [10, 58, 8], "size": [36, 4, 32], "color": "secondary", "mode": "paint" },
+    { "op": "box", "name": "Antriebsmodul unten dunkel", "at": [10, 38, 8], "size": [36, 4, 32], "color": "metal", "mode": "paint" },
+    { "op": "box", "name": "Kühlrippen", "repeat": { "count": 5, "step": [0, 0, 4] }, "mirror": "x", "mirrorAt": 28, "at": [10, 52, 14], "size": [1, 6, 2], "color": "dark", "mode": "paint" },
+    { "op": "cyl", "name": "Reaktoröffnung", "axis": "z", "at": [28, 50, 7], "r": 9, "h": 2, "color": "trim" },
+    { "op": "cyl", "name": "Reaktorglühen", "axis": "z", "at": [28, 50, 6], "r": 6, "h": 2, "color": { "role": "glow", "emit": 2.2 }, "jitter": false },
+    { "op": "box", "name": "Modulfuge", "at": [12, 40, 40], "size": [32, 20, 2], "color": "dark" },
+
+    { "op": "box", "name": "Haupthülle", "at": [2, 37, 42], "size": [52, 26, 100], "color": "primary" },
+    { "op": "box", "name": "Haupthülle Flanken", "at": [0, 40, 42], "size": [56, 20, 100], "color": "primary" },
+    { "op": "box", "name": "Hülle oben hell", "at": [0, 57, 42], "size": [56, 6, 100], "color": "secondary", "mode": "paint" },
+    { "op": "box", "name": "Hülle unten dunkel", "at": [0, 37, 42], "size": [56, 6, 100], "color": "metal", "mode": "paint" },
+    { "op": "box", "name": "Plattenfugen", "repeat": { "count": 2, "step": [0, 0, 34] }, "at": [0, 37, 76], "size": [56, 26, 1], "color": { "shade": "primary", "f": 0.7 }, "mode": "paint" },
+    { "op": "box", "name": "Kiel", "at": [12, 34, 54], "size": [32, 3, 76], "color": "metal_dark" },
+
+    { "op": "ellipsoid", "name": "Bug", "at": [28, 50, 142], "r": [28, 13, 62], "half": "+z", "color": "primary" },
+    { "op": "box", "name": "Bug oben hell", "at": [0, 58, 142], "size": [56, 6, 64], "color": "secondary", "mode": "paint" },
+    { "op": "box", "name": "Bug unten dunkel", "at": [0, 37, 142], "size": [56, 6, 64], "color": "metal", "mode": "paint" },
+    { "op": "box", "name": "Bugfuge", "at": [0, 37, 142], "size": [56, 26, 1], "color": "dark", "mode": "paint" },
+
+    { "op": "box", "name": "Terrakotta-Streifen", "at": [-1, 48, 8], "size": [58, 2, 200], "color": "cloth", "mode": "paint" },
+    { "op": "box", "name": "Blaue Linie", "at": [-1, 46, 8], "size": [58, 1, 200], "color": "metal_dark", "mode": "paint" },
+
+    { "op": "box", "name": "Fenster oben", "repeat": { "count": 3, "step": [0, 0, 12] }, "mirror": "x", "mirrorAt": 28, "at": [0, 53, 100], "size": [1, 2, 6], "color": { "role": "glow2", "emit": 1.2 }, "mode": "paint", "jitter": false },
+    { "op": "box", "name": "Fenster unten", "repeat": { "count": 4, "step": [0, 0, 10] }, "mirror": "x", "mirrorAt": 28, "at": [0, 41, 56], "size": [1, 2, 4], "color": { "role": "glow2", "emit": 1.0 }, "mode": "paint", "jitter": false },
+
+    { "op": "ellipsoid", "name": "Kuppel", "at": [28, 58, 178], "r": [13, 8, 22], "half": "+y", "color": { "role": "glass", "emit": 0.35 } },
+    { "op": "box", "name": "Kuppelstreben", "repeat": { "count": 4, "step": [0, 0, 8] }, "at": [14, 58, 166], "size": [28, 10, 1], "color": { "shade": "trim", "f": 0.7 }, "mode": "paint" },
+    { "op": "box", "name": "Kuppelrahmen", "at": [14, 58, 155], "size": [28, 1, 46], "color": "trim", "mode": "paint" },
+
+    { "op": "group", "name": "Canards", "mirror": "x", "mirrorAt": 28, "ops": [
+      { "op": "box", "name": "Canard", "repeat": { "count": 4, "step": [3, 0, -3] }, "at": [50, 47, 168], "size": [3, 2, "10 - i*2"], "color": "metal" }
+    ] },
+
+    { "op": "group", "name": "Flügel", "if": "wings", "mirror": "x", "mirrorAt": 28, "ops": [
+      { "op": "box", "name": "Flügelplatte", "repeat": { "count": 10, "step": [4, 0, -3] }, "at": [56, 43, 62], "size": [4, 2, "44 - i*1"], "color": "metal" },
+      { "op": "box", "name": "Flügeloberseite", "repeat": { "count": 10, "step": [4, 0, -3] }, "at": [56, 44, 62], "size": [4, 1, "44 - i*1"], "color": { "shade": "primary", "f": 1.05 }, "mode": "paint" },
+      { "op": "box", "name": "Flügelfeld Terrakotta", "at": [68, 44, 62], "size": [12, 1, 10], "color": "cloth", "mode": "paint" },
+      { "op": "cyl", "name": "Gondel", "axis": "z", "at": [98, 44, 24], "r": 4, "h": 52, "color": "primary" },
+      { "op": "cyl", "name": "Gondelspitze", "axis": "z", "at": [98, 44, 76], "r": 4, "r2": 1, "h": 6, "color": "secondary" },
+      { "op": "box", "name": "Gondelband", "repeat": { "count": 3, "step": [0, 0, 14] }, "at": [94, 40, 30], "size": [8, 8, 1], "color": "metal_dark", "mode": "paint" },
+      { "op": "cyl", "name": "Gondeldüse", "axis": "z", "at": [98, 44, 21], "r": 3, "h": 3, "color": { "role": "glow2", "emit": 1.6 }, "jitter": false }
+    ] },
+    { "op": "box", "name": "Positionslicht Backbord (rot)", "if": "wings", "at": [97, 43, 82], "size": [2, 2, 2], "color": { "role": "warning", "emit": 2.0 }, "jitter": false },
+    { "op": "box", "name": "Positionslicht Steuerbord (mint)", "if": "wings", "at": [-43, 43, 82], "size": [2, 2, 2], "color": { "role": "glow", "emit": 2.0 }, "jitter": false },
+
+    { "op": "group", "name": "Breitseiten-Batterie", "if": "m3", "mirror": "x", "mirrorAt": 28, "ops": [
+      { "op": "box", "name": "Sponson", "at": [56, 42, 112], "size": [6, 16, 26], "color": "metal_dark" },
+      { "op": "box", "name": "Sponson Messingleiste", "at": [61, 42, 112], "size": [1, 16, 26], "color": "trim", "mode": "paint" },
+      { "op": "line", "name": "Rohr", "repeat": { "count": 4, "step": [0, 0, 6] }, "from": [62, 50, 116], "to": [72, 50, 116], "r": 1.2, "color": "metal_dark" },
+      { "op": "box", "name": "Mündung", "repeat": { "count": 4, "step": [0, 0, 6] }, "at": [71, 49, 115], "size": [2, 3, 3], "color": "trim" }
+    ] },
+    { "op": "group", "name": "Bug-Lanze", "if": "m3", "ops": [
+      { "op": "cyl", "name": "Lanzenlauf", "axis": "z", "at": [28, 50, 200], "r": 3, "h": 48, "color": "metal_dark" },
+      { "op": "cyl", "name": "Fokusring", "axis": "z", "repeat": { "count": 3, "step": [0, 0, 12] }, "at": [28, 50, 212], "r": 5, "h": 2, "color": "trim" },
+      { "op": "cyl", "name": "Linse", "axis": "z", "at": [28, 50, 248], "r": 3, "h": 2, "color": { "role": "glow", "emit": 2.4 }, "jitter": false }
+    ] },
+
+    { "op": "box", "name": "Luke mit Warnstreifen", "at": [20, 62, 84], "size": [16, 1, 8], "color": { "stripes": ["warning", "dark"], "axis": "x", "period": 2 }, "mode": "paint" },
+    { "op": "line", "name": "Sensorarm", "from": [40, 63, 60], "to": [46, 72, 54], "r": 1, "color": "metal_dark" },
+    { "op": "cyl", "name": "Sensorschüssel", "at": [46, 72, 54], "r": 5, "h": 1, "color": "metal_light" },
+    { "op": "line", "name": "Antenne", "from": [20, 63, 124], "to": [18, 80, 126], "r": 0.5, "color": "metal_light" },
+    { "op": "box", "name": "Antennenlicht", "at": [17, 80, 125], "size": [1, 1, 1], "color": { "role": "warning", "emit": 2.0 }, "jitter": false }
+  ],
+  "anchor": [28, 50, 120]
+}

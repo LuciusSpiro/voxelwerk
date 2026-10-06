@@ -1,0 +1,1443 @@
+{
+ "id": "schiff/korvette/himmelsreich",
+ "name": "Doujian – Korvette (himmelsreich)",
+ "tier": "architecture",
+ "palette": "himmelsreich",
+ "tags": [
+  "schiff",
+  "korvette",
+  "himmelsreich",
+  "rohmodell"
+ ],
+ "footprint": [
+  9.0,
+  55.0
+ ],
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Triebwerksblock",
+   "sections": [
+    {
+     "z": 0,
+     "w": 32,
+     "up": 12,
+     "down": 12,
+     "bevel": 4
+    },
+    {
+     "z": 22,
+     "w": 32,
+     "up": 12,
+     "down": 12,
+     "bevel": 4
+    }
+   ],
+   "color": {
+    "stripes": [
+     "wood",
+     {
+      "shade": "wood",
+      "f": 0.88
+     }
+    ],
+    "axis": "z",
+    "period": 3
+   }
+  },
+  {
+   "op": "loft",
+   "name": "Glied 1",
+   "sections": [
+    {
+     "z": 26,
+     "w": 28,
+     "up": 10,
+     "down": 12,
+     "bevel": 4
+    },
+    {
+     "z": 95,
+     "w": 28,
+     "up": 10,
+     "down": 12,
+     "bevel": 4
+    }
+   ],
+   "color": {
+    "stripes": [
+     "wood",
+     {
+      "shade": "wood",
+      "f": 0.88
+     }
+    ],
+    "axis": "z",
+    "period": 3
+   }
+  },
+  {
+   "op": "loft",
+   "name": "Goldrahmen 1",
+   "sections": [
+    {
+     "z": 22,
+     "w": 34,
+     "up": 13,
+     "down": 13,
+     "bevel": 5
+    },
+    {
+     "z": 26,
+     "w": 34,
+     "up": 13,
+     "down": 13,
+     "bevel": 5
+    }
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Glied 1 Paneel",
+   "at": [
+    -20,
+    -8,
+    30
+   ],
+   "size": [
+    40,
+    12,
+    61
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "wood_dark",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Glied 1 Dach",
+   "at": [
+    -8,
+    10,
+    28
+   ],
+   "size": [
+    16,
+    2,
+    65
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Glied 1 Fenster",
+   "at": [
+    -20,
+    4,
+    32
+   ],
+   "size": [
+    40,
+    1,
+    4
+   ],
+   "color": {
+    "role": "water",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 7,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "loft",
+   "name": "Glied 2",
+   "sections": [
+    {
+     "z": 101,
+     "w": 28,
+     "up": 10,
+     "down": 12,
+     "bevel": 4
+    },
+    {
+     "z": 170,
+     "w": 28,
+     "up": 10,
+     "down": 12,
+     "bevel": 4
+    }
+   ],
+   "color": {
+    "stripes": [
+     "wood",
+     {
+      "shade": "wood",
+      "f": 0.88
+     }
+    ],
+    "axis": "z",
+    "period": 3
+   }
+  },
+  {
+   "op": "loft",
+   "name": "Goldrahmen 2",
+   "sections": [
+    {
+     "z": 97,
+     "w": 34,
+     "up": 13,
+     "down": 13,
+     "bevel": 5
+    },
+    {
+     "z": 101,
+     "w": 34,
+     "up": 13,
+     "down": 13,
+     "bevel": 5
+    }
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Glied 2 Paneel",
+   "at": [
+    -20,
+    -8,
+    105
+   ],
+   "size": [
+    40,
+    12,
+    61
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "wood_dark",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Glied 2 Dach",
+   "at": [
+    -8,
+    10,
+    103
+   ],
+   "size": [
+    16,
+    2,
+    65
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Glied 2 Fenster",
+   "at": [
+    -20,
+    4,
+    107
+   ],
+   "size": [
+    40,
+    1,
+    4
+   ],
+   "color": {
+    "role": "water",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 7,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Phönix 2",
+   "at": [
+    -20,
+    -2,
+    125
+   ],
+   "size": [
+    40,
+    2,
+    20
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Phönix 2",
+   "at": [
+    -20,
+    0,
+    123
+   ],
+   "size": [
+    40,
+    2,
+    24
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Phönix 2",
+   "at": [
+    -20,
+    2,
+    121
+   ],
+   "size": [
+    40,
+    2,
+    28
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Phönix 2",
+   "at": [
+    -20,
+    4,
+    119
+   ],
+   "size": [
+    40,
+    2,
+    32
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Phönix 2",
+   "at": [
+    -20,
+    6,
+    117
+   ],
+   "size": [
+    40,
+    2,
+    36
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "loft",
+   "name": "Goldrahmen Bug",
+   "sections": [
+    {
+     "z": 168,
+     "w": 40,
+     "up": 15,
+     "down": 15,
+     "bevel": 5
+    },
+    {
+     "z": 173,
+     "w": 40,
+     "up": 15,
+     "down": 15,
+     "bevel": 5
+    }
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "loft",
+   "name": "Bugblock",
+   "sections": [
+    {
+     "z": 172,
+     "w": 36,
+     "up": 14,
+     "down": 14,
+     "bevel": 4
+    },
+    {
+     "z": 212,
+     "w": 36,
+     "up": 14,
+     "down": 14,
+     "bevel": 4
+    },
+    {
+     "z": 220,
+     "w": 28,
+     "up": 10,
+     "down": 8,
+     "bevel": 8
+    }
+   ],
+   "color": {
+    "stripes": [
+     "wood",
+     {
+      "shade": "wood",
+      "f": 0.88
+     }
+    ],
+    "axis": "z",
+    "period": 3
+   }
+  },
+  {
+   "op": "box",
+   "name": "Bildfeld",
+   "at": [
+    -20,
+    -6,
+    182
+   ],
+   "size": [
+    40,
+    10,
+    29
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "cloth2",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Kalligrafietafel",
+   "at": [
+    -20,
+    4,
+    184
+   ],
+   "size": [
+    40,
+    6,
+    26
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Gelehrter 1 Gewand",
+   "at": [
+    -21,
+    -3,
+    186
+   ],
+   "size": [
+    42,
+    8,
+    6
+   ],
+   "color": "secondary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Gelehrter 1 Kopf",
+   "at": [
+    -21,
+    5,
+    187
+   ],
+   "size": [
+    42,
+    3,
+    4
+   ],
+   "color": "skin",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Gelehrter 2 Gewand",
+   "at": [
+    -21,
+    -3,
+    199
+   ],
+   "size": [
+    42,
+    8,
+    6
+   ],
+   "color": "warning",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Gelehrter 2 Kopf",
+   "at": [
+    -21,
+    5,
+    200
+   ],
+   "size": [
+    42,
+    3,
+    4
+   ],
+   "color": "skin",
+   "mode": "paint"
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Bugdrache Kopf",
+   "at": [
+    0,
+    0,
+    221
+   ],
+   "r": [
+    6,
+    6,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Bugdrache Maul",
+   "at": [
+    -3,
+    -4,
+    223
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "dark"
+  },
+  {
+   "op": "box",
+   "name": "Bugdrache Augen",
+   "at": [
+    2,
+    2,
+    223
+   ],
+   "size": [
+    2,
+    1,
+    1
+   ],
+   "color": {
+    "role": "warning",
+    "emit": 2.2
+   },
+   "jitter": false,
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Bugdrache Horn",
+   "from": [
+    3,
+    4,
+    222
+   ],
+   "to": [
+    7,
+    10,
+    220
+   ],
+   "r": 1,
+   "color": "trim",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Bugdrache Bart",
+   "from": [
+    3,
+    -2,
+    223
+   ],
+   "to": [
+    9,
+    -6,
+    222
+   ],
+   "r": 0.7,
+   "color": "trim",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Bugkanone",
+   "from": [
+    9,
+    -10,
+    210
+   ],
+   "to": [
+    9,
+    -10,
+    242
+   ],
+   "r": 1.2,
+   "color": "metal_dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Palast Terrasse",
+   "at": [
+    -16,
+    14,
+    174
+   ],
+   "size": [
+    32,
+    3,
+    44
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Palast Halle 1",
+   "at": [
+    -13,
+    17,
+    177
+   ],
+   "size": [
+    26,
+    14,
+    38
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "wood",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Palast Säulen 1",
+   "at": [
+    -13,
+    17,
+    179
+   ],
+   "size": [
+    26,
+    14,
+    2
+   ],
+   "color": "primary",
+   "mode": "paint",
+   "repeat": {
+    "count": 4,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Palast Fenster 1",
+   "at": [
+    -14,
+    21,
+    182
+   ],
+   "size": [
+    28,
+    4,
+    4
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "cloth2",
+    "axes": "xy"
+   },
+   "mode": "paint",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Palast Traufe 1",
+   "at": [
+    -17,
+    31,
+    173
+   ],
+   "size": [
+    34,
+    3,
+    46
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "wedge",
+   "name": "Palast Dach 1",
+   "at": [
+    -13,
+    34,
+    177
+   ],
+   "size": [
+    26,
+    5,
+    38
+   ],
+   "color": {
+    "stripes": [
+     "secondary",
+     {
+      "shade": "secondary",
+      "f": 1.4
+     }
+    ],
+    "axis": "z",
+    "period": 2
+   },
+   "gable": "x"
+  },
+  {
+   "op": "box",
+   "name": "Palast Traufecke 1",
+   "at": [
+    -19,
+    33,
+    171
+   ],
+   "size": [
+    3,
+    4,
+    3
+   ],
+   "color": "trim",
+   "mirror": "xz",
+   "mirrorAt": {
+    "x": 0,
+    "z": 196
+   }
+  },
+  {
+   "op": "box",
+   "name": "Palast Firstfigur",
+   "at": [
+    -1,
+    37,
+    195
+   ],
+   "size": [
+    2,
+    5,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Pagode Stock 1",
+   "at": [
+    -7,
+    12,
+    7
+   ],
+   "size": [
+    14,
+    7,
+    14
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "wood",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Fenster 1",
+   "at": [
+    -8,
+    15,
+    9
+   ],
+   "size": [
+    16,
+    2,
+    10
+   ],
+   "color": {
+    "role": "water",
+    "emit": 1.0
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Pagode Traufe 1",
+   "at": [
+    -11,
+    19,
+    3
+   ],
+   "size": [
+    22,
+    2,
+    22
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Ecke 1",
+   "at": [
+    -12,
+    20,
+    2
+   ],
+   "size": [
+    2,
+    3,
+    2
+   ],
+   "color": "trim",
+   "mirror": "xz",
+   "mirrorAt": {
+    "x": 0,
+    "z": 14
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Stock 2",
+   "at": [
+    -6,
+    21,
+    8
+   ],
+   "size": [
+    12,
+    7,
+    12
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "wood",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Fenster 2",
+   "at": [
+    -7,
+    24,
+    10
+   ],
+   "size": [
+    14,
+    2,
+    8
+   ],
+   "color": {
+    "role": "water",
+    "emit": 1.0
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Pagode Traufe 2",
+   "at": [
+    -10,
+    28,
+    4
+   ],
+   "size": [
+    20,
+    2,
+    20
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Ecke 2",
+   "at": [
+    -11,
+    29,
+    3
+   ],
+   "size": [
+    2,
+    3,
+    2
+   ],
+   "color": "trim",
+   "mirror": "xz",
+   "mirrorAt": {
+    "x": 0,
+    "z": 14
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Stock 3",
+   "at": [
+    -5,
+    30,
+    9
+   ],
+   "size": [
+    10,
+    7,
+    10
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "wood",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Fenster 3",
+   "at": [
+    -6,
+    33,
+    11
+   ],
+   "size": [
+    12,
+    2,
+    6
+   ],
+   "color": {
+    "role": "water",
+    "emit": 1.0
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Pagode Traufe 3",
+   "at": [
+    -9,
+    37,
+    5
+   ],
+   "size": [
+    18,
+    2,
+    18
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Ecke 3",
+   "at": [
+    -10,
+    38,
+    4
+   ],
+   "size": [
+    2,
+    3,
+    2
+   ],
+   "color": "trim",
+   "mirror": "xz",
+   "mirrorAt": {
+    "x": 0,
+    "z": 14
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Stock 4",
+   "at": [
+    -4,
+    39,
+    10
+   ],
+   "size": [
+    8,
+    7,
+    8
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "wood",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Fenster 4",
+   "at": [
+    -5,
+    42,
+    12
+   ],
+   "size": [
+    10,
+    2,
+    4
+   ],
+   "color": {
+    "role": "water",
+    "emit": 1.0
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Pagode Traufe 4",
+   "at": [
+    -8,
+    46,
+    6
+   ],
+   "size": [
+    16,
+    2,
+    16
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "secondary",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Pagode Ecke 4",
+   "at": [
+    -9,
+    47,
+    5
+   ],
+   "size": [
+    2,
+    3,
+    2
+   ],
+   "color": "trim",
+   "mirror": "xz",
+   "mirrorAt": {
+    "x": 0,
+    "z": 14
+   }
+  },
+  {
+   "op": "line",
+   "name": "Pagode Spitze",
+   "from": [
+    0,
+    48,
+    14
+   ],
+   "to": [
+    0,
+    64,
+    14
+   ],
+   "r": 1,
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Pagode Perle",
+   "at": [
+    -1,
+    64,
+    13
+   ],
+   "size": [
+    2,
+    3,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2.4
+   },
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Turm 1 Sockel",
+   "at": [
+    0,
+    10,
+    99
+   ],
+   "r": 5,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 1 Gehäuse",
+   "at": [
+    -4,
+    12,
+    95
+   ],
+   "size": [
+    8,
+    4,
+    9
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "trim",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm 1 Blende",
+   "at": [
+    -3,
+    12,
+    103
+   ],
+   "size": [
+    6,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 1 Rohr L",
+   "from": [
+    -2,
+    14,
+    104
+   ],
+   "to": [
+    -2,
+    14,
+    124
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm 1 Rohr R",
+   "from": [
+    2,
+    14,
+    104
+   ],
+   "to": [
+    2,
+    14,
+    124
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm 1 Mündung",
+   "at": [
+    -3,
+    13,
+    123
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Antriebsjoch",
+   "at": [
+    -18,
+    -18,
+    -8
+   ],
+   "size": [
+    36,
+    36,
+    8
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "wood_dark",
+    "axes": "xy"
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Gehäuse",
+   "at": [
+    0,
+    6,
+    -36
+   ],
+   "r": 9,
+   "h": 36,
+   "color": "metal",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Glocke",
+   "at": [
+    0,
+    6,
+    -40
+   ],
+   "r": 11,
+   "h": 5,
+   "color": "trim",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Glut",
+   "at": [
+    0,
+    6,
+    -38
+   ],
+   "r": 8,
+   "h": 2,
+   "color": {
+    "role": "water",
+    "emit": 2.8
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Kern",
+   "at": [
+    0,
+    6,
+    -39
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Ring 1",
+   "at": [
+    0,
+    6,
+    -30
+   ],
+   "r": 10,
+   "h": 3,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 1 Ring 2",
+   "at": [
+    0,
+    6,
+    -6
+   ],
+   "r": 10,
+   "h": 3,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Gehäuse",
+   "at": [
+    0,
+    -8,
+    -36
+   ],
+   "r": 9,
+   "h": 36,
+   "color": "metal",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Glocke",
+   "at": [
+    0,
+    -8,
+    -40
+   ],
+   "r": 11,
+   "h": 5,
+   "color": "trim",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Glut",
+   "at": [
+    0,
+    -8,
+    -38
+   ],
+   "r": 8,
+   "h": 2,
+   "color": {
+    "role": "water",
+    "emit": 2.8
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Kern",
+   "at": [
+    0,
+    -8,
+    -39
+   ],
+   "r": 4,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Ring 1",
+   "at": [
+    0,
+    -8,
+    -30
+   ],
+   "r": 10,
+   "h": 3,
+   "color": "trim",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk 2 Ring 2",
+   "at": [
+    0,
+    -8,
+    -6
+   ],
+   "r": 10,
+   "h": 3,
+   "color": "trim",
+   "axis": "z"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  110
+ ]
+}

@@ -1,0 +1,2789 @@
+{
+ "id": "schiff/fregatte/babylon",
+ "name": "Tafelschiff – babylonisches Steinschiff (4. Fassung)",
+ "tier": "architecture",
+ "palette": "babylon",
+ "tags": [
+  "schiff",
+  "fregatte",
+  "babylon",
+  "rohmodell"
+ ],
+ "footprint": [
+  20,
+  105
+ ],
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Heckblock",
+   "sections": [
+    {
+     "z": 0,
+     "w": 58,
+     "up": 24,
+     "down": 26,
+     "bevel": 3
+    },
+    {
+     "z": 110,
+     "w": 58,
+     "up": 24,
+     "down": 26,
+     "bevel": 3
+    }
+   ],
+   "color": "stone_dark"
+  },
+  {
+   "op": "loft",
+   "name": "Mittelblock",
+   "sections": [
+    {
+     "z": 110,
+     "w": 56,
+     "up": 24,
+     "down": 26,
+     "bevel": 3
+    },
+    {
+     "z": 300,
+     "w": 56,
+     "up": 24,
+     "down": 26,
+     "bevel": 3
+    }
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "loft",
+   "name": "Bugblock",
+   "sections": [
+    {
+     "z": 300,
+     "w": 62,
+     "up": 30,
+     "down": 30,
+     "bevel": 3
+    },
+    {
+     "z": 372,
+     "w": 62,
+     "up": 30,
+     "down": 30,
+     "bevel": 3
+    },
+    {
+     "z": 380,
+     "w": 56,
+     "up": 26,
+     "down": 26,
+     "bevel": 4
+    }
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Bugfuß",
+   "at": [
+    18,
+    -46,
+    330
+   ],
+   "size": [
+    12,
+    16,
+    46
+   ],
+   "color": "stone_dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Bugfuß Stufe",
+   "at": [
+    16,
+    -50,
+    336
+   ],
+   "size": [
+    16,
+    4,
+    44
+   ],
+   "color": "stone_dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Kiel",
+   "at": [
+    -16,
+    -36,
+    60
+   ],
+   "size": [
+    32,
+    10,
+    240
+   ],
+   "color": {
+    "frame": "stone_light",
+    "fill": "stone_dark",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kielstreben",
+   "at": [
+    -18,
+    -36,
+    "70 + i*24"
+   ],
+   "size": [
+    36,
+    10,
+    4
+   ],
+   "color": "stone_dark",
+   "repeat": {
+    "count": 10,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kante oben",
+   "at": [
+    -34,
+    23,
+    0
+   ],
+   "size": [
+    68,
+    1,
+    400
+   ],
+   "color": "stone_light",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zinnen Mitte links",
+   "at": [
+    -28,
+    24,
+    110
+   ],
+   "size": [
+    3,
+    3,
+    2
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 47,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zinnen Mitte rechts",
+   "at": [
+    25,
+    24,
+    110
+   ],
+   "size": [
+    3,
+    3,
+    2
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 47,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zinnen Bug links",
+   "at": [
+    -31,
+    30,
+    302
+   ],
+   "size": [
+    3,
+    3,
+    2
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 17,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zinnen Bug rechts",
+   "at": [
+    28,
+    30,
+    302
+   ],
+   "size": [
+    3,
+    3,
+    2
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 17,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zinnen Heck links",
+   "at": [
+    -29,
+    24,
+    2
+   ],
+   "size": [
+    3,
+    3,
+    2
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 26,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zinnen Heck rechts",
+   "at": [
+    26,
+    24,
+    2
+   ],
+   "size": [
+    3,
+    3,
+    2
+   ],
+   "color": "stone",
+   "repeat": {
+    "count": 26,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Bug-Relieffeld",
+   "at": [
+    -36,
+    -22,
+    304
+   ],
+   "size": [
+    72,
+    48,
+    64
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Figurenrelief",
+   "at": [
+    -36,
+    -2,
+    "310 + i*7"
+   ],
+   "size": [
+    72,
+    20,
+    4
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Figurenköpfe",
+   "at": [
+    -36,
+    18,
+    "310 + i*7"
+   ],
+   "size": [
+    72,
+    3,
+    3
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Namenstafel",
+   "at": [
+    -36,
+    -6,
+    334
+   ],
+   "size": [
+    72,
+    14,
+    30
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Keilschrift",
+   "at": [
+    -36,
+    -2,
+    "338 + i*4"
+   ],
+   "size": [
+    72,
+    4,
+    2
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 6,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Sonnenscheibe Flanke",
+   "at": [
+    -36,
+    14,
+    344
+   ],
+   "size": [
+    72,
+    5,
+    6
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Sonnenflügel Flanke",
+   "at": [
+    -36,
+    15,
+    334
+   ],
+   "size": [
+    72,
+    2,
+    26
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Unterfries",
+   "at": [
+    -36,
+    -28,
+    300
+   ],
+   "size": [
+    72,
+    6,
+    76
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Frieszeichen",
+   "at": [
+    -36,
+    -27,
+    "304 + i*6"
+   ],
+   "size": [
+    72,
+    4,
+    2
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 12,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Sonnenscheibe Bug",
+   "at": [
+    0,
+    12,
+    380
+   ],
+   "r": [
+    6,
+    6,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Sonnenflügel Bug",
+   "at": [
+    6,
+    "10 + i*2",
+    380
+   ],
+   "size": [
+    "16 - i*3",
+    2,
+    2
+   ],
+   "color": "trim",
+   "repeat": {
+    "count": 4,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Bugtafel",
+   "at": [
+    -18,
+    -14,
+    380
+   ],
+   "size": [
+    36,
+    14,
+    2
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xy"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Bugtafel Schrift",
+   "at": [
+    -14,
+    "-11 + i*4",
+    382
+   ],
+   "size": [
+    28,
+    2,
+    1
+   ],
+   "color": "trim",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Lamassu-Feld",
+   "at": [
+    -36,
+    -18,
+    222
+   ],
+   "size": [
+    72,
+    42,
+    74
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Leib",
+   "at": [
+    -36,
+    -4,
+    240
+   ],
+   "size": [
+    72,
+    10,
+    32
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Beine",
+   "at": [
+    -36,
+    -14,
+    "242 + i*9"
+   ],
+   "size": [
+    72,
+    10,
+    4
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 4,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Brust",
+   "at": [
+    -36,
+    -2,
+    268
+   ],
+   "size": [
+    72,
+    14,
+    8
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Kopf",
+   "at": [
+    -36,
+    10,
+    270
+   ],
+   "size": [
+    72,
+    8,
+    8
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Krone",
+   "at": [
+    -36,
+    17,
+    271
+   ],
+   "size": [
+    72,
+    3,
+    6
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 0.8
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Bart",
+   "at": [
+    -36,
+    4,
+    276
+   ],
+   "size": [
+    72,
+    6,
+    3
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 0.75
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Schwinge",
+   "at": [
+    -36,
+    "6 + i*2",
+    "262 - i*5"
+   ],
+   "size": [
+    72,
+    2,
+    "8 + i*3"
+   ],
+   "color": {
+    "stripes": [
+     "trim",
+     {
+      "shade": "trim",
+      "f": 0.8
+     }
+    ],
+    "axis": "z",
+    "period": 2
+   },
+   "mode": "paint",
+   "repeat": {
+    "count": 7,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Lamassu Schweif",
+   "at": [
+    -36,
+    -2,
+    234
+   ],
+   "size": [
+    72,
+    6,
+    4
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Achter-Relieffeld",
+   "at": [
+    -36,
+    -16,
+    14
+   ],
+   "size": [
+    72,
+    30,
+    86
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Achterfiguren",
+   "at": [
+    -36,
+    -10,
+    "20 + i*10"
+   ],
+   "size": [
+    72,
+    18,
+    4
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 8,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Mittelfries",
+   "at": [
+    -36,
+    -24,
+    112
+   ],
+   "size": [
+    72,
+    6,
+    108
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "yz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Mittelfries Zeichen",
+   "at": [
+    -36,
+    -23,
+    "116 + i*6"
+   ],
+   "size": [
+    72,
+    4,
+    2
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 17,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Schießscharten",
+   "at": [
+    -32,
+    16,
+    112
+   ],
+   "size": [
+    64,
+    1,
+    2
+   ],
+   "color": "dark",
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 23,
+    "step": [
+     0,
+     0,
+     8
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 1",
+   "at": [
+    -25,
+    24,
+    118
+   ],
+   "size": [
+    50,
+    8,
+    104
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 1",
+   "at": [
+    -26,
+    27,
+    117
+   ],
+   "size": [
+    52,
+    2,
+    106
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnenkranz 1",
+   "at": [
+    -25,
+    31,
+    118
+   ],
+   "size": [
+    50,
+    1,
+    104
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 1",
+   "at": [
+    -4,
+    24,
+    221
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Tor 1",
+   "at": [
+    -3,
+    26,
+    222
+   ],
+   "size": [
+    6,
+    5,
+    1
+   ],
+   "color": "dark"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 2",
+   "at": [
+    -21,
+    32,
+    125
+   ],
+   "size": [
+    42,
+    8,
+    90
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 2",
+   "at": [
+    -22,
+    35,
+    124
+   ],
+   "size": [
+    44,
+    2,
+    92
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnenkranz 2",
+   "at": [
+    -21,
+    39,
+    125
+   ],
+   "size": [
+    42,
+    1,
+    90
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 2",
+   "at": [
+    -4,
+    32,
+    214
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Tor 2",
+   "at": [
+    -3,
+    34,
+    215
+   ],
+   "size": [
+    6,
+    5,
+    1
+   ],
+   "color": "dark"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 3",
+   "at": [
+    -17,
+    40,
+    132
+   ],
+   "size": [
+    34,
+    8,
+    76
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 3",
+   "at": [
+    -18,
+    43,
+    131
+   ],
+   "size": [
+    36,
+    2,
+    78
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnenkranz 3",
+   "at": [
+    -17,
+    47,
+    132
+   ],
+   "size": [
+    34,
+    1,
+    76
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 3",
+   "at": [
+    -4,
+    40,
+    207
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Tor 3",
+   "at": [
+    -3,
+    42,
+    208
+   ],
+   "size": [
+    6,
+    5,
+    1
+   ],
+   "color": "dark"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 4",
+   "at": [
+    -13,
+    48,
+    139
+   ],
+   "size": [
+    26,
+    8,
+    62
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 4",
+   "at": [
+    -14,
+    51,
+    138
+   ],
+   "size": [
+    28,
+    2,
+    64
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnenkranz 4",
+   "at": [
+    -13,
+    55,
+    139
+   ],
+   "size": [
+    26,
+    1,
+    62
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 4",
+   "at": [
+    -4,
+    48,
+    200
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Tor 4",
+   "at": [
+    -3,
+    50,
+    201
+   ],
+   "size": [
+    6,
+    5,
+    1
+   ],
+   "color": "dark"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 5",
+   "at": [
+    -9,
+    56,
+    146
+   ],
+   "size": [
+    18,
+    8,
+    48
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 5",
+   "at": [
+    -10,
+    59,
+    145
+   ],
+   "size": [
+    20,
+    2,
+    50
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnenkranz 5",
+   "at": [
+    -9,
+    63,
+    146
+   ],
+   "size": [
+    18,
+    1,
+    48
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 5",
+   "at": [
+    -4,
+    56,
+    193
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Tor 5",
+   "at": [
+    -3,
+    58,
+    194
+   ],
+   "size": [
+    6,
+    5,
+    1
+   ],
+   "color": "dark"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Stufe 6",
+   "at": [
+    -5,
+    64,
+    153
+   ],
+   "size": [
+    10,
+    8,
+    34
+   ],
+   "color": "stone"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Glasur 6",
+   "at": [
+    -6,
+    67,
+    152
+   ],
+   "size": [
+    12,
+    2,
+    36
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Zinnenkranz 6",
+   "at": [
+    -5,
+    71,
+    153
+   ],
+   "size": [
+    10,
+    1,
+    34
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   },
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Treppe 6",
+   "at": [
+    -4,
+    64,
+    186
+   ],
+   "size": [
+    8,
+    8,
+    3
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   }
+  },
+  {
+   "op": "box",
+   "name": "Zikkurat Tor 6",
+   "at": [
+    -3,
+    66,
+    187
+   ],
+   "size": [
+    6,
+    5,
+    1
+   ],
+   "color": "dark"
+  },
+  {
+   "op": "box",
+   "name": "Schrein",
+   "at": [
+    -6,
+    72,
+    158
+   ],
+   "size": [
+    12,
+    10,
+    20
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "primary",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Schreinkrone",
+   "at": [
+    -7,
+    82,
+    157
+   ],
+   "size": [
+    14,
+    2,
+    22
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Löwenkopf-Relief",
+   "at": [
+    -3,
+    74,
+    178
+   ],
+   "size": [
+    6,
+    6,
+    1
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Seitentreppe",
+   "at": [
+    "-25 + i*4",
+    "24 + i*8",
+    160
+   ],
+   "size": [
+    4,
+    8,
+    20
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   },
+   "repeat": {
+    "count": 5,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Seitentreppe rechts",
+   "at": [
+    "21 - i*4",
+    "24 + i*8",
+    160
+   ],
+   "size": [
+    4,
+    8,
+    20
+   ],
+   "color": {
+    "stripes": [
+     "stone_light",
+     "stone_dark"
+    ],
+    "axis": "y",
+    "period": 1
+   },
+   "repeat": {
+    "count": 5,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Löwensockel",
+   "at": [
+    -24,
+    24,
+    22
+   ],
+   "size": [
+    48,
+    10,
+    70
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Löwensockel Stufe",
+   "at": [
+    -20,
+    34,
+    28
+   ],
+   "size": [
+    40,
+    5,
+    58
+   ],
+   "color": {
+    "frame": {
+     "checker": [
+      "stone_light",
+      "stone_dark"
+     ],
+     "period": 1
+    },
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Löwenfries",
+   "at": [
+    -25,
+    26,
+    "26 + i*14"
+   ],
+   "size": [
+    50,
+    6,
+    8
+   ],
+   "color": "trim",
+   "mode": "paint",
+   "repeat": {
+    "count": 5,
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Löwe Rumpf",
+   "at": [
+    0,
+    46,
+    52
+   ],
+   "r": [
+    9,
+    7,
+    18
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Löwe Brust",
+   "at": [
+    0,
+    48,
+    68
+   ],
+   "r": [
+    9,
+    9,
+    7
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Löwe Mähne",
+   "at": [
+    0,
+    56,
+    72
+   ],
+   "r": [
+    10,
+    10,
+    8
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 0.8
+   }
+  },
+  {
+   "op": "ellipsoid",
+   "name": "Löwe Kopf",
+   "at": [
+    0,
+    57,
+    79
+   ],
+   "r": [
+    6,
+    6,
+    5
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Löwe Maul",
+   "at": [
+    -3,
+    52,
+    83
+   ],
+   "size": [
+    6,
+    3,
+    2
+   ],
+   "color": "dark"
+  },
+  {
+   "op": "box",
+   "name": "Löwe Augen",
+   "at": [
+    2,
+    59,
+    83
+   ],
+   "size": [
+    2,
+    1,
+    1
+   ],
+   "color": "dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Löwe Vorderbeine",
+   "at": [
+    4,
+    39,
+    64
+   ],
+   "size": [
+    4,
+    8,
+    6
+   ],
+   "color": "trim",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Löwe Pranken",
+   "at": [
+    4,
+    39,
+    69
+   ],
+   "size": [
+    4,
+    2,
+    4
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 0.8
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "group",
+   "name": "Löwe Schwinge",
+   "ops": [
+    {
+     "op": "box",
+     "name": "Feder",
+     "at": [
+      "6 + i*3",
+      "52 + i*3",
+      "60 - i*3"
+     ],
+     "size": [
+      3,
+      6,
+      "12 - i"
+     ],
+     "color": {
+      "stripes": [
+       "trim",
+       {
+        "shade": "trim",
+        "f": 0.75
+       }
+      ],
+      "axis": "y",
+      "period": 2
+     },
+     "repeat": {
+      "count": 7,
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Löwe Schweif",
+   "from": [
+    0,
+    46,
+    34
+   ],
+   "to": [
+    0,
+    54,
+    24
+   ],
+   "r": 1.2,
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Bug 1 Sockel",
+   "at": [
+    0,
+    30,
+    316
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Bug 1 Gehäuse",
+   "at": [
+    -5,
+    32,
+    311
+   ],
+   "size": [
+    10,
+    4,
+    11
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Bug 1 Blende",
+   "at": [
+    -4,
+    32,
+    321
+   ],
+   "size": [
+    8,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Bug 1 Rohr L",
+   "from": [
+    -2,
+    34,
+    322
+   ],
+   "to": [
+    -2,
+    34,
+    346
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Bug 1 Rohr R",
+   "from": [
+    2,
+    34,
+    322
+   ],
+   "to": [
+    2,
+    34,
+    346
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Bug 1 Mündung",
+   "at": [
+    -3,
+    33,
+    345
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Bug 2 Sockel",
+   "at": [
+    0,
+    30,
+    350
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Bug 2 Gehäuse",
+   "at": [
+    -5,
+    32,
+    345
+   ],
+   "size": [
+    10,
+    4,
+    11
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Bug 2 Blende",
+   "at": [
+    -4,
+    32,
+    355
+   ],
+   "size": [
+    8,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Bug 2 Rohr L",
+   "from": [
+    -2,
+    34,
+    356
+   ],
+   "to": [
+    -2,
+    34,
+    380
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Bug 2 Rohr R",
+   "from": [
+    2,
+    34,
+    356
+   ],
+   "to": [
+    2,
+    34,
+    380
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Bug 2 Mündung",
+   "at": [
+    -3,
+    33,
+    379
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke L1 Sockel",
+   "at": [
+    -22,
+    24,
+    120
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L1 Gehäuse",
+   "at": [
+    -25,
+    26,
+    117
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L1 Blende",
+   "at": [
+    -24,
+    26,
+    123
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L1 Rohr L",
+   "from": [
+    -24,
+    28,
+    124
+   ],
+   "to": [
+    -24,
+    28,
+    140
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L1 Rohr R",
+   "from": [
+    -20,
+    28,
+    124
+   ],
+   "to": [
+    -20,
+    28,
+    140
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L1 Mündung",
+   "at": [
+    -25,
+    27,
+    139
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke R1 Sockel",
+   "at": [
+    22,
+    24,
+    120
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R1 Gehäuse",
+   "at": [
+    19,
+    26,
+    117
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R1 Blende",
+   "at": [
+    20,
+    26,
+    123
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R1 Rohr L",
+   "from": [
+    20,
+    28,
+    124
+   ],
+   "to": [
+    20,
+    28,
+    140
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R1 Rohr R",
+   "from": [
+    24,
+    28,
+    124
+   ],
+   "to": [
+    24,
+    28,
+    140
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R1 Mündung",
+   "at": [
+    19,
+    27,
+    139
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke L2 Sockel",
+   "at": [
+    -22,
+    24,
+    230
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L2 Gehäuse",
+   "at": [
+    -25,
+    26,
+    227
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L2 Blende",
+   "at": [
+    -24,
+    26,
+    233
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L2 Rohr L",
+   "from": [
+    -24,
+    28,
+    234
+   ],
+   "to": [
+    -24,
+    28,
+    250
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L2 Rohr R",
+   "from": [
+    -20,
+    28,
+    234
+   ],
+   "to": [
+    -20,
+    28,
+    250
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L2 Mündung",
+   "at": [
+    -25,
+    27,
+    249
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke R2 Sockel",
+   "at": [
+    22,
+    24,
+    230
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R2 Gehäuse",
+   "at": [
+    19,
+    26,
+    227
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R2 Blende",
+   "at": [
+    20,
+    26,
+    233
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R2 Rohr L",
+   "from": [
+    20,
+    28,
+    234
+   ],
+   "to": [
+    20,
+    28,
+    250
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R2 Rohr R",
+   "from": [
+    24,
+    28,
+    234
+   ],
+   "to": [
+    24,
+    28,
+    250
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R2 Mündung",
+   "at": [
+    19,
+    27,
+    249
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke L3 Sockel",
+   "at": [
+    -22,
+    24,
+    270
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L3 Gehäuse",
+   "at": [
+    -25,
+    26,
+    267
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L3 Blende",
+   "at": [
+    -24,
+    26,
+    273
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L3 Rohr L",
+   "from": [
+    -24,
+    28,
+    274
+   ],
+   "to": [
+    -24,
+    28,
+    290
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke L3 Rohr R",
+   "from": [
+    -20,
+    28,
+    274
+   ],
+   "to": [
+    -20,
+    28,
+    290
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke L3 Mündung",
+   "at": [
+    -25,
+    27,
+    289
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Turm Flanke R3 Sockel",
+   "at": [
+    22,
+    24,
+    270
+   ],
+   "r": 4,
+   "h": 2,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R3 Gehäuse",
+   "at": [
+    19,
+    26,
+    267
+   ],
+   "size": [
+    6,
+    4,
+    7
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone",
+    "axes": "xz"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R3 Blende",
+   "at": [
+    20,
+    26,
+    273
+   ],
+   "size": [
+    4,
+    4,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R3 Rohr L",
+   "from": [
+    20,
+    28,
+    274
+   ],
+   "to": [
+    20,
+    28,
+    290
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "line",
+   "name": "Turm Flanke R3 Rohr R",
+   "from": [
+    24,
+    28,
+    274
+   ],
+   "to": [
+    24,
+    28,
+    290
+   ],
+   "r": 1,
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Turm Flanke R3 Mündung",
+   "at": [
+    19,
+    27,
+    289
+   ],
+   "size": [
+    6,
+    2,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Antriebsjoch",
+   "at": [
+    -26,
+    -22,
+    -10
+   ],
+   "size": [
+    52,
+    44,
+    10
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "stone_dark",
+    "axes": "xy"
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk oben Gehäuse",
+   "at": [
+    0,
+    10,
+    -44
+   ],
+   "r": 12,
+   "h": 44,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk oben Glocke",
+   "at": [
+    0,
+    10,
+    -48
+   ],
+   "r": 14,
+   "h": 5,
+   "color": "stone_dark",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk oben Glut",
+   "at": [
+    0,
+    10,
+    -46
+   ],
+   "r": 11,
+   "h": 2,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk oben Kern",
+   "at": [
+    0,
+    10,
+    -47
+   ],
+   "r": 6,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk oben Ring 1",
+   "at": [
+    0,
+    10,
+    -38
+   ],
+   "r": 13,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk oben Ring 2",
+   "at": [
+    0,
+    10,
+    -22
+   ],
+   "r": 13,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk oben Ring 3",
+   "at": [
+    0,
+    10,
+    -6
+   ],
+   "r": 13,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk unten Gehäuse",
+   "at": [
+    0,
+    -14,
+    -44
+   ],
+   "r": 12,
+   "h": 44,
+   "color": "metal_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk unten Glocke",
+   "at": [
+    0,
+    -14,
+    -48
+   ],
+   "r": 14,
+   "h": 5,
+   "color": "stone_dark",
+   "axis": "z",
+   "hollow": 3
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk unten Glut",
+   "at": [
+    0,
+    -14,
+    -46
+   ],
+   "r": 11,
+   "h": 2,
+   "color": {
+    "role": "glow2",
+    "emit": 2.2
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk unten Kern",
+   "at": [
+    0,
+    -14,
+    -47
+   ],
+   "r": 6,
+   "h": 1,
+   "color": {
+    "role": "white",
+    "emit": 3.0
+   },
+   "axis": "z",
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk unten Ring 1",
+   "at": [
+    0,
+    -14,
+    -38
+   ],
+   "r": 13,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk unten Ring 2",
+   "at": [
+    0,
+    -14,
+    -22
+   ],
+   "r": 13,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  },
+  {
+   "op": "cyl",
+   "name": "Triebwerk unten Ring 3",
+   "at": [
+    0,
+    -14,
+    -6
+   ],
+   "r": 13,
+   "h": 3,
+   "color": "stone_dark",
+   "axis": "z"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  180
+ ]
+}

@@ -1,10 +1,11 @@
 // Screenshots über den Editor (Server muss laufen: npm start bzw. PORT=… node server.js).
 // Aufruf: node tools/shots.cjs [--port 3412] [--out shots/<team>] [--size 1600x900] <ziel> [<ziel> …]
 //   ziel = "model=rom/kiste" | "figure=rom/legionaer&pose=guard" | "scene=rom-aussenposten&mood=planet_dusk"
-// Playwright liegt außerhalb des Projekts (C:\tmp\pwtest). Rendert per SwiftShader (CPU) → FPS hier nicht aussagekräftig.
+// Playwright liegt außerhalb des Projekts (C:\tmp\pwtest, anderer Ort per PLAYWRIGHT_CORE=<pfad zu playwright-core>).
+// Rendert per SwiftShader (CPU) → FPS hier nicht aussagekräftig.
 const path = require('path');
 const fs = require('fs');
-const { chromium } = require('C:/tmp/pwtest/node_modules/playwright-core');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE || 'C:/tmp/pwtest/node_modules/playwright-core');
 
 const argv = process.argv.slice(2);
 const opt = (name, def) => { const i = argv.indexOf('--' + name); if (i < 0) return def; const v = argv[i + 1]; argv.splice(i, 2); return v; };

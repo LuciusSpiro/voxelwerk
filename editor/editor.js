@@ -73,9 +73,10 @@ async function select(kind, id, keep = false) {
 
 async function ensureMoods() { for (const m of state.index.moods) await lib.load('moods', m); for (const p of state.index.palettes) await lib.load('palettes', p); }
 
-function stage(obj, size = 2) {
-  // Boden mit 1-m-Raster für Modelle und Figuren
+function stage(obj, size = 2, floor = true) {
+  // Boden mit 1-m-Raster für Modelle und Figuren (Schiffe schweben: ohne Boden)
   const g = new THREE.Group(); g.add(obj);
+  if (!floor) return g;
   const box = new THREE.Box3().setFromObject(obj), s = Math.max(4, Math.ceil(Math.max(box.max.x - box.min.x, box.max.z - box.min.z) + size * 2));
   const ground = new THREE.Mesh(new THREE.BoxGeometry(s, 0.05, s), new THREE.MeshStandardMaterial({ color: 0x7d766a, roughness: 1 }));
   ground.position.y = -0.025 + Math.min(0, box.min.y); ground.receiveShadow = true; g.add(ground);
@@ -100,10 +101,11 @@ async function preview() {
     const o = modelObject(lib, id, opts);
     const b = built.grid.bounds(), s = voxelSize(built.tier), dims = [0, 1, 2].map((i) => b.max[i] - b.min[i] + 1);
     const box = new THREE.Box3().setFromObject(o);
-    const g = stage(o); if (url.get('ref') !== '0') g.add(scaleRef(box.max.x + 0.6));
+    const floats = (m.tags || []).includes('schiff') || url.get('floor') === '0';
+    const g = stage(o, 2, !floats); if (url.get('ref') !== '0') g.add(scaleRef(box.max.x + 0.6));
     viewer.setContent(g); viewer.bounds = box.union(new THREE.Box3(new THREE.Vector3(-1, 0, -1), new THREE.Vector3(1, 1.94, 1)));
     viewer.setMood(lib.get('moods', state.mood || 'planet_day'), viewer.bounds, { fog: false });
-    viewer.frameContent({ elev: +(url.get('elev') ?? 28), az: +(url.get('az') ?? 35), pad: 1.05 });
+    viewer.frameContent({ elev: +(url.get('elev') ?? 28), az: +(url.get('az') ?? 35), pad: +(url.get('pad') ?? 1.05) });
     title = m.name || id; sub = `${id} · ${TIERS[built.tier].label} (${TIERS[built.tier].voxelsPerMeter} Voxel/m)`;
     hud = `${dims.join('×')} Voxel = ${dims.map((d) => (d * s).toFixed(2)).join(' × ')} m · ${built.grid.size.toLocaleString('de-DE')} Voxel · ${(built.mesh.lit.quads + built.mesh.emit.quads).toLocaleString('de-DE')} Quads`;
     controlsModel(m);
