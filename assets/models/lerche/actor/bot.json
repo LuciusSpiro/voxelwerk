@@ -52,12 +52,12 @@
     { "name": "Düse", "if": "mode == 3", "op": "box", "at": [4, 6, 6], "size": [1, 2, 1], "color": "trim" },
     { "name": "Düsenmund", "if": "mode == 3", "op": "box", "at": [4, 6, 7], "size": [1, 1, 1], "color": "secondary", "jitter": false },
 
-    { "name": "Rückengestell", "if": "mode == 4", "op": "box", "at": [-3, 9, -8], "size": [6, 1, 5], "color": "metal_dark" },
-    { "name": "Ersatzteil Zahnrad", "if": "mode == 4", "op": "cyl", "at": [0, 10, -5.5], "r": 3, "h": 2, "color": "trim" },
-    { "name": "Zahnrad Zähne längs", "if": "mode == 4", "op": "box", "at": [-1, 10, -10], "size": [2, 2, 1], "color": "trim" },
-    { "name": "Zahnrad Zähne quer", "if": "mode == 4", "op": "box", "at": [3, 10, -7], "size": [1, 2, 2], "color": "trim", "mirror": "x", "mirrorAt": 0 },
-    { "name": "Zahnrad Nabe", "if": "mode == 4", "op": "box", "at": [-1, 12, -7], "size": [2, 1, 2], "color": "primary" },
-    { "name": "Zahnrad Spannriemen", "if": "mode == 4", "op": "box", "at": [-4, 11, -6], "size": [8, 1, 1], "color": "leather" },
+    { "name": "Rückengestell", "if": "mode == 4", "op": "box", "at": [-3, 9, -7], "size": [6, 1, 5], "color": "metal_dark" },
+    { "name": "Ersatzteil Zahnrad", "if": "mode == 4", "op": "cyl", "at": [0, 10, -3.5], "r": 3, "h": 2, "color": "trim" },
+    { "name": "Zahnrad Zähne längs", "if": "mode == 4", "op": "box", "at": [-1, 10, -7], "size": [2, 2, 1], "color": "trim" },
+    { "name": "Zahnrad Zähne quer", "if": "mode == 4", "op": "box", "at": [3, 10, -5], "size": [1, 2, 2], "color": "trim", "mirror": "x", "mirrorAt": 0 },
+    { "name": "Zahnrad Nabe", "if": "mode == 4", "op": "box", "at": [-1, 12, -5], "size": [2, 1, 2], "color": "primary" },
+    { "name": "Zahnrad Spannriemen", "if": "mode == 4", "op": "box", "at": [-4, 11, -4], "size": [8, 1, 1], "color": "leather" },
 
     { "name": "Seitenklappe Loch", "if": "broken", "op": "box", "at": [2, 5, -1], "size": [2, 2, 2], "mode": "carve" },
     { "name": "Innenleben", "if": "broken", "op": "box", "at": [1, 5, -1], "size": [1, 2, 2], "color": "metal_dark" },
