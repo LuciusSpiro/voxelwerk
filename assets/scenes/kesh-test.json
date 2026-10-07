@@ -1,0 +1,7239 @@
+{
+ "id": "kesh-test",
+ "name": "Kesh – Testausschnitt Kustoden-Archiv (ART-H)",
+ "palette": "mond_kesh",
+ "mood": "kesh_dusk",
+ "terrain": {
+  "palette": "mond_kesh",
+  "depth": 2,
+  "legend": {
+   "R": {
+    "h": 3,
+    "top": {
+     "noise": [
+      "rock",
+      {
+       "shade": "rock",
+       "f": 1.1
+      }
+     ],
+     "weights": [
+      3,
+      1
+     ]
+    },
+    "sub": "rock",
+    "fill": "rock_dark"
+   },
+   ".": {
+    "h": 0,
+    "top": {
+     "noise": [
+      "sand",
+      {
+       "shade": "sand",
+       "f": 0.94
+      }
+     ],
+     "weights": [
+      3,
+      1
+     ]
+    },
+    "sub": "sand",
+    "fill": "soil"
+   },
+   ",": {
+    "h": 0,
+    "top": "paving_dark",
+    "fill": "stone_dark"
+   }
+  },
+  "rows": [
+   "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,RRRRRRRR,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,RRR,RRRR,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,RRRRRRRR,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,RRRRRRRR,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,RRRRRRRR,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,RRRRRRRR,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,RRRR,RRR,,,,,,,,,,,R",
+   "RRRRRR,,,,,,,,,,,,,,,,,,,,,,RRRRRRRR,,,,,,,,,,,R",
+   "RRR............RRRRRRRRRRRRRRRRRRRRR,,,,,,,,,,,R",
+   "R..............RRRRRRRRRRRRRRRRRRRRRRR,,,,,,,,RR",
+   "R...........R..RRRRRRRRRRRRRRRRRRRRRRR,,,,,,,,RR",
+   "R..............RRRRRRRRRRRRRRRRRRRRRRR,,,,,,,,RR",
+   "R.......RR.....RRRRRRRRRRRRRRRRRRRRRRR,,,,,,,,RR",
+   "R..............RRRRRRRRRRRRRRRRRRRRRRR,,,,,,,,RR",
+   "R..............RRRRRRRRRRRRRRRRRRRRRRR,,,,,,,,RR",
+   "R..............RRRRRRRRRRRRRRRRRRRRRRR,,,,,,,,RR",
+   "R.............RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+   "RR...........RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+   "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+  ],
+  "heights": [
+   "444432332333322222222333233324444432223223322322",
+   "444432000000000000000000000023444432000000000002",
+   "444432000000000000000000000023202222000000000003",
+   "444432000000000000000000000000000000000000000002",
+   "444432000000000000000000000000000000000000000002",
+   "444443000000000000000000000022232322000000000003",
+   "444433000000000000000000000023433342000000000003",
+   "444432000000000000000000000023343432000000000002",
+   "444433000000000000000000000023222222000000000002",
+   "444433000000000000000000000000000000000000000003",
+   "444443000000000000000000000000000000000000000002",
+   "444433000000000000000000000000000000000000000003",
+   "444442000000000000000000000000000000000000000003",
+   "433342000000000000000000000022220323000000000002",
+   "342322000000000000000000000024333432000000000003",
+   "222000000000000322233232222333444432000000000002",
+   "200000000000000234333434433343444432220000000022",
+   "200000000000200344444444444444444433430000000033",
+   "300000000000000334444444444444444444420000000024",
+   "300000002200000344444444444444444444320000000023",
+   "200000000000000334444444444444444444330000000023",
+   "200000000000000234444444444444444444330000000023",
+   "200000000000000334444444444444444444320000000023",
+   "200000000000002234444444444444444444322222332234",
+   "320000000000032334444444444444444444333443333333",
+   "322332232222223344444444444444444444444444444444"
+  ]
+ },
+ "place": [
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    1.5
+   ],
+   "params": {
+    "conn": 15,
+    "cut": 0,
+    "decay": 0,
+    "seed": 27
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    7.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    8.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    9.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 1,
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    10.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 17
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    11.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 41
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    12.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    13.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    14.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    15.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    16.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    17.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 56
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    18.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 51
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    19.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    20.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    21.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 1,
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    22.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    23.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 58
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    24.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 9
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    25.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 47
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    26.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 58
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    27.5,
+    1.5
+   ],
+   "params": {
+    "conn": 15,
+    "cut": 0,
+    "decay": 0,
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    1.5
+   ],
+   "params": {
+    "conn": 15,
+    "cut": 0,
+    "decay": 0,
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    37.5,
+    1.5
+   ],
+   "params": {
+    "conn": 9,
+    "cut": 0,
+    "decay": 0,
+    "seed": 16
+   }
+  },
+  {
+   "model": "away/kesh/archive_key",
+   "at": [
+    38.5,
+    1.5
+   ],
+   "rot": 0,
+   "params": {
+    "pos": 1
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    39.5,
+    1.5
+   ],
+   "params": {
+    "conn": 3,
+    "cut": 0,
+    "decay": 0,
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    40.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 1,
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    41.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    42.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 1,
+    "seed": 60
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    43.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 1,
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    44.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 26
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    45.5,
+    1.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    1.5
+   ],
+   "params": {
+    "conn": 15,
+    "cut": 0,
+    "decay": 0,
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    2.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 49
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    11.471591741684826,
+    2.5671120915561914
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 14
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 9
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    18.565451043378562,
+    2.476184395607561
+   ],
+   "lift": 0.01,
+   "rot": 90,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 51
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 32
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 55
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 18
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 49
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    27.5,
+    2.5
+   ],
+   "params": {
+    "conn": 3,
+    "cut": 0,
+    "decay": 0,
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/jammer",
+   "at": [
+    31.5,
+    2.5
+   ],
+   "rot": 0,
+   "params": {
+    "on": 1
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    2.5
+   ],
+   "params": {
+    "conn": 9,
+    "cut": 0,
+    "decay": 0,
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 57
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    2.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    2.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    3.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    9.503012403193862,
+    3.5812891512177885
+   ],
+   "lift": 0.01,
+   "rot": 0,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 16
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    10.349058465939017,
+    3.533163579087704
+   ],
+   "lift": 0.01,
+   "rot": 90,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 14
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 55
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    22.5,
+    3.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 61
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    23.5,
+    3.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 13
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 27
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 57
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    26.486262372788044,
+    3.497077090665698
+   ],
+   "lift": 0.01,
+   "rot": 90,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    27.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    27.47371827531606,
+    3.3983375190757212
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    28.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 50
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    29.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    30.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    31.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 14
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    32.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    33.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    34.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    35.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    36.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    36.61975805629044,
+    3.3038498001173138
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 61
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 18
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 15
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    3.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 49
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    3.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    4.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    9.337266312725843,
+    4.3685103468596935
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    11.5,
+    4.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    12.5,
+    4.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 53
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    15.5,
+    4.5
+   ],
+   "params": {
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 17
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    27.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    28.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    29.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    30.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    31.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    31.48957472490147,
+    4.418963544350118
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    32.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    32.59529546992853,
+    4.344890243466943
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    33.5,
+    4.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    34.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 51
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    35.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    36.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 32
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 49
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 20
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    4.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 61
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    4.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    5.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 1,
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 18
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 26
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 27
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    12.589325634296983,
+    5.4058749851770695
+   ],
+   "lift": 0.01,
+   "rot": 0,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 55
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 26
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    15.688304173294455,
+    5.685688545927405
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 12
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    18.5,
+    5.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    19.5,
+    5.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    20.5,
+    5.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 27
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 62
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    25.5,
+    5.5
+   ],
+   "params": {
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    27.5,
+    5.5
+   ],
+   "params": {
+    "conn": 6,
+    "cut": 1,
+    "decay": 0,
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    5.5
+   ],
+   "params": {
+    "conn": 12,
+    "cut": 1,
+    "decay": 1,
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    39.5,
+    5.5
+   ],
+   "params": {
+    "seed": 56
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 27
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    42.69547745455056,
+    5.42353341737762
+   ],
+   "lift": 0.01,
+   "rot": 0,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    43.5,
+    5.5
+   ],
+   "params": {
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 50
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    5.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    5.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 47
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    6.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 1,
+    "seed": 57
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 57
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 58
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 43
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 53
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    27.5,
+    6.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 1,
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    6.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    38.43720638202503,
+    6.55769447972998
+   ],
+   "lift": 0.01,
+   "rot": 90,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 9
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    6.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    6.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 1,
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    7.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 1,
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    8.69804354403168,
+    7.557864366658031
+   ],
+   "lift": 0.01,
+   "rot": 0,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 9
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    10.5,
+    7.5
+   ],
+   "params": {
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 55
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 47
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 60
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    17.636035841610283,
+    7.300575369875878
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    21.5,
+    7.5
+   ],
+   "params": {
+    "seed": 47
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 53
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 13
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 32
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    27.5,
+    7.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    7.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 17
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 17
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 41
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    7.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 58
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    7.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 1,
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    8.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 13
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 9
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 58
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    14.5,
+    8.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 55
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    15.5,
+    8.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 56
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    16.572799558658154,
+    8.34878228707239
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 45
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 59
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    24.5,
+    8.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 17
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 59
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    27.5,
+    8.5
+   ],
+   "params": {
+    "conn": 3,
+    "cut": 0,
+    "decay": 0,
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    8.5
+   ],
+   "params": {
+    "conn": 9,
+    "cut": 0,
+    "decay": 0,
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 16
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    38.5373685051687,
+    8.318407739046961
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 20
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    40.5,
+    8.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    42.5,
+    8.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 15
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    8.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    8.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    9.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 1,
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 16
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    11.688980351481588,
+    9.468259410280735
+   ],
+   "lift": 0.01,
+   "rot": 90,
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 9
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 13
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 60
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 62
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 14
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 53
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 40
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    27.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    28.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    29.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    30.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    31.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 20
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    32.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 26
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    33.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    34.5,
+    9.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    35.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    36.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 51
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 62
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 32
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 15
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    9.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    45.32744317976758,
+    9.347404051944615
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    9.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 13
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    10.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 62
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 15
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    8.5,
+    10.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    9.5,
+    10.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 43
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    14.404411469772459,
+    10.659926992375404
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 43
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 53
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    19.5,
+    10.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    20.5,
+    10.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 60
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 17
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 49
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    27.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    28.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    29.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    30.5,
+    10.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 61
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    31.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    32.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    33.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 57
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    34.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 43
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    35.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    36.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 58
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    36.61538368267938,
+    10.423221616260708
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 13
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 15
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    10.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    10.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 1,
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    11.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 18
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 13
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 59
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    15.353849787451328,
+    11.590577594935894
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 15
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    17.5,
+    11.5
+   ],
+   "params": {
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 41
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 57
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 31
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    27.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    28.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    29.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 53
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    30.5,
+    11.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    31.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    32.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    33.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    34.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    34.667102351319045,
+    11.484291280806065
+   ],
+   "lift": 0.01,
+   "rot": 90,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    35.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 43
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    36.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    39.5,
+    11.5
+   ],
+   "params": {
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 41
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    42.442456111963835,
+    11.398088975436986
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    43.5,
+    11.5
+   ],
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    44.54344260226935,
+    11.46432036785409
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    11.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    11.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    12.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    11.68412834731862,
+    12.359360765852035
+   ],
+   "lift": 0.01,
+   "rot": 0,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    12.5,
+    12.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    13.5,
+    12.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 50
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 53
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    17.679242951422932,
+    12.648728689830751
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 51
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 20
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 51
+   }
+  },
+  {
+   "model": "away/kesh/pillar",
+   "at": [
+    24.5,
+    12.5
+   ],
+   "params": {
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    25.663902824372055,
+    12.492297258507461
+   ],
+   "lift": 0.01,
+   "rot": 270,
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    27.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    28.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    29.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    30.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    31.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 20
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    32.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 55
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    33.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 45
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    34.5,
+    12.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    35.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    36.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    36.46648603687063,
+    12.651947665028274
+   ],
+   "lift": 0.01,
+   "rot": 90,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 24
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 26
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    12.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    12.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    13.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 1,
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    7.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 55
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    8.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 9
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 26
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    11.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    11.479040879942477,
+    13.567338200751692
+   ],
+   "lift": 0.01,
+   "rot": 90,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    12.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 16
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    13.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    14.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 20
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    15.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 51
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    16.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    17.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    18.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 47
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    18.646944972779604,
+    13.56061132485047
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    19.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    20.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 26
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    21.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 44
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    22.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 58
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    23.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    23.430645336490127,
+    13.67109008738771
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    24.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    25.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    26.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 57
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    27.5,
+    13.5
+   ],
+   "params": {
+    "conn": 6,
+    "cut": 1,
+    "decay": 0,
+    "seed": 33
+   }
+  },
+  {
+   "model": "away/kesh/jammer",
+   "at": [
+    32.5,
+    13.5
+   ],
+   "rot": 180,
+   "params": {
+    "on": 0
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    13.5
+   ],
+   "params": {
+    "conn": 12,
+    "cut": 1,
+    "decay": 0,
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 49
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 60
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    13.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    13.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    6.5,
+    14.5
+   ],
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "decay": 0,
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    7.5,
+    14.5
+   ],
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "decay": 0,
+    "seed": 41
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    8.5,
+    14.5
+   ],
+   "params": {
+    "conn": 8,
+    "cut": 1,
+    "decay": 1,
+    "seed": 22
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    9.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 30
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    10.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    11.5,
+    14.5
+   ],
+   "params": {
+    "conn": 2,
+    "cut": 1,
+    "decay": 0,
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    12.5,
+    14.5
+   ],
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "decay": 0,
+    "seed": 27
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    13.5,
+    14.5
+   ],
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "decay": 1,
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    14.5,
+    14.5
+   ],
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "decay": 0,
+    "seed": 58
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    15.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    16.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 43
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    17.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    18.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 1,
+    "seed": 14
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    19.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    20.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 1,
+    "seed": 18
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    21.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 1,
+    "seed": 27
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    22.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 1,
+    "seed": 18
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    23.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 1,
+    "seed": 47
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    24.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 29
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    25.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    26.5,
+    14.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    27.5,
+    14.5
+   ],
+   "params": {
+    "conn": 15,
+    "cut": 0,
+    "decay": 0,
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    14.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    37.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    38.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 50
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    45.5,
+    14.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    14.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 9
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    36.5,
+    15.5
+   ],
+   "params": {
+    "conn": 15,
+    "cut": 0,
+    "decay": 0,
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    37.5,
+    15.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 49
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    38.5,
+    15.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 62
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    39.5,
+    15.5
+   ],
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "decay": 1,
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    40.5,
+    15.5
+   ],
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "decay": 1,
+    "seed": 17
+   }
+  },
+  {
+   "model": "away/kesh/vault_gate",
+   "at": [
+    42,
+    15.5
+   ],
+   "params": {
+    "open": 0,
+    "cut": 1
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    43.5,
+    15.5
+   ],
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "decay": 0,
+    "seed": 54
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    44.5,
+    15.5
+   ],
+   "params": {
+    "conn": 8,
+    "cut": 1,
+    "decay": 0,
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/archive_key",
+   "at": [
+    45.5,
+    15.5
+   ],
+   "rot": 180,
+   "params": {
+    "pos": 0
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    46.5,
+    15.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 19
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    38.5,
+    16.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 1,
+    "seed": 60
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    16.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 63
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    16.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    16.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    16.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/rubble",
+   "at": [
+    42.52917783847079,
+    16.33699155431241
+   ],
+   "lift": 0.01,
+   "rot": 180,
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    16.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 56
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    16.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    45.5,
+    16.5
+   ],
+   "params": {
+    "conn": 6,
+    "cut": 0,
+    "decay": 0,
+    "seed": 52
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    38.5,
+    17.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 18
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    17.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    40.5,
+    17.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    17.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    17.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    43.5,
+    17.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 37
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    17.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    45.5,
+    17.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    6.5,
+    18.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    38.5,
+    18.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    18.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    18.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 42
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    18.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 47
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    18.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 49
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    18.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 21
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    18.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 39
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    45.5,
+    18.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 11
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    38.5,
+    19.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 27
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    19.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 18
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    19.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    19.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "away/kesh/tablet_pedestal",
+   "at": [
+    41.5,
+    19.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "present": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    19.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 46
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    19.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    19.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    45.5,
+    19.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 25
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    38.5,
+    20.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 57
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    20.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    20.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    20.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    20.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 34
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    20.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 26
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    20.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 35
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    45.5,
+    20.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 0,
+    "seed": 56
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    10.5,
+    21.5
+   ],
+   "params": {
+    "damaged": 1,
+    "seed": 32
+   }
+  },
+  {
+   "model": "away/kesh/cover_low",
+   "at": [
+    11.5,
+    21.5
+   ],
+   "params": {
+    "damaged": 0,
+    "seed": 1
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    38.5,
+    21.5
+   ],
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "decay": 0,
+    "seed": 38
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    39.5,
+    21.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 23
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    40.5,
+    21.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 48
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    41.5,
+    21.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 36
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    42.5,
+    21.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    43.5,
+    21.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 60
+   }
+  },
+  {
+   "model": "away/kesh/floor_ruin",
+   "at": [
+    44.5,
+    21.5
+   ],
+   "lift": 0.01,
+   "params": {
+    "seed": 60
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    45.5,
+    21.5
+   ],
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "decay": 1,
+    "seed": 17
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    38.5,
+    22.5
+   ],
+   "params": {
+    "conn": 15,
+    "cut": 0,
+    "decay": 1,
+    "seed": 5
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    39.5,
+    22.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 1,
+    "seed": 51
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    40.5,
+    22.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 50
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    41.5,
+    22.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 10
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    42.5,
+    22.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 2
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    43.5,
+    22.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 28
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    44.5,
+    22.5
+   ],
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "decay": 0,
+    "seed": 0
+   }
+  },
+  {
+   "model": "away/kesh/wall_ruin",
+   "at": [
+    45.5,
+    22.5
+   ],
+   "params": {
+    "conn": 15,
+    "cut": 0,
+    "decay": 1,
+    "seed": 29
+   }
+  }
+ ],
+ "scatter": [
+  {
+   "model": "away/kesh/rubble",
+   "on": ".",
+   "density": 0.05,
+   "pad": 0.1
+  }
+ ],
+ "figures": [
+  {
+   "figure": "crew/nova",
+   "at": [
+    13.5,
+    11.2
+   ],
+   "rot": 180,
+   "pose": "kneel",
+   "colors": {
+    "cloth2": "#56B4E9"
+   }
+  },
+  {
+   "figure": "crew/juno",
+   "at": [
+    11.5,
+    5.2
+   ],
+   "rot": 180,
+   "pose": "aim",
+   "colors": {
+    "cloth2": "#E69F00"
+   }
+  },
+  {
+   "figure": "crew/tami",
+   "at": [
+    4.5,
+    20.5
+   ],
+   "rot": 0,
+   "pose": "stand",
+   "colors": {
+    "cloth2": "#CC79A7"
+   }
+  }
+ ],
+ "cameras": {
+  "spiel": {
+   "target": [
+    14,
+    0,
+    9
+   ],
+   "dist": 26,
+   "elev": 57,
+   "az": 0,
+   "fov": 34
+  },
+  "spiel_nah": {
+   "target": [
+    14,
+    0,
+    7
+   ],
+   "dist": 16,
+   "elev": 57,
+   "az": 0,
+   "fov": 34
+  },
+  "archiv": {
+   "target": [
+    41,
+    0,
+    10
+   ],
+   "dist": 26,
+   "elev": 57,
+   "az": 0,
+   "fov": 34
+  },
+  "uebersicht": {
+   "target": [
+    24,
+    0,
+    13
+   ],
+   "dist": 62,
+   "elev": 57,
+   "az": 0,
+   "fov": 34
+  }
+ }
+}

@@ -1,0 +1,1406 @@
+{
+ "id": "lerche/kit/preview_system",
+ "name": "Vorschau – Ausschnitt Systemdeck (Lager, Vorraum, Gang)",
+ "tier": "architecture",
+ "palette": "lerche_rom",
+ "tags": [
+  "lerche",
+  "kit",
+  "vorschau"
+ ],
+ "footprint": [
+  11,
+  9
+ ],
+ "ops": [
+  {
+   "op": "use",
+   "name": "Wand 0,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 6,
+    "cut": 0,
+    "style": 0,
+    "seed": 0
+   },
+   "at": [
+    2,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 1,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 0,
+    "style": 0,
+    "seed": 1
+   },
+   "at": [
+    6,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 2,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 0,
+    "style": 0,
+    "seed": 2
+   },
+   "at": [
+    10,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 3,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 0,
+    "style": 0,
+    "seed": 3
+   },
+   "at": [
+    14,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 4,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 0,
+    "style": 0,
+    "seed": 4
+   },
+   "at": [
+    18,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 5,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 0,
+    "style": 0,
+    "seed": 5
+   },
+   "at": [
+    22,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 6,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 14,
+    "cut": 0,
+    "style": 0,
+    "seed": 6
+   },
+   "at": [
+    26,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 7,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 0,
+    "style": 0,
+    "seed": 7
+   },
+   "at": [
+    30,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 8,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 0,
+    "style": 0,
+    "seed": 8
+   },
+   "at": [
+    34,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 9,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 0,
+    "style": 0,
+    "seed": 9
+   },
+   "at": [
+    38,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 10,0",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 12,
+    "cut": 0,
+    "style": 0,
+    "seed": 10
+   },
+   "at": [
+    42,
+    0,
+    2
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 0,1",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 37
+   },
+   "at": [
+    2,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 1,1",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 38,
+    "wear": 0
+   },
+   "at": [
+    6,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 2,1",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 39,
+    "wear": 0
+   },
+   "at": [
+    10,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 3,1",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 40,
+    "wear": 0
+   },
+   "at": [
+    14,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 4,1",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 41,
+    "wear": 0
+   },
+   "at": [
+    18,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 5,1",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 42,
+    "wear": 0
+   },
+   "at": [
+    22,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 6,1",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 43
+   },
+   "at": [
+    26,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 7,1",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 44,
+    "wear": 0
+   },
+   "at": [
+    30,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 8,1",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 45,
+    "wear": 0
+   },
+   "at": [
+    34,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 9,1",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 46,
+    "wear": 0
+   },
+   "at": [
+    38,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 10,1",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 47
+   },
+   "at": [
+    42,
+    0,
+    6
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 0,2",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 74
+   },
+   "at": [
+    2,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 1,2",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 75,
+    "wear": 0
+   },
+   "at": [
+    6,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 2,2",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 76,
+    "wear": 0
+   },
+   "at": [
+    10,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 3,2",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 77,
+    "wear": 0
+   },
+   "at": [
+    14,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 4,2",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 78,
+    "wear": 0
+   },
+   "at": [
+    18,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 5,2",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 79,
+    "wear": 0
+   },
+   "at": [
+    22,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 6,2",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 80
+   },
+   "at": [
+    26,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 7,2",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 81,
+    "wear": 0
+   },
+   "at": [
+    30,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 8,2",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 82,
+    "wear": 2
+   },
+   "at": [
+    34,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 9,2",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 83,
+    "wear": 0
+   },
+   "at": [
+    38,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 10,2",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 84
+   },
+   "at": [
+    42,
+    0,
+    10
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 0,3",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "style": 0,
+    "seed": 111
+   },
+   "at": [
+    2,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 1,3",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 112
+   },
+   "at": [
+    6,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 2,3",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 113
+   },
+   "at": [
+    10,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 3,3",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 114,
+    "wear": 0
+   },
+   "at": [
+    14,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Tür 3,3",
+   "model": "lerche/kit/door",
+   "params": {
+    "open": 1,
+    "style": 0,
+    "locked": 0,
+    "cut": 1
+   },
+   "at": [
+    14,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 4,3",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 115
+   },
+   "at": [
+    18,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 5,3",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 116
+   },
+   "at": [
+    22,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 6,3",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 13,
+    "cut": 0,
+    "style": 0,
+    "seed": 117
+   },
+   "at": [
+    26,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 7,3",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 118,
+    "wear": 0
+   },
+   "at": [
+    30,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 8,3",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 119,
+    "wear": 0
+   },
+   "at": [
+    34,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 9,3",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 120,
+    "wear": 0
+   },
+   "at": [
+    38,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 10,3",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 121
+   },
+   "at": [
+    42,
+    0,
+    14
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 0,4",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 148
+   },
+   "at": [
+    2,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 1,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 149,
+    "wear": 0
+   },
+   "at": [
+    6,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 2,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 150,
+    "wear": 1
+   },
+   "at": [
+    10,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 3,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 151,
+    "wear": 0
+   },
+   "at": [
+    14,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 4,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 152,
+    "wear": 0
+   },
+   "at": [
+    18,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 5,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 153,
+    "wear": 0
+   },
+   "at": [
+    22,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 6,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 154,
+    "wear": 0
+   },
+   "at": [
+    26,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Tür 6,4",
+   "model": "lerche/kit/door",
+   "params": {
+    "open": 0,
+    "style": 0,
+    "locked": 0,
+    "cut": 1
+   },
+   "at": [
+    26,
+    0,
+    18
+   ],
+   "rot": 90
+  },
+  {
+   "op": "use",
+   "name": "Boden 7,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 155,
+    "wear": 0
+   },
+   "at": [
+    30,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 8,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 156,
+    "wear": 0
+   },
+   "at": [
+    34,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 9,4",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 157,
+    "wear": 0
+   },
+   "at": [
+    38,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 10,4",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 158
+   },
+   "at": [
+    42,
+    0,
+    18
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 0,5",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 185
+   },
+   "at": [
+    2,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 1,5",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 186,
+    "wear": 0
+   },
+   "at": [
+    6,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 2,5",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 187,
+    "wear": 0
+   },
+   "at": [
+    10,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 3,5",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 188,
+    "wear": 0
+   },
+   "at": [
+    14,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 4,5",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 189,
+    "wear": 0
+   },
+   "at": [
+    18,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 5,5",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 190,
+    "wear": 0
+   },
+   "at": [
+    22,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 6,5",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 1,
+    "style": 0,
+    "seed": 191
+   },
+   "at": [
+    26,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 7,5",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 192,
+    "wear": 0
+   },
+   "at": [
+    30,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 8,5",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 193,
+    "wear": 0
+   },
+   "at": [
+    34,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 9,5",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 194,
+    "wear": 0
+   },
+   "at": [
+    38,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 10,5",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 1,
+    "cut": 0,
+    "style": 0,
+    "seed": 195
+   },
+   "at": [
+    42,
+    0,
+    22
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 0,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 7,
+    "cut": 0,
+    "style": 0,
+    "seed": 222
+   },
+   "at": [
+    2,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 1,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 223
+   },
+   "at": [
+    6,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 2,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 224
+   },
+   "at": [
+    10,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 3,6",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 0,
+    "seed": 225,
+    "wear": 0
+   },
+   "at": [
+    14,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Tür 3,6",
+   "model": "lerche/kit/door",
+   "params": {
+    "open": 0,
+    "style": 0,
+    "locked": 1,
+    "cut": 1
+   },
+   "at": [
+    14,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 4,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 14,
+    "cut": 1,
+    "style": 0,
+    "seed": 226
+   },
+   "at": [
+    18,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 5,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 227
+   },
+   "at": [
+    22,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 6,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 11,
+    "cut": 0,
+    "style": 0,
+    "seed": 228
+   },
+   "at": [
+    26,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 7,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 229
+   },
+   "at": [
+    30,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 8,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 230
+   },
+   "at": [
+    34,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 9,6",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 8,
+    "cut": 1,
+    "style": 0,
+    "seed": 231
+   },
+   "at": [
+    38,
+    0,
+    26
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 0,7",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 259
+   },
+   "at": [
+    2,
+    0,
+    30
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 1,7",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 260,
+    "wear": 0
+   },
+   "at": [
+    6,
+    0,
+    30
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 2,7",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 261,
+    "wear": 0
+   },
+   "at": [
+    10,
+    0,
+    30
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Boden 3,7",
+   "model": "lerche/kit/floor",
+   "params": {
+    "kind": 1,
+    "seed": 262,
+    "wear": 0
+   },
+   "at": [
+    14,
+    0,
+    30
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 4,7",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 5,
+    "cut": 0,
+    "style": 0,
+    "seed": 263
+   },
+   "at": [
+    18,
+    0,
+    30
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 0,8",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 3,
+    "cut": 0,
+    "style": 0,
+    "seed": 296
+   },
+   "at": [
+    2,
+    0,
+    34
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 1,8",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 297
+   },
+   "at": [
+    6,
+    0,
+    34
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 2,8",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 298
+   },
+   "at": [
+    10,
+    0,
+    34
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 3,8",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 10,
+    "cut": 1,
+    "style": 0,
+    "seed": 299
+   },
+   "at": [
+    14,
+    0,
+    34
+   ]
+  },
+  {
+   "op": "use",
+   "name": "Wand 4,8",
+   "model": "lerche/kit/wall",
+   "params": {
+    "conn": 9,
+    "cut": 0,
+    "style": 0,
+    "seed": 300
+   },
+   "at": [
+    18,
+    0,
+    34
+   ]
+  }
+ ],
+ "anchor": [
+  22,
+  0,
+  18
+ ]
+}

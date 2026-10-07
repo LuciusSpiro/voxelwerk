@@ -42,8 +42,9 @@ http.createServer(async (req, res) => {
       await fs.writeFile(file, await body(req));
       return send(res, 200, { ok: true, file: path.relative(root, file) });
     }
-    // Statische Dateien
-    let rel = p === '/' ? '/editor/index.html' : p.endsWith('/') ? p + 'index.html' : p;
+    // Statische Dateien – "/" auf den Editor umleiten, sonst lösen dessen relative Skriptpfade falsch auf
+    if (p === '/') { res.writeHead(302, { Location: '/editor/' }); return res.end(); }
+    let rel = p.endsWith('/') ? p + 'index.html' : p;
     const file = path.normalize(path.join(root, rel));
     if (!file.startsWith(root)) { res.writeHead(403); return res.end(); }
     const data = await fs.readFile(file).catch(() => null);

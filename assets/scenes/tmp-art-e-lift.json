@@ -1,0 +1,28 @@
+{
+  "id": "tmp-art-e-lift",
+  "name": "TEMP ART-E Lift-Probe (wird gelöscht)",
+  "palette": "lerche_rom",
+  "mood": "ship_interior",
+  "terrain": {
+    "palette": "lerche_rom", "depth": 1,
+    "legend": { ".": { "h": 0, "top": "metal_dark" } },
+    "rows": ["..........", "..........", "..........", "..........", "..........", "..........", ".........."]
+  },
+  "place": [
+    { "model": "lerche/lift/shaft", "at": [2, 2] },
+    { "model": "lerche/lift/platform", "at": [2, 2], "params": { "moving": 0 } },
+    { "model": "lerche/lift/shaft", "at": [5, 2], "params": { "deck": 1, "open": 3 } },
+    { "model": "lerche/lift/platform", "at": [5, 2], "params": { "moving": 1 } },
+    { "model": "lerche/lift/shaft", "at": [8, 2], "params": { "cut": 1, "power": 1 } },
+    { "model": "lerche/lift/platform", "at": [8, 2], "params": { "moving": 1, "power": 1 } },
+    { "model": "lerche/furn/shelf", "at": [1.5, 4.5], "params": { "item": 0 } },
+    { "model": "lerche/furn/shelf", "at": [2.5, 4.5], "params": { "item": 1, "fill": 2 } },
+    { "model": "lerche/furn/shelf", "at": [3.5, 4.5], "params": { "item": 2 } },
+    { "model": "lerche/furn/shelf", "at": [4.5, 4.5], "params": { "item": 3, "fill": 1 } },
+    { "model": "lerche/furn/shelf", "at": [5.5, 4.5], "params": { "item": 4 } },
+    { "model": "lerche/lift/ladder", "at": [7.5, 4.5] },
+    { "model": "lerche/furn/floor_decal", "at": [6.5, 5.5], "params": { "kind": 3 } }
+  ],
+  "figures": [ { "figure": "crew/nova", "at": [5, 2.3], "rot": 0, "pose": "stand" } ],
+  "cameras": { "spiel": { "target": [5, 0.8, 3.2], "dist": 13, "elev": 57, "az": 0, "fov": 30 } }
+}
