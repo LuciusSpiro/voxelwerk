@@ -1,0 +1,30 @@
+{
+  "id": "fig/test/schuetze",
+  "name": "Testfraktion (Basis-Unteranzug): Schütze (Jäger)",
+  "generated": true,
+  "quelle": { "fraktion": "baukasten/fraktionen/test.json", "rolle": "baukasten/rollen/schuetze.json", "generator": "tools/gen-figuren.mjs" },
+  "rig": "human",
+  "palette": "base",
+  "tags": ["figur", "baukasten", "test", "schuetze"],
+  "posen": { "ruhe": "rest_upright", "ziel": "charge" },
+  "waffe": { "typ": "lanze", "bauweise": "neutral", "platzhalter": false },
+  "params": { "rank": 0, "hair": 1 },
+  "parts": {
+    "hips": { "model": "fig/basis/huefte" },
+    "torso": { "model": "fig/basis/rumpf" },
+    "head": { "model": "fig/basis/kopf" },
+    "upperArmL": { "model": "fig/rolle/schuetze/oberarm" },
+    "upperArmR": { "model": "fig/rolle/schuetze/oberarm", "mirror": true },
+    "lowerArmL": { "model": "fig/basis/unterarm" },
+    "lowerArmR": { "model": "fig/basis/unterarm", "mirror": true },
+    "thighL": { "model": "fig/basis/oberschenkel" },
+    "thighR": { "model": "fig/basis/oberschenkel", "mirror": true },
+    "shinL": { "model": "fig/basis/unterschenkel" },
+    "shinR": { "model": "fig/basis/unterschenkel", "mirror": true }
+  },
+  "attach": {
+    "back": { "model": "fig/rolle/schuetze/koecher" },
+    "handR": { "model": "item/waffe/lanze", "params": { "bauweise": "neutral" } },
+    "head": { "model": "fig/rolle/schuetze/kapuze" }
+  }
+}

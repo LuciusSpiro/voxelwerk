@@ -1,0 +1,32 @@
+{
+  "id": "kit/test/tuer",
+  "name": "Probebauweise – tuer (Gerüst mit Klötzchen-Füllung)",
+  "tier": "architecture",
+  "palette": "base",
+  "tags": ["kit","test","tuer"],
+  "footprint": [2,1],
+  "jitter": 0,
+  "params": {
+    "cut": {"default":0,"min":0,"max":1,"step":1,"label":"Geschnitten (1,25 m)"},
+    "zustand": {"default":0,"min":0,"max":2,"step":1,"label":"0 intakt · 1 verfallen · 2 umkämpft"},
+    "art": {"default":"station","options":["aussenposten","station","ruine","schiff"],"label":"Kartenart"},
+    "state": {"default":0,"min":0,"max":3,"step":1,"label":"0 offen · 1 zu · 2 verschlossen · 3 gesprengt"}
+  },
+  "variants": {
+    "geschnitten": {"cut":1},
+    "verfallen": {"zustand":1,"seed":1},
+    "umkaempft": {"zustand":2,"seed":2},
+    "offen": {"state":0},
+    "offen_geschnitten": {"state":0,"cut":1},
+    "zu": {"state":1},
+    "zu_geschnitten": {"state":1,"cut":1},
+    "verschlossen": {"state":2},
+    "verschlossen_geschnitten": {"state":2,"cut":1},
+    "gesprengt": {"state":3},
+    "gesprengt_geschnitten": {"state":3,"cut":1}
+  },
+  "ops": [
+    {"name":"Gerüst tuer","op":"use","model":"kit/geruest/tuer","at":[4,1,2],"params":{"cut":"cut","zustand":"zustand","art":"{art}","state":"state","bauweise":"test","seed":"seed"}}
+  ],
+  "anchor": [4,1,2]
+}

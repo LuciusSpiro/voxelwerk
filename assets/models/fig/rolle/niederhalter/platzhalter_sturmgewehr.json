@@ -1,0 +1,25 @@
+{
+  "id": "fig/rolle/niederhalter/platzhalter_sturmgewehr",
+  "name": "Platzhalter schweres Sturmgewehr (bis ART-WAFFEN item/waffe/sturmgewehr liefert)",
+  "tier": "detail",
+  "palette": "nord",
+  "tags": ["waffe", "anbau", "platzhalter", "rolle", "niederhalter"],
+  "notes": "Nur Silhouette für den Niederhalter: lang (1,25 m), dick, Kühlrippen-Mantel um den Lauf, großes Kastenmagazin. Anbau handR, Anker = Pistolengriff. Mündung nach −y, Oberseite +z, Magazin/Griff nach −z. Vom Griff bis zur Mündung 13 Voxel (wie scav_rifle), damit die Mündung im Stand nicht in den Boden ragt; Vorderschaft 6 Voxel vor dem Griff (Pose aim_heavy). Große Flächen ohne Jitter (Dreiecksbudget). Fraktionsneutral, nur Palettenrollen.",
+  "footprint": [0.2, 0.5],
+  "ops": [
+    { "name": "Mündungsbremse", "op": "box", "at": [0, 0, 0], "size": [3, 2, 3], "color": "metal_dark" },
+    { "name": "Mündung", "op": "box", "at": [1, 0, 1], "size": [1, 1, 1], "color": "black", "jitter": false },
+    { "name": "Laufmantel", "op": "box", "at": [0, 2, 0], "size": [3, 5, 3], "color": "metal_dark", "jitter": false },
+    { "name": "Kühlrippen", "op": "box", "at": [-1, 2, -1], "size": [5, 1, 5], "repeat": { "count": 3, "step": [0, 2, 0] }, "color": "metal_light", "jitter": false },
+    { "name": "Vorderschaft", "op": "box", "at": [0, 7, 0], "size": [3, 2, 3], "color": "leather" },
+    { "name": "Gehäuse", "op": "box", "at": [0, 9, -1], "size": [3, 7, 5], "color": "primary", "jitter": false },
+    { "name": "Gehäusekante", "op": "box", "at": [0, 9, 3], "size": [3, 7, 1], "color": { "shade": "primary", "f": 1.2 }, "mode": "paint", "jitter": false },
+    { "name": "Visier", "op": "box", "at": [1, 10, 4], "size": [1, 4, 1], "color": "metal_light" },
+    { "name": "Kastenmagazin", "op": "box", "at": [0, 8, -5], "size": [3, 4, 4], "color": "metal_dark", "jitter": false },
+    { "name": "Magazinband", "op": "box", "at": [0, 9, -5], "size": [3, 1, 4], "color": "metal", "mode": "paint", "jitter": false },
+    { "name": "Pistolengriff", "op": "box", "at": [0, 12, -3], "size": [3, 2, 2], "color": "leather" },
+    { "name": "Schaft", "op": "box", "at": [0, 16, -1], "size": [3, 3, 4], "color": { "shade": "leather", "f": 0.8 }, "jitter": false },
+    { "name": "Schaftkappe", "op": "box", "at": [0, 19, -1], "size": [3, 1, 4], "color": "metal" }
+  ],
+  "anchor": [1.5, 13, -2]
+}

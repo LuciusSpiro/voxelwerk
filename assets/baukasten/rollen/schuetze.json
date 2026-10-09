@@ -1,0 +1,20 @@
+{
+  "id": "schuetze",
+  "name": "Schütze (Jäger)",
+  "notes": "ART-FIG-B. Leitform: schlank (schmale Oberarme ohne Schulterplanken, hohe Kapuzenspitze), EIN Leuchtauge am Halbvisier, Lanze länger als der Körper, schmaler Köcher schräg am Rücken. Kein Fellumhang. Frisur kurz (hair 1), damit der Zopf nicht durch die Kapuze läuft.",
+  "groesse": 1,
+  "ersetzt": {
+    "upperArm": "fig/rolle/schuetze/oberarm"
+  },
+  "aufsatz": {
+    "head_top": "fig/rolle/schuetze/kapuze",
+    "back": "fig/rolle/schuetze/koecher"
+  },
+  "waffe": "lanze",
+  "pose_ruhe": "rest_upright",
+  "pose_ziel": "charge",
+  "mantel": false,
+  "params": {
+    "hair": 1
+  }
+}

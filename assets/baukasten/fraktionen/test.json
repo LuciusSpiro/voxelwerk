@@ -1,0 +1,22 @@
+{
+  "id": "test",
+  "name": "Testfraktion (Basis-Unteranzug)",
+  "notes": "Nur zum Prüfen des Figurenbaukastens (tools/gen-figuren.mjs). Teile aus fig/basis/*, keine Spielfigur.",
+  "rig": "human",
+  "palette": "base",
+  "params": { "rank": 0 },
+  "teile": {
+    "hips": "fig/basis/huefte",
+    "torso": "fig/basis/rumpf",
+    "head": "fig/basis/kopf",
+    "upperArm": "fig/basis/oberarm",
+    "lowerArm": "fig/basis/unterarm",
+    "thigh": "fig/basis/oberschenkel",
+    "shin": "fig/basis/unterschenkel"
+  },
+  "kopf_varianten": {
+    "helm": "fig/crew/helm_offen"
+  },
+  "mantel": { "model": "fig/rom/umhang", "params": { "bottom": 9 } },
+  "waffen_bauweise": "neutral"
+}

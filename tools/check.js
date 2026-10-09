@@ -1,6 +1,7 @@
 // Prüft alle Assets: baut jedes Modell (Defaults + Varianten), jede Figur und jede Szene.
-// Aufruf: npm run check [-- --vox] [filter]
-//   --vox   exportiert zusätzlich jedes Modell als .vox nach out/vox/ (für MagicaVoxel)
+// Aufruf: npm run check [-- --vox] [-- --pruefbogen] [filter]
+//   --vox         exportiert zusätzlich jedes Modell als .vox nach out/vox/ (für MagicaVoxel)
+//   --pruefbogen  prüft zusätzlich alle Modelle mit Tag "kit" mit dem Prüfbogen (tools/pruefbogen.mjs, ohne Bild)
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -9,9 +10,10 @@ import { voxelSize } from '../core/scales.js';
 import { gridToVox } from '../core/vox.js';
 import { resolveScene } from '../core/scene.js';
 import { buildTerrain } from '../core/terrain.js';
+import { pruefeModell, printReport } from './pruefbogen.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const args = process.argv.slice(2), exportVox = args.includes('--vox'), filter = args.find((a) => !a.startsWith('--'));
+const args = process.argv.slice(2), exportVox = args.includes('--vox'), pruefbogen = args.includes('--pruefbogen'), filter = args.find((a) => !a.startsWith('--'));
 const lib = nodeLibrary(root), idx = await listAssets(root);
 let errors = 0, warnings = 0;
 const err = (m) => { errors++; console.log('  ✗ ' + m); };
@@ -86,6 +88,20 @@ for (const id of idx.scenes.filter(want)) {
     if (sc.mood && !lib.get('moods', sc.mood)) err(`${id}: Stimmung ${sc.mood} fehlt`);
     console.log(`  ✓ ${id}: ${res.info.W}×${res.info.D} m, ${res.placements.length} Platzierungen (${uniq.size} verschiedene Bauten), ${res.figures.length} Figuren, ~${fmt(vox)} Voxel`);
   } catch (e) { err(`${id}: ${e.message}`); }
+}
+
+if (pruefbogen) {
+  console.log('\n== Prüfbogen (Modelle mit Tag "kit")');
+  for (const id of idx.models.filter(want)) {
+    try {
+      const m = await lib.load('models', id);
+      if (!(m.tags || []).includes('kit')) continue;
+      const rep = pruefeModell(lib, id);
+      printReport(rep);
+      errors += rep.errors; warnings += rep.warnings;
+      lib.buildCache.clear();
+    } catch (e) { err(`${id}: Prüfbogen: ${e.message}`); }
+  }
 }
 
 console.log(`\n${errors ? '✗' : '✓'} ${errors} Fehler, ${warnings} Warnungen`);

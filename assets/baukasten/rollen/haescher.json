@@ -1,0 +1,16 @@
+{
+  "id": "haescher",
+  "name": "Häscher (Wergeld-Fänger)",
+  "notes": "ART-FIG-B. Leitform: waagrechte Fangnetz-Rolle quer über den Schultern, Bola am Rücken, Eisenmaske, Fesselkette über der Brust, Fesselschlaufen vorn am Gürtel, Stab mit Gabelkopf. Kein Fellumhang.",
+  "groesse": 1,
+  "ersetzt": {},
+  "aufsatz": {
+    "head_top": "fig/rolle/haescher/maske",
+    "back": "fig/rolle/haescher/fangnetz",
+    "shoulder": "fig/rolle/haescher/fesselgurt"
+  },
+  "waffe": "betaeuber",
+  "pose_ruhe": "guard",
+  "pose_ziel": "aim_rifle",
+  "mantel": false
+}

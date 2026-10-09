@@ -1,0 +1,24 @@
+{
+  "id": "kit/test/luke",
+  "name": "Probebauweise – luke (Gerüst mit Klötzchen-Füllung)",
+  "tier": "architecture",
+  "palette": "base",
+  "tags": ["kit","test","luke"],
+  "footprint": [1,1],
+  "jitter": 0,
+  "params": {
+    "conn": {"default":10,"min":0,"max":15,"step":1,"label":"Nachbarn gleicher Klasse (N1 O2 S4 W8)"},
+    "cut": {"default":0,"min":0,"max":1,"step":1,"label":"Geschnitten (1,25 m)"},
+    "zustand": {"default":0,"min":0,"max":2,"step":1,"label":"0 intakt · 1 verfallen · 2 umkämpft"},
+    "art": {"default":"station","options":["aussenposten","station","ruine","schiff"],"label":"Kartenart"},
+    "state": {"default":0,"min":0,"max":1,"step":1,"label":"0 zu · 1 offen"}
+  },
+  "variants": {
+    "offen": {"state":1},
+    "verfallen": {"zustand":1,"seed":1}
+  },
+  "ops": [
+    {"name":"Gerüst luke","op":"use","model":"kit/geruest/luke","at":[2,1,2],"params":{"conn":"conn","cut":"cut","zustand":"zustand","art":"{art}","state":"state","bauweise":"test","seed":"seed"}}
+  ],
+  "anchor": [2,1,2]
+}

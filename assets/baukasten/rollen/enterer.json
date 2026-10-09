@@ -1,0 +1,21 @@
+{
+  "id": "enterer",
+  "name": "Enterer (Berserker)",
+  "notes": "ART-FIG-B. Leitform: 110 % groß, MASSIG und gebeugt: breiter Fellbuckel + Fell-Schulterstücke (1,24 m breit), Fellumhang (kurz, bottom 16, spart Dreiecke), Bärenfell-Haube mit Ohren, Nahkampfwaffe, keine Fernwaffe. 2 Wunden (Spielwert, CONTRACT-B2). Ruhepose guard_hunched (ART-POSEN).",
+  "groesse": 1.1,
+  "ersetzt": {
+    "upperArm": "fig/rolle/enterer/oberarm"
+  },
+  "aufsatz": {
+    "head_top": "fig/rolle/enterer/baerenhaube",
+    "shoulder": "fig/rolle/enterer/nackenbuckel"
+  },
+  "waffe": "nahkampf",
+  "pose_ruhe": "guard_hunched",
+  "pose_ziel": "windup",
+  "mantel": true,
+  "params": {
+    "hair": 0,
+    "bottom": 16
+  }
+}

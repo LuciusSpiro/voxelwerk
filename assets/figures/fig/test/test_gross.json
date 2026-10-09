@@ -1,0 +1,30 @@
+{
+  "id": "fig/test/test_gross",
+  "name": "Testfraktion (Basis-Unteranzug): Testrolle groß (Enterer-Probe)",
+  "generated": true,
+  "quelle": { "fraktion": "baukasten/fraktionen/test.json", "rolle": "baukasten/rollen/test_gross.json", "generator": "tools/gen-figuren.mjs" },
+  "rig": "human",
+  "palette": "base",
+  "tags": ["figur", "baukasten", "test", "test_gross"],
+  "scale": 1.1,
+  "posen": { "ruhe": "stand", "ziel": "strike" },
+  "waffe": { "typ": "nahkampf", "bauweise": "neutral", "platzhalter": true },
+  "params": { "rank": 0 },
+  "parts": {
+    "hips": { "model": "fig/basis/huefte" },
+    "torso": { "model": "fig/basis/rumpf" },
+    "head": { "model": "fig/crew/helm_offen" },
+    "upperArmL": { "model": "fig/basis/oberarm" },
+    "upperArmR": { "model": "fig/basis/oberarm", "mirror": true },
+    "lowerArmL": { "model": "fig/basis/unterarm" },
+    "lowerArmR": { "model": "fig/basis/unterarm", "mirror": true },
+    "thighL": { "model": "fig/basis/oberschenkel" },
+    "thighR": { "model": "fig/basis/oberschenkel", "mirror": true },
+    "shinL": { "model": "fig/basis/unterschenkel" },
+    "shinR": { "model": "fig/basis/unterschenkel", "mirror": true }
+  },
+  "attach": {
+    "back": { "model": "fig/rom/umhang", "params": { "bottom": 9 } },
+    "handR": { "model": "fig/rom/gladius" }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "test_gross",
+  "name": "Testrolle groß (Enterer-Probe)",
+  "notes": "Nur für die Testfraktion: Größe 1,1, Kopfvariante helm, Mantel, Nahkampfwaffe.",
+  "fraktionen": ["test"],
+  "groesse": 1.1,
+  "kopf": "helm",
+  "ersetzt": {},
+  "aufsatz": {},
+  "waffe": "nahkampf",
+  "waffe_platzhalter": "fig/rom/gladius",
+  "pose_ruhe": "stand",
+  "pose_ziel": "strike",
+  "mantel": true
+}

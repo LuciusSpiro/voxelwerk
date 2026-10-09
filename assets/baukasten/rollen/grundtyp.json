@@ -1,0 +1,14 @@
+{
+  "id": "grundtyp",
+  "name": "Grundtyp",
+  "notes": "Karl (Lexikon). Leitform: mittlere Figur, Fellumhang (Rollenteil laut ART-PLAN §6), offener Helm, Blaster. Kein Rückenaufsatz, kein Schulteraufsatz: Karl ist die Bezugsgröße, gegen die alle anderen Rollen abweichen.",
+  "groesse": 1.0,
+  "kopf": "helm_a",
+  "ersetzt": {},
+  "aufsatz": {},
+  "waffe": "blaster",
+  "waffe_platzhalter": "lerche/item/blaster",
+  "pose_ruhe": "stand",
+  "pose_ziel": "aim",
+  "mantel": true
+}

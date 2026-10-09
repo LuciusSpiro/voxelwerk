@@ -1,0 +1,21 @@
+{
+  "id": "fig/rolle/grenadier/platzhalter_granatwerfer",
+  "name": "Platzhalter Granatwerfer (bis ART-WAFFEN item/waffe/granatwerfer liefert)",
+  "tier": "detail",
+  "palette": "nord",
+  "tags": ["waffe", "anbau", "platzhalter", "rolle", "grenadier"],
+  "notes": "Nur Silhouette für den Grenadier: KURZES, DICKES Rohr (Ø 5–6, Länge 0,9 m). Anbau handR, Anker = Pistolengriff. Mündung nach −y, Oberseite +z, Griff nach −z. Fraktionsneutral, nur Palettenrollen.",
+  "footprint": [0.3, 0.3],
+  "ops": [
+    {"name": "Rohr", "op": "cyl", "at": [2, 0, 2], "r": 2.5, "h": 11, "color": "primary", "jitter": false},
+    {"name": "Mündungsring", "op": "cyl", "at": [2, 0, 2], "r": 3, "h": 2, "color": "metal_light", "jitter": false},
+    {"name": "Bohrung", "op": "cyl", "at": [2, 0, 2], "r": 1.5, "h": 1, "color": "black", "jitter": false},
+    {"name": "Rohrband", "op": "cyl", "at": [2, 6, 2], "r": 3, "h": 1, "color": "metal_dark", "jitter": false},
+    {"name": "Verschluss", "op": "box", "at": [0, 11, 0], "size": [4, 3, 4], "color": "metal_dark", "jitter": false},
+    {"name": "Verschlusskappe", "op": "box", "at": [1, 14, 1], "size": [2, 1, 2], "color": "metal"},
+    {"name": "Klappvisier", "op": "box", "at": [1, 8, 4], "size": [2, 2, 1], "color": "metal_light"},
+    {"name": "Pistolengriff", "op": "box", "at": [1, 8, -2], "size": [2, 3, 2], "color": "leather"},
+    {"name": "Vordergriff", "op": "box", "at": [1, 2, -2], "size": [2, 2, 2], "color": "leather"}
+  ],
+  "anchor": [2, 9, -1]
+}

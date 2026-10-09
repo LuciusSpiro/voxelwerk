@@ -1,11 +1,16 @@
 // Screenshots über den Editor (Server muss laufen: npm start bzw. PORT=… node server.js).
 // Aufruf: node tools/shots.cjs [--port 3412] [--out shots/<team>] [--size 1600x900] <ziel> [<ziel> …]
 //   ziel = "model=rom/kiste" | "figure=rom/legionaer&pose=guard" | "scene=rom-aussenposten&mood=planet_dusk"
-// Playwright liegt außerhalb des Projekts (C:\tmp\pwtest, anderer Ort per PLAYWRIGHT_CORE=<pfad zu playwright-core>).
+//   Modellparameter über "p.<name>=<wert>", z. B. "model=fig/basis/torso&p.fell=1&elev=57&az=0" (der Editor liest p.*)
+// Playwright liegt außerhalb des Projekts : PLAYWRIGHT_CORE=<pfad zu playwright-core>, sonst C:\tmp\pwtest bzw. C:\tmp\pw-test.
 // Rendert per SwiftShader (CPU) → FPS hier nicht aussagekräftig.
 const path = require('path');
 const fs = require('fs');
-const { chromium } = require(process.env.PLAYWRIGHT_CORE || 'C:/tmp/pwtest/node_modules/playwright-core');
+const { chromium } = (() => {
+  const tries = [process.env.PLAYWRIGHT_CORE, 'C:/tmp/pwtest/node_modules/playwright-core', 'C:/tmp/pw-test/node_modules/playwright-core', 'playwright-core'].filter(Boolean);
+  for (const t of tries) { try { return require(t); } catch { /* nächster Ablageort */ } }
+  throw new Error('playwright-core nicht gefunden – PLAYWRIGHT_CORE=<pfad zu playwright-core> setzen');
+})();
 
 const argv = process.argv.slice(2);
 const opt = (name, def) => { const i = argv.indexOf('--' + name); if (i < 0) return def; const v = argv[i + 1]; argv.splice(i, 2); return v; };
@@ -21,7 +26,9 @@ const EXE = path.join(process.env.LOCALAPPDATA, 'ms-playwright/chromium-1234/chr
   const browser = await chromium.launch({ executablePath: EXE, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   const page = await browser.newPage({ viewport: { width: W, height: H } });
   let errors = 0;
-  page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') { errors++; console.log('  [' + m.type() + ']', m.text().slice(0, 400)); } });
+  // 404 nur melden, wenn es nicht das Favicon ist (die Konsole nennt die URL nicht → über 'response')
+  page.on('console', (m) => { if ((m.type() === 'error' || m.type() === 'warning') && !/^Failed to load resource/.test(m.text())) { errors++; console.log('  [' + m.type() + ']', m.text().slice(0, 400)); } });
+  page.on('response', (r) => { if (r.status() >= 400 && !/favicon.ico$/.test(r.url())) { errors++; console.log(`  [http ${r.status()}] ${r.url()}`); } });
   page.on('pageerror', (e) => { errors++; console.log('  [pageerror]', e.message); });
   for (const t of targets) {
     const t0 = Date.now();

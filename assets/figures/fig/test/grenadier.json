@@ -1,0 +1,30 @@
+{
+  "id": "fig/test/grenadier",
+  "name": "Testfraktion (Basis-Unteranzug): Grenadier",
+  "generated": true,
+  "quelle": { "fraktion": "baukasten/fraktionen/test.json", "rolle": "baukasten/rollen/grenadier.json", "generator": "tools/gen-figuren.mjs" },
+  "rig": "human",
+  "palette": "base",
+  "tags": ["figur", "baukasten", "test", "grenadier"],
+  "posen": { "ruhe": "stand", "ziel": "launch" },
+  "waffe": { "typ": "granatwerfer", "bauweise": "neutral", "platzhalter": false },
+  "params": { "rank": 0 },
+  "parts": {
+    "hips": { "model": "fig/basis/huefte" },
+    "torso": { "model": "fig/basis/rumpf" },
+    "head": { "model": "fig/basis/kopf" },
+    "upperArmL": { "model": "fig/basis/oberarm" },
+    "upperArmR": { "model": "fig/basis/oberarm", "mirror": true },
+    "lowerArmL": { "model": "fig/basis/unterarm" },
+    "lowerArmR": { "model": "fig/basis/unterarm", "mirror": true },
+    "thighL": { "model": "fig/basis/oberschenkel" },
+    "thighR": { "model": "fig/basis/oberschenkel", "mirror": true },
+    "shinL": { "model": "fig/basis/unterschenkel" },
+    "shinR": { "model": "fig/basis/unterschenkel", "mirror": true }
+  },
+  "attach": {
+    "back": { "model": "fig/rolle/grenadier/trommel" },
+    "handR": { "model": "item/waffe/granatwerfer", "params": { "bauweise": "neutral" } },
+    "torso": { "model": "fig/rolle/grenadier/granatgurt" }
+  }
+}

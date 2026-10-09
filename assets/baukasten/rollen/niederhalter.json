@@ -1,0 +1,17 @@
+{
+  "id": "niederhalter",
+  "name": "Niederhalter",
+  "notes": "Bolzer (Lexikon). Leitform: BREIT – Schulterjoch mit schweren Lamellen-Schulterplatten (Figur 19 statt 15 Voxel breit), Kühlrippen-Tornister, langes schweres Gewehr mit Kühlrippen und Kastenmagazin, waagrecht in Hüfthöhe (aim_heavy). Geschlossener Helm. Kein Fellumhang.",
+  "groesse": 1.0,
+  "kopf": "helm_b",
+  "ersetzt": {},
+  "aufsatz": {
+    "shoulder": "fig/rolle/niederhalter/schulterjoch",
+    "back": "fig/rolle/niederhalter/kuehltornister"
+  },
+  "waffe": "sturmgewehr",
+  "waffe_platzhalter": "fig/rolle/niederhalter/platzhalter_sturmgewehr",
+  "pose_ruhe": "aim_heavy",
+  "pose_ziel": "aim_heavy",
+  "mantel": false
+}

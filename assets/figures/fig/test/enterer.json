@@ -1,0 +1,32 @@
+{
+  "id": "fig/test/enterer",
+  "name": "Testfraktion (Basis-Unteranzug): Enterer (Berserker)",
+  "generated": true,
+  "quelle": { "fraktion": "baukasten/fraktionen/test.json", "rolle": "baukasten/rollen/enterer.json", "generator": "tools/gen-figuren.mjs" },
+  "rig": "human",
+  "palette": "base",
+  "tags": ["figur", "baukasten", "test", "enterer"],
+  "scale": 1.1,
+  "posen": { "ruhe": "guard_hunched", "ziel": "windup" },
+  "waffe": { "typ": "nahkampf", "bauweise": "neutral", "platzhalter": false },
+  "params": { "rank": 0, "hair": 0, "bottom": 16 },
+  "parts": {
+    "hips": { "model": "fig/basis/huefte" },
+    "torso": { "model": "fig/basis/rumpf" },
+    "head": { "model": "fig/basis/kopf" },
+    "upperArmL": { "model": "fig/rolle/enterer/oberarm" },
+    "upperArmR": { "model": "fig/rolle/enterer/oberarm", "mirror": true },
+    "lowerArmL": { "model": "fig/basis/unterarm" },
+    "lowerArmR": { "model": "fig/basis/unterarm", "mirror": true },
+    "thighL": { "model": "fig/basis/oberschenkel" },
+    "thighR": { "model": "fig/basis/oberschenkel", "mirror": true },
+    "shinL": { "model": "fig/basis/unterschenkel" },
+    "shinR": { "model": "fig/basis/unterschenkel", "mirror": true }
+  },
+  "attach": {
+    "back": { "model": "fig/rom/umhang", "params": { "bottom": 9 } },
+    "handR": { "model": "item/waffe/nahkampf", "params": { "bauweise": "neutral" } },
+    "head": { "model": "fig/rolle/enterer/baerenhaube" },
+    "torso": { "model": "fig/rolle/enterer/nackenbuckel" }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "fig/test/test_breit",
+  "name": "Testfraktion (Basis-Unteranzug): Testrolle breit (Niederhalter-Probe)",
+  "generated": true,
+  "quelle": { "fraktion": "baukasten/fraktionen/test.json", "rolle": "baukasten/rollen/test_breit.json", "generator": "tools/gen-figuren.mjs" },
+  "rig": "human",
+  "palette": "base",
+  "tags": ["figur", "baukasten", "test", "test_breit"],
+  "posen": { "ruhe": "guard", "ziel": "aim" },
+  "waffe": { "typ": "sturmgewehr", "bauweise": "neutral", "platzhalter": true },
+  "params": { "rank": 0 },
+  "parts": {
+    "hips": { "model": "fig/basis/huefte" },
+    "torso": { "model": "fig/basis/rumpf" },
+    "head": { "model": "fig/basis/kopf" },
+    "upperArmL": { "model": "fig/rostmeute/schulter_gross" },
+    "upperArmR": { "model": "fig/basis/oberarm", "mirror": true },
+    "lowerArmL": { "model": "fig/basis/unterarm" },
+    "lowerArmR": { "model": "fig/basis/unterarm", "mirror": true },
+    "thighL": { "model": "fig/basis/oberschenkel" },
+    "thighR": { "model": "fig/basis/oberschenkel", "mirror": true },
+    "shinL": { "model": "fig/basis/unterschenkel" },
+    "shinR": { "model": "fig/basis/unterschenkel", "mirror": true }
+  },
+  "attach": {
+    "back": { "model": "lerche/item/medipack" },
+    "handR": { "model": "lerche/item/scav_rifle" }
+  }
+}

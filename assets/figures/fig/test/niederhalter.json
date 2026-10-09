@@ -1,0 +1,30 @@
+{
+  "id": "fig/test/niederhalter",
+  "name": "Testfraktion (Basis-Unteranzug): Niederhalter",
+  "generated": true,
+  "quelle": { "fraktion": "baukasten/fraktionen/test.json", "rolle": "baukasten/rollen/niederhalter.json", "generator": "tools/gen-figuren.mjs" },
+  "rig": "human",
+  "palette": "base",
+  "tags": ["figur", "baukasten", "test", "niederhalter"],
+  "posen": { "ruhe": "aim_heavy", "ziel": "aim_heavy" },
+  "waffe": { "typ": "sturmgewehr", "bauweise": "neutral", "platzhalter": false },
+  "params": { "rank": 0 },
+  "parts": {
+    "hips": { "model": "fig/basis/huefte" },
+    "torso": { "model": "fig/basis/rumpf" },
+    "head": { "model": "fig/basis/kopf" },
+    "upperArmL": { "model": "fig/basis/oberarm" },
+    "upperArmR": { "model": "fig/basis/oberarm", "mirror": true },
+    "lowerArmL": { "model": "fig/basis/unterarm" },
+    "lowerArmR": { "model": "fig/basis/unterarm", "mirror": true },
+    "thighL": { "model": "fig/basis/oberschenkel" },
+    "thighR": { "model": "fig/basis/oberschenkel", "mirror": true },
+    "shinL": { "model": "fig/basis/unterschenkel" },
+    "shinR": { "model": "fig/basis/unterschenkel", "mirror": true }
+  },
+  "attach": {
+    "back": { "model": "fig/rolle/niederhalter/kuehltornister" },
+    "handR": { "model": "item/waffe/sturmgewehr", "params": { "bauweise": "neutral" } },
+    "torso": { "model": "fig/rolle/niederhalter/schulterjoch" }
+  }
+}

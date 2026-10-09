@@ -1,0 +1,27 @@
+{
+  "id": "kit/test/boden",
+  "name": "Probebauweise – boden (Gerüst mit Klötzchen-Füllung)",
+  "tier": "architecture",
+  "palette": "base",
+  "tags": ["kit","test","boden"],
+  "footprint": [1,1],
+  "jitter": 0,
+  "params": {
+    "conn": {"default":10,"min":0,"max":15,"step":1,"label":"Nachbarn gleicher Klasse (N1 O2 S4 W8)"},
+    "cut": {"default":0,"min":0,"max":1,"step":1,"label":"Geschnitten (1,25 m)"},
+    "zustand": {"default":0,"min":0,"max":2,"step":1,"label":"0 intakt · 1 verfallen · 2 umkämpft"},
+    "art": {"default":"station","options":["aussenposten","station","ruine","schiff"],"label":"Kartenart"},
+    "belag": {"default":0,"min":0,"max":3,"step":1,"label":"0 Platte · 1 Gitter · 2 Planke/Erde · 3 Schmuck"}
+  },
+  "variants": {
+    "gitter": {"belag":1},
+    "planke": {"belag":2},
+    "schmuck": {"belag":3},
+    "verfallen": {"zustand":1,"seed":1},
+    "umkaempft": {"zustand":2,"seed":4}
+  },
+  "ops": [
+    {"name":"Gerüst boden","op":"use","model":"kit/geruest/boden","at":[2,1,2],"params":{"conn":"conn","cut":"cut","zustand":"zustand","art":"{art}","belag":"belag","bauweise":"test","seed":"seed"}}
+  ],
+  "anchor": [2,1,2]
+}

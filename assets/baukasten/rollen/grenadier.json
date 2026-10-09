@@ -1,0 +1,17 @@
+{
+  "id": "grenadier",
+  "name": "Grenadier",
+  "notes": "Donnerwerfer (Lexikon). Leitform: große RÜCKENTROMMEL (stehender Zylinder, Granatköpfe oben als heller Ring, von oben eine runde Scheibe hinter dem Kopf) + kurzes, dickes Rohr. Granatgurt quer über der Brust. Offener Helm. Kein Fellumhang.",
+  "groesse": 1.0,
+  "kopf": "helm_a",
+  "ersetzt": {},
+  "aufsatz": {
+    "back": "fig/rolle/grenadier/trommel",
+    "shoulder": "fig/rolle/grenadier/granatgurt"
+  },
+  "waffe": "granatwerfer",
+  "waffe_platzhalter": "fig/rolle/grenadier/platzhalter_granatwerfer",
+  "pose_ruhe": "stand",
+  "pose_ziel": "launch",
+  "mantel": false
+}

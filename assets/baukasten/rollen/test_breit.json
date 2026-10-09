@@ -1,0 +1,18 @@
+{
+  "id": "test_breit",
+  "name": "Testrolle breit (Niederhalter-Probe)",
+  "notes": "Nur für die Testfraktion: großes Schulterstück links, Gewehr, Rückenaufsatz.",
+  "fraktionen": ["test"],
+  "groesse": 1.0,
+  "ersetzt": {
+    "upperArmL": "fig/rostmeute/schulter_gross"
+  },
+  "aufsatz": {
+    "back": "lerche/item/medipack"
+  },
+  "waffe": "sturmgewehr",
+  "waffe_platzhalter": "lerche/item/scav_rifle",
+  "pose_ruhe": "guard",
+  "pose_ziel": "aim",
+  "mantel": false
+}

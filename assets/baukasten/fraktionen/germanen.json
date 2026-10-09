@@ -1,0 +1,23 @@
+{
+  "id": "germanen",
+  "name": "Germanen",
+  "notes": "Fraktionsteile von ART-FIG-TEILE (fig/germanen/*). Besitzer der Datei: ART-FIG-A; ART-FIG-B nutzt sie mit. Größen gehören in die Rollen, nicht hierher. Besitz-Palette (friedlose, kontor, Clans) setzt der Client per palette-Override. Fell des Umhangs: dunkel (Bär); hell (Wolf) per Rolle über params.fell.",
+  "rig": "human",
+  "palette": "nord",
+  "params": { "rank": 0 },
+  "teile": {
+    "hips": "fig/germanen/huefte",
+    "torso": "fig/germanen/rumpf",
+    "head": "fig/germanen/kopf",
+    "upperArm": "fig/germanen/oberarm",
+    "lowerArm": "fig/germanen/unterarm",
+    "thigh": "fig/germanen/oberschenkel",
+    "shin": "fig/germanen/unterschenkel"
+  },
+  "kopf_varianten": {
+    "helm_a": "fig/germanen/helm_a",
+    "helm_b": "fig/germanen/helm_b"
+  },
+  "mantel": "fig/germanen/fellumhang",
+  "waffen_bauweise": "germanen"
+}

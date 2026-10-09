@@ -31,11 +31,16 @@
   .row { display:flex; align-items:center; gap:8px; margin:4px 0; }
   .row label { flex:0 0 120px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .row input[type=range] { flex:1; }
+  .row select { flex:1 1 auto; min-width:0; max-width:100%; text-overflow:ellipsis; }
   .row .val { flex:0 0 36px; text-align:right; font-family: ui-monospace, Consolas, monospace; }
   select, button { background:#0f1218; color:var(--text); border:1px solid var(--line); border-radius:4px; padding:4px 8px; font:inherit; }
   button { cursor:pointer; } button:hover { border-color:var(--accent); }
   button.primary { background:#3a2e14; border-color:var(--accent); }
   .btns { display:flex; gap:6px; flex-wrap:wrap; }
+  .row.switch { align-items:flex-start; } .row.switch .btns { flex:1; gap:4px; } .row.switch button { padding:2px 7px; }
+  button.on { background:#3a2e14; border-color:var(--accent); color:#fff; }
+  #view::after { content:"G = Raster"; position:absolute; right:10px; bottom:8px; color:var(--muted); font-size:11px; pointer-events:none; }
+  body.shot #view::after { display:none; }
   #json { flex:1; min-height:200px; width:100%; resize:none; background:#0d1016; color:#d8dee8; border:0; border-top:1px solid var(--line); padding:8px 10px; font: 12px/1.45 ui-monospace, Consolas, monospace; tab-size:2; white-space:pre; }
   #msg { padding:6px 12px; font-size:12px; min-height:28px; border-top:1px solid var(--line); white-space:pre-wrap; }
   #msg.err { color:var(--err); } #msg.ok { color:var(--ok); }

@@ -1,6 +1,7 @@
 // Voxelwerk-Editor (v1): Bibliothek durchsuchen, Modelle/Figuren/Szenen ansehen, Parameter und Paletten
 // ausprobieren, Rezepte als JSON bearbeiten (Anwenden = Vorschau, Speichern = Datei), .vox exportieren.
-// URL: ?model=rom/kiste | ?figure=rom/legionaer | ?scene=rom-aussenposten  [&mood=…&pose=…&palette=…&shot=1]
+// URL: ?model=rom/kiste | ?figure=rom/legionaer | ?scene=rom-aussenposten  [&mood=…&pose=…&palette=…&shot=1&raster=1]
+// Taste G: Raster-Overlay (Kachel 1 m, Zelle 8×8, Kantenmitte markiert). Sockets aus dem Rezeptfeld "sockets".
 import * as THREE from 'three';
 import { Library } from '../core/library.js';
 import { formatJSON } from '../core/format.js';
@@ -22,7 +23,8 @@ if (SHOT) document.body.classList.add('shot');
 
 const viewer = new Viewer($('#view'), { preserve: true });
 window.__viewer = viewer;
-const state = { kind: null, id: null, params: {}, palette: null, mood: url.get('mood'), pose: url.get('pose'), saved: null, index: null };
+const state = { kind: null, id: null, params: {}, palette: url.get('palette') || null, mood: url.get('mood'), pose: url.get('pose'), saved: null, index: null, raster: url.get('raster') === '1' };
+const CELL = 8;   // Zelle = 8×8 Kacheln à 1 m
 
 function msg(text, cls = '') { const m = $('#msg'); m.textContent = text; m.className = cls; }
 
@@ -59,16 +61,23 @@ $('#search').oninput = renderIndex;
 async function select(kind, id, keep = false) {
   try {
     const obj = await lib.load(kind, id);
-    if (!keep) { state.params = {}; state.palette = url.get('palette') || null; }
-    // Parameter per URL: &p.open=1&p.w=20
-    for (const [k, v] of url) if (k.startsWith('p.') && kind === 'models') state.params[k.slice(2)] = isNaN(+v) ? v : +v;
+    // &palette= gilt nur für den Start (select mit keep=true); Klick auf ein anderes Asset setzt sie zurück
+    if (!keep) { state.params = {}; state.palette = null; }
+    // Parameter per URL: &p.open=1&p.w=20 – wie &palette= nur beim Start
+    else for (const [k, v] of url) if (k.startsWith('p.') && kind === 'models') state.params[k.slice(2)] = isNaN(+v) ? v : +v;
     state.kind = kind; state.id = id; state.saved = formatJSON(obj);
     $('#json').value = state.saved;
-    history.replaceState(null, '', `?${kind.slice(0, -1)}=${id}${state.mood ? '&mood=' + state.mood : ''}${SHOT ? '&shot=1' : ''}`);
+    syncUrl();
     renderIndex();
     await preview();
     msg('');
   } catch (e) { console.error(e); msg(e.message, 'err'); }
+}
+
+// Adresszeile spiegelt die Auswahl (Reload behält Asset, Palette, Stimmung, Raster)
+function syncUrl() {
+  const { kind, id } = state; if (!kind) return;
+  history.replaceState(null, '', `?${kind.slice(0, -1)}=${id}${state.palette ? '&palette=' + state.palette : ''}${state.mood ? '&mood=' + state.mood : ''}${state.raster ? '&raster=1' : ''}${SHOT ? '&shot=1' : ''}`);
 }
 
 async function ensureMoods() { for (const m of state.index.moods) await lib.load('moods', m); for (const p of state.index.palettes) await lib.load('palettes', p); }
@@ -92,7 +101,7 @@ function scaleRef(x) {
 
 async function preview() {
   await ensureMoods();
-  const { kind, id } = state;
+  const { kind, id } = state; if (!kind) return;
   let hud = '', title = id, sub = '';
   if (kind === 'models') {
     const m = lib.get('models', id);
@@ -102,8 +111,11 @@ async function preview() {
     const b = built.grid.bounds(), s = voxelSize(built.tier), dims = [0, 1, 2].map((i) => b.max[i] - b.min[i] + 1);
     const box = new THREE.Box3().setFromObject(o);
     const floats = (m.tags || []).includes('schiff') || url.get('floor') === '0';
-    const g = stage(o, 2, !floats); if (url.get('ref') !== '0') g.add(scaleRef(box.max.x + 0.6));
+    const g = stage(o, state.raster ? CELL + 1 : 2, !floats); if (url.get('ref') !== '0') g.add(scaleRef(box.max.x + 0.6));
     viewer.setContent(g); viewer.bounds = box.union(new THREE.Box3(new THREE.Vector3(-1, 0, -1), new THREE.Vector3(1, 1.94, 1)));
+    const ras = viewer.setRaster({ ...rasterPlacement(m, box), cell: CELL, visible: state.raster });
+    if (state.raster) viewer.bounds.union(ras.userData.box);
+    viewer.setSockets(recipeSockets(m));
     viewer.setMood(lib.get('moods', state.mood || 'planet_day'), viewer.bounds, { fog: false });
     viewer.frameContent({ elev: +(url.get('elev') ?? 28), az: +(url.get('az') ?? 35), pad: +(url.get('pad') ?? 1.05) });
     title = m.name || id; sub = `${id} · ${TIERS[built.tier].label} (${TIERS[built.tier].voxelsPerMeter} Voxel/m)`;
@@ -113,7 +125,8 @@ async function preview() {
     const f = figureObject(lib, id, { palette: state.palette || undefined, phase: 0 });
     f.pose = state.pose || 'stand'; applyPose(f, f.pose, 0);
     const g = stage(f.root); g.add(scaleRef(1.0));
-    viewer.setContent(g, [f]); viewer.bounds = new THREE.Box3(new THREE.Vector3(-0.8, 0, -0.6), new THREE.Vector3(1.3, 2.4, 0.6));
+    viewer.setContent(g, [f]); viewer.setSockets([]);
+    viewer.setRaster({ origin: [-CELL / 2, -CELL / 2], y: 0, cell: CELL, visible: state.raster }); viewer.bounds = new THREE.Box3(new THREE.Vector3(-0.8, 0, -0.6), new THREE.Vector3(1.3, 2.4, 0.6));
     viewer.setMood(lib.get('moods', state.mood || 'planet_day'), viewer.bounds, { fog: false });
     viewer.frameContent({ elev: +(url.get('elev') ?? 14), az: +(url.get('az') ?? 30), pad: 0.75 });
     title = lib.get('figures', id).name || id; sub = `${id} · Rig ${lib.get('figures', id).rig}`;
@@ -121,7 +134,8 @@ async function preview() {
     controlsFigure(f);
   } else if (kind === 'scenes') {
     const sc = sceneObject(lib, id);
-    viewer.setContent(sc.group, sc.figures);
+    viewer.setContent(sc.group, sc.figures); viewer.setSockets([]);
+    viewer.setRaster({ origin: [0, 0], y: 0, cell: CELL, visible: state.raster });
     const mood = lib.get('moods', state.mood || sc.scene.mood || 'planet_day');
     viewer.setMood(mood, viewer.bounds);
     viewer.addPointLights(sc.scene.lights);
@@ -142,6 +156,31 @@ async function preview() {
   window.__ready = false;
   requestAnimationFrame(() => requestAnimationFrame(() => { window.__ready = true; }));
 }
+
+/**
+ * Lage der Zelle zum Modell: Kachelgrenzen folgen der Grundfläche (ungerade Breite → Pivot in Kachelmitte).
+ * Das Modell sitzt in den Mittelkacheln der vorderen Zellkante (+z, zur Kamera) – dort, wo Kit-Teile
+ * wie Wand/Tür an der Kante stehen.
+ */
+function rasterPlacement(m, box) {
+  const fp = Array.isArray(m.footprint) ? m.footprint : [1, 1];
+  const n = (v) => Math.max(1, Math.round(+v || 1));
+  const x0 = -CELL / 2 - (n(fp[0]) % 2 ? 0.5 : 0), z1 = n(fp[1]) / 2;
+  return { origin: [x0, z1 - CELL], y: Math.min(0, box.min.y) };
+}
+
+/**
+ * Sockets tolerant aus dem Rezept-JSON lesen (das Parsen im Kern gehört SYS-KERN):
+ * { name: [x,y,z] } | { name: { at|pos|p: [x,y,z] } } | [{ name, at|pos|p }]. Meter, relativ zum Pivot.
+ */
+function recipeSockets(m) {
+  const raw = m && m.sockets; if (!raw || typeof raw !== 'object') return [];
+  const vec = (v) => { const a = Array.isArray(v) ? v : v && (v.at || v.pos || v.p || v.position); return Array.isArray(a) && a.length >= 3 && a.slice(0, 3).every((k) => Number.isFinite(+k)) ? a.slice(0, 3).map(Number) : null; };
+  const list = Array.isArray(raw) ? raw.map((s, i) => [s?.name ?? s?.id ?? `#${i}`, s]) : Object.entries(raw);
+  const out = [];
+  for (const [name, v] of list) { const at = vec(v); if (at) out.push({ name: String(name), at }); else console.info(`Socket "${name}" in ${m.id}: Position nicht lesbar`, v); }
+  return out;
+}
 const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
 
 setInterval(() => { const i = viewer.info(); $('#hud').textContent = `${state.hud || ''}\n${i.fps} FPS · ${i.calls} Draw Calls · ${i.triangles.toLocaleString('de-DE')} Dreiecke`; window.__stats && (window.__stats.render = i); }, 500);
@@ -157,8 +196,8 @@ function selectRow(label, options, value, onChange) {
   s.onchange = () => onChange(s.value);
   r.appendChild(s); return r;
 }
-function moodRow() { return selectRow('Stimmung', state.index.moods, state.mood || '', (v) => { state.mood = v; preview(); }); }
-function paletteRow(def) { return selectRow('Palette', state.index.palettes, state.palette || def, (v) => { state.palette = v; preview(); }); }
+function moodRow() { return selectRow('Stimmung', state.index.moods, state.mood || '', (v) => { state.mood = v; syncUrl(); preview(); }); }
+function paletteRow(def) { return selectRow('Palette', state.index.palettes, state.palette || def, (v) => { state.palette = v; syncUrl(); preview(); }); }
 
 function controlsModel(m) {
   const c = $('#controls'); c.innerHTML = '';
@@ -168,6 +207,7 @@ function controlsModel(m) {
   for (const [k, def] of Object.entries(m.params || {})) {
     const r = document.createElement('div'); r.className = 'row';
     const v = state.params[k] ?? def.default;
+    if (SWITCH.includes(k)) { const sw = switchRow(k, def, v); if (sw) { c.appendChild(sw); continue; } }
     if (def.options) { c.appendChild(selectRow(def.label || k, def.options, v, (nv) => { state.params[k] = nv; preview(); })); continue; }
     r.innerHTML = `<label title="${esc(k)}">${esc(def.label || k)}</label><input type="range" min="${def.min ?? 0}" max="${def.max ?? 32}" step="${def.step ?? 1}" value="${v}"><span class="val">${v}</span>`;
     const inp = r.querySelector('input'), val = r.querySelector('.val');
@@ -184,6 +224,27 @@ function controlsModel(m) {
     for (const [name, p] of Object.entries(m.variants)) { const bt = document.createElement('button'); bt.textContent = name; bt.onclick = () => { state.params = { ...p }; preview(); }; b.appendChild(bt); }
     c.appendChild(b);
   }
+}
+// Kit-Parameter als Knopfleiste (schnelles Durchschalten statt Auswahlliste/Schieber)
+const SWITCH = ['bauweise', 'art', 'zustand'];
+const ZUSTAND = ['intakt', 'verfallen', 'umkämpft'];
+function switchRow(k, def, v) {
+  let opts;
+  if (Array.isArray(def.options)) opts = def.options.map((o) => [o, String(o)]);
+  else if (Number.isFinite(+def.min) && Number.isFinite(+def.max) && def.max - def.min <= 12) {
+    opts = []; for (let i = +def.min; i <= +def.max; i += +(def.step || 1)) opts.push([i, k === 'zustand' && ZUSTAND[i] ? `${i} ${ZUSTAND[i]}` : String(i)]);
+  } else if (k === 'zustand') opts = ZUSTAND.map((z, i) => [i, `${i} ${z}`]);
+  if (!opts || !opts.length) return null;
+  const r = document.createElement('div'); r.className = 'row switch';
+  r.innerHTML = `<label title="${esc(k)}">${esc(def.label || k)}</label>`;
+  const b = document.createElement('div'); b.className = 'btns';
+  for (const [val, text] of opts) {
+    const bt = document.createElement('button'); bt.textContent = text; bt.dataset.param = k;
+    if (String(val) === String(v)) bt.className = 'on';
+    bt.onclick = () => { state.params[k] = val; preview(); };
+    b.appendChild(bt);
+  }
+  r.appendChild(b); return r;
 }
 function controlsFigure(f) {
   const c = $('#controls'); c.innerHTML = '';
@@ -242,6 +303,12 @@ $('#vox').onclick = async () => {
 };
 $('#shot').onclick = () => { const a = document.createElement('a'); a.download = (state.id || 'voxelwerk').replace(/\//g, '_') + '.png'; a.href = viewer.renderer.domElement.toDataURL('image/png'); a.click(); };
 addEventListener('keydown', (e) => {
+  const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName);
+  if (!typing && !e.ctrlKey && !e.altKey && !e.metaKey && e.key.toLowerCase() === 'g') {
+    state.raster = viewer.toggleRaster();
+    syncUrl();
+    msg(state.raster ? 'Raster an (Kachel 1 m, Zelle 8×8, blau = Kantenmitte) – G blendet aus.' : 'Raster aus.');
+  }
   if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); apply(); }
   if (e.ctrlKey && e.key.toLowerCase() === 's') { e.preventDefault(); save(); }
 });

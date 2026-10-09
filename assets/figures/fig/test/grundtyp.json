@@ -1,0 +1,29 @@
+{
+  "id": "fig/test/grundtyp",
+  "name": "Testfraktion (Basis-Unteranzug): Grundtyp",
+  "generated": true,
+  "quelle": { "fraktion": "baukasten/fraktionen/test.json", "rolle": "baukasten/rollen/grundtyp.json", "generator": "tools/gen-figuren.mjs" },
+  "rig": "human",
+  "palette": "base",
+  "tags": ["figur", "baukasten", "test", "grundtyp"],
+  "posen": { "ruhe": "stand", "ziel": "aim" },
+  "waffe": { "typ": "blaster", "bauweise": "neutral", "platzhalter": false },
+  "params": { "rank": 0 },
+  "parts": {
+    "hips": { "model": "fig/basis/huefte" },
+    "torso": { "model": "fig/basis/rumpf" },
+    "head": { "model": "fig/basis/kopf" },
+    "upperArmL": { "model": "fig/basis/oberarm" },
+    "upperArmR": { "model": "fig/basis/oberarm", "mirror": true },
+    "lowerArmL": { "model": "fig/basis/unterarm" },
+    "lowerArmR": { "model": "fig/basis/unterarm", "mirror": true },
+    "thighL": { "model": "fig/basis/oberschenkel" },
+    "thighR": { "model": "fig/basis/oberschenkel", "mirror": true },
+    "shinL": { "model": "fig/basis/unterschenkel" },
+    "shinR": { "model": "fig/basis/unterschenkel", "mirror": true }
+  },
+  "attach": {
+    "back": { "model": "fig/rom/umhang", "params": { "bottom": 9 } },
+    "handR": { "model": "item/waffe/blaster", "params": { "bauweise": "neutral" } }
+  }
+}
