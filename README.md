@@ -41,3 +41,19 @@ Format und Konventionen: **[AUTHORING.md](AUTHORING.md)**.
 ## Auflösungsstufen
 
 Terrain 1 Voxel/m · Architektur 4 Voxel/m · Detail (Figuren, Props) 16 Voxel/m. 1 Kachel = 1 m.
+
+## Drehsprites (EK1b, 2D-Raumansicht)
+
+```
+npm run sprites                 # alle Klassen x Farbthemen nach assets/sprites/ (ca. 4 min, linienschiff dauert je Set ~30 s)
+npm run sprites -- jaeger/nord  # nur passende "<klasse>/<set>"
+npm run sprites -- --check      # vergleicht mit den Dateien, Exit 1 bei Abweichung
+node tools/sprites-vergleich.mjs <ordner> [zoom] [set ...]   # Lesbarkeit: alle Klassen bei 30/50/80 px
+```
+
+Draufsicht jedes Schiffsmodells (`schiff/<klasse>/<volk>`), 64 Winkelstufen, Bug bei Stufe 0 nach +x (Canvas, y unten,
+Uhrzeigersinn; wie `ROT_STEPS` in Pantheon). Reiner Node-Software-Renderer (Höhenkarte der obersten Voxel, Licht links oben,
+4x Supersampling, 1-px-Umriss), ohne three.js und ohne Browser, deterministisch. Ausgabe: je `<klasse>/<set>.png` ein Sheet
+(8 Spalten) plus `assets/sprites/manifest.json` (Klasse, Volk, Stufen, Rahmengröße, Anker, Länge in px, `heck`).
+Sets: `rom`, `nord` (Germanen), `rostmeute` (Germanen-Geometrie in Rostmeute-Farben), `aegypten`, `babylon`, `himmelsreich`.
+Größen je Klasse: `KLASSEN` in `tools/sprites.mjs`. Pantheon holt die Dateien mit `npm run assets`.

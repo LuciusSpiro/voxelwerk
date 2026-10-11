@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "check": "node tools/check.js",
-    "shots": "node tools/shots.cjs"
+    "shots": "node tools/shots.cjs",
+    "sprites": "node tools/sprites.mjs"
   },
   "engines": { "node": ">=22" }
 }
