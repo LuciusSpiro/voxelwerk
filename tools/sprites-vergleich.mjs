@@ -17,7 +17,7 @@ if (!outDir) { console.error('Aufruf: node tools/sprites-vergleich.mjs <Ausgabeo
 const zoom = +zoomArg || 3, sets = rest.length ? rest : ['nord', 'rom', 'rostmeute'];
 const lib = nodeLibrary(root);
 const SIZES = [30, 50, 80], ANGS = [0, (35 / 180) * Math.PI];
-const classes = Object.keys(KLASSEN);
+const classes = Object.keys(KLASSEN).filter((k) => !KLASSEN[k].modell);
 await fs.mkdir(outDir, { recursive: true });
 for (const setId of sets) {
   if (!SETS[setId]) { console.error('unbekanntes Set ' + setId); process.exit(2); }

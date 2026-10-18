@@ -25,6 +25,14 @@ const STEPS = 64, COLS = 8, SS = 4;
 export const KLASSEN = {
   jaeger: { len: 32 }, spaeher: { len: 44 }, korvette: { len: 68 }, frachter: { len: 76 },
   fregatte: { len: 88 }, kreuzer: { len: 104 }, linienschiff: { len: 128 },
+  // PAN-01 B: Lerche (Spielerschiff, Ausbaustufen 0-3 = 3/5/7/9 Waffen). Eigenes Modell statt schiff/<klasse>/<volk>:
+  //   modell = Rezept, params = Modellparameter, sets = nur diese Farbthemen, bezug = Klasse, deren Bounding-Box (Rahmen, Massstab,
+  //   Mitte, Hoehenskala) alle Stufen teilen, damit die Sheets deckungsgleich sind und der Anker in jeder Stufe derselbe bleibt.
+  // Laenge 78 px: zwischen Korvette (68) und Fregatte (88), nahe an der bisherigen prozeduralen Lerche (ca. 81 px mit Ring).
+  lerche_s0: { len: 78, modell: 'schiff/lerche/rom', params: { stufe: 0 }, sets: ['rom'], bezug: 'lerche_s3' },
+  lerche_s1: { len: 78, modell: 'schiff/lerche/rom', params: { stufe: 1 }, sets: ['rom'], bezug: 'lerche_s3' },
+  lerche_s2: { len: 78, modell: 'schiff/lerche/rom', params: { stufe: 2 }, sets: ['rom'], bezug: 'lerche_s3' },
+  lerche_s3: { len: 78, modell: 'schiff/lerche/rom', params: { stufe: 3 }, sets: ['rom'] },
 };
 // Set = Farbthema. model = Volk-Ordner der Rohmodelle; palette = Farben (Rollen aus <palette> über der Modellpalette).
 // "rostmeute" = Germanen-Geometrie (nord) in Rostmeute-Farben (so spielt das Spiel die bisherige Fraktion Rostmeute).
@@ -59,8 +67,8 @@ export function encodePng(w, h, rgba) {
 // ---------------------------------------------------------------------------------------------
 // Höhenkarte der Draufsicht: je (x,z) das oberste Voxel
 // ---------------------------------------------------------------------------------------------
-function topMap(grid) {
-  const b = grid.bounds(), nx = b.max[0] - b.min[0] + 1, nz = b.max[2] - b.min[2] + 1;
+function topMap(grid, refBounds) {
+  const b = refBounds || grid.bounds(), nx = b.max[0] - b.min[0] + 1, nz = b.max[2] - b.min[2] + 1;
   const H = new Float32Array(nx * nz).fill(-Infinity), C = new Uint32Array(nx * nz), E = new Float32Array(nx * nz);
   for (const v of grid.values()) {
     const i = (v.x - b.min[0]) * nz + (v.z - b.min[2]);
@@ -134,7 +142,7 @@ function renderFrame(tm, ppv, F, ang, outline) {
 // ---------------------------------------------------------------------------------------------
 /** Bereitet Modell + Farbthema vor; lenPx = Schiffslänge im Bild. */
 export async function prepare(lib, klasse, setId, lenPx = KLASSEN[klasse].len) {
-  const set = SETS[setId], id = `schiff/${klasse}/${set.model}`;
+  const set = SETS[setId], K = KLASSEN[klasse], id = K.modell || `schiff/${klasse}/${set.model}`, params = K.params || {};
   await lib.load('models', id);
   let palette;   // Farbthema: Rollen der Zielpalette über die Modellpalette legen (virtuelle Palette, keine Datei)
   if (set.palette) {
@@ -143,21 +151,35 @@ export async function prepare(lib, klasse, setId, lenPx = KLASSEN[klasse].len) {
     if (!lib.get('palettes', vid)) lib.store.palettes.set(vid, { id: vid, extends: base, roles: lib.get('palettes', set.palette).roles });
     palette = vid;
   }
-  const built = lib.build(id, palette ? { palette } : {});
-  const tm = topMap(built.grid), s = voxelSize(built.tier);
+  const built = lib.build(id, { params, ...(palette ? { palette } : {}) });
+  const ref = K.bezug ? lib.build(id, { params: KLASSEN[K.bezug].params || {}, ...(palette ? { palette } : {}) }).grid.bounds() : null;
+  const tm = topMap(built.grid, ref), s = voxelSize(built.tier);
   const lenM = tm.nz * s, widM = tm.nx * s, ppm = lenPx / lenM, ppv = ppm * s;
   // Rahmen: Kreis um den Mittelpunkt, der das ganze Schiff in jeder Drehung fasst
   const F = 2 * Math.ceil(Math.hypot(lenPx / 2, widM * ppm / 2)) + 6;
   const palName = palette || lib.get('models', id).palette, pal = lib.palette(palName);
   const md = pal.roles.metal_dark ? pal.roles.metal_dark.c : 0x202020;
   const outline = [((md >> 16) & 255) * 0.4, ((md >> 8) & 255) * 0.4, (md & 255) * 0.4].map(Math.round);
-  return { set, setId, klasse, id, tm, ppv, ppm, F, outline, lenPx, lenM, widM, palette: set.palette || lib.get('models', id).palette };
+  return { set, setId, klasse, id, model: lib.get('models', id), tm, ppv, ppm, F, outline, lenPx, lenM, widM, palette: set.palette || lib.get('models', id).palette };
 }
 
 /** Ein Bild (Stufe 0 = Bug nach +x) bei beliebiger Länge – für Lesbarkeitsvergleiche. */
 export async function renderOne(lib, klasse, setId, lenPx, ang = 0) {
   const c = await prepare(lib, klasse, setId, lenPx);
   return { F: c.F, rgba: renderFrame(c.tm, c.ppv, c.F, ang, c.outline) };
+}
+
+/** Andockpunkte des Modells (Feld "sockets", Meter relativ zum Modellanker) -> Pixel relativ zum Rahmenmittelpunkt bei Stufe 0 (Bug +x, y unten). */
+function socketsPx(c) {
+  const sk = c.model.sockets, an = c.model.anchor;
+  if (!sk || !an) return null;
+  const s = voxelSize(c.model.tier), cx = (c.tm.b.min[0] + c.tm.b.max[0] + 1) / 2, cz = (c.tm.b.min[2] + c.tm.b.max[2] + 1) / 2;
+  const out = {};
+  for (const [k, v] of Object.entries(sk)) {
+    const vx = an[0] + v[0] / s, vz = an[2] + v[2] / s;
+    out[k] = [+((vz - cz) * c.ppv).toFixed(2), +((cx - vx) * c.ppv).toFixed(2)];
+  }
+  return out;
 }
 
 export async function buildSprite(lib, klasse, setId) {
@@ -168,13 +190,16 @@ export async function buildSprite(lib, klasse, setId) {
     for (let y = 0; y < F; y++) sheet.set(fr.subarray(y * F * 4, (y + 1) * F * 4), ((oy + y) * W + ox) * 4);
   }
   const png = encodePng(W, Hh, Buffer.from(sheet.buffer));
+  const sock = socketsPx(c);
   return {
     png,
     entry: {
       klasse, volk: c.set.volk, set: setId, model: c.id, palette: c.palette,
       file: `schiff/${klasse}/${setId}.png`, steps: STEPS, cols: COLS, rows, frame: [F, F], anchor: [F / 2, F / 2],
       lengthPx: c.lenPx, widthPx: Math.round(c.widM * c.ppm), lengthM: +c.lenM.toFixed(2), pxPerMeter: +c.ppm.toFixed(4),
-      heck: [-Math.round(c.lenPx / 2), 0],   // Triebwerksmitte relativ zum Anker bei Stufe 0 (Bug +x)
+      heck: sock?.triebwerk_mitte || [-Math.round(c.lenPx / 2), 0],   // Triebwerksmitte relativ zum Anker bei Stufe 0 (Bug +x)
+      ...(KLASSEN[klasse].params ? { params: KLASSEN[klasse].params } : {}),
+      ...(sock ? { sockets: sock } : {}),
     },
   };
 }
@@ -183,7 +208,7 @@ async function main() {
   const args = process.argv.slice(2), checkOnly = args.includes('--check'), filter = args.find((a) => !a.startsWith('--'));
   const lib = nodeLibrary(root);
   const all = [];
-  for (const k of Object.keys(KLASSEN)) for (const s of Object.keys(SETS)) all.push(`${k}/${s}`);
+  for (const k of Object.keys(KLASSEN)) for (const s of Object.keys(SETS)) if (!KLASSEN[k].sets || KLASSEN[k].sets.includes(s)) all.push(`${k}/${s}`);
   all.sort((a, b) => { const pa = PRIO.indexOf(a), pb = PRIO.indexOf(b); return (pa < 0 ? 99 : pa) - (pb < 0 ? 99 : pb) || (a < b ? -1 : 1); });
   const want = all.filter((n) => !filter || n.includes(filter));
   const manifestPath = path.join(OUT, 'manifest.json');
