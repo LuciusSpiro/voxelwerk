@@ -2,7 +2,7 @@
  "id": "schiff/lerche/rom",
  "name": "KRS Lerche (rom): drei Decks, Ausbaustufe 0-3",
  "tier": "architecture",
- "palette": "rom_schiff",
+ "palette": "lerche",
  "tags": [
   "schiff",
   "lerche",
@@ -103,7 +103,7 @@
   "lafette_1": [
    7.5,
    3,
-   -5
+   -6.5
   ],
   "lafette_4": [
    7.5,
@@ -113,12 +113,12 @@
   "lafette_7": [
    7.5,
    3,
-   5.5
+   7
   ],
   "lafette_3": [
    -7.5,
    3,
-   -5
+   -6.5
   ],
   "lafette_6": [
    -7.5,
@@ -128,7 +128,52 @@
   "lafette_9": [
    -7.5,
    3,
-   5.5
+   7
+  ],
+  "muendung_1": [
+   15.25,
+   3.75,
+   -6.5
+  ],
+  "muendung_4": [
+   15.25,
+   4.125,
+   0.25
+  ],
+  "muendung_7": [
+   15.25,
+   3.75,
+   7
+  ],
+  "muendung_3": [
+   -15.25,
+   3.75,
+   -6.5
+  ],
+  "muendung_6": [
+   -15.25,
+   4.125,
+   0.25
+  ],
+  "muendung_9": [
+   -15.25,
+   3.75,
+   7
+  ],
+  "muendung_2": [
+   0,
+   4.5,
+   -33.25
+  ],
+  "muendung_5": [
+   0,
+   7,
+   26
+  ],
+  "muendung_8": [
+   0,
+   4.5,
+   35
   ],
   "lafette_2": [
    0,
@@ -287,12 +332,12 @@
      "at": [
       22,
       2,
-      70
+      64
      ],
      "size": [
       12,
       10,
-      62
+      74
      ],
      "color": "metal_dark"
     },
@@ -302,12 +347,12 @@
      "at": [
       26,
       0,
-      72
+      66
      ],
      "size": [
       8,
       2,
-      58
+      70
      ],
      "color": "metal_dark",
      "mode": "under"
@@ -411,7 +456,7 @@
   },
   {
    "op": "box",
-   "name": "Rotband Bug",
+   "name": "Terrakottaband Bug",
    "at": [
     -14,
     23,
@@ -420,9 +465,9 @@
    "size": [
     28,
     1,
-    4
+    3
    ],
-   "color": "primary",
+   "color": "cloth",
    "mode": "paint"
   },
   {
@@ -469,7 +514,7 @@
    "ops": [
     {
      "op": "box",
-     "name": "Rotband Flanke",
+     "name": "Terrakottaband Flanke",
      "at": [
       24,
       14,
@@ -477,10 +522,10 @@
      ],
      "size": [
       2,
-      3,
+      2,
       160
      ],
-     "color": "primary",
+     "color": "cloth",
      "mode": "paint"
     },
     {
@@ -562,6 +607,30 @@
     30
    ],
    "color": "secondary"
+  },
+  {
+   "op": "group",
+   "name": "Quartier Heck Traufe",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Quartier Heck Dachtraufe",
+     "at": [
+      15,
+      35,
+      33
+     ],
+     "size": [
+      2,
+      1,
+      32
+     ],
+     "color": "cloth",
+     "mode": "paint"
+    }
+   ]
   },
   {
    "op": "wedge",
@@ -769,6 +838,30 @@
     30
    ],
    "color": "secondary"
+  },
+  {
+   "op": "group",
+   "name": "Quartier Bug Traufe",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Quartier Bug Dachtraufe",
+     "at": [
+      15,
+      35,
+      101
+     ],
+     "size": [
+      2,
+      1,
+      32
+     ],
+     "color": "cloth",
+     "mode": "paint"
+    }
+   ]
   },
   {
    "op": "wedge",
@@ -993,7 +1086,7 @@
     6,
     26
    ],
-   "color": "primary"
+   "color": "cloth"
   },
   {
    "op": "box",
@@ -1084,6 +1177,146 @@
    ],
    "color": "trim",
    "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Stufenzeichen 0 Sockel",
+   "at": [
+    -15,
+    24,
+    21
+   ],
+   "size": [
+    6,
+    1,
+    7
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Stufenzeichen 0 Messing",
+   "at": [
+    -15,
+    25,
+    21
+   ],
+   "size": [
+    6,
+    1,
+    7
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 1.3
+   },
+   "jitter": false,
+   "if": "stufe >= 0"
+  },
+  {
+   "op": "box",
+   "name": "Stufenzeichen 1 Sockel",
+   "at": [
+    -7,
+    24,
+    21
+   ],
+   "size": [
+    6,
+    1,
+    7
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Stufenzeichen 1 Messing",
+   "at": [
+    -7,
+    25,
+    21
+   ],
+   "size": [
+    6,
+    1,
+    7
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 1.3
+   },
+   "jitter": false,
+   "if": "stufe >= 1"
+  },
+  {
+   "op": "box",
+   "name": "Stufenzeichen 2 Sockel",
+   "at": [
+    1,
+    24,
+    21
+   ],
+   "size": [
+    6,
+    1,
+    7
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Stufenzeichen 2 Messing",
+   "at": [
+    1,
+    25,
+    21
+   ],
+   "size": [
+    6,
+    1,
+    7
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 1.3
+   },
+   "jitter": false,
+   "if": "stufe >= 2"
+  },
+  {
+   "op": "box",
+   "name": "Stufenzeichen 3 Sockel",
+   "at": [
+    9,
+    24,
+    21
+   ],
+   "size": [
+    6,
+    1,
+    7
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Stufenzeichen 3 Messing",
+   "at": [
+    9,
+    25,
+    21
+   ],
+   "size": [
+    6,
+    1,
+    7
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 1.3
+   },
+   "jitter": false,
+   "if": "stufe >= 3"
   },
   {
    "op": "group",
@@ -1298,29 +1531,17 @@
    "mirrorAt": 0,
    "ops": [
     {
-     "op": "cyl",
-     "name": "Lafette Drehkranz",
+     "op": "box",
+     "name": "Lafette Ausleger",
      "at": [
-      30,
-      12,
+      34,
+      4,
       122
      ],
-     "r": 5,
-     "h": 2,
-     "color": "trim"
-    },
-    {
-     "op": "box",
-     "name": "Lafette Gehaeuse",
-     "at": [
-      27,
-      14,
-      118
-     ],
      "size": [
-      6,
-      4,
-      8
+      8,
+      10,
+      12
      ],
      "color": {
       "frame": "trim",
@@ -1329,52 +1550,75 @@
      }
     },
     {
+     "op": "box",
+     "name": "Lafette Gehaeuse",
+     "at": [
+      26,
+      12,
+      122
+     ],
+     "size": [
+      10,
+      5,
+      12
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "metal_dark",
+      "axes": "xz"
+     }
+    },
+    {
+     "op": "box",
+     "name": "Lafette Kappe",
+     "at": [
+      28,
+      17,
+      123
+     ],
+     "size": [
+      9,
+      2,
+      10
+     ],
+     "color": {
+      "shade": "trim",
+      "f": 1.25
+     },
+     "jitter": false
+    },
+    {
      "op": "line",
      "name": "Lafette Rohr",
      "from": [
-      33,
-      16,
-      122
+      36,
+      15,
+      128
      ],
      "to": [
-      50,
-      16,
-      122
+      60,
+      15,
+      128
      ],
-     "r": 2,
-     "color": "metal_dark"
+     "r": 2.6,
+     "color": "metal_light"
     },
     {
      "op": "box",
      "name": "Lafette Muendung",
      "at": [
-      47,
-      13.5,
-      119.5
+      57,
+      12,
+      124.5
      ],
      "size": [
-      4,
       5,
-      5
-     ],
-     "color": "trim"
-    },
-    {
-     "op": "box",
-     "name": "Lafette Lampe",
-     "at": [
-      28,
-      18,
-      121
-     ],
-     "size": [
-      1,
-      1,
-      2
+      7,
+      7
      ],
      "color": {
-      "role": "glow2",
-      "emit": 1.6
+      "shade": "trim",
+      "f": 1.25
      },
      "jitter": false
     }
@@ -1393,7 +1637,7 @@
      "at": [
       26,
       12,
-      114
+      120
      ],
      "size": [
       8,
@@ -1412,7 +1656,7 @@
      "at": [
       27,
       12,
-      121
+      127
      ],
      "size": [
       6,
@@ -1428,7 +1672,7 @@
      "at": [
       30,
       12,
-      115
+      121
      ],
      "size": [
       2,
@@ -1448,29 +1692,17 @@
    "mirrorAt": 0,
    "ops": [
     {
-     "op": "cyl",
-     "name": "Lafette Drehkranz",
-     "at": [
-      30,
-      12,
-      80
-     ],
-     "r": 5,
-     "h": 2,
-     "color": "trim"
-    },
-    {
      "op": "box",
-     "name": "Lafette Gehaeuse",
+     "name": "Lafette Ausleger",
      "at": [
-      27,
-      14,
-      76
+      34,
+      4,
+      68
      ],
      "size": [
-      6,
-      4,
-      8
+      8,
+      10,
+      12
      ],
      "color": {
       "frame": "trim",
@@ -1479,52 +1711,75 @@
      }
     },
     {
+     "op": "box",
+     "name": "Lafette Gehaeuse",
+     "at": [
+      26,
+      12,
+      68
+     ],
+     "size": [
+      10,
+      5,
+      12
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "metal_dark",
+      "axes": "xz"
+     }
+    },
+    {
+     "op": "box",
+     "name": "Lafette Kappe",
+     "at": [
+      28,
+      17,
+      69
+     ],
+     "size": [
+      9,
+      2,
+      10
+     ],
+     "color": {
+      "shade": "trim",
+      "f": 1.25
+     },
+     "jitter": false
+    },
+    {
      "op": "line",
      "name": "Lafette Rohr",
      "from": [
-      33,
-      16,
-      80
+      36,
+      15,
+      74
      ],
      "to": [
-      50,
-      16,
-      80
+      60,
+      15,
+      74
      ],
-     "r": 2,
-     "color": "metal_dark"
+     "r": 2.6,
+     "color": "metal_light"
     },
     {
      "op": "box",
      "name": "Lafette Muendung",
      "at": [
-      47,
-      13.5,
-      77.5
+      57,
+      12,
+      70.5
      ],
      "size": [
-      4,
       5,
-      5
-     ],
-     "color": "trim"
-    },
-    {
-     "op": "box",
-     "name": "Lafette Lampe",
-     "at": [
-      28,
-      18,
-      79
-     ],
-     "size": [
-      1,
-      1,
-      2
+      7,
+      7
      ],
      "color": {
-      "role": "glow2",
-      "emit": 1.6
+      "shade": "trim",
+      "f": 1.25
      },
      "jitter": false
     }
@@ -1543,7 +1798,7 @@
      "at": [
       26,
       12,
-      72
+      66
      ],
      "size": [
       8,
@@ -1562,7 +1817,7 @@
      "at": [
       27,
       12,
-      79
+      73
      ],
      "size": [
       6,
@@ -1578,7 +1833,7 @@
      "at": [
       30,
       12,
-      73
+      67
      ],
      "size": [
       2,
@@ -1606,7 +1861,7 @@
       91
      ],
      "size": [
-      8,
+      16,
       9,
       20
      ],
@@ -1617,66 +1872,93 @@
      }
     },
     {
-     "op": "line",
-     "name": "Batterie Rohr",
-     "from": [
-      34,
-      16.5,
-      96
+     "op": "box",
+     "name": "Batterie Kappe",
+     "at": [
+      28,
+      21,
+      92
      ],
-     "to": [
-      50,
-      16.5,
-      96
+     "size": [
+      10,
+      2,
+      18
      ],
-     "r": 1.8,
-     "color": "metal_dark"
+     "color": {
+      "shade": "trim",
+      "f": 1.25
+     },
+     "jitter": false
     },
     {
      "op": "line",
      "name": "Batterie Rohr",
      "from": [
-      34,
+      42,
+      16.5,
+      96
+     ],
+     "to": [
+      60,
+      16.5,
+      96
+     ],
+     "r": 2.4,
+     "color": "metal_light"
+    },
+    {
+     "op": "line",
+     "name": "Batterie Rohr",
+     "from": [
+      42,
       16.5,
       106
      ],
      "to": [
-      50,
+      60,
       16.5,
       106
      ],
-     "r": 1.8,
-     "color": "metal_dark"
+     "r": 2.4,
+     "color": "metal_light"
     },
     {
      "op": "box",
      "name": "Batterie Muendung",
      "at": [
-      47,
-      14,
-      94
+      57,
+      13.5,
+      92.5
      ],
      "size": [
-      4,
       5,
-      5
+      6,
+      7
      ],
-     "color": "trim"
+     "color": {
+      "shade": "trim",
+      "f": 1.25
+     },
+     "jitter": false
     },
     {
      "op": "box",
      "name": "Batterie Muendung",
      "at": [
-      47,
-      14,
-      103
+      57,
+      13.5,
+      102.5
      ],
      "size": [
-      4,
       5,
-      5
+      6,
+      7
      ],
-     "color": "trim"
+     "color": {
+      "shade": "trim",
+      "f": 1.25
+     },
+     "jitter": false
     },
     {
      "op": "box",
@@ -1785,9 +2067,26 @@
     24,
     188
    ],
+   "r": 8,
+   "h": 2,
+   "color": "metal_dark",
+   "if": "p25"
+  },
+  {
+   "op": "cyl",
+   "name": "Bugturm Kappe",
+   "at": [
+    0,
+    30,
+    188
+   ],
    "r": 6,
    "h": 2,
-   "color": "trim",
+   "color": {
+    "shade": "trim",
+    "f": 1.25
+   },
+   "jitter": false,
    "if": "p25"
   },
   {
@@ -1823,7 +2122,7 @@
     28,
     203
    ],
-   "r": 1.1,
+   "r": 2,
    "color": "metal_dark",
    "if": "p25"
   },
@@ -1840,7 +2139,7 @@
     28,
     203
    ],
-   "r": 1.1,
+   "r": 2,
    "color": "metal_dark",
    "if": "p25"
   },
@@ -1954,7 +2253,7 @@
     18,
     -30
    ],
-   "r": 1.6,
+   "r": 2.2,
    "color": "metal_dark",
    "if": "p25"
   },
@@ -1962,16 +2261,40 @@
    "op": "box",
    "name": "Heckturm Muendung",
    "at": [
-    -2,
-    16.5,
-    -31
+    -3,
+    15,
+    -32
    ],
    "size": [
-    4,
-    3,
-    2
+    6,
+    6,
+    3
    ],
-   "color": "trim",
+   "color": {
+    "shade": "trim",
+    "f": 1.25
+   },
+   "jitter": false,
+   "if": "p25"
+  },
+  {
+   "op": "box",
+   "name": "Heckturm Kappe",
+   "at": [
+    -3,
+    22,
+    -8
+   ],
+   "size": [
+    6,
+    2,
+    8
+   ],
+   "color": {
+    "shade": "trim",
+    "f": 1.25
+   },
+   "jitter": false,
    "if": "p25"
   },
   {
