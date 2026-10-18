@@ -1,0 +1,2284 @@
+{
+ "id": "schiff/lerche/rom",
+ "name": "KRS Lerche (rom): drei Decks, Ausbaustufe 0-3",
+ "tier": "architecture",
+ "palette": "rom_schiff",
+ "tags": [
+  "schiff",
+  "lerche",
+  "rom",
+  "crew",
+  "ausbau"
+ ],
+ "footprint": [
+  23,
+  70
+ ],
+ "params": {
+  "stufe": {
+   "default": 3,
+   "min": 0,
+   "max": 3,
+   "step": 1,
+   "label": "Ausbaustufe (0 = 3 Waffen, 1 = 5, 2 = 7, 3 = 9)"
+  }
+ },
+ "let": {
+  "p79": "stufe >= 1 ? 1 : 0",
+  "p25": "stufe >= 2 ? 1 : 0",
+  "p13": "stufe >= 3 ? 1 : 0",
+  "m3": "stufe >= 1 ? 1 : 0",
+  "m4": "stufe >= 2 ? 1 : 0"
+ },
+ "variants": {
+  "stufe0": {
+   "stufe": 0
+  },
+  "stufe1": {
+   "stufe": 1
+  },
+  "stufe2": {
+   "stufe": 2
+  },
+  "stufe3": {
+   "stufe": 3
+  }
+ },
+ "sockets": {
+  "bug": [
+   0,
+   4.5,
+   33
+  ],
+  "bugzier": [
+   0,
+   6,
+   24
+  ],
+  "muendung_lanze": [
+   0,
+   4.5,
+   35
+  ],
+  "triebwerk_bb": [
+   3.75,
+   4.5,
+   -35
+  ],
+  "triebwerk_stb": [
+   -3.75,
+   4.5,
+   -35
+  ],
+  "triebwerk_mitte": [
+   0,
+   4.5,
+   -32.5
+  ],
+  "banner_bb": [
+   5.75,
+   11.5,
+   -14
+  ],
+  "banner_stb": [
+   -5.75,
+   11.5,
+   -14
+  ],
+  "mast": [
+   0,
+   13,
+   16.5
+  ],
+  "positionslicht_bb": [
+   8.25,
+   2.5,
+   6.75
+  ],
+  "positionslicht_stb": [
+   -8.25,
+   2.5,
+   6.75
+  ],
+  "lafette_1": [
+   7.5,
+   3,
+   -5
+  ],
+  "lafette_4": [
+   7.5,
+   4.25,
+   0.25
+  ],
+  "lafette_7": [
+   7.5,
+   3,
+   5.5
+  ],
+  "lafette_3": [
+   -7.5,
+   3,
+   -5
+  ],
+  "lafette_6": [
+   -7.5,
+   4.25,
+   0.25
+  ],
+  "lafette_9": [
+   -7.5,
+   3,
+   5.5
+  ],
+  "lafette_2": [
+   0,
+   4.5,
+   -27
+  ],
+  "lafette_5": [
+   0,
+   6.5,
+   22
+  ],
+  "lafette_8": [
+   0,
+   4.5,
+   25
+  ]
+ },
+ "socketsRichtung": {
+  "1": 90,
+  "2": 180,
+  "3": 270,
+  "4": 90,
+  "5": 0,
+  "6": 270,
+  "7": 90,
+  "8": 0,
+  "9": 270
+ },
+ "ops": [
+  {
+   "op": "loft",
+   "name": "Unterdeck",
+   "color": "metal_dark",
+   "sections": [
+    {
+     "z": 46,
+     "w": 34,
+     "y": 6,
+     "up": 6,
+     "down": 6,
+     "bevel": 3
+    },
+    {
+     "z": 58,
+     "w": 44,
+     "y": 6,
+     "up": 6,
+     "down": 6,
+     "bevel": 3
+    },
+    {
+     "z": 176,
+     "w": 44,
+     "y": 6,
+     "up": 6,
+     "down": 6,
+     "bevel": 3
+    },
+    {
+     "z": 188,
+     "w": 28,
+     "y": 6,
+     "up": 6,
+     "down": 6,
+     "bevel": 2
+    }
+   ]
+  },
+  {
+   "op": "loft",
+   "name": "Mitteldeck",
+   "color": "metal",
+   "sections": [
+    {
+     "z": 0,
+     "w": 44,
+     "y": 18,
+     "up": 6,
+     "down": 6,
+     "bevel": 3
+    },
+    {
+     "z": 14,
+     "w": 52,
+     "y": 18,
+     "up": 6,
+     "down": 6,
+     "bevel": 3
+    },
+    {
+     "z": 176,
+     "w": 52,
+     "y": 18,
+     "up": 6,
+     "down": 6,
+     "bevel": 3
+    },
+    {
+     "z": 192,
+     "w": 36,
+     "y": 18,
+     "up": 6,
+     "down": 6,
+     "bevel": 3
+    },
+    {
+     "z": 206,
+     "w": 14,
+     "y": 18,
+     "up": 6,
+     "down": 6,
+     "bevel": 2
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Kiel",
+   "at": [
+    -6,
+    -3,
+    60
+   ],
+   "size": [
+    12,
+    3,
+    118
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Kielleiste",
+   "at": [
+    -1,
+    -3,
+    60
+   ],
+   "size": [
+    2,
+    1,
+    118
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "group",
+   "name": "Lafettenwulst",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Wulst",
+     "at": [
+      22,
+      2,
+      70
+     ],
+     "size": [
+      12,
+      10,
+      62
+     ],
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Wulst Schraege",
+     "at": [
+      26,
+      0,
+      72
+     ],
+     "size": [
+      8,
+      2,
+      58
+     ],
+     "color": "metal_dark",
+     "mode": "under"
+    }
+   ]
+  },
+  {
+   "op": "group",
+   "name": "Deck Mitteldeck",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Goldkante",
+     "at": [
+      24,
+      23,
+      14
+     ],
+     "size": [
+      2,
+      1,
+      168
+     ],
+     "color": "trim",
+     "mode": "paint"
+    },
+    {
+     "op": "box",
+     "name": "Ruderleiste",
+     "at": [
+      20,
+      23,
+      22
+     ],
+     "size": [
+      4,
+      1,
+      140
+     ],
+     "color": {
+      "stripes": [
+       "metal_dark",
+       "metal"
+      ],
+      "axis": "z",
+      "period": 3
+     },
+     "mode": "paint"
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Goldspant 1",
+   "at": [
+    -26,
+    23,
+    22
+   ],
+   "size": [
+    52,
+    1,
+    2
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Goldspant 2",
+   "at": [
+    -26,
+    23,
+    153
+   ],
+   "size": [
+    52,
+    1,
+    2
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Goldspant 3",
+   "at": [
+    -17,
+    23,
+    180
+   ],
+   "size": [
+    34,
+    1,
+    2
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Rotband Bug",
+   "at": [
+    -14,
+    23,
+    184
+   ],
+   "size": [
+    28,
+    1,
+    4
+   ],
+   "color": "primary",
+   "mode": "paint"
+  },
+  {
+   "op": "group",
+   "name": "Fenster Mitteldeck",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Fensterreihe Mitteldeck",
+     "at": [
+      24,
+      19,
+      20
+     ],
+     "size": [
+      2,
+      2,
+      3
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 1
+     },
+     "mode": "paint",
+     "jitter": false,
+     "repeat": {
+      "count": 28,
+      "step": [
+       0,
+       0,
+       5
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "op": "group",
+   "name": "Bandstreifen",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Rotband Flanke",
+     "at": [
+      24,
+      14,
+      14
+     ],
+     "size": [
+      2,
+      3,
+      160
+     ],
+     "color": "primary",
+     "mode": "paint"
+    },
+    {
+     "op": "box",
+     "name": "Goldband Flanke",
+     "at": [
+      24,
+      17,
+      14
+     ],
+     "size": [
+      2,
+      1,
+      160
+     ],
+     "color": "trim",
+     "mode": "paint"
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Oberdeck Podium",
+   "at": [
+    -20,
+    24,
+    32
+   ],
+   "size": [
+    40,
+    2,
+    120
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Podium Goldkante",
+   "at": [
+    -20,
+    25,
+    32
+   ],
+   "size": [
+    40,
+    1,
+    120
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Podium Innen",
+   "at": [
+    -19,
+    25,
+    33
+   ],
+   "size": [
+    38,
+    1,
+    118
+   ],
+   "color": "metal",
+   "mode": "add"
+  },
+  {
+   "op": "box",
+   "name": "Quartier Heck Wand",
+   "at": [
+    -16,
+    26,
+    34
+   ],
+   "size": [
+    32,
+    9,
+    30
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "wedge",
+   "name": "Quartier Heck Dach",
+   "at": [
+    -17,
+    35,
+    33
+   ],
+   "size": [
+    34,
+    6,
+    32
+   ],
+   "gable": "x",
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Quartier Heck Dachfirst",
+   "at": [
+    -1,
+    40,
+    33
+   ],
+   "size": [
+    2,
+    1,
+    32
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "group",
+   "name": "Quartier Heck Fenster",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Quartier Heck Fensterband",
+     "at": [
+      14,
+      29,
+      37
+     ],
+     "size": [
+      2,
+      3,
+      5
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 1.2
+     },
+     "mode": "paint",
+     "jitter": false,
+     "repeat": {
+      "count": 4,
+      "step": [
+       0,
+       0,
+       7
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Meetingraum Wand",
+   "at": [
+    -18,
+    26,
+    68
+   ],
+   "size": [
+    36,
+    12,
+    30
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "wedge",
+   "name": "Meetingraum Dach",
+   "at": [
+    -19,
+    38,
+    67
+   ],
+   "size": [
+    38,
+    8,
+    32
+   ],
+   "gable": "x",
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Meetingraum Dachfirst",
+   "at": [
+    -1,
+    45,
+    67
+   ],
+   "size": [
+    2,
+    1,
+    32
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Meetingraum Oberlicht",
+   "at": [
+    -3,
+    44,
+    76
+   ],
+   "size": [
+    6,
+    1,
+    14
+   ],
+   "color": {
+    "role": "glass",
+    "emit": 0.6
+   },
+   "jitter": false
+  },
+  {
+   "op": "group",
+   "name": "Meetingraum Fenster",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Meetingraum Fensterband",
+     "at": [
+      16,
+      29,
+      71
+     ],
+     "size": [
+      2,
+      5,
+      24
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 1.2
+     },
+     "mode": "paint",
+     "jitter": false
+    }
+   ]
+  },
+  {
+   "op": "group",
+   "name": "Meetingraum Saeulen",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Saeule",
+     "at": [
+      16,
+      26,
+      70
+     ],
+     "size": [
+      2,
+      12,
+      1
+     ],
+     "color": "trim",
+     "mode": "paint",
+     "repeat": {
+      "count": 5,
+      "step": [
+       0,
+       0,
+       6
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Quartier Bug Wand",
+   "at": [
+    -16,
+    26,
+    102
+   ],
+   "size": [
+    32,
+    9,
+    30
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "wedge",
+   "name": "Quartier Bug Dach",
+   "at": [
+    -17,
+    35,
+    101
+   ],
+   "size": [
+    34,
+    6,
+    32
+   ],
+   "gable": "x",
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Quartier Bug Dachfirst",
+   "at": [
+    -1,
+    40,
+    101
+   ],
+   "size": [
+    2,
+    1,
+    32
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "group",
+   "name": "Quartier Bug Fenster",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Quartier Bug Fensterband",
+     "at": [
+      14,
+      29,
+      105
+     ],
+     "size": [
+      2,
+      3,
+      5
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 1.2
+     },
+     "mode": "paint",
+     "jitter": false,
+     "repeat": {
+      "count": 4,
+      "step": [
+       0,
+       0,
+       7
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Messe Wand",
+   "at": [
+    -14,
+    26,
+    139
+   ],
+   "size": [
+    28,
+    6,
+    11
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Messe Dach",
+   "at": [
+    -15,
+    32,
+    138
+   ],
+   "size": [
+    30,
+    1,
+    13
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Messe Dachkante",
+   "at": [
+    -15,
+    32,
+    138
+   ],
+   "size": [
+    30,
+    1,
+    1
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Messe Oberlicht",
+   "at": [
+    -5,
+    33,
+    141
+   ],
+   "size": [
+    10,
+    1,
+    7
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 0.8
+   },
+   "jitter": false
+  },
+  {
+   "op": "group",
+   "name": "Messe Fenster",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Messe Fensterband",
+     "at": [
+      12,
+      28,
+      141
+     ],
+     "size": [
+      2,
+      3,
+      7
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 1.2
+     },
+     "mode": "paint",
+     "jitter": false
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Bruecke Turm",
+   "at": [
+    -12,
+    24,
+    154
+   ],
+   "size": [
+    24,
+    20,
+    22
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "y"
+   }
+  },
+  {
+   "op": "wedge",
+   "name": "Bruecke Nase",
+   "at": [
+    -12,
+    24,
+    176
+   ],
+   "size": [
+    24,
+    20,
+    6
+   ],
+   "slope": "+z",
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Bruecke Dach",
+   "at": [
+    -10,
+    44,
+    156
+   ],
+   "size": [
+    20,
+    1,
+    20
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Helmkamm",
+   "at": [
+    -1,
+    45,
+    154
+   ],
+   "size": [
+    2,
+    6,
+    26
+   ],
+   "color": "primary"
+  },
+  {
+   "op": "box",
+   "name": "Helmkamm Gold",
+   "at": [
+    -1,
+    51,
+    154
+   ],
+   "size": [
+    2,
+    1,
+    26
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Adler",
+   "at": [
+    -3,
+    45,
+    178
+   ],
+   "size": [
+    6,
+    5,
+    2
+   ],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Bruecke Fenster",
+   "at": [
+    -13,
+    38,
+    160
+   ],
+   "size": [
+    26,
+    4,
+    16
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.3
+   },
+   "mode": "paint",
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Bruecke Fensterstreben",
+   "at": [
+    -13,
+    38,
+    160
+   ],
+   "size": [
+    26,
+    4,
+    1
+   ],
+   "color": "metal_dark",
+   "mode": "paint",
+   "repeat": {
+    "count": 6,
+    "step": [
+     0,
+     0,
+     3
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Bruecke Gesims",
+   "at": [
+    -13,
+    35,
+    154
+   ],
+   "size": [
+    26,
+    1,
+    28
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "group",
+   "name": "Banner",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "line",
+     "name": "Banner Stange",
+     "from": [
+      23,
+      24,
+      44
+     ],
+     "to": [
+      23,
+      46,
+      44
+     ],
+     "r": 0.9,
+     "color": "metal_light"
+    },
+    {
+     "op": "line",
+     "name": "Banner Querholz",
+     "from": [
+      23,
+      44,
+      40
+     ],
+     "to": [
+      23,
+      44,
+      48
+     ],
+     "r": 0.7,
+     "color": "trim"
+    },
+    {
+     "op": "box",
+     "name": "Banner Tuch",
+     "at": [
+      23,
+      31,
+      41
+     ],
+     "size": [
+      1,
+      12,
+      7
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "cloth",
+      "axes": "yz"
+     }
+    },
+    {
+     "op": "box",
+     "name": "Banner Spitze",
+     "at": [
+      22,
+      46,
+      43
+     ],
+     "size": [
+      2,
+      2,
+      2
+     ],
+     "color": "trim"
+    }
+   ]
+  },
+  {
+   "op": "group",
+   "name": "Antriebsjoch",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Antriebsjoch",
+     "at": [
+      5,
+      8,
+      -8
+     ],
+     "size": [
+      14,
+      22,
+      10
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "metal_dark",
+      "axes": "xy"
+     }
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Heckplatte",
+   "at": [
+    -5,
+    9,
+    -8
+   ],
+   "size": [
+    10,
+    18,
+    2
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "group",
+   "name": "Triebwerke",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "cyl",
+     "name": "Triebwerk Gehaeuse",
+     "axis": "z",
+     "at": [
+      15,
+      18,
+      -36
+     ],
+     "r": 10,
+     "h": 36,
+     "color": "metal_dark"
+    },
+    {
+     "op": "cyl",
+     "name": "Triebwerk Glocke",
+     "axis": "z",
+     "at": [
+      15,
+      18,
+      -40
+     ],
+     "r": 12,
+     "h": 5,
+     "hollow": 3,
+     "color": "trim"
+    },
+    {
+     "op": "cyl",
+     "name": "Triebwerk Glut",
+     "axis": "z",
+     "at": [
+      15,
+      18,
+      -38
+     ],
+     "r": 9,
+     "h": 2,
+     "color": {
+      "role": "glow",
+      "emit": 2.7
+     },
+     "jitter": false
+    },
+    {
+     "op": "cyl",
+     "name": "Triebwerk Kern",
+     "axis": "z",
+     "at": [
+      15,
+      18,
+      -39
+     ],
+     "r": 5,
+     "h": 1,
+     "color": {
+      "role": "white",
+      "emit": 3
+     },
+     "jitter": false
+    },
+    {
+     "op": "cyl",
+     "name": "Triebwerk Ring",
+     "axis": "z",
+     "at": [
+      15,
+      18,
+      -30
+     ],
+     "r": 11,
+     "h": 3,
+     "color": "trim",
+     "repeat": {
+      "count": 3,
+      "step": [
+       0,
+       0,
+       12
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "op": "group",
+   "name": "Lafetten 7 und 9 offen",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "cyl",
+     "name": "Lafette Drehkranz",
+     "at": [
+      30,
+      12,
+      122
+     ],
+     "r": 5,
+     "h": 2,
+     "color": "trim"
+    },
+    {
+     "op": "box",
+     "name": "Lafette Gehaeuse",
+     "at": [
+      27,
+      14,
+      118
+     ],
+     "size": [
+      6,
+      4,
+      8
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "metal_dark",
+      "axes": "xz"
+     }
+    },
+    {
+     "op": "line",
+     "name": "Lafette Rohr",
+     "from": [
+      33,
+      16,
+      122
+     ],
+     "to": [
+      50,
+      16,
+      122
+     ],
+     "r": 2,
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Lafette Muendung",
+     "at": [
+      47,
+      13.5,
+      119.5
+     ],
+     "size": [
+      4,
+      5,
+      5
+     ],
+     "color": "trim"
+    },
+    {
+     "op": "box",
+     "name": "Lafette Lampe",
+     "at": [
+      28,
+      18,
+      121
+     ],
+     "size": [
+      1,
+      1,
+      2
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 1.6
+     },
+     "jitter": false
+    }
+   ],
+   "if": "p79"
+  },
+  {
+   "op": "group",
+   "name": "Lafetten 7 und 9 zu",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Deckel",
+     "at": [
+      26,
+      12,
+      114
+     ],
+     "size": [
+      8,
+      1,
+      16
+     ],
+     "color": {
+      "frame": "metal_dark",
+      "fill": "dark",
+      "axes": "xz"
+     }
+    },
+    {
+     "op": "box",
+     "name": "Deckel Naht quer",
+     "at": [
+      27,
+      12,
+      121
+     ],
+     "size": [
+      6,
+      1,
+      2
+     ],
+     "color": "dark",
+     "mode": "paint"
+    },
+    {
+     "op": "box",
+     "name": "Deckel Naht laengs",
+     "at": [
+      30,
+      12,
+      115
+     ],
+     "size": [
+      2,
+      1,
+      14
+     ],
+     "color": "dark",
+     "mode": "paint"
+    }
+   ],
+   "if": "1 - p79"
+  },
+  {
+   "op": "group",
+   "name": "Lafetten 1 und 3 offen",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "cyl",
+     "name": "Lafette Drehkranz",
+     "at": [
+      30,
+      12,
+      80
+     ],
+     "r": 5,
+     "h": 2,
+     "color": "trim"
+    },
+    {
+     "op": "box",
+     "name": "Lafette Gehaeuse",
+     "at": [
+      27,
+      14,
+      76
+     ],
+     "size": [
+      6,
+      4,
+      8
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "metal_dark",
+      "axes": "xz"
+     }
+    },
+    {
+     "op": "line",
+     "name": "Lafette Rohr",
+     "from": [
+      33,
+      16,
+      80
+     ],
+     "to": [
+      50,
+      16,
+      80
+     ],
+     "r": 2,
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Lafette Muendung",
+     "at": [
+      47,
+      13.5,
+      77.5
+     ],
+     "size": [
+      4,
+      5,
+      5
+     ],
+     "color": "trim"
+    },
+    {
+     "op": "box",
+     "name": "Lafette Lampe",
+     "at": [
+      28,
+      18,
+      79
+     ],
+     "size": [
+      1,
+      1,
+      2
+     ],
+     "color": {
+      "role": "glow2",
+      "emit": 1.6
+     },
+     "jitter": false
+    }
+   ],
+   "if": "p13"
+  },
+  {
+   "op": "group",
+   "name": "Lafetten 1 und 3 zu",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Deckel",
+     "at": [
+      26,
+      12,
+      72
+     ],
+     "size": [
+      8,
+      1,
+      16
+     ],
+     "color": {
+      "frame": "metal_dark",
+      "fill": "dark",
+      "axes": "xz"
+     }
+    },
+    {
+     "op": "box",
+     "name": "Deckel Naht quer",
+     "at": [
+      27,
+      12,
+      79
+     ],
+     "size": [
+      6,
+      1,
+      2
+     ],
+     "color": "dark",
+     "mode": "paint"
+    },
+    {
+     "op": "box",
+     "name": "Deckel Naht laengs",
+     "at": [
+      30,
+      12,
+      73
+     ],
+     "size": [
+      2,
+      1,
+      14
+     ],
+     "color": "dark",
+     "mode": "paint"
+    }
+   ],
+   "if": "1 - p13"
+  },
+  {
+   "op": "group",
+   "name": "Batterien 4 und 6",
+   "mirror": "x",
+   "mirrorAt": 0,
+   "ops": [
+    {
+     "op": "box",
+     "name": "Batterie Sponson",
+     "at": [
+      26,
+      12,
+      91
+     ],
+     "size": [
+      8,
+      9,
+      20
+     ],
+     "color": {
+      "frame": "trim",
+      "fill": "metal_dark",
+      "axes": "xz"
+     }
+    },
+    {
+     "op": "line",
+     "name": "Batterie Rohr",
+     "from": [
+      34,
+      16.5,
+      96
+     ],
+     "to": [
+      50,
+      16.5,
+      96
+     ],
+     "r": 1.8,
+     "color": "metal_dark"
+    },
+    {
+     "op": "line",
+     "name": "Batterie Rohr",
+     "from": [
+      34,
+      16.5,
+      106
+     ],
+     "to": [
+      50,
+      16.5,
+      106
+     ],
+     "r": 1.8,
+     "color": "metal_dark"
+    },
+    {
+     "op": "box",
+     "name": "Batterie Muendung",
+     "at": [
+      47,
+      14,
+      94
+     ],
+     "size": [
+      4,
+      5,
+      5
+     ],
+     "color": "trim"
+    },
+    {
+     "op": "box",
+     "name": "Batterie Muendung",
+     "at": [
+      47,
+      14,
+      103
+     ],
+     "size": [
+      4,
+      5,
+      5
+     ],
+     "color": "trim"
+    },
+    {
+     "op": "box",
+     "name": "Batterie Pforte",
+     "at": [
+      28,
+      14,
+      93
+     ],
+     "size": [
+      6,
+      3,
+      1
+     ],
+     "color": "dark",
+     "mode": "paint",
+     "repeat": {
+      "count": 3,
+      "step": [
+       0,
+       0,
+       8
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "op": "loft",
+   "name": "Rammsporn",
+   "color": "trim",
+   "sections": [
+    {
+     "z": 204,
+     "w": 14,
+     "y": 11,
+     "up": 2,
+     "down": 4,
+     "bevel": 1
+    },
+    {
+     "z": 232,
+     "w": 2,
+     "y": 10,
+     "up": 1,
+     "down": 2
+    }
+   ]
+  },
+  {
+   "op": "cyl",
+   "name": "Lanze Lauf",
+   "axis": "z",
+   "at": [
+    0,
+    18,
+    198
+   ],
+   "r": 3,
+   "h": 40,
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Lanze Fokusring",
+   "axis": "z",
+   "at": [
+    0,
+    18,
+    208
+   ],
+   "r": 4.5,
+   "h": 2,
+   "color": "trim",
+   "repeat": {
+    "count": 3,
+    "step": [
+     0,
+     0,
+     10
+    ]
+   }
+  },
+  {
+   "op": "cyl",
+   "name": "Lanze Linse",
+   "axis": "z",
+   "at": [
+    0,
+    18,
+    238
+   ],
+   "r": 2.5,
+   "h": 2,
+   "color": {
+    "role": "glow",
+    "emit": 2.4
+   },
+   "jitter": false
+  },
+  {
+   "op": "cyl",
+   "name": "Bugturm Drehkranz",
+   "at": [
+    0,
+    24,
+    188
+   ],
+   "r": 6,
+   "h": 2,
+   "color": "trim",
+   "if": "p25"
+  },
+  {
+   "op": "box",
+   "name": "Bugturm Gehaeuse",
+   "at": [
+    -4,
+    26,
+    184
+   ],
+   "size": [
+    8,
+    4,
+    9
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal_dark",
+    "axes": "xz"
+   },
+   "if": "p25"
+  },
+  {
+   "op": "line",
+   "name": "Bugturm Rohr",
+   "from": [
+    -4,
+    28,
+    192
+   ],
+   "to": [
+    -4,
+    28,
+    203
+   ],
+   "r": 1.1,
+   "color": "metal_dark",
+   "if": "p25"
+  },
+  {
+   "op": "line",
+   "name": "Bugturm Rohr",
+   "from": [
+    4,
+    28,
+    192
+   ],
+   "to": [
+    4,
+    28,
+    203
+   ],
+   "r": 1.1,
+   "color": "metal_dark",
+   "if": "p25"
+  },
+  {
+   "op": "box",
+   "name": "Bugturm Muendung",
+   "at": [
+    -6,
+    27,
+    202
+   ],
+   "size": [
+    12,
+    2,
+    2
+   ],
+   "color": "trim",
+   "if": "p25"
+  },
+  {
+   "op": "cyl",
+   "name": "Bugdeckel",
+   "at": [
+    0,
+    24,
+    188
+   ],
+   "r": 6,
+   "h": 1,
+   "color": "metal",
+   "if": "1 - p25"
+  },
+  {
+   "op": "cyl",
+   "name": "Bugdeckel Rand",
+   "at": [
+    0,
+    24,
+    188
+   ],
+   "r": 6,
+   "h": 1,
+   "hollow": 1,
+   "color": "trim",
+   "if": "1 - p25"
+  },
+  {
+   "op": "box",
+   "name": "Bugdeckel Naht",
+   "at": [
+    -5,
+    24,
+    187
+   ],
+   "size": [
+    10,
+    1,
+    2
+   ],
+   "color": "dark",
+   "mode": "paint",
+   "if": "1 - p25"
+  },
+  {
+   "op": "box",
+   "name": "Bugdeckel Naht laengs",
+   "at": [
+    -1,
+    24,
+    182
+   ],
+   "size": [
+    2,
+    1,
+    12
+   ],
+   "color": "dark",
+   "mode": "paint",
+   "if": "1 - p25"
+  },
+  {
+   "op": "box",
+   "name": "Heckturm Gehaeuse",
+   "at": [
+    -4,
+    14,
+    -8
+   ],
+   "size": [
+    8,
+    8,
+    8
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xy"
+   },
+   "if": "p25"
+  },
+  {
+   "op": "line",
+   "name": "Heckturm Rohr",
+   "from": [
+    0,
+    18,
+    -8
+   ],
+   "to": [
+    0,
+    18,
+    -30
+   ],
+   "r": 1.6,
+   "color": "metal_dark",
+   "if": "p25"
+  },
+  {
+   "op": "box",
+   "name": "Heckturm Muendung",
+   "at": [
+    -2,
+    16.5,
+    -31
+   ],
+   "size": [
+    4,
+    3,
+    2
+   ],
+   "color": "trim",
+   "if": "p25"
+  },
+  {
+   "op": "box",
+   "name": "Heckdeckel",
+   "at": [
+    -4,
+    14,
+    -9
+   ],
+   "size": [
+    8,
+    8,
+    1
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "metal",
+    "axes": "xy"
+   },
+   "if": "1 - p25"
+  },
+  {
+   "op": "box",
+   "name": "Heckdeckel Naht",
+   "at": [
+    -4,
+    17,
+    -9
+   ],
+   "size": [
+    8,
+    2,
+    1
+   ],
+   "color": "dark",
+   "mode": "paint",
+   "if": "1 - p25"
+  },
+  {
+   "op": "box",
+   "name": "Unterdeck Goldband",
+   "at": [
+    -22,
+    10,
+    56
+   ],
+   "size": [
+    44,
+    1,
+    128
+   ],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Modul 1 Fenster",
+   "at": [
+    20,
+    5,
+    139
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 5,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Modul 3 Fenster",
+   "at": [
+    20,
+    5,
+    51
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 4,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   },
+   "if": "m3"
+  },
+  {
+   "op": "box",
+   "name": "Modul 3 Laden",
+   "at": [
+    20,
+    4,
+    50
+   ],
+   "size": [
+    2,
+    4,
+    18
+   ],
+   "color": "dark",
+   "mode": "paint",
+   "if": "1 - m3"
+  },
+  {
+   "op": "box",
+   "name": "Modul 3 Ladenband",
+   "at": [
+    20,
+    6,
+    50
+   ],
+   "size": [
+    2,
+    1,
+    18
+   ],
+   "color": "metal_light",
+   "mode": "paint",
+   "if": "1 - m3"
+  },
+  {
+   "op": "box",
+   "name": "Modul 2 Fenster",
+   "at": [
+    -22,
+    5,
+    139
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 5,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Modul 4 Fenster",
+   "at": [
+    -22,
+    5,
+    51
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 4,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   },
+   "if": "m4"
+  },
+  {
+   "op": "box",
+   "name": "Modul 4 Laden",
+   "at": [
+    -22,
+    4,
+    50
+   ],
+   "size": [
+    2,
+    4,
+    18
+   ],
+   "color": "dark",
+   "mode": "paint",
+   "if": "1 - m4"
+  },
+  {
+   "op": "box",
+   "name": "Modul 4 Ladenband",
+   "at": [
+    -22,
+    6,
+    50
+   ],
+   "size": [
+    2,
+    1,
+    18
+   ],
+   "color": "metal_light",
+   "mode": "paint",
+   "if": "1 - m4"
+  },
+  {
+   "op": "box",
+   "name": "Bugraum Fenster",
+   "at": [
+    -6,
+    5,
+    176
+   ],
+   "size": [
+    12,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 1.2
+   },
+   "mode": "paint",
+   "jitter": false,
+   "repeat": {
+    "count": 1,
+    "step": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Positionslicht Backbord (rot)",
+   "at": [
+    32,
+    9,
+    126
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "warning",
+    "emit": 2
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Positionslicht Steuerbord (mint)",
+   "at": [
+    -34,
+    9,
+    126
+   ],
+   "size": [
+    2,
+    2,
+    2
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 2
+   },
+   "jitter": false
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  100
+ ]
+}
