@@ -1,0 +1,178 @@
+{
+ "id": "ort-ger-st-messe",
+ "name": "ORT-01 Germanen Station: Messe",
+ "palette": "nord",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#6A6864",
+    "fill": "#2A2A2E"
+   },
+   "b": {
+    "h": 1,
+    "top": "#5A5854",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa"
+  ],
+  "heights": [
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    5,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   }
+  },
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    0.25,
+    4
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   }
+  },
+  {
+   "model": "ort/germanen/station/langtisch",
+   "at": [
+    5,
+    4
+   ]
+  },
+  {
+   "model": "ort/germanen/station/bank",
+   "at": [
+    4,
+    5.3
+   ],
+   "rot": 180
+  },
+  {
+   "model": "ort/germanen/station/bank",
+   "at": [
+    6,
+    5.3
+   ],
+   "rot": 180
+  },
+  {
+   "model": "ort/germanen/station/bank",
+   "at": [
+    4,
+    2.7
+   ]
+  },
+  {
+   "model": "ort/germanen/station/bank",
+   "at": [
+    6,
+    2.7
+   ]
+  },
+  {
+   "model": "prop/germanen/station/met_kessel",
+   "at": [
+    8.6,
+    1
+   ]
+  },
+  {
+   "model": "ort/germanen/station/kuehlfass",
+   "at": [
+    1.6,
+    1
+   ]
+  },
+  {
+   "model": "prop/germanen/gemein/laterne",
+   "at": [
+    9.2,
+    5.6
+   ]
+  },
+  {
+   "model": "ort/germanen/gemein/rationsbehaelter",
+   "at": [
+    4.2,
+    4
+   ],
+   "params": {},
+   "lift": 0.9
+  },
+  {
+   "model": "ort/germanen/gemein/rationsbehaelter",
+   "at": [
+    5.8,
+    4
+   ],
+   "rot": 20,
+   "params": {},
+   "lift": 0.9
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    5,
+    0.8,
+    4
+   ],
+   "dist": 12.5,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    5,
+    0.5,
+    4.5
+   ],
+   "dist": 11.5,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    5,
+    0.7,
+    4
+   ],
+   "dist": 5.5,
+   "elev": 32,
+   "az": 30,
+   "fov": 36
+  }
+ }
+}

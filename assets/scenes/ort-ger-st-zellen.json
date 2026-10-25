@@ -1,0 +1,160 @@
+{
+ "id": "ort-ger-st-zellen",
+ "name": "ORT-01 Germanen Station: Zellen",
+ "palette": "nord",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#6A6864",
+    "fill": "#2A2A2E"
+   },
+   "b": {
+    "h": 1,
+    "top": "#5A5854",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa"
+  ],
+  "heights": [
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    5,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   }
+  },
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    0.25,
+    4
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   }
+  },
+  {
+   "model": "ort/germanen/station/feldzelle",
+   "at": [
+    3,
+    1.6
+   ]
+  },
+  {
+   "model": "ort/germanen/station/feldzelle",
+   "at": [
+    5,
+    1.6
+   ]
+  },
+  {
+   "model": "ort/germanen/station/feldzelle",
+   "at": [
+    7,
+    1.6
+   ]
+  },
+  {
+   "model": "ort/germanen/station/pritsche",
+   "at": [
+    3,
+    1.2
+   ]
+  },
+  {
+   "model": "ort/germanen/station/pritsche",
+   "at": [
+    7,
+    1.2
+   ]
+  },
+  {
+   "model": "ort/germanen/station/terminal",
+   "at": [
+    4,
+    5.2
+   ],
+   "params": {
+    "state": 2
+   }
+  },
+  {
+   "model": "ort/germanen/station/runenschloss",
+   "at": [
+    5.9,
+    3.3
+   ]
+  },
+  {
+   "model": "prop/germanen/gemein/bake_abholpunkt",
+   "at": [
+    8.9,
+    5.8
+   ]
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    5,
+    0.8,
+    4
+   ],
+   "dist": 12.5,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    5,
+    0.5,
+    4.5
+   ],
+   "dist": 11.5,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    3,
+    0.8,
+    3
+   ],
+   "dist": 5.5,
+   "elev": 32,
+   "az": 30,
+   "fov": 36
+  }
+ }
+}

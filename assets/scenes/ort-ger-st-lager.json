@@ -1,0 +1,176 @@
+{
+ "id": "ort-ger-st-lager",
+ "name": "ORT-01 Germanen Station: Lager",
+ "palette": "nord",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#6A6864",
+    "fill": "#2A2A2E"
+   },
+   "b": {
+    "h": 1,
+    "top": "#5A5854",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa"
+  ],
+  "heights": [
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    5,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   }
+  },
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    0.25,
+    4
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/fassregal",
+   "at": [
+    2.3,
+    0.95
+   ]
+  },
+  {
+   "model": "prop/germanen/station/regal",
+   "at": [
+    4.4,
+    0.8
+   ]
+  },
+  {
+   "model": "ort/germanen/station/ladebock",
+   "at": [
+    7.6,
+    0.95
+   ]
+  },
+  {
+   "model": "ort/germanen/gemein/fasszelle",
+   "at": [
+    6.6,
+    0.95
+   ],
+   "params": {},
+   "lift": 0.59
+  },
+  {
+   "model": "ort/germanen/gemein/fasszelle",
+   "at": [
+    7.6,
+    0.95
+   ],
+   "params": {
+    "charge": 2
+   },
+   "lift": 0.59
+  },
+  {
+   "model": "ort/germanen/station/kran",
+   "at": [
+    1.1,
+    4.4
+   ],
+   "rot": 90
+  },
+  {
+   "model": "prop/germanen/gemein/kiste_stapel",
+   "at": [
+    5.2,
+    5
+   ],
+   "rot": 15
+  },
+  {
+   "model": "ort/germanen/gemein/fasszelle",
+   "at": [
+    7.4,
+    5.8
+   ],
+   "params": {
+    "charge": 4
+   }
+  },
+  {
+   "model": "prop/germanen/gemein/kiste_stapel",
+   "at": [
+    6.2,
+    5.8
+   ],
+   "rot": -20
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    5,
+    0.8,
+    4
+   ],
+   "dist": 12.5,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    5,
+    0.5,
+    4.5
+   ],
+   "dist": 11.5,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    4,
+    0.8,
+    3
+   ],
+   "dist": 5.5,
+   "elev": 32,
+   "az": 30,
+   "fov": 36
+  }
+ }
+}
