@@ -87,8 +87,8 @@
         1
       ],
       "color": {
-        "shade": "metal_dark",
-        "f": "0.85 * dk"
+        "shade": "metal",
+        "f": "0.8 * dk"
       },
       "if": "py == 0 && (belag != 3)"
     },
@@ -106,8 +106,8 @@
         "d"
       ],
       "color": {
-        "shade": "metal_dark",
-        "f": "0.85 * dk"
+        "shade": "metal",
+        "f": "0.8 * dk"
       },
       "if": "px == 0 && (belag != 3)"
     },
