@@ -1,0 +1,233 @@
+{
+ "id": "ort-3a-kommando",
+ "name": "ORT-01 3a Rom: Kommando (rechts germanisches Gegenstück)",
+ "palette": "rom",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#D9CFBA",
+    "fill": "#2A2A2E"
+   },
+   "b": {
+    "h": 1,
+    "top": "#B9AE98",
+    "fill": "#2A2A2E"
+   },
+   "c": {
+    "h": 1,
+    "top": "#6A6864",
+    "fill": "#2A2A2E"
+   },
+   "d": {
+    "h": 1,
+    "top": "#5A5854",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "abababababcdcdcdcdcd",
+   "bababababadcdcdcdcdc",
+   "abababababcdcdcdcdcd",
+   "bababababadcdcdcdcdc",
+   "abababababcdcdcdcdcd",
+   "bababababadcdcdcdcdc",
+   "abababababcdcdcdcdcd",
+   "bababababadcdcdcdcdc"
+  ],
+  "heights": [
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/rom/station/wand",
+   "at": [
+    5.0,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   }
+  },
+  {
+   "model": "ort/rom/station/wand",
+   "at": [
+    0.25,
+    4.0
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   }
+  },
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    15.0,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   },
+   "palette": "nord"
+  },
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    10.25,
+    4.0
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   },
+   "palette": "nord"
+  },
+  {
+   "model": "ort/rom/station/clipeus_wand",
+   "at": [
+    1.7,
+    1.0
+   ]
+  },
+  {
+   "model": "ort/rom/station/wandschirm",
+   "at": [
+    3.3,
+    1.0
+   ]
+  },
+  {
+   "model": "ort/rom/station/wandschirm",
+   "at": [
+    4.5,
+    1.0
+   ]
+  },
+  {
+   "model": "ort/rom/gemein/verteiler",
+   "at": [
+    6.6,
+    1.2
+   ]
+  },
+  {
+   "model": "rom/standarte",
+   "at": [
+    8.8,
+    1.2
+   ]
+  },
+  {
+   "model": "ort/rom/station/kartentisch",
+   "at": [
+    5.2,
+    4.2
+   ]
+  },
+  {
+   "model": "ort/rom/station/terminal",
+   "at": [
+    1.1,
+    5.0
+   ],
+   "rot": 90
+  },
+  {
+   "model": "ort/rom/gemein/tafel",
+   "at": [
+    8.2,
+    5.6
+   ],
+   "rot": -20
+  },
+  {
+   "model": "prop/germanen/station/wandmonitor",
+   "at": [
+    12.7,
+    1.0
+   ],
+   "palette": "nord"
+  },
+  {
+   "model": "ort/germanen/gemein/verteiler",
+   "at": [
+    16.6,
+    1.2
+   ],
+   "palette": "nord"
+  },
+  {
+   "model": "prop/germanen/aussenposten/runenmast",
+   "at": [
+    18.8,
+    1.2
+   ],
+   "palette": "nord"
+  },
+  {
+   "model": "ort/germanen/station/terminal",
+   "at": [
+    11.1,
+    5.0
+   ],
+   "rot": 90,
+   "palette": "nord"
+  },
+  {
+   "model": "ort/germanen/station/reaktor",
+   "at": [
+    15.2,
+    4.4
+   ],
+   "palette": "nord"
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    10.0,
+    0.8,
+    4.0
+   ],
+   "dist": 25.0,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    10.0,
+    0.5,
+    3.3
+   ],
+   "dist": 22.0,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    4.3,
+    0.9,
+    3.3
+   ],
+   "dist": 6.2,
+   "elev": 32,
+   "az": 25,
+   "fov": 36
+  }
+ }
+}
