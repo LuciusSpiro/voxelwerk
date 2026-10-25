@@ -32,10 +32,10 @@ const let_ = {
   S: '(w >= d ? d * 4 + 2 : w * 4 + 2)',
   zwei: 'S >= 18',                                // zwei Stufen: Umgangdach + Obergaden + Hauptdach
   hA: 'zwei ? 2 : min(8, max(3, round(S * 0.45)))', // Umgangdach (bzw. einziges Dach)
-  yB: 12, yC: 17,
-  hC: 'min(7, max(4, round((S - 4) * 0.45)))',      // Hauptdach (Steildach)
-  dk: '1 - zustand * 0.1',
-  em: 'zustand < 2 ? 0.5 : 0',
+  yB: 12, yC: 18,
+  hC: 'min(6, max(4, round((S - 4) * 0.45)))',      // Hauptdach (Steildach)
+  dk: '1 - zustand * 0.06',
+  em: 'zustand < 2 ? 0.6 : 0',
   top: 'zwei ? yC + hC : 12 + hA',
   mid: 'floor(S / 2)',
 };
@@ -49,8 +49,8 @@ ops.push(wedge('Umgangdach / Dach', 0, 12, 0, 'L', 'hA', 'S', {
 ops.push(box('Traufe Kupfer A1', 0, 12, 0, 'L', 1, 1, { mode: 'paint', color: { shade: 'copper_dark', f: 'dk' } }));
 ops.push(box('Traufe Kupfer A2', 0, 12, 'S - 1', 'L', 1, 1, { mode: 'paint', color: { shade: 'copper_dark', f: 'dk' } }));
 // Stufe B: Obergaden (Stabplanken)
-ops.push(box('Obergaden', 3, 12, 3, 'L - 6', 5, 'S - 6', {
-  if: 'zwei', color: { stripes: [{ shade: 'metal_light', f: 'dk' }, { shade: 'metal', f: 'dk' }], axis: LANG ? 'x' : 'z', period: 2 },
+ops.push(box('Obergaden', 3, 12, 3, 'L - 6', 6, 'S - 6', {
+  if: 'zwei', color: { stripes: [{ shade: 'metal_light', f: 'dk' }, { shade: 'metal', f: 'dk' }], axis: LANG ? 'x' : 'z', period: 4 },
 }));
 ops.push(box('Obergaden Fuß', 3, 12, 3, 'L - 6', 1, 'S - 6', { if: 'zwei', mode: 'paint', color: { shade: 'metal_dark', f: 'dk' } }));
 // Stufe C: Hauptdach
@@ -61,7 +61,7 @@ ops.push(box('Traufe Kupfer C1', 2, 'yC', 2, 'L - 4', 1, 1, { if: 'zwei', mode: 
 ops.push(box('Traufe Kupfer C2', 2, 'yC', 'S - 3', 'L - 4', 1, 1, { if: 'zwei', mode: 'paint', color: { shade: 'copper_dark', f: 'dk' } }));
 // Kupferfirst und Glutfuge (beide Fälle)
 ops.push(box('First Kupfer', 'zwei ? 2 : 0', 'top - 1', 'mid - 1', 'zwei ? L - 4 : L', 1, 2, { color: { shade: 'copper_dark', f: 'dk' } }));
-ops.push(box('Glutfuge First', 'zwei ? 4 : 2', 'top', 'mid - 1', 'zwei ? L - 8 : L - 4', 1, 1, { color: { role: 'ember', emit: 'em' }, if: 'zustand < 2' }));
+ops.push(box('Glutfuge First', 'zwei ? 4 : 2', 'top', 'mid - 1', 'zwei ? L - 8 : L - 4', 1, 1, { color: '#FF8A1A', emit: 'em', if: 'zustand < 2' }));
 // Giebelbretter (nur Hauptdach, gekreuzt), Runenspitzen
 for (const [i, uu] of [[0, 2], [1, 'L - 3']]) {
   const c = { color: { shade: 'copper_dark', f: 'dk' }, r: 0.5, if: 'zwei' };
