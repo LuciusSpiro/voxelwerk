@@ -1,0 +1,380 @@
+{
+ "id": "ort-2a-rom-hof",
+ "name": "ORT-01 2a Rom: Außenposten-Hof komplett",
+ "palette": "rom",
+ "mood": "planet_day",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "g": {
+    "h": 1,
+    "top": {
+     "noise": [
+      "grass",
+      "grass_dark",
+      "grass_light"
+     ],
+     "weights": [
+      3,
+      2,
+      1
+     ]
+    },
+    "fill": "soil"
+   },
+   "p": {
+    "h": 1,
+    "top": "#CFC4AE",
+    "fill": "soil"
+   },
+   "s": {
+    "h": 1,
+    "top": "#9C9079",
+    "fill": "soil"
+   },
+   "G": {
+    "h": 1,
+    "top": {
+     "noise": [
+      "#6F7A55",
+      "#5E6849",
+      "#848C6A"
+     ],
+     "weights": [
+      3,
+      2,
+      1
+     ]
+    },
+    "fill": "#4A3F33"
+   },
+   "P": {
+    "h": 1,
+    "top": "#8A8A82",
+    "fill": "#4A3F33"
+   },
+   "S": {
+    "h": 1,
+    "top": "#6A6A63",
+    "fill": "#4A3F33"
+   }
+  },
+  "rows": [
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "gppppppppppppppppppppppg",
+   "ssssssssssssssssssssssss"
+  ],
+  "heights": [
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111",
+   "111111111111111111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/rom/aussenposten/halle",
+   "at": [
+    8,
+    5
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/sensorturm",
+   "at": [
+    17.5,
+    2
+   ]
+  },
+  {
+   "model": "ort/rom/gemein/leitung",
+   "at": [
+    14.2,
+    5.2
+   ],
+   "rot": 90,
+   "params": {
+    "n": 3
+   }
+  },
+  {
+   "model": "ort/rom/gemein/verteiler",
+   "at": [
+    14.2,
+    8.6
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/zellendepot",
+   "at": [
+    5,
+    13
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/unterkunft",
+   "at": [
+    19.5,
+    13.5
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/landeplatz",
+   "at": [
+    12,
+    13.2
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/leitfeuer",
+   "at": [
+    9.7,
+    10.9
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/leitfeuer",
+   "at": [
+    14.3,
+    10.9
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/leitfeuer",
+   "at": [
+    9.7,
+    15.5
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/leitfeuer",
+   "at": [
+    14.3,
+    15.5
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/deckung_heizer",
+   "at": [
+    9.2,
+    8.9
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/deckung_pumpe",
+   "at": [
+    3.6,
+    9.2
+   ]
+  },
+  {
+   "model": "ort/rom/aussenposten/deckung_kapsel",
+   "at": [
+    18.2,
+    9.4
+   ],
+   "rot": 10
+  },
+  {
+   "model": "ort/rom/aussenposten/deckung_kapsel",
+   "at": [
+    19.3,
+    10.0
+   ],
+   "rot": -15
+  },
+  {
+   "model": "rom/standarte",
+   "at": [
+    6.5,
+    9.2
+   ]
+  },
+  {
+   "model": "rom/laterne",
+   "at": [
+    22.2,
+    9.4
+   ]
+  },
+  {
+   "model": "ort/rom/gemein/energiezelle",
+   "at": [
+    3.845,
+    12.5
+   ],
+   "params": {
+    "charge": 4
+   }
+  },
+  {
+   "model": "ort/rom/gemein/energiezelle",
+   "at": [
+    5.595,
+    12.5
+   ],
+   "params": {
+    "charge": 4
+   }
+  },
+  {
+   "model": "ort/rom/gemein/energiezelle",
+   "at": [
+    4.405,
+    12.5
+   ],
+   "params": {
+    "charge": 4
+   }
+  },
+  {
+   "model": "ort/rom/gemein/energiezelle",
+   "at": [
+    6.155,
+    12.5
+   ],
+   "params": {
+    "charge": 4
+   }
+  },
+  {
+   "model": "ort/rom/gemein/energiezelle",
+   "at": [
+    3.845,
+    13.1
+   ],
+   "params": {
+    "charge": 3
+   }
+  },
+  {
+   "model": "ort/rom/gemein/energiezelle",
+   "at": [
+    5.595,
+    13.1
+   ],
+   "params": {
+    "charge": 3
+   }
+  },
+  {
+   "model": "ort/rom/gemein/energiezelle",
+   "at": [
+    4.405,
+    13.1
+   ],
+   "params": {
+    "charge": 2
+   }
+  },
+  {
+   "model": "ort/rom/gemein/energiezelle",
+   "at": [
+    6.155,
+    13.1
+   ],
+   "params": {
+    "charge": 2
+   }
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    12,
+    2.0,
+    8.5
+   ],
+   "dist": 38,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    12,
+    0.5,
+    9.5
+   ],
+   "dist": 30,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    8,
+    2.8,
+    6
+   ],
+   "dist": 10,
+   "elev": 24,
+   "az": 22,
+   "fov": 36
+  },
+  "depot": {
+   "target": [
+    5,
+    0.8,
+    13
+   ],
+   "dist": 6.5,
+   "elev": 40,
+   "az": 15,
+   "fov": 36
+  },
+  "halle": {
+   "target": [
+    8,
+    2.5,
+    4.5
+   ],
+   "dist": 15,
+   "elev": 50,
+   "az": 25,
+   "fov": 36
+  },
+  "landung": {
+   "target": [
+    12,
+    0.3,
+    13
+   ],
+   "dist": 9,
+   "elev": 28,
+   "az": 30,
+   "fov": 36
+  }
+ }
+}
