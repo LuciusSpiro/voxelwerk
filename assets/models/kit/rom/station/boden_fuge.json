@@ -1,0 +1,114 @@
+{
+ "id": "kit/rom/station/boden_fuge",
+ "name": "Rom-Station boden_fuge: rote Fuge am N- und W-Rand (1-m-Raster), Gold bei der Schmuckplatte",
+ "tier": "architecture",
+ "palette": "rom",
+ "tags": [
+  "rom",
+  "slot",
+  "station",
+  "ort01"
+ ],
+ "jitter": 0,
+ "params": {
+  "w": {
+   "default": 4,
+   "min": 1,
+   "max": 16,
+   "step": 1,
+   "label": "Breite (Voxel)"
+  },
+  "h": {
+   "default": 1,
+   "min": 1,
+   "max": 16,
+   "step": 1,
+   "label": "Höhe (Voxel)"
+  },
+  "d": {
+   "default": 4,
+   "min": 1,
+   "max": 4,
+   "step": 1,
+   "label": "Tiefe (Voxel)"
+  },
+  "zustand": {
+   "default": 0,
+   "min": 0,
+   "max": 2,
+   "step": 1,
+   "label": "0 intakt · 1 verfallen · 2 umkämpft"
+  },
+  "belag": {
+   "default": 0,
+   "min": 0,
+   "max": 3,
+   "step": 1,
+   "label": "0 Gunmetal-Marmor · 1 Gitterrost · 2 Amber-Rinnenplatte · 3 Schmuckplatte"
+  }
+ },
+ "ops": [
+  {
+   "name": "Fuge Nord",
+   "op": "box",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "size": [
+    "w",
+    "h",
+    1
+   ],
+   "color": {
+    "shade": "primary",
+    "f": "0.5 * (1 - zustand * 0.08)"
+   },
+   "if": "belag != 2 && belag != 3"
+  },
+  {
+   "name": "Fuge West",
+   "op": "box",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "size": [
+    1,
+    "h",
+    "d"
+   ],
+   "color": {
+    "shade": "primary",
+    "f": "0.5 * (1 - zustand * 0.08)"
+   },
+   "if": "belag != 2 && belag != 3"
+  },
+  {
+   "name": "Fuge Gold Nord",
+   "op": "box",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "size": [
+    "w",
+    "h",
+    1
+   ],
+   "color": {
+    "shade": "trim",
+    "f": "0.85 * (1 - zustand * 0.08)"
+   },
+   "if": "belag == 3"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  0
+ ]
+}

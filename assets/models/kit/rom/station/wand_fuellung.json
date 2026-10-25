@@ -1,0 +1,245 @@
+{
+ "id": "kit/rom/station/wand_fuellung",
+ "name": "Rom-Station wand_fuellung: Rotband, Goldfries, Marmorfeld mit Feldrahmen; je Seed Pilaster oder Amber-Abgriff",
+ "tier": "architecture",
+ "palette": "rom",
+ "tags": [
+  "rom",
+  "slot",
+  "station",
+  "ort01"
+ ],
+ "jitter": 0,
+ "params": {
+  "w": {
+   "default": 4,
+   "min": 1,
+   "max": 16,
+   "step": 1,
+   "label": "Breite (Voxel)"
+  },
+  "h": {
+   "default": 9,
+   "min": 1,
+   "max": 16,
+   "step": 1,
+   "label": "Höhe (Voxel)"
+  },
+  "d": {
+   "default": 1,
+   "min": 1,
+   "max": 4,
+   "step": 1,
+   "label": "Tiefe (Voxel)"
+  },
+  "zustand": {
+   "default": 0,
+   "min": 0,
+   "max": 2,
+   "step": 1,
+   "label": "0 intakt · 1 verfallen · 2 umkämpft"
+  }
+ },
+ "ops": [
+  {
+   "name": "Marmor",
+   "op": "box",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "size": [
+    "w",
+    "h",
+    "d"
+   ],
+   "color": {
+    "shade": "secondary",
+    "f": "1 * (1 - zustand * 0.08)"
+   }
+  },
+  {
+   "name": "Rotband",
+   "op": "box",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "size": [
+    "w",
+    1,
+    "d"
+   ],
+   "color": {
+    "shade": "primary",
+    "f": "1 * (1 - zustand * 0.08)"
+   },
+   "if": "h >= 3"
+  },
+  {
+   "name": "Goldfries",
+   "op": "box",
+   "at": [
+    0,
+    1,
+    0
+   ],
+   "size": [
+    "w",
+    1,
+    "d"
+   ],
+   "color": {
+    "shade": "trim",
+    "f": "1 * (1 - zustand * 0.08)"
+   },
+   "if": "h >= 3"
+  },
+  {
+   "name": "Feldrahmen",
+   "op": "box",
+   "at": [
+    0,
+    3,
+    0
+   ],
+   "size": [
+    "w",
+    "h - 3",
+    "d"
+   ],
+   "color": {
+    "frame": {
+     "shade": "stone",
+     "f": "0.97 * (1 - zustand * 0.08)"
+    },
+    "fill": {
+     "shade": "secondary",
+     "f": "1 * (1 - zustand * 0.08)"
+    },
+    "axes": "xy",
+    "width": 1
+   },
+   "mode": "paint",
+   "if": "h >= 7 && w >= 3"
+  },
+  {
+   "name": "Pilaster",
+   "op": "box",
+   "at": [
+    1,
+    3,
+    0
+   ],
+   "size": [
+    2,
+    "h - 3",
+    "d"
+   ],
+   "color": {
+    "shade": "stone_dark",
+    "f": "1.05 * (1 - zustand * 0.08)"
+   },
+   "if": "h >= 7 && w >= 4 && hash(seed, 1) < 0.35"
+  },
+  {
+   "name": "Pilaster Kapitell",
+   "op": "box",
+   "at": [
+    1,
+    "h - 1",
+    0
+   ],
+   "size": [
+    2,
+    1,
+    "d"
+   ],
+   "color": {
+    "shade": "trim",
+    "f": "1 * (1 - zustand * 0.08)"
+   },
+   "if": "h >= 7 && w >= 4 && hash(seed, 1) < 0.35"
+  },
+  {
+   "name": "Abgriff Rahmen",
+   "op": "box",
+   "at": [
+    1,
+    4,
+    0
+   ],
+   "size": [
+    2,
+    2,
+    "d"
+   ],
+   "color": {
+    "shade": "trim",
+    "f": "1 * (1 - zustand * 0.08)"
+   },
+   "if": "h >= 8 && w >= 4 && hash(seed, 1) >= 0.35 && hash(seed, 2) < 0.2"
+  },
+  {
+   "name": "Abgriff",
+   "op": "box",
+   "at": [
+    1,
+    4,
+    0
+   ],
+   "size": [
+    2,
+    1,
+    "d"
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 0.6
+   },
+   "jitter": false,
+   "if": "h >= 8 && w >= 4 && hash(seed, 1) >= 0.35 && hash(seed, 2) < 0.2 && zustand < 2"
+  },
+  {
+   "name": "Ruß",
+   "op": "box",
+   "at": [
+    0,
+    3,
+    0
+   ],
+   "size": [
+    "w",
+    "h - 3",
+    "d"
+   ],
+   "color": {
+    "noise": [
+     {
+      "shade": "metal_dark",
+      "f": 1.4
+     },
+     {
+      "shade": "secondary",
+      "f": 0.97
+     }
+    ],
+    "weights": [
+     1,
+     4
+    ],
+    "cell": 1,
+    "seed": "seed"
+   },
+   "mode": "paint",
+   "if": "zustand == 2"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  0
+ ]
+}
