@@ -1,0 +1,211 @@
+{
+ "id": "ort-anker-germanen-klein",
+ "name": "ORT-01 B1 germanen: Anker-Zustände (klein)",
+ "palette": "nord",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#6A6864",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa"
+  ],
+  "heights": [
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/germanen/gemein/feldmast",
+   "at": [
+    1.5,
+    1.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/feldmast",
+   "at": [
+    3.5,
+    1.5
+   ],
+   "params": {
+    "state": 1
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/feldmast",
+   "at": [
+    5.5,
+    1.5
+   ],
+   "params": {
+    "state": 2
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/zelle",
+   "at": [
+    1.5,
+    3.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/zelle",
+   "at": [
+    3.5,
+    3.5
+   ],
+   "params": {
+    "state": 1
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/fasstresor",
+   "at": [
+    1.5,
+    5.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/fasstresor",
+   "at": [
+    3.5,
+    5.5
+   ],
+   "params": {
+    "state": 1
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/terminal",
+   "at": [
+    1.5,
+    7.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/terminal",
+   "at": [
+    3.5,
+    7.5
+   ],
+   "params": {
+    "state": 1
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/terminal",
+   "at": [
+    5.5,
+    7.5
+   ],
+   "params": {
+    "state": 2
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/terminal",
+   "at": [
+    7.5,
+    7.5
+   ],
+   "params": {
+    "state": 3
+   }
+  },
+  {
+   "model": "prop/germanen/gemein/bake_abholpunkt",
+   "at": [
+    1.5,
+    9.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "prop/germanen/gemein/bake_abholpunkt",
+   "at": [
+    3.5,
+    9.5
+   ],
+   "params": {
+    "state": 1
+   }
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    4.5,
+    0.8,
+    5.5
+   ],
+   "dist": 14.3,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    4.5,
+    0.5,
+    6
+   ],
+   "dist": 12.649999999999999,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    4.5,
+    0.8,
+    5.5
+   ],
+   "dist": 8.25,
+   "elev": 28,
+   "az": 18,
+   "fov": 36
+  }
+ }
+}

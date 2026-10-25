@@ -1,0 +1,185 @@
+{
+ "id": "ort-anker-rom-aussen",
+ "name": "ORT-01 B1 rom: Anker Außenposten",
+ "palette": "rom",
+ "mood": "planet_day",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#CFC4AE",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa",
+   "aaaaaaaaa"
+  ],
+  "heights": [
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111",
+   "111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/rom/aussenposten/zellenbatterie",
+   "at": [
+    1.5,
+    1.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "ort/rom/aussenposten/zellenbatterie",
+   "at": [
+    3.5,
+    1.5
+   ],
+   "params": {
+    "state": 1
+   }
+  },
+  {
+   "model": "ort/rom/aussenposten/zellenbatterie",
+   "at": [
+    5.5,
+    1.5
+   ],
+   "params": {
+    "state": 2
+   }
+  },
+  {
+   "model": "ort/rom/aussenposten/zellenbatterie",
+   "at": [
+    7.5,
+    1.5
+   ],
+   "params": {
+    "state": 3
+   }
+  },
+  {
+   "model": "ort/rom/gemein/feldstandarte",
+   "at": [
+    1.5,
+    3.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "ort/rom/gemein/feldstandarte",
+   "at": [
+    3.5,
+    3.5
+   ],
+   "params": {
+    "state": 1
+   }
+  },
+  {
+   "model": "ort/rom/gemein/feldstandarte",
+   "at": [
+    5.5,
+    3.5
+   ],
+   "params": {
+    "state": 2
+   }
+  },
+  {
+   "model": "ort/rom/gemein/kassenkapsel",
+   "at": [
+    1.5,
+    5.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "ort/rom/gemein/kassenkapsel",
+   "at": [
+    3.5,
+    5.5
+   ],
+   "params": {
+    "state": 1
+   }
+  },
+  {
+   "model": "ort/rom/gemein/zelle",
+   "at": [
+    1.5,
+    7.5
+   ],
+   "params": {
+    "state": 0
+   }
+  },
+  {
+   "model": "ort/rom/gemein/zelle",
+   "at": [
+    3.5,
+    7.5
+   ],
+   "params": {
+    "state": 1
+   }
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    4.5,
+    0.8,
+    4
+   ],
+   "dist": 11.700000000000001,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    4.5,
+    0.5,
+    4.5
+   ],
+   "dist": 10.35,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    4.5,
+    0.8,
+    4
+   ],
+   "dist": 6.75,
+   "elev": 28,
+   "az": 18,
+   "fov": 36
+  }
+ }
+}
