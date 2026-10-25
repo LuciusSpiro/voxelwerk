@@ -169,7 +169,8 @@ export function pruefeModell(lib, id, fixed = {}) {
   if (!model) throw new Error(`Modell "${id}" nicht geladen`);
   const kind = kindOf(model), rule = KIT_KINDS[kind] || null, kit = isKit(model);
   const vpm = tierOf(model.tier).voxelsPerMeter, s = voxelSize(model.tier);
-  const budget = model.budgetTris ?? rule?.budget ?? (model.tier === 'detail' ? 2500 : 3000);
+  const dach = /^kit\/[^/]+\/dach$/.test(id);   // Dach: Vertrag 3.200 (check:assets), Fehler erst über 150 % = 4.800
+  const budget = model.budgetTris ?? (dach ? 3200 : rule?.budget) ?? (model.tier === 'detail' ? 2500 : 3000);
   const fp = model.footprint || [1, 1];
   const report = { id, name: model.name, kind, kit, tier: model.tier, footprint: fp, budget, fixed, cases: [], errors: 0, warnings: 0, modelErrors: [] };
 
@@ -201,7 +202,8 @@ export function pruefeModell(lib, id, fixed = {}) {
     const p = { ...Object.fromEntries(Object.entries(model.params || {}).map(([k, d]) => [k, d.default])), seed: 0, ...c.params };
 
     // Budget (gilt für alle Modelle; bei Nicht-Kit-Teilen nur Warnung)
-    if (r.tris > budget) (kit || rule ? r.errors : r.warnings).push(`Budget: ${r.tris} Dreiecke > ${budget}`);
+    if (dach) { if (r.tris > budget * 1.5) r.errors.push(`Budget: ${r.tris} Dreiecke > ${budget * 1.5} (150 % von ${budget})`); else if (r.tris > budget) r.warnings.push(`Budget: ${r.tris} Dreiecke > ${budget}`); }
+    else if (r.tris > budget) (kit || rule ? r.errors : r.warnings).push(`Budget: ${r.tris} Dreiecke > ${budget}`);
     if (!rule) continue;
 
     const f2 = (x) => x.toFixed(2).replace('.', ',');
