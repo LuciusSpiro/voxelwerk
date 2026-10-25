@@ -1,0 +1,317 @@
+{
+ "id": "ort/verworfen/spant/sensorturm",
+ "name": "Gjallarhorn-Sensorturm (Germanen, Richtung Spant): vier Knochenspanten tragen eine Hornantenne, Empfänger im Mundstück",
+ "tier": "detail",
+ "palette": "nord",
+ "jitter": 0,
+ "tags": [
+  "prop",
+  "germanen",
+  "sensor",
+  "wachturm",
+  "aussenposten",
+  "ort01"
+ ],
+ "footprint": [
+  1,
+  1
+ ],
+ "params": {
+  "aktiv": {
+   "default": 1,
+   "min": 0,
+   "max": 1,
+   "step": 1,
+   "label": "Sensor aktiv"
+  }
+ },
+ "variants": {
+  "aus": {
+   "aktiv": 0
+  }
+ },
+ "let": {
+  "em": "aktiv ? 1.1 : 0"
+ },
+ "ops": [
+  {
+   "op": "box",
+   "name": "Fuß",
+   "at": [
+    -8,
+    0,
+    -8
+   ],
+   "size": [
+    16,
+    2,
+    16
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "group",
+   "name": "Spanten",
+   "mirror": "xz",
+   "mirrorAt": {
+    "x": 0,
+    "z": 0
+   },
+   "ops": [
+    {
+     "op": "line",
+     "name": "Spant unten",
+     "from": [
+      6.5,
+      2,
+      6.5
+     ],
+     "to": [
+      5,
+      18,
+      5
+     ],
+     "r": 1,
+     "color": "trim"
+    },
+    {
+     "op": "line",
+     "name": "Spant oben",
+     "from": [
+      5,
+      18,
+      5
+     ],
+     "to": [
+      2,
+      34,
+      2
+     ],
+     "r": 1,
+     "color": "trim"
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Ring 1",
+   "at": [
+    -6,
+    16,
+    -6
+   ],
+   "size": [
+    12,
+    1,
+    12
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Ring 1 frei",
+   "at": [
+    -4,
+    16,
+    -4
+   ],
+   "size": [
+    8,
+    1,
+    8
+   ],
+   "mode": "carve"
+  },
+  {
+   "op": "box",
+   "name": "Mittelleitung",
+   "at": [
+    -1,
+    2,
+    -1
+   ],
+   "size": [
+    2,
+    32,
+    2
+   ],
+   "color": "secondary"
+  },
+  {
+   "op": "box",
+   "name": "Mittelleitung Rune",
+   "at": [
+    -1,
+    4,
+    1
+   ],
+   "size": [
+    2,
+    28,
+    1
+   ],
+   "color": {
+    "role": "rune_dim",
+    "emit": "em * 0.5"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Kopfplatte",
+   "at": [
+    -4,
+    34,
+    -4
+   ],
+   "size": [
+    8,
+    2,
+    8
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "cyl",
+   "name": "Drehkranz",
+   "at": [
+    0,
+    36,
+    0
+   ],
+   "r": 3,
+   "h": 1,
+   "color": "frost_dark"
+  },
+  {
+   "op": "line",
+   "name": "Horn Mundstück",
+   "from": [
+    0,
+    38,
+    -7
+   ],
+   "to": [
+    0,
+    40,
+    -2
+   ],
+   "r": 1.4,
+   "color": "trim"
+  },
+  {
+   "op": "line",
+   "name": "Horn Mitte",
+   "from": [
+    0,
+    40,
+    -2
+   ],
+   "to": [
+    0,
+    42,
+    4
+   ],
+   "r": 2.8,
+   "color": "trim"
+  },
+  {
+   "op": "line",
+   "name": "Horn Schall",
+   "from": [
+    0,
+    42,
+    4
+   ],
+   "to": [
+    0,
+    43,
+    11
+   ],
+   "r": 5,
+   "color": "trim"
+  },
+  {
+   "op": "cyl",
+   "name": "Schallring",
+   "at": [
+    0,
+    43,
+    11
+   ],
+   "r": 5.6,
+   "h": 1,
+   "axis": "z",
+   "color": "metal_dark"
+  },
+  {
+   "op": "cyl",
+   "name": "Empfänger",
+   "at": [
+    0,
+    43,
+    12
+   ],
+   "r": 3.5,
+   "h": 1,
+   "axis": "z",
+   "color": {
+    "role": "rune",
+    "emit": "em"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Hornbänder",
+   "at": [
+    -7,
+    36,
+    3
+   ],
+   "size": [
+    14,
+    14,
+    1
+   ],
+   "color": "metal_dark",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Mundstück Glut",
+   "at": [
+    -1,
+    37,
+    -7
+   ],
+   "size": [
+    2,
+    2,
+    1
+   ],
+   "color": {
+    "role": "rune",
+    "emit": "em"
+   }
+  },
+  {
+   "op": "box",
+   "name": "Horn Stütze",
+   "at": [
+    -1,
+    36,
+    -3
+   ],
+   "size": [
+    2,
+    3,
+    2
+   ],
+   "color": "metal_dark"
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  0
+ ]
+}

@@ -1,0 +1,166 @@
+{
+ "id": "ort-ger-aussen",
+ "name": "ORT-01 Germanen: Außenposten-Hof",
+ "palette": "nord",
+ "mood": "planet_day",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "g": {
+    "h": 1,
+    "top": {
+     "noise": [
+      "#6F7A55",
+      "#5E6849",
+      "#848C6A"
+     ],
+     "weights": [
+      3,
+      2,
+      1
+     ]
+    },
+    "fill": "#4A3F33"
+   },
+   "p": {
+    "h": 1,
+    "top": "#8A8A82",
+    "fill": "#4A3F33"
+   },
+   "s": {
+    "h": 1,
+    "top": "#6A6A63",
+    "fill": "#4A3F33"
+   }
+  },
+  "rows": [
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "gppppppppppppppppppg",
+   "ssssssssssssssssssss",
+   "ssssssssssssssssssss",
+   "ssssssssssssssssssss"
+  ],
+  "heights": [
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/germanen/aussenposten/halle",
+   "at": [
+    7.5,
+    4
+   ]
+  },
+  {
+   "model": "ort/germanen/aussenposten/sensorturm",
+   "at": [
+    16.5,
+    1.5
+   ]
+  },
+  {
+   "model": "ort/germanen/gemein/verteiler",
+   "at": [
+    14.5,
+    6.5
+   ]
+  },
+  {
+   "model": "ort/germanen/gemein/fassregal",
+   "at": [
+    2.5,
+    9.3
+   ]
+  },
+  {
+   "model": "ort/germanen/gemein/fasszelle",
+   "at": [
+    4.6,
+    9.6
+   ],
+   "row": {
+    "count": 3,
+    "step": [
+     0.65,
+     0
+    ]
+   }
+  },
+  {
+   "model": "prop/germanen/gemein/kiste_stapel",
+   "at": [
+    10,
+    8.6
+   ],
+   "rot": 10
+  },
+  {
+   "model": "prop/germanen/gemein/kiste_stapel",
+   "at": [
+    11,
+    9.2
+   ],
+   "rot": -25
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    10.0,
+    2.0,
+    6.0
+   ],
+   "dist": 29,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    10.0,
+    0.5,
+    7.5
+   ],
+   "dist": 23.0,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    15.5,
+    2.0,
+    3.5
+   ],
+   "dist": 6.5,
+   "elev": 14,
+   "az": 25,
+   "fov": 36
+  }
+ }
+}

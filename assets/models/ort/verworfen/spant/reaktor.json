@@ -1,0 +1,39 @@
+{
+  "id": "ort/verworfen/spant/reaktor",
+  "name": "Spantenreaktor (Germanen, Richtung Spant): frostblauer Kern mit Runenbändern, umfasst von knochenweißen Spanten wie ein Schiffsrumpf kieloben",
+  "tier": "detail",
+  "palette": "nord",
+  "jitter": 0,
+  "tags": ["prop", "germanen", "reaktor", "hauptstueck", "ort01"],
+  "footprint": [2, 2],
+  "params": {
+    "last": { "default": 2, "min": 0, "max": 2, "step": 1, "label": "Last (0 aus, 1 halb, 2 voll)" }
+  },
+  "let": { "em": "last == 0 ? 0 : (last == 1 ? 0.6 : 1.1)" },
+  "variants": { "aus": { "last": 0 }, "halb": { "last": 1 } },
+  "ops": [
+    { "op": "box", "name": "Kielplatte", "at": [-15, 0, -15], "size": [30, 2, 30], "color": "metal_dark" },
+    { "op": "box", "name": "Kielplatte Frost", "at": [-15, 1, -15], "size": [30, 1, 30], "color": { "frame": "frost_dark", "fill": "metal_dark", "axes": "xz", "width": 1 } },
+    { "op": "cyl", "name": "Kernsockel", "at": [0, 2, 0], "r": 7, "h": 3, "color": "metal" },
+    { "op": "cyl", "name": "Kern", "at": [0, 5, 0], "r": 4.5, "h": 18, "color": "cloth" },
+    { "op": "cyl", "name": "Runenband", "at": [0, "8 + i*5", 0], "r": 4.6, "h": 1, "color": { "role": "rune", "emit": "em" }, "repeat": { "count": 3, "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Runenzeichen", "at": [-1, "10 + i*5", 4], "size": [2, 2, 1], "color": { "role": "rune", "emit": "em * 0.8" }, "repeat": { "count": 3, "var": "i", "step": [0, 0, 0] }, "mirror": "z", "mirrorAt": 0 },
+    { "op": "cyl", "name": "Kernkopf", "at": [0, 23, 0], "r": 5.5, "r2": 3, "h": 3, "color": "metal" },
+    { "op": "cyl", "name": "Kernkopf Rune", "at": [0, 26, 0], "r": 1.5, "h": 1, "color": { "role": "rune", "emit": "em * 1.2" } },
+    { "op": "group", "name": "Spanten", "mirror": "xz", "mirrorAt": { "x": 0, "z": 0 }, "ops": [
+      { "op": "line", "name": "Spant unten", "from": [12, 2, 5], "to": [13, 10, 5.5], "r": 1, "color": "trim" },
+      { "op": "line", "name": "Spant Mitte", "from": [13, 10, 5.5], "to": [10, 20, 4.5], "r": 1, "color": "trim" },
+      { "op": "line", "name": "Spant oben", "from": [10, 20, 4.5], "to": [3, 27, 1.5], "r": 1, "color": "trim" },
+      { "op": "line", "name": "Spant2 unten", "from": [5, 2, 12], "to": [5.5, 10, 13], "r": 1, "color": "trim" },
+      { "op": "line", "name": "Spant2 Mitte", "from": [5.5, 10, 13], "to": [4.5, 20, 10], "r": 1, "color": "trim" },
+      { "op": "line", "name": "Spant2 oben", "from": [4.5, 20, 10], "to": [1.5, 27, 3], "r": 1, "color": "trim" },
+      { "op": "box", "name": "Spantfuß", "at": [10, 2, 3], "size": [4, 2, 4], "color": "metal_dark" },
+      { "op": "box", "name": "Spantfuß 2", "at": [3, 2, 10], "size": [4, 2, 4], "color": "metal_dark" },
+      { "op": "line", "name": "Feldleiter", "from": [12.5, 12, 5], "to": [5, 14, 2], "r": 0.5, "color": { "role": "rune_dim", "emit": "em * 0.6" } }
+    ] },
+    { "op": "cyl", "name": "Kranz", "at": [0, 27, 0], "r": 4, "h": 2, "hollow": 1.5, "color": "frost" },
+    { "op": "box", "name": "Steuerkasten", "at": [-4, 2, 9], "size": [8, 6, 4], "color": "secondary" },
+    { "op": "box", "name": "Steuerkasten Runen", "at": [-3, 4, 13], "size": [6, 2, 1], "color": { "role": "rune", "emit": "em * 0.8" } }
+  ],
+  "anchor": [0, 0, 0]
+}

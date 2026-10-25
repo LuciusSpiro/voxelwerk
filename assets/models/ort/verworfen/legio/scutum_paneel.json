@@ -1,0 +1,28 @@
+{
+  "id": "ort/verworfen/legio/scutum_paneel",
+  "name": "Scutum-Paneel (Rom, Richtung Legio): gewölbte rote Gehäusefront mit Goldrand und Buckel, Baustein für Pult, Schrank, Tür",
+  "tier": "detail",
+  "palette": "rom",
+  "jitter": 0,
+  "tags": ["teil", "rom", "ort01"],
+  "footprint": [0.6, 0.2],
+  "params": {
+    "w": { "default": 10, "min": 6, "max": 16, "step": 2, "label": "Breite (Voxel)" },
+    "h": { "default": 16, "min": 8, "max": 28, "step": 1, "label": "Höhe (Voxel)" },
+    "fenster": { "default": 0, "min": 0, "max": 2, "step": 1, "label": "Einsatz (0 Buckel, 1 Schirm, 2 Ladeschlitz)" },
+    "em": { "default": 1, "min": 0, "max": 2, "step": 0.1, "label": "Leuchten" }
+  },
+  "ops": [
+    { "op": "box", "name": "Schale", "at": ["-w/2", 0, 0], "size": ["w", "h", 2], "color": "primary" },
+    { "op": "box", "name": "Wölbung", "at": ["-w/2 + 2", 1, 2], "size": ["w - 4", "h - 2", 1], "color": "primary" },
+    { "op": "box", "name": "Goldrand", "at": ["-w/2", 0, 0], "size": ["w", "h", 2], "color": { "frame": "trim", "fill": "primary", "axes": "xy", "width": 1 }, "mode": "paint" },
+    { "op": "box", "name": "Querband", "at": ["-w/2 + 2", "floor(h/2)", 2], "size": ["w - 4", 1, 1], "color": "trim", "if": "fenster != 1" },
+    { "op": "box", "name": "Buckel", "if": "fenster == 0", "at": [-2, "floor(h/2) - 1", 3], "size": [4, 3, 1], "color": "trim" },
+    { "op": "box", "name": "Buckel Linse", "if": "fenster == 0", "at": [-1, "floor(h/2)", 4], "size": [2, 1, 1], "color": { "role": "glow", "emit": "em" } },
+    { "op": "box", "name": "Schirm", "if": "fenster == 1", "at": ["-w/2 + 2", 3, 3], "size": ["w - 4", "h - 6", 1], "color": "glass" },
+    { "op": "box", "name": "Schirm Zeilen", "if": "fenster == 1", "at": ["-w/2 + 3", "5 + i*2", 3], "size": ["w - 7 - (i % 2) * 2", 1, 1], "color": { "role": "glow", "emit": "em * 0.7" }, "repeat": { "count": "floor((h - 8)/2)", "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Ladeschlitz", "if": "fenster == 2", "at": [-1, 2, 3], "size": [2, "h - 4", 1], "color": "glass" },
+    { "op": "box", "name": "Ladestand", "if": "fenster == 2", "at": [-1, 2, 3], "size": [2, "max(1, floor((h - 4) * em / 2))", 1], "color": { "role": "glow", "emit": 1 } }
+  ],
+  "anchor": [0, 0, 0]
+}

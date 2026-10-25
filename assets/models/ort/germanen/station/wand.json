@@ -1,0 +1,25 @@
+{
+  "id": "ort/germanen/station/wand",
+  "name": "Stationswand (Germanen): senkrechte Eisen-Stabplanken, Eisenpfosten mit Kupfernieten, Glutfuge auf der Mauerkrone (Gegenstück zur römischen Rinne)",
+  "tier": "architecture",
+  "palette": "nord",
+  "jitter": 0,
+  "tags": ["bau", "germanen", "station", "ort01"],
+  "footprint": [4, 0.5],
+  "params": {
+    "len": { "default": 16, "min": 4, "max": 64, "step": 4, "label": "Länge (Voxel, 4 = 1 m)" }
+  },
+  "ops": [
+    { "op": "box", "name": "Kern", "at": ["-len/2", 0, -1], "size": ["len", 11, 2], "color": "metal_dark" },
+    { "op": "box", "name": "Stabplanken", "at": ["-len/2", 1, 1], "size": ["len", 9, 1], "color": { "stripes": ["metal_light", "metal"], "axis": "x", "period": 1 } },
+    { "op": "box", "name": "Sockel", "at": ["-len/2", 0, 1], "size": ["len", 1, 1], "color": "stone_dark" },
+    { "op": "box", "name": "Rostband", "at": ["-len/2", 1, 1], "size": ["len", 1, 1], "color": "copper_dark", "mode": "paint" },
+    { "op": "box", "name": "Pfosten", "at": ["-len/2 + 3 + i*8", 0, 1], "size": [1, 10, 2], "color": "metal_dark", "repeat": { "count": "floor(len/8)", "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Nieten", "at": ["-len/2 + 3 + i*8", 3, 3], "size": [1, 1, 1], "color": "copper", "repeat": { "count": "floor(len/8)", "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Nieten oben", "at": ["-len/2 + 3 + i*8", 7, 3], "size": [1, 1, 1], "color": "copper", "repeat": { "count": "floor(len/8)", "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Runenpunkt", "at": ["-len/2 + 7 + i*8", 6, 1], "size": [1, 1, 1], "mode": "paint", "color": { "role": "rune_dim", "emit": 0.5 }, "repeat": { "count": "floor(len/8)", "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Krone", "at": ["-len/2", 10, -1], "size": ["len", 2, 3], "color": "copper_dark" },
+    { "op": "box", "name": "Glutfuge Krone", "at": ["-len/2", 11, 0], "size": ["len", 1, 1], "color": { "role": "ember", "emit": 0.6 } }
+  ],
+  "anchor": [0, 0, 0]
+}

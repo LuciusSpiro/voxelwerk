@@ -1,0 +1,29 @@
+{
+  "id": "ort/verworfen/spant/hornzelle",
+  "name": "Hornzelle (Germanen, Richtung Spant): Energiezelle als Trinkhorn im Eisenständer, Mündung oben mit Runen-Ladeöffnung, Eisenbänder",
+  "tier": "detail",
+  "palette": "nord",
+  "jitter": 0,
+  "tags": ["prop", "germanen", "energie", "lager", "horn", "ort01"],
+  "footprint": [0.5, 0.5],
+  "params": {
+    "charge": { "default": 4, "min": 0, "max": 4, "step": 1, "label": "Ladestand (0–4)" }
+  },
+  "variants": { "leer": { "charge": 0 }, "halb": { "charge": 2 } },
+  "let": { "em": "charge / 4" },
+  "ops": [
+    { "op": "box", "name": "Ständer Fuß", "at": [-4, 0, -4], "size": [8, 1, 8], "color": "metal_dark" },
+    { "op": "box", "name": "Ständer Säule", "at": [-1, 1, -1], "size": [2, 6, 2], "color": "metal_dark" },
+    { "op": "box", "name": "Ständer Gabel", "at": [-3, 6, -1], "size": [6, 1, 2], "color": "metal_dark" },
+    { "op": "line", "name": "Horn Spitze", "from": [3, 3, 0], "to": [1, 6, 0], "r": 0.8, "color": "frost_dark" },
+    { "op": "line", "name": "Horn Unterteil", "from": [1, 6, 0], "to": [-1, 9, 0], "r": 1.6, "color": "trim" },
+    { "op": "line", "name": "Horn Mitte", "from": [-1, 9, 0], "to": [-1.5, 13, 0], "r": 2.4, "color": "trim" },
+    { "op": "line", "name": "Horn Oberteil", "from": [-1.5, 13, 0], "to": [-0.5, 16, 0], "r": 3.1, "color": "trim" },
+    { "op": "box", "name": "Eisenband unten", "at": [-4, 9, -4], "size": [8, 1, 8], "color": "metal_dark", "mode": "paint" },
+    { "op": "box", "name": "Eisenband oben", "at": [-5, 14, -5], "size": [10, 1, 10], "color": "metal_dark", "mode": "paint" },
+    { "op": "cyl", "name": "Mündungsring", "at": [-0.5, 17, 0], "r": 3.4, "h": 1, "color": "metal_dark" },
+    { "op": "cyl", "name": "Ladeöffnung", "at": [-0.5, 17, 0], "r": 2.2, "h": 1, "color": { "role": "rune", "emit": "charge > 0 ? 0.4 + em * 0.8 : 0" } },
+    { "op": "box", "name": "Pol", "at": [-1, 18, -1], "size": [1, 1, 1], "color": "copper" }
+  ],
+  "anchor": [0, 0, 0]
+}

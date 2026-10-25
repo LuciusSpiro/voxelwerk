@@ -1,6 +1,6 @@
 {
  "id": "ort-r1-aussen",
- "name": "ORT-01 Rom A Aquädukt: Außenposten-Hof",
+ "name": "ORT-01 Rom: Außenposten-Hof",
  "palette": "rom",
  "mood": "planet_day",
  "terrain": {
@@ -70,29 +70,28 @@
  },
  "place": [
   {
-   "model": "ort/rom/aquaedukt/halle",
+   "model": "ort/rom/aussenposten/halle",
    "at": [
     7.5,
     4
    ]
   },
   {
-   "model": "ort/rom/aquaedukt/clipeus",
+   "model": "ort/rom/aussenposten/clipeus",
    "at": [
     14,
     2.6
-   ],
-   "rot": 180
+   ]
   },
   {
-   "model": "ort/rom/aquaedukt/sensorturm",
+   "model": "ort/rom/aussenposten/sensorturm",
    "at": [
     16.5,
     1.5
    ]
   },
   {
-   "model": "ort/rom/aquaedukt/leitung",
+   "model": "ort/rom/gemein/leitung",
    "at": [
     12.6,
     4
@@ -103,14 +102,14 @@
    }
   },
   {
-   "model": "ort/rom/aquaedukt/verteiler",
+   "model": "ort/rom/gemein/verteiler",
    "at": [
     14.5,
     6.5
    ]
   },
   {
-   "model": "ort/rom/aquaedukt/zellenarkade",
+   "model": "ort/rom/gemein/zellenarkade",
    "at": [
     2.5,
     9.2
@@ -121,30 +120,21 @@
    "at": [
     1.875,
     9.2
-   ],
-   "colors": {
-    "glow": "glow2"
-   }
+   ]
   },
   {
    "model": "rom/energiezelle",
    "at": [
     2.5,
     9.2
-   ],
-   "colors": {
-    "glow": "glow2"
-   }
+   ]
   },
   {
    "model": "rom/energiezelle",
    "at": [
     3.125,
     9.2
-   ],
-   "colors": {
-    "glow": "glow2"
-   }
+   ]
   },
   {
    "model": "rom/energiezelle",
@@ -152,9 +142,6 @@
     5,
     9.6
    ],
-   "colors": {
-    "glow": "glow2"
-   },
    "row": {
     "count": 3,
     "step": [
@@ -205,10 +192,10 @@
   "uebersicht": {
    "target": [
     10.0,
-    0.8,
-    7.0
+    2.0,
+    6.0
    ],
-   "dist": 25.0,
+   "dist": 29,
    "elev": 48,
    "az": 28,
    "fov": 36
@@ -226,13 +213,13 @@
   },
   "detail": {
    "target": [
-    13.5,
-    1.3,
-    5.5
+    15.5,
+    2.0,
+    3.5
    ],
-   "dist": 10,
-   "elev": 26,
-   "az": 30,
+   "dist": 6.5,
+   "elev": 14,
+   "az": 25,
    "fov": 36
   }
  }
