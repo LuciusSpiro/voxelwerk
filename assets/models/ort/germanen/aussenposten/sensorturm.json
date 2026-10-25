@@ -97,7 +97,7 @@
    "name": "Mastbänder",
    "at": [
     -5,
-    "6 + i*9",
+    "8 + i*12",
     -5
    ],
    "size": [
@@ -107,7 +107,7 @@
    ],
    "color": "copper_dark",
    "repeat": {
-    "count": 3,
+    "count": 2,
     "var": "i",
     "step": [
      0,
@@ -286,7 +286,7 @@
    "mirror": "x",
    "mirrorAt": 0,
    "repeat": {
-    "count": 4,
+    "count": 3,
     "step": [
      0,
      0,
@@ -363,6 +363,70 @@
    ],
    "slope": "-z",
    "color": "copper"
+  },
+  {
+   "op": "box",
+   "name": "Flügel innen",
+   "at": [2, 38, -6],
+   "size": [3, 1, 5],
+   "color": "copper",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Flügel mitte",
+   "at": [5, 38, -8],
+   "size": [2, 1, 6],
+   "color": "copper_dark",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Flügel spitze",
+   "at": [7, 38, -11],
+   "size": [1, 1, 7],
+   "color": "copper",
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "line",
+   "name": "Flügelrippe Glut",
+   "from": [2, 39, -2],
+   "to": [7, 39, -9],
+   "r": 0.5,
+   "color": {
+    "role": "ember",
+    "emit": "em * 0.5"
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Schwanz",
+   "at": [-1, 31, -8],
+   "size": [2, 2, 5],
+   "color": "copper_dark"
+  },
+  {
+   "op": "box",
+   "name": "Schwanz 2",
+   "at": [-1, 32, -12],
+   "size": [2, 1, 4],
+   "color": "copper"
+  },
+  {
+   "op": "box",
+   "name": "Schwanzrune",
+   "at": [-1, 32, -13],
+   "size": [2, 1, 1],
+   "color": {
+    "role": "rune",
+    "emit": "em"
+   }
   },
   {
    "op": "line",
