@@ -1,6 +1,6 @@
-# ANKER-VERDRAHTUNG-ORT01 (Paket 5, Teil B1) – Stand: nur Analyse, KEIN Modell gebaut
+# ANKER-VERDRAHTUNG-ORT01 (Paket 5, Teil B1): Stand: 13 Modelle gebaut, geprüft, im Spiel probiert
 
-Branch `ort01-anker` (von `ort01-int`). Es gibt noch keine neuen Modelle und kein Manifest `ort-anker.json`. Dieses Dokument ist der Befund aus dem Code und die Bauliste.
+Branch `ort01-anker` (von `ort01-int`). Modelle erzeugt von `tools/gen-ort-anker.mjs` (JSON unter `assets/models/ort/*` ist maßgeblich), Szenen von `tools/ort01-anker-szenen.mjs`, Manifest `assets/manifest/ort-anker.json` im Spiel-Worktree `Pantheon-ort01-anker`.
 
 ## Wie der Code den Anker auflöst (Belege)
 - `public/js/voxel/kit.js`: `propEintrag(rolle, platz)` liest `bauweisen/<bw>.json → anker[rolle][art | '*']` (String oder `{id, <feste Parameter>}`, auch `{ '*': ID, <platztyp>: ID }`). Der Prop bekommt `state` = Index des aktuellen Zustandsnamens in `anker.json → rollen.<rolle>.zustaende` (`Math.max(0, zst.indexOf(nm))`), dazu `zustand`, `art`, `seed`. **Ein Modell braucht also einen `state`-Parameter, dessen Indizes genau der Zustandsliste der Rolle entsprechen.**
@@ -26,22 +26,21 @@ Branch `ort01-anker` (von `ort01-int`). Es gibt noch keine neuen Modelle und kei
 
 `fund`, `raetsel`, `flagge`, `eingang`, `tor`, `aussicht`: auf Station/Außenposten kein neues Modell nötig.
 
-## Bauliste (Vorschlag, noch nichts gebaut)
-Alle mit `jitter: 0`, `state` wie oben, Paletten `rom` / `nord`, Zustände von oben klar unterscheidbar.
+## Gebaute Modelle (Dreiecke = Quads × 2, größter Zustand)
+| Rolle | Rom | Tris | Germanen | Tris | Fuß | state |
+|---|---|---|---|---|---|---|
+| ziel | `ort/rom/gemein/feldstandarte` | ~800 | `ort/germanen/gemein/feldmast` | ~1.310 | 1×1, 1,94 m | 0 frei, 1 genommen, 2 aktiviert |
+| sprengpunkt Station | `ort/rom/station/sprengreaktor` (Wrapper um `ort/rom/station/reaktor`) | ~4.570 | `ort/germanen/station/sprengreaktor` (Wrapper) | ~5.920 | 2×2 | 0 intakt, 1 scharf, 2 zerstoert, 3 platziert |
+| sprengpunkt Außenposten | `ort/rom/aussenposten/zellenbatterie` | ~730 | `ort/germanen/aussenposten/glutspeicher` | ~830 | 1×1, 1,3 m | wie oben |
+| zelle | `ort/rom/gemein/zelle` | ~1.430 | `ort/germanen/gemein/zelle` | ~1.740 | 1×1, 1,63 / 1,88 m | 0 zu, 1 offen |
+| beute und fund | `ort/rom/gemein/kassenkapsel` | ~630 | `ort/germanen/gemein/fasstresor` | ~830 | 1×1, ~1,1 / 1,25 m | 0 voll bzw. da, 1 leer bzw. genommen |
+| terminal | `ort/rom/gemein/terminal` (Wrapper um `ort/rom/station/terminal`) | ~1.370 | `ort/germanen/gemein/terminal` (Wrapper) | ~2.100 | 1×1 | 0 bereit, 1 laedt, 2 geladen, 3 gesperrt |
+| abholpunkt | `ort/rom/gemein/abholbake` | ~650 | Bestand `prop/germanen/gemein/bake_abholpunkt` (bleibt) | – | 1×1 | 0 bereit, 1 gestoert |
 
-| Rolle | Rom (neu) | Germanen (neu) | Fuß | state |
-|---|---|---|---|---|
-| ziel | `ort/rom/gemein/feldstandarte` (Feldgenerator auf Marmorsockel, Amberkern; aus `rom/standarte`) | `ort/germanen/gemein/feldmast` (Runenmast als Feldgenerator, Glutring; aus `runenmast`) | 1×1, max. 1,94 m | 0 frei (Kern/Ring pulsiert), 1 genommen (Kern entnommen, dunkel), 2 aktiviert (Feldring voll) |
-| sprengpunkt Station | `ort/rom/station/sprengreaktor` (Wrapper `use ort/rom/station/reaktor`, Last aus state, Schaden) | `ort/germanen/station/sprengreaktor` | 2×2 | 0 intakt, 1 scharf (Ladung+Zünder), 2 zerstoert (Kern aus, Bruch), 3 platziert (Ladung liegt, ruhig) |
-| sprengpunkt Außenposten | `ort/rom/aussenposten/zellenbatterie` | `ort/germanen/aussenposten/glutspeicher` | 1×1 | wie oben |
-| zelle | `ort/rom/gemein/zelle` (ops aus `station/feldzelle`, Feld an/aus) | `ort/germanen/gemein/zelle` | 1×1 | 0 zu (Feld an), 1 offen (Feld aus) |
-| beute (und fund) | `ort/rom/gemein/kassenkapsel` | `ort/germanen/gemein/fasstresor` | 1×1, max. 1 m | 0 voll/da, 1 leer/genommen |
-| terminal | `ort/rom/gemein/terminal` (Wrapper um `ort/rom/station/terminal`, Mapping 0→0, 1→1, 3→2, plus eigener Ladebalken/Holo für 1 und 2) | `ort/germanen/gemein/terminal` (analog) | 1×1 | 0 bereit, 1 laedt, 2 geladen, 3 gesperrt |
-| abholpunkt | `ort/rom/gemein/abholbake` (Bake + state) | Bestand `bake_abholpunkt` bleibt (state 0/1 vorhanden, Technik klar; Licht kaltweiß statt Glut, Schönheitsfehler) | 1×1 | 0 bereit, 1 gestoert |
+`node tools/check.js ort/`: 0 Fehler, 0 Warnungen. `npm run check:assets -- --vw` (Spiel, `VOXELWERK_PATH`): 0 Fehler (Abschnitt `ort-anker (13)`).
+Hinweise: germanischer Sprengreaktor ist 2,0 m hoch (wie der Bestandsreaktor, Hauptstück 2×2 ohne Wegkachel). Alle Modelle `jitter: 0`, Böden einfarbig/ruhig, Zustandslogik nur über `state`.
 
-Nicht Gameplay-Anker, aber Altstücke: `leit.dorfplatz` (Statue 3×3, beide Kulturen) und germ. `herzstueck`/`kontrollraum`. Eigener Auftrag.
-
-## Eintragszeilen (erst nach Bau und Manifest; IDs = Bauliste)
+## Eintragszeilen (Reihenfolge der Zustände entspricht anker.json; so lokal getestet)
 `bauweisen/rom.json`, `anker` (der `"*"`-Eintrag bleibt für `ruine`):
 ```
 "ziel":        { "station": "ort/rom/gemein/feldstandarte", "aussenposten": "ort/rom/gemein/feldstandarte", "*": "leit/rom/ruine/fahnenheiligtum" },
@@ -56,5 +55,10 @@ Nicht Gameplay-Anker, aber Altstücke: `leit.dorfplatz` (Statue 3×3, beide Kult
 `leit_fuss`: nur für Leitstücke nötig, die Anker brauchen ihn nicht (2×2-Fuß des `sprengreaktor` kommt aus dem Manifest-Footprint).
 Zustandsabbildung im Code: keine Änderung nötig; wichtig ist nur, dass die Zustandsreihenfolge im Modell der Liste in `anker.json` entspricht.
 
-## Was fehlt (alles)
-Alle 13 Modelle (Rom 7, Germanen 6), `assets/manifest/ort-anker.json`, Szenen und Screenshots, Probe-Test im Spiel, Prüfläufe. Nichts davon begonnen, daher keine Selbstkritik zu Abnahme 8.
+## Probe-Test im Spiel (lokal, verworfen)
+Mit den obigen Zeilen lokal gesetzt, `npm run assets` gegen dieses Voxelwerk, `tools/ort01-shots.js --seeds 1,2 --raeume reaktor,zellen,lager,kommando` (Station und Außenposten, Rom und Germanen): alle 8 Läufe `kitFehler 0`, `konsolenfehler 0`, `dekoFehlt {}`; die Modelle laden als Anker (Bilder im Spiel-Worktree unter `shots/anker/`, gitignored). Live-Umschalten der Zustände im laufenden Spiel nicht getestet (nur Statik `zu/intakt/frei` und alle Zustände in Voxelwerk-Szenen).
+
+## Was fehlt / Vorbehalte
+- Zustandswechsel im laufenden Spiel nicht live geprüft.
+- `flagge` (Eisenwald) und `raetsel` nicht gebaut (kommen auf Station/Außenposten nicht vor).
+- Rom `ziel` und `sprengpunkt Außenposten` sind formal einfach (Marmorblock mit Amberfenstern); Selbstkritik siehe Rückmeldung.
