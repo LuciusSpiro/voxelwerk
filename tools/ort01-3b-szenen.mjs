@@ -75,3 +75,14 @@ for (const [id, r] of Object.entries(rooms)) {
   fs.writeFileSync(OUT + sc.id + '.json', JSON.stringify(sc, null, 1));
   console.log(sc.id, place.length + '/' + (walls.length + r.items.length), missing.length ? 'fehlt: ' + missing.join(', ') : '');
 }
+
+// Vergleichsvariante: Kommando mit hellerer Wand (wand_hell) und hellerem Boden (Vorschlag gegen die graue Gesamtwirkung)
+{
+  const s = JSON.parse(fs.readFileSync(OUT + 'ort-ger-st-kommando.json', 'utf8'));
+  s.id = 'ort-ger-st-kommando-hell';
+  s.name += ' (hell)';
+  s.terrain.legend.a.top = '#A29D92';
+  s.terrain.legend.b.top = '#8F8A80';
+  s.place.forEach((p) => { if (p.model.endsWith('station/wand')) p.model = 'ort/germanen/station/wand_hell'; });
+  fs.writeFileSync(OUT + s.id + '.json', JSON.stringify(s, null, 1));
+}
