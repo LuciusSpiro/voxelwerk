@@ -1,0 +1,2577 @@
+{
+ "id": "ort-kit-st-k2",
+ "name": "ORT-01 3b K2: Stations-Kit nord",
+ "palette": "nord",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "g": {
+    "h": 1,
+    "top": "#2A2A2E",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "gggggggggggggg",
+   "gggggggggggggg",
+   "gggggggggggggg",
+   "gggggggggggggg",
+   "gggggggggggggg",
+   "gggggggggggggg",
+   "gggggggggggggg",
+   "gggggggggggggg",
+   "gggggggggggggg",
+   "gggggggggggggg"
+  ],
+  "heights": [
+   "11111111111111",
+   "11111111111111",
+   "11111111111111",
+   "11111111111111",
+   "11111111111111",
+   "11111111111111",
+   "11111111111111",
+   "11111111111111",
+   "11111111111111",
+   "11111111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 0
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 5
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 10
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 15
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 20
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 25
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 30
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 35
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 40
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 45
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 50
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 55
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 60
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 65
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 11
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 16
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 21
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 26
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 31
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 36
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 41
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 46
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 51
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 56
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 61
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 66
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 71
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    1.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 76
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 22
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 27
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 32
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 37
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 42
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 47
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 52
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 57
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 62
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 67
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 72
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 77
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 82
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    2.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 87
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 33
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 38
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 43
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 48
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 53
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 58
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 63
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 68
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 73
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 78
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 83
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 88
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 93
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 98
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 44
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 49
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 54
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 59
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 64
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 69
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 74
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 79
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 84
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 89
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 94
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 99
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 104
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    4.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 109
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 55
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 60
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 65
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 70
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 75
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 80
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 85
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 90
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 95
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 100
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 105
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 110
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 115
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 120
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 66
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 71
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 76
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 81
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 86
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 91
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 96
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 101
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 106
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 111
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 116
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 121
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 126
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    6.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 131
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 77
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 82
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 87
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 92
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 97
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 102
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 107
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 112
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 117
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 0,
+    "seed": 122
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 127
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 132
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 137
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 142
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 88
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 93
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 98
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 103
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 108
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 113
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 118
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 123
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 128
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 133
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 138
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 143
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 148
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    8.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 153
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    0.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 99
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    1.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 104
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    2.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 109
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    3.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 114
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    4.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 119
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    5.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 124
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    6.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 129
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    7.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 134
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    8.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 139
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    9.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 2,
+    "seed": 144
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    10.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 149
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    11.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 154
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    12.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 3,
+    "seed": 159
+   }
+  },
+  {
+   "model": "kit/germanen/boden",
+   "at": [
+    13.5,
+    9.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "belag": 1,
+    "seed": 164
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    0.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 2,
+    "cut": 0,
+    "seed": 0
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    3.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 0,
+    "seed": 21
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    6.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 0,
+    "seed": 42
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    9.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 0,
+    "seed": 63
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    12.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 0,
+    "seed": 84
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    13.5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 8,
+    "cut": 0,
+    "seed": 91
+   }
+  },
+  {
+   "model": "kit/germanen/tuer",
+   "at": [
+    2,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "cut": 0,
+    "state": 0,
+    "seed": 3
+   }
+  },
+  {
+   "model": "kit/germanen/tuer",
+   "at": [
+    5,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "cut": 0,
+    "state": 1,
+    "seed": 4
+   }
+  },
+  {
+   "model": "kit/germanen/tuer",
+   "at": [
+    8,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "cut": 0,
+    "state": 2,
+    "seed": 5
+   }
+  },
+  {
+   "model": "kit/germanen/tuer",
+   "at": [
+    11,
+    0.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "cut": 0,
+    "state": 3,
+    "seed": 6
+   }
+  },
+  {
+   "model": "kit/germanen/wand_schwach",
+   "at": [
+    0.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 2,
+    "cut": 1,
+    "seed": 39,
+    "state": 0
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    3.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 1,
+    "seed": 60
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    6.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 1,
+    "seed": 81
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    9.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 1,
+    "seed": 102
+   }
+  },
+  {
+   "model": "kit/germanen/wand",
+   "at": [
+    12.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 1,
+    "seed": 123
+   }
+  },
+  {
+   "model": "kit/germanen/wand_schwach",
+   "at": [
+    13.5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 8,
+    "cut": 1,
+    "seed": 130,
+    "state": 1
+   }
+  },
+  {
+   "model": "kit/germanen/schott",
+   "at": [
+    2,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "cut": 1,
+    "state": 0,
+    "seed": 9
+   }
+  },
+  {
+   "model": "kit/germanen/schott",
+   "at": [
+    5,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "cut": 1,
+    "state": 1,
+    "seed": 10
+   }
+  },
+  {
+   "model": "kit/germanen/schott",
+   "at": [
+    8,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "cut": 1,
+    "state": 2,
+    "seed": 11
+   }
+  },
+  {
+   "model": "kit/germanen/schott",
+   "at": [
+    11,
+    3.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "cut": 1,
+    "state": 3,
+    "seed": 12
+   }
+  },
+  {
+   "model": "kit/germanen/luke",
+   "at": [
+    1.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "state": 0,
+    "conn": 0,
+    "seed": 4
+   }
+  },
+  {
+   "model": "kit/germanen/luke",
+   "at": [
+    3.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "state": 1,
+    "conn": 0,
+    "seed": 5
+   }
+  },
+  {
+   "model": "kit/germanen/deckung_halb",
+   "at": [
+    6.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 2,
+    "cut": 0,
+    "seed": 26
+   }
+  },
+  {
+   "model": "kit/germanen/deckung_halb",
+   "at": [
+    7.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 0,
+    "seed": 27
+   }
+  },
+  {
+   "model": "kit/germanen/deckung_halb",
+   "at": [
+    8.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 8,
+    "cut": 0,
+    "seed": 28
+   }
+  },
+  {
+   "model": "kit/germanen/deckung_voll",
+   "at": [
+    10.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 2,
+    "cut": 1,
+    "seed": 40
+   }
+  },
+  {
+   "model": "kit/germanen/deckung_voll",
+   "at": [
+    11.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 1,
+    "seed": 41
+   }
+  },
+  {
+   "model": "kit/germanen/deckung_voll",
+   "at": [
+    12.5,
+    5.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 8,
+    "cut": 1,
+    "seed": 42
+   }
+  },
+  {
+   "model": "kit/germanen/kante",
+   "at": [
+    1.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 2,
+    "cut": 1,
+    "seed": 41
+   }
+  },
+  {
+   "model": "kit/germanen/kante",
+   "at": [
+    2.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 1,
+    "seed": 42
+   }
+  },
+  {
+   "model": "kit/germanen/kante",
+   "at": [
+    3.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 1,
+    "seed": 43
+   }
+  },
+  {
+   "model": "kit/germanen/kante",
+   "at": [
+    4.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 10,
+    "cut": 1,
+    "seed": 44
+   }
+  },
+  {
+   "model": "kit/germanen/kante",
+   "at": [
+    5.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 8,
+    "cut": 1,
+    "seed": 45
+   }
+  },
+  {
+   "model": "kit/germanen/deckung_halb",
+   "at": [
+    8.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 0,
+    "cut": 0,
+    "seed": 50
+   }
+  },
+  {
+   "model": "kit/germanen/deckung_voll",
+   "at": [
+    11.5,
+    7.5
+   ],
+   "lift": 0.25,
+   "params": {
+    "art": "station",
+    "zustand": 0,
+    "conn": 0,
+    "cut": 1,
+    "seed": 51
+   }
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    7,
+    0.8,
+    5
+   ],
+   "dist": 18.2,
+   "elev": 50,
+   "az": 20,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    7,
+    0.5,
+    5.3
+   ],
+   "dist": 16.8,
+   "elev": 70,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    7,
+    1.2,
+    0.8
+   ],
+   "dist": 9.5,
+   "elev": 20,
+   "az": 0,
+   "fov": 36
+  },
+  "schotte": {
+   "target": [
+    7,
+    0.9,
+    3.6
+   ],
+   "dist": 9.5,
+   "elev": 24,
+   "az": 0,
+   "fov": 36
+  }
+ }
+}
