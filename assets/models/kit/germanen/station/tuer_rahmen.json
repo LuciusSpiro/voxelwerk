@@ -183,8 +183,8 @@
     "d"
    ],
    "color": {
-    "shade": "copper_dark",
-    "f": "0.9 * dk"
+    "shade": "metal_dark",
+    "f": "0.8 * dk"
    },
    "mode": "paint",
    "if": "teil == 1"

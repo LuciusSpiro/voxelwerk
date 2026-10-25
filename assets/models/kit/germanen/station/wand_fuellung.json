@@ -123,31 +123,11 @@
     "d"
    ],
    "color": {
-    "shade": "metal",
+    "shade": "metal_dark",
     "f": "dk"
    },
    "mode": "paint",
    "if": "w >= 4"
-  },
-  {
-   "name": "Niete oben",
-   "op": "box",
-   "at": [
-    0,
-    "h - 3",
-    0
-   ],
-   "size": [
-    1,
-    1,
-    "d"
-   ],
-   "color": {
-    "shade": "copper",
-    "f": "dk"
-   },
-   "mode": "paint",
-   "if": "w >= 4 && h >= 6"
   },
   {
    "name": "Niete Mitte",
@@ -170,41 +150,21 @@
    "if": "w >= 4 && h >= 6"
   },
   {
-   "name": "Niete (niedrig)",
+   "name": "Glutschlitz",
    "op": "box",
    "at": [
-    0,
-    1,
+    2,
+    "floor(h / 2) - 1",
     0
    ],
    "size": [
     1,
-    1,
-    "d"
-   ],
-   "color": {
-    "shade": "copper",
-    "f": "dk"
-   },
-   "mode": "paint",
-   "if": "w >= 4 && h >= 3 && h < 6"
-  },
-  {
-   "name": "Glutfuge",
-   "op": "box",
-   "at": [
-    "hash(seed, 4) < 0.5 ? 2 : 1",
-    1,
-    0
-   ],
-   "size": [
-    1,
-    "h - 2",
+    "min(3, h - 2)",
     "d"
    ],
    "color": {
     "role": "ember",
-    "emit": 0.5
+    "emit": 0.9
    },
    "mode": "paint",
    "if": "h >= 3 && w >= 4 && zustand < 2 && hash(seed, 9) < 0.3"

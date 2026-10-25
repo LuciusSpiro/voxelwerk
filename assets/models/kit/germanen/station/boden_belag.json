@@ -1,6 +1,6 @@
 {
  "id": "kit/germanen/station/boden_belag",
- "name": "Station - boden_belag (ORT-01 K1): hellere Eisenplatte mit Kupferfuge (0), Gitterrost über Glut (1), Eisenplanken (2), Schmuckplatte mit Kupferrahmen und Runenpunkt (3)",
+ "name": "Station - boden_belag (ORT-01 K1): hellere Eisenplatte mit Kupferfuge (0), Gitterrost über Glut (1), Eisenplanken (2), Schmuckplatte hell mit Runenpunkt, Kupferraster über boden_fuge (3)",
  "tier": "architecture",
  "palette": "nord",
  "tags": [
@@ -89,46 +89,6 @@
     "shade": "primary",
     "f": "0.95 * dk"
    },
-   "if": "belag == 0"
-  },
-  {
-   "name": "Platte Fuge",
-   "op": "box",
-   "at": [
-    0,
-    "h - 1",
-    0
-   ],
-   "size": [
-    "w",
-    1,
-    1
-   ],
-   "color": {
-    "shade": "copper_dark",
-    "f": "dk"
-   },
-   "mode": "paint",
-   "if": "belag == 0"
-  },
-  {
-   "name": "Platte Fuge W",
-   "op": "box",
-   "at": [
-    0,
-    "h - 1",
-    0
-   ],
-   "size": [
-    1,
-    1,
-    "d"
-   ],
-   "color": {
-    "shade": "copper_dark",
-    "f": "dk"
-   },
-   "mode": "paint",
    "if": "belag == 0"
   },
   {
@@ -229,26 +189,6 @@
    "if": "belag == 2"
   },
   {
-   "name": "Planken Fuge",
-   "op": "box",
-   "at": [
-    0,
-    "h - 1",
-    0
-   ],
-   "size": [
-    "w",
-    1,
-    1
-   ],
-   "color": {
-    "shade": "copper_dark",
-    "f": "dk"
-   },
-   "mode": "paint",
-   "if": "belag == 2"
-  },
-  {
    "name": "Schmuckplatte",
    "op": "box",
    "at": [
@@ -262,16 +202,18 @@
     "d"
    ],
    "color": {
-    "frame": {
-     "shade": "copper_dark",
-     "f": "dk"
-    },
-    "fill": {
-     "shade": "primary",
-     "f": "dk"
-    },
-    "axes": "xz",
-    "width": 1
+    "stripes": [
+     {
+      "shade": "metal_light",
+      "f": "0.95 * dk"
+     },
+     {
+      "shade": "metal_light",
+      "f": "0.85 * dk"
+     }
+    ],
+    "axis": "x",
+    "period": 2
    },
    "if": "belag == 3"
   },

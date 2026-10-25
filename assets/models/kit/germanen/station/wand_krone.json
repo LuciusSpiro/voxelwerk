@@ -1,6 +1,6 @@
 {
  "id": "kit/germanen/station/wand_krone",
- "name": "Station - wand_krone (ORT-01 K1): Kupferkrone mit Glutband (Glutfuge Wandkrone) und hellem Rand an freien Seiten",
+ "name": "Station - wand_krone (ORT-01 K1): Eisenkrone mit Glutband als Linie (Glutfuge Wandkrone) und hellem Rand an freien Seiten",
  "tier": "architecture",
  "palette": "nord",
  "tags": [
@@ -99,7 +99,7 @@
     "d"
    ],
    "color": {
-    "shade": "copper_dark",
+    "shade": "metal_dark",
     "f": "0.95 * dk"
    }
   },
@@ -119,8 +119,8 @@
    ],
    "mode": "paint",
    "color": {
-    "shade": "copper",
-    "f": "0.85 * dk"
+    "shade": "metal",
+    "f": "0.9 * dk"
    }
   },
   {
@@ -139,8 +139,8 @@
    ],
    "mode": "paint",
    "color": {
-    "shade": "copper",
-    "f": "0.85 * dk"
+    "shade": "metal",
+    "f": "0.9 * dk"
    }
   },
   {
