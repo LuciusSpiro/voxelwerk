@@ -1,0 +1,174 @@
+{
+ "id": "ort-3a-kranken",
+ "name": "ORT-01 3a Rom: Krankenstation",
+ "palette": "rom",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#D9CFBA",
+    "fill": "#2A2A2E"
+   },
+   "b": {
+    "h": 1,
+    "top": "#B9AE98",
+    "fill": "#2A2A2E"
+   },
+   "c": {
+    "h": 1,
+    "top": "#6A6864",
+    "fill": "#2A2A2E"
+   },
+   "d": {
+    "h": 1,
+    "top": "#5A5854",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa"
+  ],
+  "heights": [
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/rom/station/wand",
+   "at": [
+    5.0,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   }
+  },
+  {
+   "model": "ort/rom/station/wand",
+   "at": [
+    0.25,
+    4.0
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   }
+  },
+  {
+   "model": "ort/rom/station/medliege",
+   "at": [
+    2.3,
+    1.1
+   ]
+  },
+  {
+   "model": "ort/rom/station/medliege",
+   "at": [
+    2.3,
+    3.1
+   ]
+  },
+  {
+   "model": "ort/rom/station/scansaeule",
+   "at": [
+    4.9,
+    1.4
+   ]
+  },
+  {
+   "model": "ort/rom/station/medamphore",
+   "at": [
+    3.9,
+    3.0
+   ]
+  },
+  {
+   "model": "ort/rom/station/spind",
+   "at": [
+    6.5,
+    1.0
+   ],
+   "params": {
+    "med": 1
+   }
+  },
+  {
+   "model": "ort/rom/station/spind",
+   "at": [
+    7.5,
+    1.0
+   ],
+   "params": {
+    "med": 1
+   }
+  },
+  {
+   "model": "rom/laterne",
+   "at": [
+    9.0,
+    1.0
+   ]
+  },
+  {
+   "model": "ort/rom/gemein/medkiste",
+   "at": [
+    6.3,
+    4.5
+   ],
+   "rot": 15
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    5.0,
+    0.8,
+    4.0
+   ],
+   "dist": 12.5,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    5.0,
+    0.5,
+    3.3
+   ],
+   "dist": 11.0,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    3.5,
+    0.8,
+    2.2
+   ],
+   "dist": 6.5,
+   "elev": 30,
+   "az": 25,
+   "fov": 36
+  }
+ }
+}

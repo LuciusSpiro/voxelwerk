@@ -1,0 +1,307 @@
+{
+ "id": "ort-3a-lager",
+ "name": "ORT-01 3a Rom: Lager (rechts germanisches Gegenstück)",
+ "palette": "rom",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#D9CFBA",
+    "fill": "#2A2A2E"
+   },
+   "b": {
+    "h": 1,
+    "top": "#B9AE98",
+    "fill": "#2A2A2E"
+   },
+   "c": {
+    "h": 1,
+    "top": "#6A6864",
+    "fill": "#2A2A2E"
+   },
+   "d": {
+    "h": 1,
+    "top": "#5A5854",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "abababababcdcdcdcdcd",
+   "bababababadcdcdcdcdc",
+   "abababababcdcdcdcdcd",
+   "bababababadcdcdcdcdc",
+   "abababababcdcdcdcdcd",
+   "bababababadcdcdcdcdc",
+   "abababababcdcdcdcdcd",
+   "bababababadcdcdcdcdc"
+  ],
+  "heights": [
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111",
+   "11111111111111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/rom/station/wand",
+   "at": [
+    5.0,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   }
+  },
+  {
+   "model": "ort/rom/station/wand",
+   "at": [
+    0.25,
+    4.0
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   }
+  },
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    15.0,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   },
+   "palette": "nord"
+  },
+  {
+   "model": "ort/germanen/station/wand",
+   "at": [
+    10.25,
+    4.0
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   },
+   "palette": "nord"
+  },
+  {
+   "model": "ort/rom/gemein/zellenarkade",
+   "at": [
+    2,
+    1.0
+   ],
+   "params": {
+    "belegt": 2
+   },
+   "colors": {
+    "glow": "glow2"
+   }
+  },
+  {
+   "model": "rom/energiezelle",
+   "at": [
+    1.375,
+    1.0
+   ],
+   "colors": {
+    "glow": "glow2"
+   }
+  },
+  {
+   "model": "rom/energiezelle",
+   "at": [
+    2,
+    1.0
+   ],
+   "colors": {
+    "glow": "glow2"
+   }
+  },
+  {
+   "model": "ort/rom/station/frachtregal",
+   "at": [
+    4.2,
+    1.0
+   ]
+  },
+  {
+   "model": "ort/rom/station/ladebank",
+   "at": [
+    6.4,
+    1.0
+   ],
+   "params": {
+    "belegt": 2
+   }
+  },
+  {
+   "model": "ort/rom/station/kran",
+   "at": [
+    8.5,
+    1.1
+   ]
+  },
+  {
+   "model": "rom/kiste",
+   "at": [
+    8.4,
+    4.8
+   ],
+   "rot": 15
+  },
+  {
+   "model": "rom/kiste",
+   "at": [
+    7.6,
+    5.4
+   ],
+   "rot": -20,
+   "params": {
+    "w": 16
+   }
+  },
+  {
+   "model": "rom/energiezelle",
+   "at": [
+    3.2,
+    5.2
+   ],
+   "params": {
+    "charge": 3
+   },
+   "colors": {
+    "glow": "glow2"
+   }
+  },
+  {
+   "model": "rom/energiezelle",
+   "at": [
+    3.9,
+    5.5
+   ],
+   "params": {
+    "charge": 1
+   },
+   "colors": {
+    "glow": "glow2"
+   }
+  },
+  {
+   "model": "rom/energiezelle",
+   "at": [
+    4.5,
+    5.1
+   ],
+   "params": {
+    "charge": 0
+   },
+   "colors": {
+    "glow": "glow2"
+   }
+  },
+  {
+   "model": "ort/germanen/gemein/fassregal",
+   "at": [
+    12,
+    0.9
+   ],
+   "palette": "nord"
+  },
+  {
+   "model": "prop/germanen/station/regal",
+   "at": [
+    14.2,
+    1.0
+   ],
+   "palette": "nord"
+  },
+  {
+   "model": "prop/germanen/gemein/kiste_stapel",
+   "at": [
+    18.4,
+    4.8
+   ],
+   "rot": 15,
+   "palette": "nord"
+  },
+  {
+   "model": "ort/germanen/gemein/fasszelle",
+   "at": [
+    13.2,
+    5.2
+   ],
+   "params": {
+    "charge": 3
+   },
+   "palette": "nord"
+  },
+  {
+   "model": "ort/germanen/gemein/fasszelle",
+   "at": [
+    13.9,
+    5.5
+   ],
+   "params": {
+    "charge": 1
+   },
+   "palette": "nord"
+  },
+  {
+   "model": "ort/germanen/gemein/fasszelle",
+   "at": [
+    14.5,
+    5.1
+   ],
+   "params": {
+    "charge": 0
+   },
+   "palette": "nord"
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    10.0,
+    0.8,
+    4.0
+   ],
+   "dist": 25.0,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    10.0,
+    0.5,
+    3.3
+   ],
+   "dist": 22.0,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    5.0,
+    0.9,
+    2.0
+   ],
+   "dist": 6.5,
+   "elev": 30,
+   "az": 18,
+   "fov": 36
+  }
+ }
+}

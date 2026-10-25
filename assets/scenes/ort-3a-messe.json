@@ -1,0 +1,178 @@
+{
+ "id": "ort-3a-messe",
+ "name": "ORT-01 3a Rom: Messe",
+ "palette": "rom",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "#D9CFBA",
+    "fill": "#2A2A2E"
+   },
+   "b": {
+    "h": 1,
+    "top": "#B9AE98",
+    "fill": "#2A2A2E"
+   },
+   "c": {
+    "h": 1,
+    "top": "#6A6864",
+    "fill": "#2A2A2E"
+   },
+   "d": {
+    "h": 1,
+    "top": "#5A5854",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa",
+   "ababababab",
+   "bababababa"
+  ],
+  "heights": [
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/rom/station/wand",
+   "at": [
+    5.0,
+    0.25
+   ],
+   "params": {
+    "len": 40
+   }
+  },
+  {
+   "model": "ort/rom/station/wand",
+   "at": [
+    0.25,
+    4.0
+   ],
+   "rot": 90,
+   "params": {
+    "len": 32
+   }
+  },
+  {
+   "model": "ort/rom/station/amphorenspender",
+   "at": [
+    1.6,
+    1.0
+   ]
+  },
+  {
+   "model": "ort/rom/station/kuehlamphore",
+   "at": [
+    2.8,
+    1.0
+   ]
+  },
+  {
+   "model": "rom/laterne",
+   "at": [
+    8.8,
+    1.0
+   ]
+  },
+  {
+   "model": "ort/rom/station/messetafel",
+   "at": [
+    5.6,
+    4.0
+   ]
+  },
+  {
+   "model": "ort/rom/station/bank",
+   "at": [
+    5.6,
+    2.7
+   ]
+  },
+  {
+   "model": "ort/rom/station/bank",
+   "at": [
+    5.6,
+    5.4
+   ],
+   "rot": 180
+  },
+  {
+   "model": "ort/rom/gemein/rationsbehaelter",
+   "at": [
+    4.3,
+    4.0
+   ],
+   "lift": 0.94
+  },
+  {
+   "model": "ort/rom/gemein/rationsbehaelter",
+   "at": [
+    5.7,
+    3.8
+   ],
+   "lift": 0.94
+  },
+  {
+   "model": "ort/rom/gemein/rationsbehaelter",
+   "at": [
+    7.0,
+    4.2
+   ],
+   "lift": 0.94
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    5.0,
+    0.8,
+    4.0
+   ],
+   "dist": 12.5,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    5.0,
+    0.5,
+    3.3
+   ],
+   "dist": 11.0,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    5.0,
+    0.7,
+    3.8
+   ],
+   "dist": 6.5,
+   "elev": 32,
+   "az": 20,
+   "fov": 36
+  }
+ }
+}
