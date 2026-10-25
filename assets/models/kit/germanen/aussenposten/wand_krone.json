@@ -1,0 +1,34 @@
+{
+  "id": "kit/germanen/aussenposten/wand_krone",
+  "name": "Außenposten Stabbau – wand_krone: dunkle Eisenkrone mit Kupferrand und durchlaufender Glutfuge (von oben die Linie des Hauses)",
+  "tier": "architecture",
+  "palette": "nord",
+  "tags": ["germanen", "aussenposten", "slot", "stabbau", "ort01"],
+  "notes": "ORT-01 K1 (Gruppe 2b). Füllt die ganze Kachel oben (Naht). Die Glutfuge läuft wie die Wand (conn), emit 0,5, umkämpft erloschen.",
+  "jitter": 0,
+  "params": {
+    "w": { "default": 4, "min": 1, "max": 16, "step": 1, "label": "Breite (Voxel)" },
+    "h": { "default": 1, "min": 1, "max": 16, "step": 1, "label": "Höhe (Voxel)" },
+    "d": { "default": 4, "min": 1, "max": 4, "step": 1, "label": "Tiefe (Voxel)" },
+    "zustand": { "default": 0, "min": 0, "max": 2, "step": 1, "label": "0 intakt · 1 verfallen · 2 umkämpft" },
+    "conn": { "default": 10, "min": 0, "max": 15, "step": 1, "label": "Nachbarn (N1 O2 S4 W8)" }
+  },
+  "let": {
+    "dk": "1 - zustand * 0.1",
+    "em": "zustand < 2 ? 0.5 : 0",
+    "cn": "floor(conn) % 2", "ce": "floor(conn / 2) % 2", "cs": "floor(conn / 4) % 2", "cw": "floor(conn / 8) % 2",
+    "bz": "cn || cs", "bx": "ce || cw || !(cn || cs)"
+  },
+  "variants": { "nord_sued": { "conn": 5 }, "ecke": { "conn": 6 }, "kreuz": { "conn": 15 }, "umkaempft": { "zustand": 2, "seed": 2 } },
+  "ops": [
+    { "name": "Krone Eisen", "op": "box", "at": [0, 0, 0], "size": ["w", "h", "d"], "color": { "shade": "metal_dark", "f": "0.85 * dk" } },
+    { "name": "Kupferrand N", "op": "box", "at": [0, 0, 0], "size": ["w", "h", 1], "mode": "paint", "color": { "shade": "copper_dark", "f": "dk" }, "if": "!cn" },
+    { "name": "Kupferrand S", "op": "box", "at": [0, 0, "d - 1"], "size": ["w", "h", 1], "mode": "paint", "color": { "shade": "copper_dark", "f": "dk" }, "if": "!cs" },
+    { "name": "Kupferrand W", "op": "box", "at": [0, 0, 0], "size": [1, "h", "d"], "mode": "paint", "color": { "shade": "copper_dark", "f": "dk" }, "if": "!cw" },
+    { "name": "Kupferrand O", "op": "box", "at": ["w - 1", 0, 0], "size": [1, "h", "d"], "mode": "paint", "color": { "shade": "copper_dark", "f": "dk" }, "if": "!ce" },
+    { "name": "Glutfuge entlang x", "op": "box", "at": [0, "h - 1", "floor(d / 2) - 1"], "size": ["w", 1, 2], "mode": "paint", "color": { "role": "ember", "emit": "em" }, "if": "bx && d >= 3 && zustand < 2" },
+    { "name": "Glutfuge entlang z", "op": "box", "at": ["floor(w / 2) - 1", "h - 1", 0], "size": [2, 1, "d"], "mode": "paint", "color": { "role": "ember", "emit": "em" }, "if": "bz && w >= 3 && zustand < 2" },
+    { "name": "Ruß (umkämpft)", "op": "box", "at": [0, 0, 0], "size": ["w", "h", "d"], "mode": "paint", "color": { "noise": [{ "shade": "metal_dark", "f": 0.7 }, "dark", { "shade": "metal_dark", "f": 0.85 }], "weights": [3, 1, 2], "seed": "seed" }, "if": "zustand == 2" }
+  ],
+  "anchor": [0, 0, 0]
+}
