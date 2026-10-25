@@ -44,7 +44,7 @@
    "min": 0,
    "max": 3,
    "step": 1,
-   "label": "0 Gunmetal-Marmor · 1 Gitterrost · 2 Amber-Rinnenplatte · 3 Schmuckplatte"
+   "label": "0 Gunmetal-Marmor · 1 Gitterrost · 2 Amber-Rinnenplatte (nur Gänge/Rinnenzonen) · 3 Schmuckplatte"
   }
  },
  "ops": [
@@ -64,25 +64,6 @@
    "color": {
     "shade": "metal",
     "f": "1 * (0.74 + hash(seed, 1) * 0.07) * (1 - zustand * 0.08)"
-   },
-   "if": "belag == 0"
-  },
-  {
-   "name": "Goldnagel",
-   "op": "box",
-   "at": [
-    0,
-    0,
-    0
-   ],
-   "size": [
-    1,
-    "h",
-    1
-   ],
-   "color": {
-    "shade": "trim",
-    "f": "0.9 * (1 - zustand * 0.08)"
    },
    "if": "belag == 0"
   },
@@ -148,7 +129,8 @@
     2
    ],
    "color": {
-    "role": "glow2",
+    "shade": "#FFA21A",
+    "f": 1,
     "emit": "zustand == 2 ? 0.25 : 0.6"
    },
    "jitter": false,

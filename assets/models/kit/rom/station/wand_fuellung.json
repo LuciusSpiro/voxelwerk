@@ -1,6 +1,6 @@
 {
  "id": "kit/rom/station/wand_fuellung",
- "name": "Rom-Station wand_fuellung: Rotband, Goldfries, Marmorfeld mit Feldrahmen; je Seed Pilaster oder Amber-Abgriff",
+ "name": "Rom-Station wand_fuellung: Rotband 3 Voxel, Goldfries; je Seed Marmorfeld, Gunmetal-Technikfeld mit Amber-Anzeige oder Travertin-Pilaster",
  "tier": "architecture",
  "palette": "rom",
  "tags": [
@@ -69,7 +69,7 @@
    ],
    "size": [
     "w",
-    1,
+    "h >= 7 ? 2 : 1",
     "d"
    ],
    "color": {
@@ -83,7 +83,7 @@
    "op": "box",
    "at": [
     0,
-    1,
+    "h >= 7 ? 2 : 1",
     0
    ],
    "size": [
@@ -98,7 +98,7 @@
    "if": "h >= 3"
   },
   {
-   "name": "Feldrahmen",
+   "name": "Technikfeld",
    "op": "box",
    "at": [
     0,
@@ -107,23 +107,35 @@
    ],
    "size": [
     "w",
-    "h - 3",
+    "h - 4",
     "d"
    ],
    "color": {
-    "frame": {
-     "shade": "stone",
-     "f": "0.97 * (1 - zustand * 0.08)"
-    },
-    "fill": {
-     "shade": "secondary",
-     "f": "1 * (1 - zustand * 0.08)"
-    },
-    "axes": "xy",
-    "width": 1
+    "shade": "metal_dark",
+    "f": "1.15 * (1 - zustand * 0.08)"
    },
-   "mode": "paint",
-   "if": "h >= 7 && w >= 3"
+   "if": "h >= 7 && w >= 4 && hash(seed, 1) >= 0.35 && hash(seed, 1) < 0.7"
+  },
+  {
+   "name": "Technikfeld Anzeige",
+   "op": "box",
+   "at": [
+    1,
+    5,
+    0
+   ],
+   "size": [
+    2,
+    1,
+    "d"
+   ],
+   "color": {
+    "shade": "#FFA21A",
+    "f": 1,
+    "emit": "zustand == 2 ? 0.25 : 0.6"
+   },
+   "jitter": false,
+   "if": "h >= 7 && w >= 4 && hash(seed, 1) >= 0.35 && hash(seed, 1) < 0.7 && zustand < 2"
   },
   {
    "name": "Pilaster",
@@ -139,10 +151,10 @@
     "d"
    ],
    "color": {
-    "shade": "stone_dark",
-    "f": "1.05 * (1 - zustand * 0.08)"
+    "shade": "stone",
+    "f": "0.98 * (1 - zustand * 0.08)"
    },
-   "if": "h >= 7 && w >= 4 && hash(seed, 1) < 0.35"
+   "if": "h >= 7 && w >= 4 && hash(seed, 1) >= 0.7"
   },
   {
    "name": "Pilaster Kapitell",
@@ -161,46 +173,7 @@
     "shade": "trim",
     "f": "1 * (1 - zustand * 0.08)"
    },
-   "if": "h >= 7 && w >= 4 && hash(seed, 1) < 0.35"
-  },
-  {
-   "name": "Abgriff Rahmen",
-   "op": "box",
-   "at": [
-    1,
-    4,
-    0
-   ],
-   "size": [
-    2,
-    2,
-    "d"
-   ],
-   "color": {
-    "shade": "trim",
-    "f": "1 * (1 - zustand * 0.08)"
-   },
-   "if": "h >= 8 && w >= 4 && hash(seed, 1) >= 0.35 && hash(seed, 2) < 0.2"
-  },
-  {
-   "name": "Abgriff",
-   "op": "box",
-   "at": [
-    1,
-    4,
-    0
-   ],
-   "size": [
-    2,
-    1,
-    "d"
-   ],
-   "color": {
-    "role": "glow2",
-    "emit": 0.6
-   },
-   "jitter": false,
-   "if": "h >= 8 && w >= 4 && hash(seed, 1) >= 0.35 && hash(seed, 2) < 0.2 && zustand < 2"
+   "if": "h >= 7 && w >= 4 && hash(seed, 1) >= 0.7"
   },
   {
    "name": "Ruß",
@@ -228,9 +201,9 @@
     ],
     "weights": [
      1,
-     4
+     6
     ],
-    "cell": 1,
+    "cell": 2,
     "seed": "seed"
    },
    "mode": "paint",

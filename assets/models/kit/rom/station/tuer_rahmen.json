@@ -95,8 +95,9 @@
     2
    ],
    "color": {
-    "role": "glow2",
-    "emit": "zustand == 2 ? 0.25 : 0.5"
+    "shade": "#FFA21A",
+    "f": 1,
+    "emit": "zustand == 2 ? 0.25 : 0.6"
    },
    "jitter": false,
    "if": "teil == 0 && state != 3"
@@ -191,16 +192,8 @@
     "d"
    ],
    "color": {
-    "frame": {
-     "shade": "trim",
-     "f": "1 * (1 - zustand * 0.08)"
-    },
-    "fill": {
-     "shade": "stone_light",
-     "f": "1 * (1 - zustand * 0.08)"
-    },
-    "axes": "xz",
-    "width": 1
+    "shade": "stone_light",
+    "f": "1.05 * (1 - zustand * 0.08)"
    },
    "if": "teil == 1 && h >= 3"
   },
@@ -218,7 +211,8 @@
     2
    ],
    "color": {
-    "role": "glow2",
+    "shade": "#FFA21A",
+    "f": 1,
     "emit": "zustand == 2 ? 0.25 : 0.6"
    },
    "jitter": false,

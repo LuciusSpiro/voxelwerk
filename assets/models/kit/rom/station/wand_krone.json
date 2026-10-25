@@ -79,7 +79,8 @@
     1
    ],
    "color": {
-    "role": "glow2",
+    "shade": "#FFA21A",
+    "f": 1,
     "emit": "zustand == 2 ? 0.25 : 0.6"
    },
    "jitter": false,
@@ -99,7 +100,8 @@
     1
    ],
    "color": {
-    "role": "glow2",
+    "shade": "#FFA21A",
+    "f": 1,
     "emit": "zustand == 2 ? 0.25 : 0.6"
    },
    "jitter": false,
@@ -119,7 +121,8 @@
     4
    ],
    "color": {
-    "role": "glow2",
+    "shade": "#FFA21A",
+    "f": 1,
     "emit": "zustand == 2 ? 0.25 : 0.6"
    },
    "jitter": false,
@@ -139,7 +142,8 @@
     4
    ],
    "color": {
-    "role": "glow2",
+    "shade": "#FFA21A",
+    "f": 1,
     "emit": "zustand == 2 ? 0.25 : 0.6"
    },
    "jitter": false,

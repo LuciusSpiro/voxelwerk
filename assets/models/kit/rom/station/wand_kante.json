@@ -1,6 +1,6 @@
 {
  "id": "kit/rom/station/wand_kante",
- "name": "Rom-Station wand_kante: Eckpilaster, Marmor mit Rotband, Goldfries und Kapitell",
+ "name": "Rom-Station wand_kante: Eckpilaster, Marmor mit Gunmetal-Fuß, Rotband, Goldfries und Kapitell",
  "tier": "architecture",
  "palette": "rom",
  "tags": [
@@ -87,21 +87,21 @@
    ],
    "size": [
     "w",
-    1,
+    2,
     "d"
    ],
    "color": {
     "shade": "primary",
     "f": "1 * (1 - zustand * 0.08)"
    },
-   "if": "h >= 4"
+   "if": "h >= 5"
   },
   {
    "name": "Goldfries",
    "op": "box",
    "at": [
     0,
-    2,
+    3,
     0
    ],
    "size": [
@@ -113,7 +113,7 @@
     "shade": "trim",
     "f": "1 * (1 - zustand * 0.08)"
    },
-   "if": "h >= 4"
+   "if": "h >= 5"
   },
   {
    "name": "Kapitell",
