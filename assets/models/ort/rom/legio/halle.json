@@ -1,0 +1,295 @@
+{
+ "id": "ort/rom/legio/halle",
+ "name": "Principia-Halle (Rom, Richtung Legio): Gunmetal-Kasernenbau, Tonnendach aus überlappenden Segmentplatten, Schildtor, Feldlicht",
+ "tier": "architecture",
+ "palette": "rom",
+ "jitter": 0,
+ "tags": [
+  "bau",
+  "rom",
+  "aussenposten",
+  "kommando",
+  "ort01"
+ ],
+ "footprint": [
+  8,
+  5
+ ],
+ "params": {
+  "licht": {
+   "default": 1,
+   "min": 0,
+   "max": 1,
+   "step": 1,
+   "label": "Feldlicht"
+  }
+ },
+ "ops": [
+  {
+   "op": "group",
+   "name": "Tonnendach",
+   "rot": 90,
+   "ops": [
+    {
+     "op": "loft",
+     "name": "Tonne",
+     "color": "metal",
+     "sections": [
+      {
+       "z": -17,
+       "w": 22,
+       "up": 8,
+       "down": 8,
+       "y": 11,
+       "round": 1
+      },
+      {
+       "z": 17,
+       "w": 22,
+       "up": 8,
+       "down": 8,
+       "y": 11,
+       "round": 1
+      }
+     ]
+    },
+    {
+     "op": "box",
+     "name": "Segmentringe",
+     "mode": "paint",
+     "at": [
+      -12,
+      11,
+      "-17 + i*4"
+     ],
+     "size": [
+      24,
+      9,
+      1
+     ],
+     "color": "trim",
+     "repeat": {
+      "count": 9,
+      "var": "i",
+      "step": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "op": "box",
+     "name": "Firstband",
+     "mode": "paint",
+     "at": [
+      -1,
+      11,
+      -17
+     ],
+     "size": [
+      2,
+      9,
+      34
+     ],
+     "color": "primary"
+    }
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Dach unten frei",
+   "mode": "carve",
+   "at": [
+    -18,
+    0,
+    -12
+   ],
+   "size": [
+    36,
+    11,
+    24
+   ]
+  },
+  {
+   "op": "box",
+   "name": "Fundament",
+   "at": [
+    -17,
+    0,
+    -11
+   ],
+   "size": [
+    34,
+    1,
+    22
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Wände",
+   "at": [
+    -16,
+    1,
+    -10
+   ],
+   "size": [
+    32,
+    10,
+    20
+   ],
+   "color": "metal"
+  },
+  {
+   "op": "box",
+   "name": "Wandsockel",
+   "at": [
+    -16,
+    1,
+    -10
+   ],
+   "size": [
+    32,
+    2,
+    20
+   ],
+   "color": "metal_dark",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Pfeiler",
+   "at": [
+    "-16 + i*6",
+    1,
+    10
+   ],
+   "size": [
+    2,
+    10,
+    1
+   ],
+   "color": "metal_dark",
+   "repeat": {
+    "count": 6,
+    "var": "i",
+    "step": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "op": "box",
+   "name": "Schildfelder",
+   "at": [
+    "-14 + i*6",
+    3,
+    10
+   ],
+   "size": [
+    4,
+    6,
+    1
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "primary",
+    "axes": "xy",
+    "width": 1
+   },
+   "repeat": {
+    "count": 5,
+    "var": "i",
+    "step": [
+     0,
+     0,
+     0
+    ]
+   },
+   "if": "1"
+  },
+  {
+   "op": "box",
+   "name": "Tor",
+   "at": [
+    -3,
+    1,
+    10
+   ],
+   "size": [
+    6,
+    8,
+    1
+   ],
+   "color": "metal_dark"
+  },
+  {
+   "op": "box",
+   "name": "Torflügel",
+   "at": [
+    -3,
+    1,
+    11
+   ],
+   "size": [
+    3,
+    7,
+    1
+   ],
+   "color": {
+    "frame": "trim",
+    "fill": "primary",
+    "axes": "xy",
+    "width": 1
+   },
+   "mirror": "x",
+   "mirrorAt": 0
+  },
+  {
+   "op": "box",
+   "name": "Torlicht",
+   "if": "licht",
+   "at": [
+    -3,
+    9,
+    11
+   ],
+   "size": [
+    6,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 0.9
+   }
+  },
+  {
+   "op": "box",
+   "name": "Feldfuge",
+   "if": "licht",
+   "at": [
+    -16,
+    10,
+    10
+   ],
+   "size": [
+    32,
+    1,
+    1
+   ],
+   "color": {
+    "role": "glow",
+    "emit": 0.6
+   }
+  }
+ ],
+ "anchor": [
+  0,
+  0,
+  0
+ ]
+}

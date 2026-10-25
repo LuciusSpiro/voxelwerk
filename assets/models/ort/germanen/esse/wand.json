@@ -1,0 +1,24 @@
+{
+  "id": "ort/germanen/esse/wand",
+  "name": "Stationswand (Germanen, Richtung Esse): geklinkerte Eisenplanken, Rostnieten an Eisenpfosten, Glut-Heizfuge, Runen-Schaltband oben",
+  "tier": "architecture",
+  "palette": "nord",
+  "jitter": 0,
+  "tags": ["bau", "germanen", "station", "ort01"],
+  "footprint": [4, 0.5],
+  "params": {
+    "len": { "default": 16, "min": 4, "max": 64, "step": 4, "label": "Länge (Voxel, 4 = 1 m)" }
+  },
+  "ops": [
+    { "op": "box", "name": "Kern", "at": ["-len/2", 0, -1], "size": ["len", 12, 2], "color": "metal_dark" },
+    { "op": "box", "name": "Planken", "at": ["-len/2", 1, 1], "size": ["len", 9, 1], "color": { "stripes": ["metal", "primary"], "axis": "y", "period": 3 } },
+    { "op": "box", "name": "Plankenfugen", "at": ["-len/2", "1 + i*3", 1], "size": ["len", 1, 1], "color": "dark", "repeat": { "count": 3, "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Glut-Heizfuge", "at": ["-len/2", 3, 1], "size": ["len", 1, 1], "color": { "role": "ember", "emit": 1.1 } },
+    { "op": "box", "name": "Pfosten", "at": ["-len/2 + 3 + i*8", 0, 1], "size": [2, 11, 1], "color": "metal_dark", "repeat": { "count": "floor(len/8)", "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Pfosten Nieten", "at": ["-len/2 + 3 + i*8", 5, 2], "size": [2, 1, 1], "color": "copper", "repeat": { "count": "floor(len/8)", "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Sockel", "at": ["-len/2", 0, 1], "size": ["len", 1, 1], "color": "stone_dark" },
+    { "op": "box", "name": "Runenband Träger", "at": ["-len/2", 10, -1], "size": ["len", 2, 3], "color": "metal_dark" },
+    { "op": "box", "name": "Runen", "at": ["-len/2 + 1 + i*8", 10, 2], "size": [1, 1, 1], "color": { "role": "rune_dim", "emit": 0.5 }, "repeat": { "count": "floor(len/8)", "var": "i", "step": [0, 0, 0] } }
+  ],
+  "anchor": [0, 0, 0]
+}

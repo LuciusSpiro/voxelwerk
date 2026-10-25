@@ -1,0 +1,29 @@
+{
+  "id": "ort/rom/legio/sensorturm",
+  "name": "Helmkamm-Sensorturm (Rom, Richtung Legio): Segmentturm, Sensorkopf als Helm, der Querkamm ist eine Antennenreihe",
+  "tier": "detail",
+  "palette": "rom",
+  "jitter": 0,
+  "tags": ["prop", "rom", "sensor", "wachturm", "aussenposten", "ort01"],
+  "footprint": [1, 1],
+  "params": {
+    "aktiv": { "default": 1, "min": 0, "max": 1, "step": 1, "label": "Sensor aktiv" }
+  },
+  "variants": { "aus": { "aktiv": 0 } },
+  "ops": [
+    { "op": "box", "name": "Fuß", "at": [-8, 0, -8], "size": [16, 3, 16], "color": "metal_dark" },
+    { "op": "box", "name": "Turm", "at": ["-6 + i*0.0", "3 + i*7", -6], "size": [12, 6, 12], "color": "primary", "repeat": { "count": 5, "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Segmentfuge", "at": [-7, "9 + i*7", -7], "size": [14, 1, 14], "color": "trim", "repeat": { "count": 5, "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Lisene", "at": [-1, 3, 6], "size": [2, 35, 1], "color": "metal_dark", "mirror": "z", "mirrorAt": 0 },
+    { "op": "box", "name": "Datenleitung", "at": [-1, 4, 7], "size": [2, 33, 1], "color": { "role": "glow", "emit": "aktiv ? 0.5 : 0" } },
+    { "op": "box", "name": "Halsring", "at": [-5, 38, -5], "size": [10, 2, 10], "color": "metal_dark" },
+    { "op": "ellipsoid", "name": "Helmkalotte", "at": [0, 40, 0], "r": [6, 6, 7], "half": "+y", "color": "trim" },
+    { "op": "box", "name": "Helmschirm", "at": [-6, 40, 4], "size": [12, 1, 4], "color": "trim" },
+    { "op": "box", "name": "Sehschlitz", "at": [-4, 41, 6], "size": [8, 2, 1], "color": { "role": "glow", "emit": "aktiv ? 1.3 : 0" } },
+    { "op": "box", "name": "Kammträger", "at": [-1, 45, -6], "size": [2, 2, 12], "color": "metal_dark" },
+    { "op": "box", "name": "Kammfinnen", "at": [-8, 47, -0.5], "size": [16, "4 + (i % 2)", 1], "color": "primary", "repeat": { "count": 1, "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Kamm Antennen", "at": ["-7 + i*2", 47, -1], "size": [1, "6 - abs(i - 3.5) * 0.6", 2], "color": "cloth", "repeat": { "count": 8, "var": "i", "step": [0, 0, 0] } },
+    { "op": "box", "name": "Kamm Spitzen", "at": ["-7 + i*2", "52 - abs(i - 3.5) * 0.6", -1], "size": [1, 1, 2], "color": { "role": "glow", "emit": "aktiv ? 1 : 0" }, "repeat": { "count": 8, "var": "i", "step": [0, 0, 0] } }
+  ],
+  "anchor": [0, 0, 0]
+}
