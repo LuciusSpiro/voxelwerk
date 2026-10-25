@@ -1,6 +1,6 @@
 {
   "id": "kit/rom/aussenposten/tuer_rahmen",
-  "name": "Rom Außenposten tuer_rahmen: Marmorschwelle mit Goldkante; Sturz mit rotem Band, Goldschlussstein",
+  "name": "Rom Außenposten tuer_rahmen: Marmorschwelle mit Goldkante und Torschiene; Sturz mit Gunmetal-Führungskasten, roter Anzeige-Leiste und Goldschlussstein (Zustand als Anzeige)",
   "tier": "architecture",
   "palette": "rom",
   "tags": [
@@ -80,6 +80,26 @@
       }
     },
     {
+      "name": "Torschiene",
+      "op": "box",
+      "if": "teil == 0",
+      "mode": "paint",
+      "at": [
+        0,
+        0,
+        1
+      ],
+      "size": [
+        "w",
+        1,
+        1
+      ],
+      "color": {
+        "shade": "metal_dark",
+        "f": "1 * (1 - zustand * 0.06)"
+      }
+    },
+    {
       "name": "Sturz",
       "op": "box",
       "if": "teil == 1",
@@ -96,6 +116,26 @@
       "color": {
         "shade": "secondary",
         "f": "1 * (1 - zustand * 0.06)"
+      }
+    },
+    {
+      "name": "Führungskasten",
+      "op": "box",
+      "if": "teil == 1",
+      "mode": "paint",
+      "at": [
+        0,
+        1,
+        0
+      ],
+      "size": [
+        "w",
+        "h - 1",
+        "d"
+      ],
+      "color": {
+        "shade": "metal_dark",
+        "f": "1.2 * (1 - zustand * 0.06)"
       }
     },
     {
@@ -136,6 +176,45 @@
       "color": {
         "shade": "trim",
         "f": "0.95 * (1 - zustand * 0.06)"
+      }
+    },
+    {
+      "name": "Anzeige offen",
+      "op": "box",
+      "if": "teil == 1 && h >= 3 && state == 0",
+      "at": [
+        "floor(w / 2) - 1",
+        1,
+        "d - 1"
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": {
+        "role": "glow2",
+        "emit": 0.6
+      },
+      "jitter": false
+    },
+    {
+      "name": "Anzeige gesperrt",
+      "op": "box",
+      "if": "teil == 1 && h >= 3 && state >= 2",
+      "at": [
+        "floor(w / 2) - 1",
+        1,
+        "d - 1"
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "primary",
+        "f": "1.1 * (1 - zustand * 0.06)"
       }
     }
   ],

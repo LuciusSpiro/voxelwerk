@@ -64,7 +64,8 @@
     "cx": "floor(W / 2)",
     "cz": "floor(D / 2)",
     "grossDach": "w >= 6 && d >= 5",
-    "kommando": "w >= 8 && d >= 8"
+    "kommando": "w >= 8 && d >= 8",
+    "klein": "!(w >= 6 && d >= 5)"
   },
   "ops": [
     {
@@ -249,6 +250,81 @@
         "emit": 0.6
       },
       "jitter": false
+    },
+    {
+      "name": "Kleiner Schlitz frei",
+      "op": "box",
+      "mode": "carve",
+      "if": "klein && w * d >= 6",
+      "at": [
+        "cx + 1",
+        13,
+        "cz - 1"
+      ],
+      "size": [
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "name": "Kleiner Schlitz Amber",
+      "op": "box",
+      "mode": "paint",
+      "if": "klein && w * d >= 6",
+      "at": [
+        "cx + 1",
+        12,
+        "cz - 1"
+      ],
+      "size": [
+        2,
+        1,
+        2
+      ],
+      "color": {
+        "role": "glow2",
+        "emit": 0.6
+      },
+      "jitter": false
+    },
+    {
+      "name": "Kleiner Mast",
+      "op": "box",
+      "if": "klein",
+      "at": [
+        "W - 5",
+        13,
+        "D - 5"
+      ],
+      "size": [
+        1,
+        4,
+        1
+      ],
+      "color": {
+        "shade": "metal",
+        "f": "1 * (1 - zustand * 0.06)"
+      }
+    },
+    {
+      "name": "Kleiner Mast Spitze",
+      "op": "box",
+      "if": "klein",
+      "at": [
+        "W - 5",
+        17,
+        "D - 5"
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "trim",
+        "f": "0.95 * (1 - zustand * 0.06)"
+      }
     },
     {
       "name": "Clipeus Mast",
