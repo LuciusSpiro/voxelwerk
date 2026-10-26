@@ -1,0 +1,83 @@
+{
+ "id": "ort-6m-tresor-vergleich",
+ "name": "ORT-01 6M germanen: Fass-Tresor und Truhe",
+ "palette": "nord",
+ "mood": "planet_day",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "metal_dark",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "aaaaaaaaaaaa",
+   "aaaaaaaaaaaa",
+   "aaaaaaaaaaaa",
+   "aaaaaaaaaaaa"
+  ],
+  "heights": [
+   "111111111111",
+   "111111111111",
+   "111111111111",
+   "111111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/germanen/gemein/fasstresor",
+   "at": [
+    1.5,
+    1.5
+   ],
+   "params": {}
+  },
+  {
+   "model": "prop/germanen/gemein/truhe",
+   "at": [
+    4.5,
+    1.5
+   ],
+   "params": {}
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    6,
+    0.8,
+    2
+   ],
+   "dist": 15.600000000000001,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    6,
+    0.5,
+    2.5
+   ],
+   "dist": 13.799999999999999,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    6,
+    0.8,
+    2
+   ],
+   "dist": 9,
+   "elev": 28,
+   "az": 18,
+   "fov": 36
+  }
+ }
+}

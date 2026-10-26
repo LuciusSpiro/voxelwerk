@@ -1,0 +1,78 @@
+{
+ "id": "ort-6m-kartentisch",
+ "name": "ORT-01 6M rom: Kartentisch",
+ "palette": "rom",
+ "mood": "hall_metall",
+ "terrain": {
+  "palette": "planet_mediterran",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "a": {
+    "h": 1,
+    "top": "metal_dark",
+    "fill": "#2A2A2E"
+   }
+  },
+  "rows": [
+   "aaaaaaaaaa",
+   "aaaaaaaaaa",
+   "aaaaaaaaaa",
+   "aaaaaaaaaa",
+   "aaaaaaaaaa",
+   "aaaaaaaaaa"
+  ],
+  "heights": [
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111",
+   "1111111111"
+  ]
+ },
+ "place": [
+  {
+   "model": "ort/rom/station/kartentisch",
+   "at": [
+    2.5,
+    2.5
+   ]
+  }
+ ],
+ "cameras": {
+  "uebersicht": {
+   "target": [
+    5,
+    0.8,
+    3
+   ],
+   "dist": 14,
+   "elev": 48,
+   "az": 28,
+   "fov": 36
+  },
+  "spielnah": {
+   "target": [
+    5,
+    0.5,
+    3.5
+   ],
+   "dist": 12,
+   "elev": 72,
+   "az": 0,
+   "fov": 36
+  },
+  "detail": {
+   "target": [
+    5,
+    0.8,
+    3
+   ],
+   "dist": 8,
+   "elev": 28,
+   "az": 18,
+   "fov": 36
+  }
+ }
+}
