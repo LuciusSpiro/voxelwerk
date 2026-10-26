@@ -6,19 +6,19 @@ Diese Datei listet, welche Zeilen der andere Entwickler im Spiel-Worktree eintra
 
 | Modell-ID | Rolle | Fuß | Höhe | Dreiecke (Quads × 2) | Technikfunktion |
 |---|---|---|---|---|---|
-| `ort/germanen/aussenposten/deckung_fasszelle` | Deckung (Gegenstück `deckung_kapsel`) | 1×1 | ca. 1,25 m | ca. 358 | Fass-Energiezelle, Eisenfass mit Kupferreifen und Glutschlitz |
-| `ort/germanen/aussenposten/deckung_blasebalg` | Deckung (Gegenstück `deckung_pumpe`) | 1×1 | ca. 1,25 m | ca. 1.220 | Blasebalg-Pumpenblock mit Glutauslass an der Düse |
-| `ort/germanen/aussenposten/deckung_glutspeicher` | Deckung (Gegenstück `deckung_heizer`) | 1×1 | ca. 1,38 m | ca. 576 | Glut-Wärmespeicher mit Glutfenster und Abzugsrohr |
+| `ort/germanen/aussenposten/deckung_fasszelle` | Deckung (Gegenstück `deckung_kapsel`) | 1×1 | ca. 1,25 m | ca. 450 | Fass-Energiezelle, Eisenfass mit Kupferreifen, breitem Glutschlitz (`#FF7A1A`) und Kupferpolen |
+| `ort/germanen/aussenposten/deckung_blasebalg` | Deckung (Gegenstück `deckung_pumpe`) | 1×1 | ca. 1,25 m | ca. 1.224 | Blasebalg-Pumpenblock mit glühender Düsenkappe und Glutauslass (`#FF7A1A`) |
+| `ort/germanen/aussenposten/deckung_glutspeicher` | Deckung (Gegenstück `deckung_heizer`) | 1×1 | ca. 1,38 m | ca. 578 | Glut-Wärmespeicher mit glühendem Fenster (`#FF7A1A`) und Abzugsrohr |
 | `ort/germanen/aussenposten/streu_glutleitung` | Streu Außenposten | 1×1 | ca. 0,56 m | ca. 144 | Glutleitung-Stück auf Eisenstützen |
 | `ort/germanen/aussenposten/streu_kabelrolle` | Streu Außenposten | 1×1 | ca. 1,13 m | ca. 484 | Kabelrolle auf Eisenbock |
 | `ort/germanen/aussenposten/streu_runenpoller` | Streu Außenposten | 1×1 | ca. 1,44 m | ca. 212 | Runenpoller mit Runenring und kaltweißer Kappe |
 
-Hinweis: `deckung_blasebalg` liegt mit ca. 1.220 Dreiecken über dem Streu-Ziel von 1.000, unter dem harten Limit. Das Manifest führt `budgetTris: 1300`. Ein Abbau wäre ein eigener Schritt.
+Hinweis: `deckung_blasebalg` liegt mit ca. 1.224 Dreiecken über dem Streu-Ziel von 1.000, unter dem harten Limit. Das Manifest führt `budgetTris: 1300`. Ein Abbau wäre ein eigener Schritt. `deckung_fasszelle` führt `budgetTris: 500`.
 
 Zusätzlich geändert (bestehende IDs, nur Optik):
 - `ort/germanen/aussenposten/zellenschuppen`: Pultdach verkürzt, zwei Fasszellen auf der Ladefläche, damit er von oben als Zellenlager lesbar ist.
-- `ort/rom/gemein/kassenkapsel`: neu als stehender Amphorenschacht, Footprint 1×1, Zustände 0 voll und 1 leer bleiben.
-- `ort/rom/gemein/zelle`, `ort/germanen/gemein/zelle`, `ort/rom/station/kartentisch`, `ort/germanen/gemein/terminal`: siehe Commit-Log.
+- `ort/rom/gemein/kassenkapsel`: neu als Amphore mit Gestell, Henkeln und Amber-Fenster im Bauch, Rinnenanschluss am Hals, Footprint 1×1, ca. 704 (voll) bzw. 786 (leer) Dreiecke, Budget 800. Zustände 0 voll und 1 leer bleiben.
+- `ort/rom/gemein/zelle`, `ort/germanen/gemein/zelle`, `ort/rom/station/kartentisch` (Amber-Kartenplatte, Gitter entfernt), `ort/germanen/gemein/terminal` und `ort/germanen/station/terminal` (Rune als Kontur in `rune_dim`): siehe Commit-Log.
 
 ## 2. `content/buehnen/bauweisen/germanen.json` → `deckung_props.aussenposten`
 
