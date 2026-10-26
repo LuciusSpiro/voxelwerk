@@ -35,77 +35,109 @@
   {
    "op": "box",
    "name": "Sockel",
-   "at": [-6, 0, -6],
-   "size": [12, 2, 12],
+   "at": [
+    -6,
+    0,
+    -6
+   ],
+   "size": [
+    12,
+    2,
+    12
+   ],
    "color": "stone_light"
   },
   {
    "op": "box",
    "name": "Schaft unten",
-   "at": [-5, 2, -5],
-   "size": [10, 6, 10],
+   "at": [
+    -5,
+    2,
+    -5
+   ],
+   "size": [
+    10,
+    6,
+    10
+   ],
    "color": "secondary"
   },
   {
    "op": "box",
    "name": "Schaft Mitte (eingezogen)",
-   "at": [-4, 8, -4],
-   "size": [8, 4, 8],
-   "color": "secondary"
-  },
-  {
-   "op": "box",
-   "name": "Bauch (Amphorenschulter)",
-   "at": [-6, 4, -6],
-   "size": [12, 2, 12],
+   "at": [
+    -4,
+    8,
+    -4
+   ],
+   "size": [
+    8,
+    4,
+    8
+   ],
    "color": "secondary"
   },
   {
    "op": "box",
    "name": "Kragen oben",
-   "at": [-5, 12, -5],
-   "size": [10, 2, 10],
+   "at": [
+    -5,
+    12,
+    -5
+   ],
+   "size": [
+    10,
+    2,
+    10
+   ],
    "color": "trim"
   },
   {
    "op": "box",
-   "name": "Kragen Band",
-   "at": [-6, 3, -6],
-   "size": [12, 1, 12],
-   "color": "trim",
-   "mode": "paint"
-  },
-  {
-   "op": "box",
    "name": "Schacht offen (leer)",
-   "at": [-3, 13, -3],
-   "size": [6, 3, 6],
+   "at": [
+    -3,
+    13,
+    -3
+   ],
+   "size": [
+    6,
+    3,
+    6
+   ],
    "color": "metal_dark",
    "if": "state == 1",
    "mode": "carve"
   },
   {
    "op": "box",
-   "name": "Schacht Innenboden",
-   "at": [-3, 12, -3],
-   "size": [6, 1, 6],
-   "color": "dark",
-   "if": "state == 1",
-   "mode": "paint"
-  },
-  {
-   "op": "box",
    "name": "Deckel voll",
-   "at": [-3, 14, -3],
-   "size": [6, 1, 6],
+   "at": [
+    -3,
+    14,
+    -3
+   ],
+   "size": [
+    6,
+    1,
+    6
+   ],
    "color": "trim",
    "if": "state == 0"
   },
   {
    "op": "box",
    "name": "Sichtfenster Amber",
-   "at": [-1, 5, 5],
-   "size": [2, 5, 1],
+   "at": [
+    -1,
+    5,
+    5
+   ],
+   "size": [
+    2,
+    5,
+    1
+   ],
    "color": {
     "role": "glow2",
     "emit": "state == 0 ? 0.6 : 0"
@@ -116,30 +148,47 @@
   {
    "op": "box",
    "name": "Sichtfenster dunkel",
-   "at": [-1, 5, 5],
-   "size": [2, 5, 1],
+   "at": [
+    -1,
+    5,
+    5
+   ],
+   "size": [
+    2,
+    5,
+    1
+   ],
    "color": "metal_dark",
    "if": "state == 1"
   },
   {
    "op": "box",
-   "name": "Sichtfenster Fassung",
-   "at": [-2, 4, 5],
-   "size": [4, 1, 1],
-   "color": "trim"
-  },
-  {
-   "op": "box",
    "name": "Rinnenanschluss Rohr",
-   "at": [-9, 5, -1],
-   "size": [4, 2, 2],
+   "at": [
+    -9,
+    5,
+    -1
+   ],
+   "size": [
+    4,
+    2,
+    2
+   ],
    "color": "trim"
   },
   {
    "op": "box",
    "name": "Rinnenanschluss Amber-Linie",
-   "at": [-9, 7, -1],
-   "size": [4, 1, 2],
+   "at": [
+    -9,
+    7,
+    -1
+   ],
+   "size": [
+    4,
+    1,
+    2
+   ],
    "color": {
     "role": "glow2",
     "emit": "state == 0 ? 0.6 : 0"
@@ -148,5 +197,9 @@
    "jitter": false
   }
  ],
- "anchor": [0, 0, 0]
+ "anchor": [
+  0,
+  0,
+  0
+ ]
 }
