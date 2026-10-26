@@ -169,10 +169,29 @@
   },
   {
    "op": "box",
-   "name": "Kartenbett",
+   "name": "Kartenplatte Amber",
+   "at": [
+    -11,
+    16,
+    -4
+   ],
+   "size": [
+    22,
+    1,
+    8
+   ],
+   "color": {
+    "role": "glow2",
+    "emit": 0.55
+   },
+   "jitter": false
+  },
+  {
+   "op": "box",
+   "name": "Kartenrahmen",
    "at": [
     -12,
-    16,
+    15,
     -5
    ],
    "size": [
@@ -319,7 +338,7 @@
    ],
    "color": {
     "role": "glow2",
-    "emit": 1.0
+    "emit": 1
    }
   },
   {
@@ -337,7 +356,7 @@
    ],
    "color": {
     "role": "glow2",
-    "emit": 1.0
+    "emit": 1
    }
   },
   {

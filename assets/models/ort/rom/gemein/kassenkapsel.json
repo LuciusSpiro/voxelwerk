@@ -1,6 +1,6 @@
 {
  "id": "ort/rom/gemein/kassenkapsel",
- "name": "Kassenkapsel (Rom, Anker beute/fund): versiegelte Marmorkapsel mit Amberschloss und rotem Deckel; leer = Deckel aufgeklappt, Schloss aus",
+ "name": "Kassenkapsel (Rom, Anker beute/fund): stehender Marmor-Zylindertresor (Amphorenform) mit Amber-Sichtfenster und Rinnenanschluss; leer = Schacht offen, Fenster dunkel",
  "tier": "detail",
  "palette": "rom",
  "jitter": 0,
@@ -35,272 +35,118 @@
   {
    "op": "box",
    "name": "Sockel",
-   "at": [
-    -7,
-    0,
-    -6
-   ],
-   "size": [
-    14,
-    2,
-    12
-   ],
+   "at": [-6, 0, -6],
+   "size": [12, 2, 12],
    "color": "stone_light"
   },
   {
    "op": "box",
-   "name": "Körper lang",
-   "at": [
-    -7,
-    2,
-    -4
-   ],
-   "size": [
-    14,
-    7,
-    8
-   ],
+   "name": "Schaft unten",
+   "at": [-5, 2, -5],
+   "size": [10, 6, 10],
    "color": "secondary"
   },
   {
    "op": "box",
-   "name": "Körper breit",
-   "at": [
-    -6,
-    2,
-    -6
-   ],
-   "size": [
-    12,
-    7,
-    12
-   ],
+   "name": "Schaft Mitte (eingezogen)",
+   "at": [-4, 8, -4],
+   "size": [8, 4, 8],
    "color": "secondary"
   },
   {
    "op": "box",
-   "name": "Band quer",
-   "at": [
-    -7,
-    4,
-    -4
-   ],
-   "size": [
-    14,
-    1,
-    8
-   ],
-   "color": "trim",
-   "mode": "paint"
+   "name": "Bauch (Amphorenschulter)",
+   "at": [-6, 4, -6],
+   "size": [12, 2, 12],
+   "color": "secondary"
   },
   {
    "op": "box",
-   "name": "Band tief",
-   "at": [
-    -6,
-    4,
-    -6
-   ],
-   "size": [
-    12,
-    1,
-    12
-   ],
-   "color": "trim",
-   "mode": "paint"
-  },
-  {
-   "op": "box",
-   "name": "Rinne",
-   "at": [
-    -5,
-    5,
-    6
-   ],
-   "size": [
-    10,
-    1,
-    1
-   ],
+   "name": "Kragen oben",
+   "at": [-5, 12, -5],
+   "size": [10, 2, 10],
    "color": "trim"
   },
   {
    "op": "box",
-   "name": "Innenraum",
-   "at": [
-    -5,
-    6,
-    -5
-   ],
-   "size": [
-    10,
-    3,
-    10
-   ],
+   "name": "Kragen Band",
+   "at": [-6, 3, -6],
+   "size": [12, 1, 12],
+   "color": "trim",
+   "mode": "paint"
+  },
+  {
+   "op": "box",
+   "name": "Schacht offen (leer)",
+   "at": [-3, 13, -3],
+   "size": [6, 3, 6],
    "color": "metal_dark",
    "if": "state == 1",
    "mode": "carve"
   },
   {
    "op": "box",
-   "name": "Innenboden",
-   "at": [
-    -5,
-    5,
-    -5
-   ],
-   "size": [
-    10,
-    1,
-    10
-   ],
+   "name": "Schacht Innenboden",
+   "at": [-3, 12, -3],
+   "size": [6, 1, 6],
    "color": "dark",
    "if": "state == 1",
    "mode": "paint"
   },
   {
    "op": "box",
-   "name": "Deckel",
-   "at": [
-    -6,
-    9,
-    -6
-   ],
-   "size": [
-    12,
-    2,
-    12
-   ],
-   "color": "primary",
+   "name": "Deckel voll",
+   "at": [-3, 14, -3],
+   "size": [6, 1, 6],
+   "color": "trim",
    "if": "state == 0"
   },
   {
    "op": "box",
-   "name": "Deckelkante",
-   "at": [
-    -6,
-    11,
-    -6
-   ],
-   "size": [
-    12,
-    1,
-    12
-   ],
-   "color": {
-    "frame": "trim",
-    "fill": "primary",
-    "axes": "xz",
-    "width": 1
-   },
-   "if": "state == 0"
-  },
-  {
-   "op": "box",
-   "name": "Siegel Rinne",
-   "at": [
-    -5,
-    12,
-    -1
-   ],
-   "size": [
-    10,
-    1,
-    2
-   ],
+   "name": "Sichtfenster Amber",
+   "at": [-1, 5, 5],
+   "size": [2, 5, 1],
    "color": {
     "role": "glow2",
-    "emit": 0.7
+    "emit": "state == 0 ? 0.6 : 0"
    },
    "if": "state == 0",
    "jitter": false
   },
   {
    "op": "box",
-   "name": "Deckel offen",
-   "at": [
-    -6,
-    9,
-    -7
-   ],
-   "size": [
-    12,
-    9,
-    2
-   ],
-   "color": "primary",
+   "name": "Sichtfenster dunkel",
+   "at": [-1, 5, 5],
+   "size": [2, 5, 1],
+   "color": "metal_dark",
    "if": "state == 1"
   },
   {
    "op": "box",
-   "name": "Deckel offen Kante",
-   "at": [
-    -6,
-    17,
-    -7
-   ],
-   "size": [
-    12,
-    1,
-    2
-   ],
-   "color": "trim",
-   "if": "state == 1"
-  },
-  {
-   "op": "box",
-   "name": "Schloss",
-   "at": [
-    -1,
-    4,
-    6
-   ],
-   "size": [
-    2,
-    4,
-    1
-   ],
-   "color": {
-    "role": "glow2",
-    "emit": "state == 0 ? 1 : 0"
-   },
-   "jitter": false
-  },
-  {
-   "op": "box",
-   "name": "Schloss Fassung",
-   "at": [
-    -2,
-    3,
-    6
-   ],
-   "size": [
-    4,
-    1,
-    1
-   ],
+   "name": "Sichtfenster Fassung",
+   "at": [-2, 4, 5],
+   "size": [4, 1, 1],
    "color": "trim"
   },
   {
    "op": "box",
-   "name": "Schloss aus",
-   "at": [
-    -1,
-    4,
-    6
-   ],
-   "size": [
-    2,
-    4,
-    1
-   ],
-   "color": "metal_dark",
-   "if": "state == 1"
+   "name": "Rinnenanschluss Rohr",
+   "at": [-9, 5, -1],
+   "size": [4, 2, 2],
+   "color": "trim"
+  },
+  {
+   "op": "box",
+   "name": "Rinnenanschluss Amber-Linie",
+   "at": [-9, 7, -1],
+   "size": [4, 1, 2],
+   "color": {
+    "role": "glow2",
+    "emit": "state == 0 ? 0.6 : 0"
+   },
+   "if": "state == 0",
+   "jitter": false
   }
  ],
- "anchor": [
-  0,
-  0,
-  0
- ]
+ "anchor": [0, 0, 0]
 }
