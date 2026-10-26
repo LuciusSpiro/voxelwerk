@@ -1,0 +1,10 @@
+{
+  "id": "rom_aussen",
+  "name": "Rom-Außenposten: Ableitung von planet_day mit warmer Tönung (Travertin und Marmor statt kühlem Grau, ORT-01 Glut, Wunsch Richtung #CFC2A6)",
+  "background": "#D9C6A6",
+  "fog": { "color": "#E2D0B2", "near": 2.2, "far": 6 },
+  "hemi": { "sky": "#F4E4C8", "ground": "#8C7050", "intensity": 1.15 },
+  "sun": { "color": "#FFE2B4", "intensity": 3.0, "dir": [-0.55, 1, 0.42], "softness": 2.5 },
+  "exposure": 1.0,
+  "bloom": { "strength": 0.25, "radius": 0.4, "threshold": 0.92 }
+}
