@@ -1,0 +1,204 @@
+{
+  "id": "entwurf/vox01/c/nadelbaum",
+  "name": "VOX-01 C Grobvoxel: Fichte in 25-cm-Voxeln (Nadelbaum)",
+  "tier": "architecture",
+  "palette": "sommer_wald",
+  "jitter": 0,
+  "tags": [
+    "entwurf",
+    "natur",
+    "baum",
+    "nadelbaum"
+  ],
+  "footprint": [
+    1,
+    1
+  ],
+  "params": {
+    "h": {
+      "default": 22,
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "label": "Höhe (Voxel, 4/m)"
+    },
+    "teil": {
+      "default": 0,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "label": "0 ganz · 1 nur Stamm · 2 nur Krone"
+    }
+  },
+  "let": {
+    "hh": "h + floor(hash(seed, 1) * 3) - 1",
+    "big": "hash(seed, 2) < 0.5 ? 0 : 1",
+    "yb": 5,
+    "n": 4,
+    "dy": "floor((hh - yb - 3) / n)"
+  },
+  "variants": {
+    "stamm": {
+      "teil": 1
+    },
+    "krone": {
+      "teil": 2
+    },
+    "jung": {
+      "h": 16
+    }
+  },
+  "ops": [
+    {
+      "op": "box",
+      "name": "Stamm",
+      "if": "teil != 2",
+      "at": [
+        -1,
+        0,
+        -1
+      ],
+      "size": [
+        2,
+        "min(hh - 6, 14)",
+        2
+      ],
+      "color": "wood_dark"
+    },
+    {
+      "op": "group",
+      "name": "Etage",
+      "if": "teil != 1",
+      "repeat": {
+        "count": "n",
+        "step": [
+          0,
+          0,
+          0
+        ],
+        "var": "i"
+      },
+      "let": {
+        "y0": "yb + i * dy",
+        "s": "11 + big * 1 - i * 2 - (i > 2 ? 1 : 0)",
+        "hs": "floor(s / 2)",
+        "ox": "floor(hash(seed, i, 4) * 2) - (i % 2)",
+        "oz": "floor(hash(seed, i, 5) * 2) - ((i + 1) % 2)"
+      },
+      "ops": [
+        {
+          "op": "box",
+          "name": "Ast-Kreuz x",
+          "at": [
+            "-hs + ox",
+            "y0",
+            "-hs + 1 + oz"
+          ],
+          "size": [
+            "s",
+            2,
+            "s - 2"
+          ],
+          "color": {
+            "noise": [
+              "nadel",
+              "nadel_dark"
+            ],
+            "weights": [
+              3,
+              1
+            ],
+            "cell": 1
+          }
+        },
+        {
+          "op": "box",
+          "name": "Ast-Kreuz z",
+          "at": [
+            "-hs + 1 + ox",
+            "y0",
+            "-hs + oz"
+          ],
+          "size": [
+            "s - 2",
+            2,
+            "s"
+          ],
+          "color": {
+            "noise": [
+              "nadel",
+              "nadel_dark"
+            ],
+            "weights": [
+              3,
+              1
+            ],
+            "cell": 1
+          }
+        },
+        {
+          "op": "box",
+          "name": "Lage oben",
+          "at": [
+            "-hs + 2 + ox",
+            "y0 + 2",
+            "-hs + 2 + oz"
+          ],
+          "size": [
+            "s - 4",
+            1,
+            "s - 4"
+          ],
+          "color": {
+            "noise": [
+              "nadel_light",
+              "nadel"
+            ],
+            "weights": [
+              2,
+              1
+            ],
+            "cell": 1
+          }
+        }
+      ]
+    },
+    {
+      "op": "box",
+      "name": "Wipfel",
+      "if": "teil != 1",
+      "at": [
+        -1,
+        "yb + n * dy",
+        -1
+      ],
+      "size": [
+        2,
+        3,
+        2
+      ],
+      "color": "nadel_light"
+    },
+    {
+      "op": "box",
+      "name": "Wipfelspitze",
+      "if": "teil != 1",
+      "at": [
+        -1,
+        "yb + n * dy + 3",
+        -1
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "nadel_light"
+    }
+  ],
+  "anchor": [
+    0,
+    0,
+    0
+  ]
+}

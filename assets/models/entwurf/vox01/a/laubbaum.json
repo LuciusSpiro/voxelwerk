@@ -1,0 +1,214 @@
+{
+  "id": "entwurf/vox01/a/laubbaum",
+  "name": "VOX-01 A Feldlager: Buche (Laubbaum, Sommer)",
+  "tier": "detail",
+  "palette": "sommer_wald",
+  "jitter": 0,
+  "tags": [
+    "entwurf",
+    "natur",
+    "baum",
+    "laubbaum"
+  ],
+  "footprint": [
+    1,
+    1
+  ],
+  "params": {
+    "h": {
+      "default": 72,
+      "min": 64,
+      "max": 96,
+      "step": 4,
+      "label": "Höhe (Voxel, 16/m)"
+    },
+    "R": {
+      "default": 23,
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "label": "Kronenradius (Voxel)"
+    },
+    "teil": {
+      "default": 0,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "label": "0 ganz · 1 nur Stamm · 2 nur Krone"
+    }
+  },
+  "let": {
+    "hh": "h + floor(hash(seed, 1) * 3) * 6 - 6",
+    "RR": "min(24, R - 3 + floor(hash(seed, 2) * 4))",
+    "yb": 30,
+    "cy": "(yb + hh) / 2",
+    "ry": "(hh - yb) / 2",
+    "a0": "hash(seed, 3) * 6.283"
+  },
+  "variants": {
+    "stamm": {
+      "teil": 1
+    },
+    "krone": {
+      "teil": 2
+    },
+    "jung": {
+      "h": 64,
+      "R": 15
+    }
+  },
+  "ops": [
+    {
+      "op": "cyl",
+      "name": "Wurzelanlauf",
+      "if": "teil != 2",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "r": 5,
+      "r2": 3.5,
+      "h": 4,
+      "color": {
+        "shade": "rock",
+        "f": 0.85
+      }
+    },
+    {
+      "op": "cyl",
+      "name": "Stamm",
+      "if": "teil != 2",
+      "at": [
+        0,
+        4,
+        0
+      ],
+      "r": 3.5,
+      "r2": 2.5,
+      "h": "yb + 4",
+      "color": {
+        "gradient": [
+          {
+            "shade": "rock",
+            "f": 0.85
+          },
+          "rock"
+        ],
+        "axis": "y"
+      }
+    },
+    {
+      "op": "line",
+      "name": "Hauptast",
+      "if": "teil != 2",
+      "repeat": {
+        "count": 3,
+        "step": [
+          0,
+          0,
+          0
+        ],
+        "var": "k"
+      },
+      "from": [
+        0.5,
+        "yb - 4",
+        0.5
+      ],
+      "to": [
+        "0.5 + cos(a0 + k * 2.09) * RR * 0.5",
+        "yb + 8",
+        "0.5 + sin(a0 + k * 2.09) * RR * 0.5"
+      ],
+      "r": 1.5,
+      "color": "rock"
+    },
+    {
+      "op": "ellipsoid",
+      "name": "Kronenkern",
+      "if": "teil != 1",
+      "at": [
+        0,
+        "cy",
+        0
+      ],
+      "r": [
+        "RR * 0.68",
+        "ry * 0.85",
+        "RR * 0.68"
+      ],
+      "color": {
+        "gradient": [
+          "plant_dark",
+          "plant"
+        ],
+        "axis": "y"
+      }
+    },
+    {
+      "op": "ellipsoid",
+      "name": "Laubwolke",
+      "if": "teil != 1",
+      "repeat": {
+        "count": 6,
+        "step": [
+          0,
+          0,
+          0
+        ],
+        "var": "k"
+      },
+      "let": {
+        "a": "a0 + k * 1.047 + hash(seed, k, 4) * 0.5",
+        "d": "RR * (0.5 + hash(seed, k, 5) * 0.12)",
+        "s": "RR * (0.42 + hash(seed, k, 6) * 0.1)"
+      },
+      "at": [
+        "cos(a) * d",
+        "cy - ry * 0.25 + (k % 3) * ry * 0.22",
+        "sin(a) * d"
+      ],
+      "r": [
+        "s",
+        "s * 0.85",
+        "s"
+      ],
+      "color": {
+        "gradient": [
+          "plant_dark",
+          "plant",
+          "plant_light"
+        ],
+        "axis": "y"
+      }
+    },
+    {
+      "op": "ellipsoid",
+      "name": "Kronenhaube",
+      "if": "teil != 1",
+      "at": [
+        "cos(a0) * 3",
+        "cy + ry * 0.35",
+        "sin(a0) * 3"
+      ],
+      "r": [
+        "RR * 0.55",
+        "ry * 0.6",
+        "RR * 0.55"
+      ],
+      "color": {
+        "gradient": [
+          "plant",
+          "plant_light"
+        ],
+        "axis": "y"
+      }
+    }
+  ],
+  "anchor": [
+    0,
+    0,
+    0
+  ]
+}

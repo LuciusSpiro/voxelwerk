@@ -1,0 +1,118 @@
+{
+  "id": "entwurf/vox01/c/wall",
+  "name": "VOX-01 C Grobvoxel: Rasensodenwall mit Balkenkante, 0,5 m",
+  "tier": "architecture",
+  "palette": "sommer_wald",
+  "jitter": 0,
+  "tags": [
+    "entwurf",
+    "rom",
+    "befestigung",
+    "plateau"
+  ],
+  "footprint": [
+    4,
+    2
+  ],
+  "params": {
+    "len": {
+      "default": 4,
+      "min": 1,
+      "max": 16,
+      "step": 1,
+      "label": "Länge (Kacheln)"
+    }
+  },
+  "variants": {
+    "kurz": {
+      "len": 2
+    }
+  },
+  "ops": [
+    {
+      "op": "box",
+      "name": "Sodenkörper",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        "len * 4",
+        2,
+        7
+      ],
+      "color": {
+        "stripes": [
+          "soil_dark",
+          "grass_dark"
+        ],
+        "axis": "y",
+        "period": 1
+      }
+    },
+    {
+      "op": "box",
+      "name": "Rasendecke",
+      "at": [
+        0,
+        1,
+        0
+      ],
+      "size": [
+        "len * 4",
+        1,
+        7
+      ],
+      "color": "grass"
+    },
+    {
+      "op": "box",
+      "name": "Balkenkante",
+      "at": [
+        0,
+        0,
+        7
+      ],
+      "size": [
+        "len * 4",
+        2,
+        1
+      ],
+      "color": "wood"
+    },
+    {
+      "op": "box",
+      "name": "Amberniete",
+      "repeat": {
+        "count": "floor(len / 2)",
+        "step": [
+          8,
+          0,
+          0
+        ],
+        "var": "i"
+      },
+      "at": [
+        3,
+        1,
+        7
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "role": "glow2",
+        "emit": 0.5
+      },
+      "jitter": false
+    }
+  ],
+  "anchor": [
+    "len * 2",
+    0,
+    4
+  ]
+}

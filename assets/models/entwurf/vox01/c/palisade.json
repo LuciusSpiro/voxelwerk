@@ -1,0 +1,198 @@
+{
+  "id": "entwurf/vox01/c/palisade",
+  "name": "VOX-01 C Grobvoxel: Flechtwerk-Brustwehr mit Pfahlspitzen (Halbdeckung)",
+  "tier": "architecture",
+  "palette": "sommer_wald",
+  "jitter": 0,
+  "tags": [
+    "entwurf",
+    "rom",
+    "befestigung",
+    "deckung_halb"
+  ],
+  "footprint": [
+    1,
+    1
+  ],
+  "params": {
+    "conn": {
+      "default": 10,
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "label": "Nachbarn (N1 O2 S4 W8), Reihe = O+W"
+    }
+  },
+  "let": {
+    "ost": "floor(conn / 2) % 2",
+    "west": "floor(conn / 8) % 2"
+  },
+  "variants": {
+    "ende_links": {
+      "conn": 2
+    },
+    "ende_rechts": {
+      "conn": 8
+    },
+    "einzeln": {
+      "conn": 0
+    }
+  },
+  "ops": [
+    {
+      "op": "box",
+      "name": "Erdhinterfüllung",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        4,
+        2,
+        1
+      ],
+      "color": "soil"
+    },
+    {
+      "op": "box",
+      "name": "Flechtwerk",
+      "at": [
+        0,
+        0,
+        1
+      ],
+      "size": [
+        4,
+        3,
+        2
+      ],
+      "color": {
+        "stripes": [
+          "wood_light",
+          "sand"
+        ],
+        "axis": "y",
+        "period": 1
+      }
+    },
+    {
+      "op": "box",
+      "name": "Pfahl",
+      "at": [
+        0,
+        0,
+        1
+      ],
+      "size": [
+        1,
+        4,
+        2
+      ],
+      "color": "wood_dark"
+    },
+    {
+      "op": "box",
+      "name": "Pfahl Mitte",
+      "at": [
+        2,
+        2,
+        1
+      ],
+      "size": [
+        1,
+        2,
+        1
+      ],
+      "color": "wood"
+    },
+    {
+      "op": "box",
+      "name": "Lampe",
+      "at": [
+        0,
+        2,
+        2
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "role": "glow2",
+        "emit": 0.6
+      },
+      "jitter": false
+    },
+    {
+      "op": "box",
+      "name": "Endpfosten Ost",
+      "if": "!ost",
+      "at": [
+        3,
+        0,
+        1
+      ],
+      "size": [
+        1,
+        4,
+        2
+      ],
+      "color": "metal_dark"
+    },
+    {
+      "op": "box",
+      "name": "Endkappe Ost",
+      "if": "!ost",
+      "at": [
+        3,
+        4,
+        1
+      ],
+      "size": [
+        1,
+        1,
+        2
+      ],
+      "color": "trim"
+    },
+    {
+      "op": "box",
+      "name": "Endpfosten West",
+      "if": "!west",
+      "at": [
+        0,
+        0,
+        1
+      ],
+      "size": [
+        1,
+        4,
+        2
+      ],
+      "color": "metal_dark"
+    },
+    {
+      "op": "box",
+      "name": "Endkappe West",
+      "if": "!west",
+      "at": [
+        0,
+        4,
+        1
+      ],
+      "size": [
+        1,
+        1,
+        2
+      ],
+      "color": "trim"
+    }
+  ],
+  "anchor": [
+    2,
+    0,
+    2
+  ]
+}

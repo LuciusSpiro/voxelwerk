@@ -1,0 +1,281 @@
+{
+  "id": "entwurf/vox01/c/wachposten",
+  "name": "VOX-01 C Grobvoxel: Wachposten (Blockbohlen-Turm, Flechtwerkbrüstung, Amberlaterne)",
+  "tier": "architecture",
+  "palette": "sommer_wald",
+  "jitter": 0,
+  "tags": [
+    "entwurf",
+    "rom",
+    "befestigung",
+    "posten"
+  ],
+  "footprint": [
+    2,
+    2
+  ],
+  "ops": [
+    {
+      "op": "box",
+      "name": "Eckstamm",
+      "repeat": {
+        "count": 2,
+        "step": [
+          6,
+          0,
+          0
+        ],
+        "var": "i"
+      },
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        2,
+        13,
+        2
+      ],
+      "color": {
+        "stripes": [
+          "wood_dark",
+          "wood"
+        ],
+        "axis": "y",
+        "period": 3
+      },
+      "mirror": "z",
+      "mirrorAt": 4
+    },
+    {
+      "op": "box",
+      "name": "Bohlenwand N",
+      "at": [
+        2,
+        0,
+        0
+      ],
+      "size": [
+        4,
+        9,
+        1
+      ],
+      "color": {
+        "stripes": [
+          "wood",
+          "wood_dark"
+        ],
+        "axis": "y",
+        "period": 1
+      }
+    },
+    {
+      "op": "box",
+      "name": "Bühne",
+      "at": [
+        0,
+        9,
+        0
+      ],
+      "size": [
+        8,
+        1,
+        8
+      ],
+      "color": "wood_light"
+    },
+    {
+      "op": "box",
+      "name": "Bühnenrand",
+      "at": [
+        0,
+        8,
+        7
+      ],
+      "size": [
+        8,
+        1,
+        1
+      ],
+      "color": "metal_dark"
+    },
+    {
+      "op": "box",
+      "name": "Flechtbrüstung W",
+      "at": [
+        0,
+        10,
+        2
+      ],
+      "size": [
+        1,
+        2,
+        4
+      ],
+      "color": {
+        "stripes": [
+          "wood_light",
+          "wood"
+        ],
+        "axis": "y",
+        "period": 1
+      }
+    },
+    {
+      "op": "box",
+      "name": "Flechtbrüstung O",
+      "at": [
+        7,
+        10,
+        2
+      ],
+      "size": [
+        1,
+        2,
+        4
+      ],
+      "color": {
+        "stripes": [
+          "wood_light",
+          "wood"
+        ],
+        "axis": "y",
+        "period": 1
+      }
+    },
+    {
+      "op": "box",
+      "name": "Flechtbrüstung S",
+      "at": [
+        2,
+        10,
+        7
+      ],
+      "size": [
+        4,
+        2,
+        1
+      ],
+      "color": {
+        "stripes": [
+          "wood_light",
+          "wood"
+        ],
+        "axis": "y",
+        "period": 1
+      }
+    },
+    {
+      "op": "box",
+      "name": "Flechtbrüstung N",
+      "at": [
+        2,
+        10,
+        0
+      ],
+      "size": [
+        4,
+        2,
+        1
+      ],
+      "color": {
+        "stripes": [
+          "wood_light",
+          "wood"
+        ],
+        "axis": "y",
+        "period": 1
+      }
+    },
+    {
+      "op": "box",
+      "name": "Stammkappe",
+      "repeat": {
+        "count": 2,
+        "step": [
+          6,
+          0,
+          0
+        ],
+        "var": "i"
+      },
+      "at": [
+        0,
+        13,
+        0
+      ],
+      "size": [
+        2,
+        1,
+        2
+      ],
+      "color": "trim",
+      "mirror": "z",
+      "mirrorAt": 4
+    },
+    {
+      "op": "box",
+      "name": "Laterne",
+      "at": [
+        6,
+        14,
+        6
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "role": "glow2",
+        "emit": 1.0
+      },
+      "jitter": false
+    },
+    {
+      "op": "box",
+      "name": "Laterne Dach",
+      "at": [
+        6,
+        15,
+        6
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "trim"
+    },
+    {
+      "op": "box",
+      "name": "Leiter",
+      "repeat": {
+        "count": 4,
+        "step": [
+          0,
+          2,
+          0
+        ],
+        "var": "i"
+      },
+      "at": [
+        3,
+        1,
+        7
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": "metal"
+    }
+  ],
+  "anchor": [
+    4,
+    0,
+    4
+  ]
+}

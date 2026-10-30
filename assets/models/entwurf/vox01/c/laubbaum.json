@@ -1,0 +1,35 @@
+{
+  "id": "entwurf/vox01/c/laubbaum",
+  "name": "VOX-01 C Grobvoxel: Laubbaum in 25-cm-Voxeln (Sommer)",
+  "tier": "architecture",
+  "palette": "sommer_wald",
+  "jitter": 0,
+  "tags": ["entwurf", "natur", "baum", "laubbaum"],
+  "footprint": [1, 1],
+  "params": {
+    "h": { "default": 18, "min": 14, "max": 24, "step": 1, "label": "Höhe (Voxel, 4/m)" },
+    "teil": { "default": 0, "min": 0, "max": 2, "step": 1, "label": "0 ganz · 1 nur Stamm · 2 nur Krone" }
+  },
+  "let": {
+    "hh": "h + floor(hash(seed, 1) * 3) - 1",
+    "yb": 8,
+    "ch": "hh - yb",
+    "a": "floor(hash(seed, 2) * 4)",
+    "dx": "a == 0 ? 1 : (a == 1 ? -1 : 0)",
+    "dz": "a == 2 ? 1 : (a == 3 ? -1 : 0)"
+  },
+  "variants": { "stamm": { "teil": 1 }, "krone": { "teil": 2 }, "jung": { "h": 14 } },
+  "ops": [
+    { "op": "box", "name": "Stamm", "if": "teil != 2", "at": [-1, 0, -1], "size": [2, "yb + 2", 2], "color": "wood" },
+    { "op": "box", "name": "Ast", "if": "teil != 2", "at": ["dx > 0 ? 1 : (dx < 0 ? -3 : -1)", "yb - 1", "dz > 0 ? 1 : (dz < 0 ? -3 : -1)"], "size": ["dx != 0 ? 2 : 1", 1, "dz != 0 ? 2 : 1"], "color": "wood" },
+    { "op": "box", "name": "Krone unten", "if": "teil != 1", "at": [-5, "yb", -5], "size": [10, 2, 10], "color": { "noise": ["plant_dark", "plant"], "weights": [2, 1], "cell": 1 } },
+    { "op": "box", "name": "Krone Mitte x", "if": "teil != 1", "at": [-6, "yb + 1", -4], "size": [12, "ch - 4", 8], "color": { "noise": ["plant", "plant_dark"], "weights": [3, 1], "cell": 1 } },
+    { "op": "box", "name": "Krone Mitte z", "if": "teil != 1", "at": [-4, "yb + 1", -6], "size": [8, "ch - 4", 12], "color": { "noise": ["plant", "plant_dark"], "weights": [3, 1], "cell": 1 } },
+    { "op": "box", "name": "Krone Mitte", "if": "teil != 1", "at": [-5, "yb + 2", -5], "size": [10, "ch - 4", 10], "color": { "noise": ["plant", "plant_light"], "weights": [3, 1], "cell": 1 } },
+    { "op": "box", "name": "Haube", "if": "teil != 1", "at": ["-4 + dx", "hh - 3", "-4 + dz"], "size": [8, 2, 8], "color": { "noise": ["plant_light", "plant"], "weights": [2, 1], "cell": 1 } },
+    { "op": "box", "name": "Haube oben", "if": "teil != 1", "at": ["-2 + dx * 2", "hh - 1", "-2 + dz * 2"], "size": [4, 1, 4], "color": "plant_light" },
+    { "op": "box", "name": "Ausbuchtung", "if": "teil != 1", "at": ["dx * 5 - 2", "yb + 3", "dz * 5 - 2"], "size": [4, 3, 4], "color": { "noise": ["plant", "plant_light"], "weights": [2, 1], "cell": 1 } },
+    { "op": "box", "name": "Lücke", "if": "teil != 1", "mode": "carve", "at": ["-dx * 6 - 1", "yb + 2", "-dz * 6 - 1"], "size": [2, 2, 2] }
+  ],
+  "anchor": [0, 0, 0]
+}

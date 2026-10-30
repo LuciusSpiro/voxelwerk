@@ -1,0 +1,369 @@
+{
+ "id": "vox01-richtung-a",
+ "name": "VOX-01 Richtung A: Feldlager (Holz und Messing, Detailbäume)",
+ "palette": "sommer_wald",
+ "mood": "planet_day",
+ "terrain": {
+  "palette": "sommer_wald",
+  "depth": 2,
+  "jitter": 0,
+  "legend": {
+   "w": {
+    "h": 1,
+    "top": "grass_dark",
+    "fill": "soil"
+   },
+   "k": {
+    "h": 1,
+    "top": "grass_dark",
+    "fill": "soil"
+   },
+   "g": {
+    "h": 1,
+    "top": "soil",
+    "fill": "soil_dark"
+   },
+   "p": {
+    "h": 1,
+    "top": "grass",
+    "fill": "soil"
+   },
+   "m": {
+    "h": 1,
+    "top": "grass",
+    "fill": "soil"
+   }
+  },
+  "rows": [
+   "wwwwwwwwwwwwwwwwwwwwww",
+   "wwwwwwwwwwwwwwwwwwwwww",
+   "wwwwwwwwwwwwwwwwwwwwww",
+   "wwwwwwwwwwwwwwwwwwwwww",
+   "wwwwwwwwwwwwwwwwwwwwww",
+   "kkkkkkkkkkkkkkwwwwwwww",
+   "kkkkkkkkkkkkkkwwwwwwww",
+   "gggggggggggggggggggggg",
+   "gggggggggggggggggggggg",
+   "pppppppppppppppppppppp",
+   "mmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmm"
+  ]
+ },
+ "place": [
+  {
+   "model": "entwurf/vox01/a/wall",
+   "at": [
+    7,
+    6
+   ],
+   "params": {
+    "len": 14
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/wachposten",
+   "at": [
+    12,
+    6
+   ],
+   "lift": 0.5
+  },
+  {
+   "model": "entwurf/vox01/a/palisade",
+   "at": [
+    3.5,
+    9.5
+   ],
+   "params": {
+    "conn": 2,
+    "seed": 0
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/palisade",
+   "at": [
+    4.5,
+    9.5
+   ],
+   "params": {
+    "conn": 10,
+    "seed": 1
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/palisade",
+   "at": [
+    5.5,
+    9.5
+   ],
+   "params": {
+    "conn": 10,
+    "seed": 2
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/palisade",
+   "at": [
+    6.5,
+    9.5
+   ],
+   "params": {
+    "conn": 10,
+    "seed": 3
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/palisade",
+   "at": [
+    7.5,
+    9.5
+   ],
+   "params": {
+    "conn": 10,
+    "seed": 4
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/palisade",
+   "at": [
+    8.5,
+    9.5
+   ],
+   "params": {
+    "conn": 10,
+    "seed": 5
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/palisade",
+   "at": [
+    9.5,
+    9.5
+   ],
+   "params": {
+    "conn": 10,
+    "seed": 6
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/palisade",
+   "at": [
+    10.5,
+    9.5
+   ],
+   "params": {
+    "conn": 8,
+    "seed": 7
+   }
+  },
+  {
+   "model": "kit/rom/zaun",
+   "at": [
+    14.5,
+    9.5
+   ],
+   "params": {
+    "conn": 2,
+    "art": "aussenposten"
+   }
+  },
+  {
+   "model": "kit/rom/zaun",
+   "at": [
+    15.5,
+    9.5
+   ],
+   "params": {
+    "conn": 8,
+    "art": "aussenposten"
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/nadelbaum",
+   "at": [
+    1.5,
+    0.5
+   ],
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/laubbaum",
+   "at": [
+    3.5,
+    2.5
+   ],
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/nadelbaum",
+   "at": [
+    5.5,
+    0.5
+   ],
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/laubbaum",
+   "at": [
+    7.5,
+    2.5
+   ],
+   "params": {
+    "seed": 4
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/nadelbaum",
+   "at": [
+    9.5,
+    0.5
+   ],
+   "params": {
+    "seed": 5
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/laubbaum",
+   "at": [
+    10.5,
+    3.5
+   ],
+   "params": {
+    "seed": 6
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/nadelbaum",
+   "at": [
+    14.5,
+    3.5
+   ],
+   "params": {
+    "seed": 7
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/laubbaum",
+   "at": [
+    13.5,
+    1.5
+   ],
+   "params": {
+    "seed": 8
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/nadelbaum",
+   "at": [
+    16.5,
+    1.5
+   ],
+   "params": {
+    "seed": 9
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/laubbaum",
+   "at": [
+    17.5,
+    4.5
+   ],
+   "params": {
+    "seed": 10
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/nadelbaum",
+   "at": [
+    19.5,
+    2.5
+   ],
+   "params": {
+    "seed": 11
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/laubbaum",
+   "at": [
+    20.5,
+    6.5
+   ],
+   "params": {
+    "seed": 12
+   }
+  },
+  {
+   "model": "entwurf/vox01/a/nadelbaum",
+   "at": [
+    18.5,
+    7.5
+   ],
+   "params": {
+    "seed": 13
+   }
+  }
+ ],
+ "scatter": [
+  {
+   "model": [
+    "natur/gras"
+   ],
+   "on": "m",
+   "density": 0.25,
+   "perCell": 2,
+   "palette": "sommer_wald"
+  }
+ ],
+ "figures": [
+  {
+   "figure": "rom/legionaer",
+   "at": [
+    6.5,
+    8.6
+   ],
+   "rot": 0,
+   "pose": "guard"
+  },
+  {
+   "figure": "rom/legionaer",
+   "at": [
+    12,
+    6
+   ],
+   "lift": 3.25,
+   "rot": 0,
+   "pose": "aim"
+  }
+ ],
+ "cameras": {
+  "spiel": {
+   "target": [
+    11,
+    1,
+    6.2
+   ],
+   "dist": 21.0,
+   "elev": 57,
+   "az": 0,
+   "fov": 30
+  },
+  "schraeg": {
+   "target": [
+    10,
+    1.5,
+    6.5
+   ],
+   "dist": 16,
+   "elev": 30,
+   "az": 25,
+   "fov": 30
+  }
+ }
+}

@@ -1,0 +1,190 @@
+{
+  "id": "entwurf/vox01/a/nadelbaum",
+  "name": "VOX-01 A Feldlager: Fichte (Nadelbaum)",
+  "tier": "detail",
+  "palette": "sommer_wald",
+  "jitter": 0,
+  "tags": [
+    "entwurf",
+    "natur",
+    "baum",
+    "nadelbaum"
+  ],
+  "footprint": [
+    1,
+    1
+  ],
+  "params": {
+    "h": {
+      "default": 84,
+      "min": 72,
+      "max": 120,
+      "step": 4,
+      "label": "Höhe (Voxel, 16/m)"
+    },
+    "R": {
+      "default": 22,
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "label": "Kronenradius unten (Voxel)"
+    },
+    "teil": {
+      "default": 0,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "label": "0 ganz · 1 nur Stamm · 2 nur Krone"
+    }
+  },
+  "let": {
+    "hh": "h + floor(hash(seed, 1) * 3) * 8 - 8",
+    "RR": "min(23, R - 2 + floor(hash(seed, 2) * 4))",
+    "yb": 20,
+    "n": 4,
+    "dy": "(hh - yb - 12) / n"
+  },
+  "variants": {
+    "stamm": {
+      "teil": 1
+    },
+    "krone": {
+      "teil": 2
+    },
+    "jung": {
+      "h": 72,
+      "R": 16
+    }
+  },
+  "ops": [
+    {
+      "op": "cyl",
+      "name": "Stammfuß",
+      "if": "teil != 2",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "r": 4.5,
+      "r2": 3,
+      "h": 3,
+      "color": "wood_dark"
+    },
+    {
+      "op": "cyl",
+      "name": "Stamm",
+      "if": "teil != 2",
+      "at": [
+        0,
+        3,
+        0
+      ],
+      "r": 3,
+      "r2": 2,
+      "h": "hh * 0.7",
+      "color": {
+        "stripes": [
+          "wood_dark",
+          {
+            "shade": "wood_dark",
+            "f": 0.82
+          }
+        ],
+        "axis": "y",
+        "period": 6
+      }
+    },
+    {
+      "op": "group",
+      "name": "Kronenetage",
+      "if": "teil != 1",
+      "repeat": {
+        "count": "n",
+        "step": [
+          0,
+          0,
+          0
+        ],
+        "var": "i"
+      },
+      "let": {
+        "t": "i / (n - 1)",
+        "rr": "RR * (1 - t * 0.62)",
+        "y0": "yb + i * dy",
+        "a0": "hash(seed, i, 7) * 6.283"
+      },
+      "ops": [
+        {
+          "op": "cyl",
+          "name": "Kern",
+          "at": [
+            0,
+            "y0 + 2",
+            0
+          ],
+          "r": "rr * 0.62",
+          "r2": 2,
+          "h": "dy * 1.6",
+          "color": {
+            "gradient": [
+              "nadel_dark",
+              "nadel"
+            ],
+            "axis": "y"
+          }
+        },
+        {
+          "op": "ellipsoid",
+          "name": "Astbüschel",
+          "repeat": {
+            "count": 6,
+            "step": [
+              0,
+              0,
+              0
+            ],
+            "var": "k"
+          },
+          "at": [
+            "cos(a0 + k * 1.047) * rr * 0.55",
+            "y0 + 3 + (k % 2) * 2",
+            "sin(a0 + k * 1.047) * rr * 0.55"
+          ],
+          "r": [
+            "rr * 0.42 + 1",
+            3.5,
+            "rr * 0.42 + 1"
+          ],
+          "color": {
+            "gradient": [
+              "nadel_dark",
+              "nadel",
+              "nadel_light"
+            ],
+            "axis": "y"
+          }
+        }
+      ]
+    },
+    {
+      "op": "cyl",
+      "name": "Wipfel",
+      "if": "teil != 1",
+      "at": [
+        0,
+        "yb + n * dy",
+        0
+      ],
+      "r": 3,
+      "r2": 0.8,
+      "h": 12,
+      "color": "nadel_light"
+    }
+  ],
+  "anchor": [
+    0,
+    0,
+    0
+  ]
+}

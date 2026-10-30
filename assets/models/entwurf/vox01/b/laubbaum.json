@@ -1,0 +1,34 @@
+{
+  "id": "entwurf/vox01/b/laubbaum",
+  "name": "VOX-01 B Via Appia: Steineiche (Laubbaum, immergrün)",
+  "tier": "detail",
+  "palette": "planet_mediterran",
+  "jitter": 0,
+  "tags": ["entwurf", "natur", "baum", "laubbaum"],
+  "footprint": [1, 1],
+  "params": {
+    "h": { "default": 64, "min": 52, "max": 80, "step": 4, "label": "Höhe (Voxel, 16/m)" },
+    "R": { "default": 23, "min": 14, "max": 24, "step": 1, "label": "Kronenradius (Voxel)" },
+    "teil": { "default": 0, "min": 0, "max": 2, "step": 1, "label": "0 ganz · 1 nur Stamm · 2 nur Krone" }
+  },
+  "let": {
+    "hh": "h + floor(hash(seed, 1) * 3) * 4 - 4",
+    "RR": "min(24, R - 2 + floor(hash(seed, 2) * 3))",
+    "yb": 30,
+    "cy": "(yb + hh) / 2",
+    "ry": "(hh - yb) / 2",
+    "a0": "hash(seed, 3) * 6.283"
+  },
+  "variants": { "stamm": { "teil": 1 }, "krone": { "teil": 2 }, "jung": { "h": 52, "R": 15 } },
+  "ops": [
+    { "op": "cyl", "name": "Stammfuß", "if": "teil != 2", "at": [0, 0, 0], "r": 4.5, "r2": 3.5, "h": 3, "color": "rock_dark" },
+    { "op": "cyl", "name": "Stamm", "if": "teil != 2", "at": [0, 3, 0], "r": 3.5, "r2": 3, "h": "yb - 2", "color": "rock_dark" },
+    { "op": "line", "name": "Ast", "if": "teil != 2", "repeat": { "count": 2, "step": [0, 0, 0], "var": "k" }, "from": [0.5, "yb - 6", 0.5], "to": ["0.5 + cos(a0 + k * 3.14) * RR * 0.5", "yb + 4", "0.5 + sin(a0 + k * 3.14) * RR * 0.5"], "r": 1.5, "color": "rock_dark" },
+    { "op": "ellipsoid", "name": "Kuppel", "if": "teil != 1", "at": [0, "cy", 0], "r": ["RR * 0.92", "ry", "RR * 0.92"], "color": "plant_dark" },
+    { "op": "ellipsoid", "name": "Lichtkappe", "if": "teil != 1", "at": [0, "cy + 2", 0], "r": ["RR * 0.8", "ry * 0.92", "RR * 0.8"], "half": "+y", "color": "plant" },
+    { "op": "ellipsoid", "name": "Buckel", "if": "teil != 1", "repeat": { "count": 4, "step": [0, 0, 0], "var": "k" },
+      "at": ["cos(a0 + k * 1.571) * RR * 0.62", "cy - 1", "sin(a0 + k * 1.571) * RR * 0.62"], "r": ["RR * 0.38", "ry * 0.7", "RR * 0.38"], "color": "plant_dark" },
+    { "op": "ellipsoid", "name": "Glanzlicht", "if": "teil != 1", "at": ["cos(a0) * 4", "hh - 3", "sin(a0) * 4"], "r": ["RR * 0.35", 3, "RR * 0.35"], "half": "+y", "color": "plant_light" }
+  ],
+  "anchor": [0, 0, 0]
+}

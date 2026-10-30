@@ -1,0 +1,37 @@
+{
+  "id": "entwurf/vox01/b/palisade",
+  "name": "VOX-01 B Via Appia: Kastell-Brustwehr mit Pila-Reihe und Amberrinne (Halbdeckung)",
+  "tier": "detail",
+  "palette": "rom",
+  "jitter": 0,
+  "tags": ["entwurf", "rom", "befestigung", "deckung_halb"],
+  "footprint": [1, 1],
+  "params": {
+    "conn": { "default": 10, "min": 0, "max": 15, "step": 1, "label": "Nachbarn (N1 O2 S4 W8), Reihe = O+W" }
+  },
+  "let": { "ost": "floor(conn / 2) % 2", "west": "floor(conn / 8) % 2" },
+  "variants": { "ende_links": { "conn": 2 }, "ende_rechts": { "conn": 8 }, "einzeln": { "conn": 0 } },
+  "ops": [
+    { "op": "box", "name": "Sockel", "at": [0, 0, 5], "size": [16, 2, 6], "color": "primary" },
+    { "op": "box", "name": "Brustwehr", "at": [0, 2, 5], "size": [16, 7, 6], "color": { "frame": "stone_light", "fill": "secondary", "axes": "xy", "width": 1 } },
+    { "op": "box", "name": "Fuge", "at": [8, 2, 10], "size": [1, 7, 1], "color": "stone_dark" },
+    { "op": "box", "name": "Deckplatte", "at": [0, 9, 4], "size": [16, 1, 8], "color": "trim" },
+    { "op": "box", "name": "Amberrinne", "at": [0, 9, 7], "size": [16, 1, 2], "color": { "role": "glow2", "emit": 0.6 }, "jitter": false },
+    { "op": "group", "name": "Pilum", "repeat": { "count": 4, "step": [4, 0, 0], "var": "i" },
+      "ops": [
+        { "op": "box", "name": "Schaft", "at": [1.5, 10, 5], "size": [1, 6, 1], "color": "metal_dark" },
+        { "op": "box", "name": "Spitze", "at": [1.5, 16, 5], "size": [1, 2, 1], "color": "metal_light" }
+      ] },
+    { "op": "group", "name": "Endpfeiler Ost", "if": "!ost", "ops": [
+      { "op": "box", "name": "Pfeiler", "at": [12, 0, 4], "size": [4, 14, 8], "color": { "frame": "trim", "fill": "secondary", "axes": "xz", "width": 1 } },
+      { "op": "box", "name": "Pfeilerfuß", "at": [12, 0, 4], "size": [4, 2, 8], "color": "primary" },
+      { "op": "box", "name": "Anzeige", "at": [13, 10, 11], "size": [2, 2, 1], "color": { "role": "glow2", "emit": 1.0 }, "jitter": false }
+    ] },
+    { "op": "group", "name": "Endpfeiler West", "if": "!west", "ops": [
+      { "op": "box", "name": "Pfeiler", "at": [0, 0, 4], "size": [4, 14, 8], "color": { "frame": "trim", "fill": "secondary", "axes": "xz", "width": 1 } },
+      { "op": "box", "name": "Pfeilerfuß", "at": [0, 0, 4], "size": [4, 2, 8], "color": "primary" },
+      { "op": "box", "name": "Anzeige", "at": [1, 10, 11], "size": [2, 2, 1], "color": { "role": "glow2", "emit": 1.0 }, "jitter": false }
+    ] }
+  ],
+  "anchor": [8, 0, 8]
+}

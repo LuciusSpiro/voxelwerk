@@ -1,0 +1,40 @@
+{
+  "id": "entwurf/vox01/a/palisade",
+  "name": "VOX-01 A Feldlager: Pfahlreihe (vallum, Halbdeckung)",
+  "tier": "detail",
+  "palette": "sommer_wald",
+  "jitter": 0,
+  "tags": ["entwurf", "rom", "befestigung", "deckung_halb"],
+  "footprint": [1, 1],
+  "params": {
+    "conn": { "default": 10, "min": 0, "max": 15, "step": 1, "label": "Nachbarn (N1 O2 S4 W8), Reihe = O+W" }
+  },
+  "let": { "ost": "floor(conn / 2) % 2", "west": "floor(conn / 8) % 2" },
+  "variants": { "ende_links": { "conn": 2 }, "ende_rechts": { "conn": 8 }, "einzeln": { "conn": 0 } },
+  "ops": [
+    { "op": "box", "name": "Erdfuß", "at": [0, 0, 5], "size": [16, 3, 6], "color": { "gradient": ["soil_dark", "soil"], "axis": "y" } },
+    { "op": "wedge", "name": "Erdfuß vorn", "at": [0, 0, 11], "size": [16, 3, 3], "slope": "+z", "color": "soil" },
+    { "op": "wedge", "name": "Erdfuß hinten", "at": [0, 0, 2], "size": [16, 3, 3], "slope": "-z", "color": "soil" },
+    { "op": "group", "name": "Pfahl", "repeat": { "count": 4, "step": [4, 0, 0], "var": "i" },
+      "let": { "hb": "12 + ((i + seed) % 2) * 2" },
+      "ops": [
+        { "op": "box", "name": "Schaft", "at": [0.5, 0, 6], "size": [3, "hb", 3], "color": { "gradient": ["wood_dark", "wood"], "axis": "y" } },
+        { "op": "box", "name": "Spitze 1", "at": [0.5, "hb", 6], "size": [3, 2, 3], "color": "wood_light" },
+        { "op": "box", "name": "Spitze 2", "at": [1.5, "hb + 2", 7], "size": [1, 2, 1], "color": "wood_light" }
+      ] },
+    { "op": "box", "name": "Messingband", "at": [0, 7, 9], "size": [16, 2, 1], "color": "trim" },
+    { "op": "box", "name": "Amberniete", "repeat": { "count": 4, "step": [4, 0, 0], "var": "i" }, "at": [1.5, 8, 9], "size": [1, 1, 1], "color": { "role": "glow2", "emit": 1.0 }, "jitter": false },
+    { "op": "box", "name": "Bindung hinten", "at": [0, 4, 5], "size": [16, 2, 1], "color": "metal_dark" },
+    { "op": "group", "name": "Endpfosten Ost", "if": "!ost", "ops": [
+      { "op": "box", "name": "Pfosten", "at": [12, 0, 5], "size": [4, 18, 5], "color": "metal_dark" },
+      { "op": "box", "name": "Kappe", "at": [12, 18, 5], "size": [4, 1, 5], "color": "trim" },
+      { "op": "box", "name": "Lampe", "at": [13, 14, 9], "size": [2, 2, 1], "color": { "role": "glow2", "emit": 1.0 }, "jitter": false }
+    ] },
+    { "op": "group", "name": "Endpfosten West", "if": "!west", "ops": [
+      { "op": "box", "name": "Pfosten", "at": [0, 0, 5], "size": [4, 18, 5], "color": "metal_dark" },
+      { "op": "box", "name": "Kappe", "at": [0, 18, 5], "size": [4, 1, 5], "color": "trim" },
+      { "op": "box", "name": "Lampe", "at": [1, 14, 9], "size": [2, 2, 1], "color": { "role": "glow2", "emit": 1.0 }, "jitter": false }
+    ] }
+  ],
+  "anchor": [8, 0, 8]
+}

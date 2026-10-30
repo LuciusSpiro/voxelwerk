@@ -1,0 +1,21 @@
+{
+  "id": "entwurf/vox01/b/wall",
+  "name": "VOX-01 B Via Appia: Wall mit Travertinfront und Amberrinne, 0,5 m",
+  "tier": "architecture",
+  "palette": "planet_mediterran",
+  "jitter": 0,
+  "tags": ["entwurf", "rom", "befestigung", "plateau"],
+  "footprint": [4, 2],
+  "params": {
+    "len": { "default": 4, "min": 1, "max": 16, "step": 1, "label": "Länge (Kacheln)" }
+  },
+  "variants": { "kurz": { "len": 2 } },
+  "ops": [
+    { "op": "box", "name": "Erdkörper", "at": [0, 0, 0], "size": ["len * 4", 2, 8], "color": "soil" },
+    { "op": "box", "name": "Rasendecke", "at": [0, 1, 0], "size": ["len * 4", 1, 6], "color": "grass" },
+    { "op": "box", "name": "Plattenweg", "at": [0, 1, 4], "size": ["len * 4", 1, 3], "color": "paving" },
+    { "op": "box", "name": "Travertinfront", "at": [0, 0, 7], "size": ["len * 4", 2, 1], "color": { "stripes": ["stone", "stone_dark"], "axis": "x", "period": 4 } },
+    { "op": "box", "name": "Amberrinne", "at": [0, 1, 7], "size": ["len * 4", 1, 1], "color": { "role": "glow2", "emit": 0.5 }, "jitter": false }
+  ],
+  "anchor": ["len * 2", 0, 4]
+}
