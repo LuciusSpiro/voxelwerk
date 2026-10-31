@@ -11,6 +11,7 @@ import { gridToVox } from '../core/vox.js';
 import { resolveScene } from '../core/scene.js';
 import { buildTerrain } from '../core/terrain.js';
 import { pruefeModell, printReport } from './pruefbogen.mjs';
+import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur } from './cha-lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), exportVox = args.includes('--vox'), pruefbogen = args.includes('--pruefbogen'), filter = args.find((a) => !a.startsWith('--'));
@@ -40,7 +41,7 @@ for (const id of idx.models.filter(want)) {
       const bb = b.grid.bounds(), s = voxelSize(b.tier);
       const dims = [0, 1, 2].map((i) => (bb.max[i] - bb.min[i] + 1));
       const meters = dims.map((d) => (d * s).toFixed(2)).join(' × ');
-      if (!b.grid.size) err(`${id} [${v.label}]: leer`);
+      if (!b.grid.size && !(m.tags || []).includes('leer')) err(`${id} [${v.label}]: leer`);   // nur Modelle mit Tag "leer" (Platzhalter wie cha/leer) dürfen leer sein
       if (Math.max(...dims) * s > MAX_METERS[b.tier]) warn(`${id}: ${meters} m ist groß für Stufe ${b.tier}`);
       console.log(`  ✓ ${id} [${v.label}] ${b.tier}  ${dims.join('×')} Voxel = ${meters} m  ${fmt(b.grid.size)} Voxel  ${fmt(b.mesh.lit.quads + b.mesh.emit.quads)} Quads`);
       if (exportVox && v.label === 'default') {
@@ -73,6 +74,25 @@ for (const id of idx.figures.filter(want)) {
     if (missing.length) warn(`${id}: Gelenke ohne Teil: ${missing.join(', ')}`);
     console.log(`  ✓ ${id} (Rig ${f.rig}, ${fmt(vox)} Voxel)`);
   } catch (e) { err(`${id}: ${e.message}`); }
+}
+
+console.log('\n== Spielerfigur aus Schichten (cha/)');
+{
+  // Regeln siehe tools/cha-lib.mjs und AUTHORING.md ("Spielerfigur aus Schichten")
+  const chaIds = idx.models.filter((i) => i.startsWith('cha/'));
+  if (chaIds.length && (!filter || 'cha/'.includes(filter) || filter.startsWith('cha'))) {
+    try {
+      for (const id of chaIds) await lib.load('models', id);
+      await lib.load('figures', 'cha/spieler');
+      const get = (id) => lib.get('models', id), rig = lib.get('rigs', lib.get('figures', 'cha/spieler').rig);
+      const melde = (name, fehler) => { for (const f of fehler) err(`${f.id}: ${f.msg}`); console.log(`  ${fehler.length ? '✗' : '✓'} ${name}`); };
+      melde(`Anker (${chaIds.length} Modelle): jedes Modell und jedes eingesetzte Teil mit anchor, Anbaupunkt-Anker ausgeglichen`, pruefeAnker(idx.models, get));
+      melde('Rollen: kein use mit colors/palette, das skin, skin_shadow oder hair setzt', pruefeRollen(idx.models, get));
+      melde('Gelenkbereiche (Rig bereiche + toleranzen): alle Schichten innerhalb', pruefeBereiche(idx.models, get, (id) => lib.build(id), rig));
+      const r = pruefeFigur(lib, 'cha/spieler', idx.models);
+      melde(`Figur cha/spieler baut mit Standardwerten und ${r.gebaut - 1} Einzelwerten`, r.fehler);
+    } catch (e) { err(`cha/: ${e.message}`); }
+  }
 }
 
 console.log('\n== Szenen');
