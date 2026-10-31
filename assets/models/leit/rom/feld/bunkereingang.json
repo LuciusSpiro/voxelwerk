@@ -9,7 +9,7 @@
     "bunker",
     "eingang"
   ],
-  "notes": "VOX-01 Paket 5c. Fassade für die Nische am Ziel der Grabenkarte: Grundfläche 2 x 1 Kacheln, Anker = Mitte der Wandfläche des Mauerblocks (z 2 = Wandfläche, z 0..1 liegt im Block, z 2..4 davor, 0,5 m). Nur Teile vor der Wandfläche sind sichtbar, deshalb steht das Tor als Relief davor: Rückplatte, Torflügel (1,5 m x 1,75 m, geschlossen), Pilaster, Fries, Gesims (Oberkante 3 m). Auf der Mauerkrone (y 12 = 3 m, Höhe des Mauerblocks) eine Kappe mit Amberlinie und zwei Leuchtpfosten: aus der Spielkamera (Blick von Süden, Front nach Westen steht quer zur Blickrichtung) ist das von oben lesbar. Vorderseite +z. Reine Optik: Kollision und Funktion gehören dem Spiel. Der frühere Erdhügel entfällt (der Mauerblock ist schon da).",
+  "notes": "VOX-01 Paket 5c. Fassade für die Nische am Ziel der Grabenkarte: Grundfläche 2 x 1 Kacheln, Anker = Mitte der Wandfläche des Mauerblocks (z 2 = Wandfläche, z 0..1 liegt im Block, z 2..4 davor, 0,5 m). Nur Teile vor der Wandfläche sind sichtbar, deshalb steht das Tor als Relief davor: Rückplatte, Torflügel (1,5 m x 1,75 m, geschlossen), Pilaster, Fries, Gesims (Oberkante 3 m). Auf der Mauerkrone (y 12 = 3 m, Höhe des Mauerblocks) eine Kappe mit Amberlinie und zwei Leuchtköpfen (Höhe insgesamt 3,5 m, Obergrenze für Leitstücke): aus der Spielkamera (Blick von Süden, Front nach Westen steht quer zur Blickrichtung) ist das von oben lesbar. Vorderseite +z. Reine Optik: Kollision und Funktion gehören dem Spiel. Der frühere Erdhügel entfällt (der Mauerblock ist schon da).",
   "footprint": [
     2,
     1
@@ -271,28 +271,11 @@
       "jitter": false
     },
     {
-      "name": "Leuchtpfosten",
+      "name": "Leuchtkopf auf der Mauerkrone",
       "op": "box",
       "at": [
         0,
         13,
-        1
-      ],
-      "size": [
-        1,
-        3,
-        1
-      ],
-      "color": "metal_dark",
-      "mirror": "x",
-      "mirrorAt": 4
-    },
-    {
-      "name": "Leuchtkopf",
-      "op": "box",
-      "at": [
-        0,
-        16,
         1
       ],
       "size": [
