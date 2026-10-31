@@ -1,0 +1,453 @@
+{
+ "id": "vox01-baeume",
+ "name": "VOX-01 Baeume: je Art Seed 1-3, Figur, rechts nur Stamm; dazu Waldgruppe (24 Baeume)",
+ "palette": "sommer_wald",
+ "mood": "planet_day",
+ "terrain": {
+  "palette": "sommer_wald",
+  "depth": 1,
+  "jitter": 0,
+  "legend": {
+   "m": {
+    "h": 1,
+    "top": "grass",
+    "fill": "soil"
+   }
+  },
+  "rows": [
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm",
+   "mmmmmmmmmmmmmmmmmmmmmmmmmmm"
+  ]
+ },
+ "place": [
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    2,
+    2.5
+   ],
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    5,
+    2.5
+   ],
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    8,
+    2.5
+   ],
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    11,
+    2.5
+   ],
+   "params": {
+    "seed": 1
+   }
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    14,
+    2.5
+   ],
+   "params": {
+    "seed": 2
+   }
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    17,
+    2.5
+   ],
+   "params": {
+    "seed": 3
+   }
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    21.5,
+    2.5
+   ],
+   "params": {
+    "seed": 1,
+    "teil": 1
+   }
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    23.5,
+    2.5
+   ],
+   "params": {
+    "seed": 1,
+    "teil": 1
+   }
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    7.57,
+    7.92
+   ],
+   "params": {
+    "seed": 2
+   },
+   "rot": 270
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    9.47,
+    8.15
+   ],
+   "params": {
+    "seed": 5
+   },
+   "rot": 270
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    11.23,
+    8.09
+   ],
+   "params": {
+    "seed": 10
+   },
+   "rot": 90
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    13.54,
+    8.08
+   ],
+   "params": {
+    "seed": 11
+   },
+   "rot": 270
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    15.2,
+    8.12
+   ],
+   "params": {
+    "seed": 3
+   },
+   "rot": 180
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    17.24,
+    8.19
+   ],
+   "params": {
+    "seed": 10
+   },
+   "rot": 180
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    8.61,
+    9.85
+   ],
+   "params": {
+    "seed": 8
+   },
+   "rot": 270
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    10.61,
+    9.68
+   ],
+   "params": {
+    "seed": 8
+   },
+   "rot": 270
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    12.29,
+    9.65
+   ],
+   "params": {
+    "seed": 9
+   },
+   "rot": 180
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    14.47,
+    9.8
+   ],
+   "params": {
+    "seed": 11
+   },
+   "rot": 90
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    16.36,
+    9.73
+   ],
+   "params": {
+    "seed": 8
+   },
+   "rot": 90
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    18.3,
+    9.59
+   ],
+   "params": {
+    "seed": 4
+   },
+   "rot": 180
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    7.62,
+    11.48
+   ],
+   "params": {
+    "seed": 3
+   },
+   "rot": 90
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    9.64,
+    11.6
+   ],
+   "params": {
+    "seed": 7
+   },
+   "rot": 0
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    11.5,
+    11.4
+   ],
+   "params": {
+    "seed": 5
+   },
+   "rot": 90
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    13.28,
+    11.68
+   ],
+   "params": {
+    "seed": 1
+   },
+   "rot": 180
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    15.2,
+    11.37
+   ],
+   "params": {
+    "seed": 5
+   },
+   "rot": 0
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    17.3,
+    11.6
+   ],
+   "params": {
+    "seed": 8
+   },
+   "rot": 270
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    8.45,
+    13.18
+   ],
+   "params": {
+    "seed": 2
+   },
+   "rot": 0
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    10.26,
+    13.36
+   ],
+   "params": {
+    "seed": 11
+   },
+   "rot": 180
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    12.35,
+    13.45
+   ],
+   "params": {
+    "seed": 2
+   },
+   "rot": 90
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    14.42,
+    13.11
+   ],
+   "params": {
+    "seed": 8
+   },
+   "rot": 270
+  },
+  {
+   "model": "natur/nadelbaum",
+   "at": [
+    16.17,
+    13.18
+   ],
+   "params": {
+    "seed": 3
+   },
+   "rot": 270
+  },
+  {
+   "model": "natur/laubbaum",
+   "at": [
+    18.4,
+    13.27
+   ],
+   "params": {
+    "seed": 9
+   },
+   "rot": 0
+  }
+ ],
+ "figures": [
+  {
+   "figure": "rom/legionaer",
+   "at": [
+    19.3,
+    2.5
+   ],
+   "rot": 0,
+   "pose": "stand"
+  }
+ ],
+ "cameras": {
+  "spiel": {
+   "target": [
+    12.5,
+    3,
+    10.5
+   ],
+   "dist": 21,
+   "elev": 57,
+   "az": 0,
+   "fov": 30
+  },
+  "reihe": {
+   "target": [
+    12.5,
+    2.5,
+    2.5
+   ],
+   "dist": 26,
+   "elev": 57,
+   "az": 0,
+   "fov": 30
+  },
+  "seite": {
+   "target": [
+    12.5,
+    3,
+    2.5
+   ],
+   "dist": 28,
+   "elev": 8,
+   "az": 0,
+   "fov": 30
+  },
+  "oben": {
+   "target": [
+    12.5,
+    1,
+    2.5
+   ],
+   "dist": 26,
+   "elev": 80,
+   "az": 0,
+   "fov": 30
+  },
+  "waldoben": {
+   "target": [
+    12.5,
+    1,
+    10.5
+   ],
+   "dist": 22,
+   "elev": 88,
+   "az": 0,
+   "fov": 30
+  }
+ }
+}
