@@ -2,14 +2,17 @@
 // Haut/Haar über Figur-colors, Prüfregeln samt Mutationsprobe, Generator wiederholbar, Rig-Bereiche.
 // A2: alle Kombinationen der Teile, Lecktest über alle Teile, Farben je Teil, Haut/Haar im Katalog, Bordhelm (Haar, Haut, Ohren),
 // Schweben, Schichtfolge, Katalog samt Mutationsprobe.
+// A3: Posen in Node gegen three.js, Passprobe über alle Kombinationen × Posen, Mutationsprobe der Passprobe, Spielerfarbe nie in der Kleidung.
 // Aufruf: node tools/test-cha.mjs        (Exit-Code 1 bei Fehlern)
 // Liest assets/ aus dem Repo (nichts wird geschrieben).
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { register } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { nodeLibrary, listAssets } from './fs-io.js';
-import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE } from './cha-lib.mjs';
+import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, pruefePassung, ladeFigur } from './cha-lib.mjs';
+import { poseWerte, gelenkMatrizen, weltPunkt, eulerYXZ } from './cha-pose.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 let pass = 0, fail = 0;
@@ -250,7 +253,7 @@ console.log('\n== Haut- und Haarfarben im Katalog');
 console.log('\n== Bordhelm: Haar und Haut unter der Schale');
 {
   const HAARC = '#00FF00', HAUTC = '#FF8800', SCHC = '#CC5500';
-  const cls = (c) => { const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255; if (g > 150 && r < 90 && b < 90) return 'haar'; if (r > 140 && g > 40 && g < 150 && b < 50) return 'haut'; return 'sonst'; };
+  const cls = (c) => { const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255; if (g > 150 && r < 90 && b < 90) return 'haar'; if (r > 140 && g > 40 && g < 150 && b < 25) return 'haut'; return 'sonst'; };
   const offen = (v) => v.z >= 2 && v.x >= -2 && v.x <= 1 && v.y >= 26 && v.y <= 31;   // Gesichtsöffnung des Helms (vor der Schale)
   const flaeche = (vox) => { const s = new Set(vox.map(schluessel)); return vox.filter((v) => [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]].some(([a, b, c]) => !s.has(schluessel({ x: v.x + a, y: v.y + b, z: v.z + c })))); };
   const messe = (params) => {
@@ -346,10 +349,10 @@ const katalogPruefen = (k, o = optionen, f = fig) => pruefeKatalog(k, { modelIds
   }, 'volk je Teil (lerche, crew, germanen, rom)');
   eq(Object.fromEntries(katalog.teile.map((t) => [t.id, t.name])), {
     'gesicht/lerche': 'Lerche', 'gesicht/narbe': 'Narbe', 'frisur/dutt': 'Dutt', 'frisur/zoepfe': 'Zöpfe', 'frisur/keine': 'Kahl', 'bart/keiner': 'Kein Bart', 'bart/vollbart': 'Vollbart',
-    'kopf/keine': 'Keine', 'kopf/bordhelm': 'Bordhelm', 'oberteil/bordtunika': 'Bordtunika', 'oberteil/plankenweste': 'Plankenweste', 'oberteil/keine': 'Keines',
-    'hose/bordhose': 'Bordhose', 'hose/germanenhose': 'Germanenhose', 'hose/keine': 'Keine', 'schuhe/bordstiefel': 'Bordstiefel', 'schuhe/germanenstiefel': 'Germanenstiefel', 'schuhe/keine': 'Keine',
+    'kopf/keine': 'Keine', 'kopf/bordhelm': 'Bordhelm', 'oberteil/bordtunika': 'Bordtunika', 'oberteil/plankenweste': 'Plankenweste', 'oberteil/keine': 'Unterzeug',
+    'hose/bordhose': 'Bordhose', 'hose/germanenhose': 'Germanenhose', 'hose/keine': 'Unterzeug', 'schuhe/bordstiefel': 'Bordstiefel', 'schuhe/germanenstiefel': 'Germanenstiefel', 'schuhe/keine': 'Barfuß',
     'haende/keine': 'Keine', 'haende/armschiene': 'Armschiene', 'umhang/keiner': 'Keiner', 'umhang/fellumhang': 'Fellumhang',
-  }, 'Anzeigenamen deutsch und kurz');
+  }, 'Anzeigenamen deutsch und kurz (leere Werte: Unterzeug bei Oberteil und Hose, Barfuß bei Schuhen)');
 }
 
 console.log('\n== Mutationsprobe Katalog (die Prüfung erkennt manipulierte Kataloge)');
@@ -376,6 +379,143 @@ console.log('\n== Mutationsprobe Katalog (die Prüfung erkennt manipulierte Kata
   ok(pruefeRollen(idx.models, get).every((f) => f.id !== U), 'Fellumhang darf hair festnageln (PINNEN), die Regel bleibt für ihn ohne Befund');
   { const w = klon(U); w.ops[0].colors = { ...w.ops[0].colors, skin: 'umhang_fellumhang' }; ok(hat(pruefeRollen(idx.models, mit({ [U]: w })), U, /colors setzt skin/), 'Fellumhang darf skin nicht festnageln'); }
   { const w = klon(T); w.ops[0].colors = { ...w.ops[0].colors, hair: 'top_bordtunika' }; ok(hat(pruefeRollen(idx.models, mit({ [T]: w })), T, /colors setzt hair/), 'andere Teile dürfen hair nicht festnageln'); }
+}
+
+// =============================================================================================
+// A3: Posen in Node, Passprobe, Mutationsprobe
+// =============================================================================================
+console.log('\n== Posen in Node (tools/cha-pose.mjs) gegen three.js applyPose');
+const posen = lib.get('poses', 'human') || (await lib.load('poses', 'human'));
+{
+  const nahe = (a, b, eps = 1e-9) => a.every((v, i) => Math.abs(v - b[i]) < eps);
+  // Ruhepose: jeder Punkt bleibt, wo er ist
+  const M0 = gelenkMatrizen(rig, { joints: {}, lift: 0 });
+  ok(Object.keys(rig.joints).every((j) => nahe(weltPunkt(rig, M0, j, [3.5, 9.25, -2]), [3.5, 9.25, -2])), 'ohne Winkel bleibt jeder Punkt aller Gelenke an seinem Platz');
+  // Von Hand nachgerechnet: rechter Oberarm 90° nach vorn (x = -90°), Schulter bei (-5.5, 23, 0)
+  const M1 = gelenkMatrizen(rig, { joints: { upperArmR: [-90, 0, 0] }, lift: 0 });
+  ok(nahe(weltPunkt(rig, M1, 'lowerArmR', rig.joints.lowerArmR.at), [-5.5, 23, 6]), 'Ellbogen rechts bei 90° nach vorn: (-5,5 | 23 | 6) = 6 Voxel vor der Schulter');
+  ok(nahe(weltPunkt(rig, M1, 'handR', rig.joints.handR.at), [-5.5, 23.5, 11]), 'Handgelenk rechts: (-5,5 | 23,5 | 11) (11 Voxel Armlänge vor der Schulter, 0,5 Versatz nach oben)');
+  // Seitlich: z = +90° hebt den linken Arm seitlich (Ellbogen 6 Voxel neben der Schulter)
+  const M2 = gelenkMatrizen(rig, { joints: { upperArmL: [0, 0, 90] }, lift: 0 });
+  ok(nahe(weltPunkt(rig, M2, 'lowerArmL', rig.joints.lowerArmL.at), [11.5, 23, 0]), 'linker Arm z = +90°: Ellbogen 6 Voxel seitlich der Schulter (x 11,5)');
+  // lift senkt die Hüfte und alles darunter in der Hierarchie
+  const M3 = gelenkMatrizen(rig, { joints: {}, lift: -7 });
+  ok(nahe(weltPunkt(rig, M3, 'head', [0, 25, 0]), [0, 18, 0]) && nahe(weltPunkt(rig, M3, 'shinL', [2, 3, 0]), [2, -4, 0]), 'lift -7 senkt Kopf und Schienbein um 7 Voxel (Hüfte, Kind-Gelenke folgen)');
+  // aim: rechte Hand liegt vor der Schulter (Waffenarm)
+  const Maim = gelenkMatrizen(rig, poseWerte(posen, 'aim'));
+  const hand = weltPunkt(rig, Maim, 'handR', rig.joints.handR.at);
+  ok(hand[2] > 8 && Math.abs(hand[1] - 23) < 3, `aim: rechte Hand (${hand.map((v) => v.toFixed(1))}) liegt 8+ Voxel vor der Wurzel auf Schulterhöhe`);
+  eq(poseWerte(posen, 'walk', 0.25).joints.thighL, [-2 - 26, 0, 0], 'walk φ ¼: Oberschenkel links bei -28° (Umkehrpunkt des cycle)');
+  eq(poseWerte(posen, 'walk', 0.75).joints.thighL, [-2 + 26, 0, 0], 'walk φ ¾: Oberschenkel links bei +24° (anderer Umkehrpunkt)');
+  eq(poseWerte(posen, 'walk', 0).lift, -0.5 + 0.6 * 0.5, 'walk φ 0: lift = pose.lift + bob·0,5');
+}
+{
+  // three.js (vendor/) ohne Browser laden: der bare Import 'three' wird auf vendor/three.module.js umgelenkt
+  const tUrl = pathToFileURL(path.join(root, 'vendor', 'three.module.js')).href;
+  register('data:text/javascript,' + encodeURIComponent(`export async function resolve(s,c,n){ if(s==='three') return {url:${JSON.stringify(tUrl)},shortCircuit:true}; return n(s,c); }`));
+  const V = await import(pathToFileURL(path.join(root, 'render', 'voxel-three.js')).href);
+  const fo = V.figureObject(lib, 'cha/spieler', { phase: 0 });
+  const r = baueFigur(lib, 'cha/spieler');
+  /** Eckpunkte aller Voxel nach meiner Transformation (auf 1/1000 Voxel gerundet) je Gelenk */
+  const eckenVon = (jn, M) => {
+    const set = new Set();
+    for (const v of r.pro[jn]) for (let dx = 0; dx < 2; dx++) for (let dy = 0; dy < 2; dy++) for (let dz = 0; dz < 2; dz++) set.add(weltPunkt(rig, M, jn, [v.x + dx, v.y + dy, v.z + dz]).map((a) => Math.round(a * 1e3)).join(','));
+    return set;
+  };
+  const fehlend = (jn, ecken) => {   // Netz-Eckpunkte aus three.js (Weltposition in Voxeln), die keine Voxelecke meiner Transformation sind
+    const modell = fo.joints[jn].children.find((c) => c.userData.voxels !== undefined), mesh = modell.children.find((c) => c.isMesh && !c.userData.bloom);
+    const pos = mesh.geometry.getAttribute('position'), w = mesh.position.clone();
+    let n = 0, gesamt = 0;
+    for (let i = 0; i < pos.count; i++) {
+      w.fromBufferAttribute(pos, i).applyMatrix4(mesh.matrixWorld);
+      gesamt++; if (!ecken.has([w.x, w.y, w.z].map((a) => Math.round(a / fo.s * 1e3)).join(','))) n++;
+    }
+    return { n, gesamt };
+  };
+  const gelenke = Object.keys(r.pro);
+  const abgleich = (pose, phi) => {
+    const w = poseWerte(posen, pose, phi);
+    fo.poses.__abgleich = { joints: w.joints, lift: w.lift, breathe: 0, look: false };
+    V.applyPose(fo, '__abgleich', 0);
+    fo.root.updateMatrixWorld(true);
+    const M = gelenkMatrizen(rig, w);
+    let n = 0, gesamt = 0;
+    for (const jn of gelenke) { const x = fehlend(jn, eckenVon(jn, M)); n += x.n; gesamt += x.gesamt; }
+    return { n, gesamt };
+  };
+  for (const [pose, phi] of [['aim'], ['sit'], ['aim_rifle'], ['kneel'], ['walk', 0.25], ['walk', 0.75]]) {
+    const a = abgleich(pose, phi);
+    eq([a.n, a.gesamt > 6000], [0, true], `${pose}${phi !== undefined ? ' φ ' + phi : ''}: alle ${a.gesamt} Netz-Eckpunkte der ${gelenke.length} Gelenke (three.js applyPose: YXZ, lift, Spiegelteile) liegen auf Voxelecken meiner Node-Transformation`);
+  }
+  // Positivkontrolle: three.js steht in aim, meine Matrizen sind die für sit → passt nicht
+  abgleich('aim');
+  const falsch = gelenke.reduce((n, jn) => n + fehlend(jn, eckenVon(jn, gelenkMatrizen(rig, poseWerte(posen, 'sit')))).n, 0);
+  ok(falsch > 3000, `Positivkontrolle: three.js in aim gegen meine Matrizen für sit: ${falsch} Eckpunkte ohne Treffer`);
+  const w = poseWerte(posen, 'aim'), a1 = eulerYXZ(w.joints.upperArmR), a2 = eulerYXZ([w.joints.upperArmR[0], 0, 0]);
+  ok(a1.some((v, i) => Math.abs(v - a2[i]) > 0.01), 'aim (upperArmR hat x und y): die y-Drehung geht in die Matrix ein');
+  ok(!('poses' in fig) && !('posen' in fig) && rig.poses === 'human', 'cha/spieler hat keine eigenen Posen: Posenquelle ist assets/poses/human.json (Rig human)');
+}
+
+console.log('\n== Passprobe (alle Kombinationen × Posen)');
+for (const f of ['fig/germanen/grundtyp', 'rom/legionaer']) await ladeFigur(lib, f);
+const BESTAND = ['lerche/crew_0', 'fig/germanen/grundtyp', 'rom/legionaer'];
+const passe = (l) => pruefePassung(l, 'cha/spieler', idx.models, { bestand: BESTAND });
+{
+  const r = passe(lib);
+  eq(r.fehler, [], `Passprobe über alle ${r.kombinationen} Kombinationen × ${Object.keys(r.messung).length} Posenzustände ohne Befund`);
+  eq(r.kombinationen, 2592, '2592 Kombinationen (Produkt der options aller Plätze)');
+  ok(r.sekunden < 20, `Laufzeit ${r.sekunden.toFixed(1)} s (Grenze 20 s)`);
+  console.log(`    Laufzeit ${r.sekunden.toFixed(1)} s`);
+  const alle = Object.entries(r.messung);
+  ok(alle.every(([, l]) => l.every((x) => x.max <= x.schwelle)), 'jede Messung (Prüfsatz-Maximum je Pose und Paar) liegt unter der Bestandsschwelle des Paares');
+  ok(alle.some(([, l]) => l.some((x) => x.bestand > 20)), 'Positivkontrolle: die Bestandsfiguren zeigen selbst Durchdringungen (Schwelle ist nicht 0)');
+  const ueberPose = alle.flatMap(([z, l]) => l.filter((x) => x.max > x.bestand).map((x) => `${z} ${x.paar} ${x.max}/${x.bestand}`));
+  console.log(`    über dem Bestandswert derselben Pose (aber unter der Paarschwelle): ${ueberPose.length}${ueberPose.length ? ' – ' + ueberPose.join('; ') : ''}`);
+}
+
+console.log('\n== Mutationsprobe Passprobe (manipulierte Modelle im Speicher)');
+{
+  const frisch = async () => {
+    const l = nodeLibrary(root);
+    for (const id of chaIds) await l.load('models', id);
+    await l.load('figures', 'cha/spieler'); await l.load('rigs', 'human'); await l.load('poses', 'human');
+    for (const f of BESTAND) await ladeFigur(l, f);
+    return l;
+  };
+  const rot = async (name, aendere, re, nurDiese) => {
+    const l = await frisch(); aendere(l);
+    const r = passe(l);
+    ok(r.fehler.length > 0 && r.fehler.some((f) => re.test(f.msg)), `${name}: Passprobe rot (${r.fehler.length} Befunde, z. B. „${(r.fehler.find((f) => re.test(f.msg)) || r.fehler[0] || { msg: '–' }).msg.slice(0, 110)}“)`);
+    if (nurDiese) ok(r.fehler.every((f) => nurDiese.test(f.msg)), `${name}: alle Befunde sind von dieser Art (die anderen Prüfungen bleiben grün)`);
+  };
+  eq(passe(await frisch()).fehler, [], 'Gegenprobe: unveränderte Modelle in frischer Bibliothek bleiben grün');
+  await rot('(a) Hose-Oberschenkel mit einem Voxel bei x 10 (außerhalb des Gelenks)', (l) => l.get('models', 'cha/hose/bordhose/thigh').ops.push({ op: 'box', name: 'Ausreißer', at: [10, 7, 0], size: [1, 1, 1], color: '#ff0000' }), /Gelenk thighL: 1 Voxel außerhalb von Bereich/, /außerhalb von Bereich/);
+  await rot('(b) Bordhelm ohne Haarmaske: Haar sticht durch den Helm', (l) => { l.get('models', 'cha/kopf/bordhelm/head_maske').ops = []; }, /Haar sticht durch bordhelm/, /Haar sticht durch/);
+  await rot('(c) Armschiene als Block im erlaubten Bereich (3×7×5): ragt in Posen in Nachbargelenke', (l) => l.get('models', 'cha/haende/armschiene/lowerArm').ops.push({ op: 'box', name: 'Block', at: [4, 10, -2], size: [3, 7, 5], color: '#ff0000' }), /Pose \S+.*durchdringen sich/, /durchdringen sich/);
+  await rot('(c2) Oberschenkel-Block der Hose im erlaubten Bereich: Durchdringung beim Sitzen und Knien', (l) => l.get('models', 'cha/hose/bordhose/thigh').ops.push({ op: 'box', name: 'Block', at: [0, 7, -2], size: [4, 7, 5], color: '#ff0000' }), /Pose (sit|kneel).*durchdringen sich/);
+  await rot('(d) Sammelmodell mit kaputtem Teil: Kombinationen bauen nicht', (l) => { const op = l.get('models', 'cha/joint/torso').ops.find((o) => /oberteil/.test(o.model)); op.model = 'cha/oberteil/{oberteil}/gibtsnicht'; op.fallback = []; }, /Baufehler|leer/);
+}
+
+console.log('\n== Spielerfarbe nie in der Kleidung');
+{
+  const SPIELERFARBEN = ['#56B4E9', '#E69F00', '#CC79A7', '#7FE0C2'];   // Pantheon shared/protocol.js PLAYER_COLORS
+  const rgb = (c) => [(c >> 16) & 255, (c >> 8) & 255, c & 255];
+  const hex2 = (h) => rgb(parseInt(h.slice(1), 16));
+  const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
+  const farben = new Map();   // Farbwert → erste Kombination
+  const alle = PLAETZE.map((p) => optionen[p]).reduce((acc, ws) => acc.flatMap((c) => ws.map((w) => [...c, w])), [[]]);
+  for (const c of alle) {
+    const r = baueFigur(lib, 'cha/spieler', { params: Object.fromEntries(PLAETZE.map((p, i) => [p, c[i]])) });
+    for (const v of r.grid.values()) if (!farben.has(v.c)) farben.set(v.c, c.join('/'));
+  }
+  let kleinster = Infinity, wo = '';
+  for (const [c, k] of farben) for (const s of SPIELERFARBEN) { const d = dist(rgb(c), hex2(s)); if (d < kleinster) { kleinster = d; wo = `#${c.toString(16).padStart(6, '0')} bei ${k}`; } }
+  ok(kleinster >= 40, `kein Voxel aller ${alle.length} Kombinationen (${farben.size} Farbwerte) liegt im RGB-Abstand < 40 zu einer der vier Spielerfarben (kleinster Abstand ${kleinster.toFixed(0)}, ${wo})`);
+  const pal = lib.get('palettes', 'cha').roles;
+  ok(pal.hut_zier_bordhelm === '#B3342B', 'Bordhelm: Akzentstreifen fest in Crew-Rot (#B3342B), nicht mehr die Spielerfarbe');
+  ok(SPIELERFARBEN.every((s) => dist(hex2('#B3342B'), hex2(s)) > 100), 'Crew-Rot ist keiner Spielerfarbe ähnlich (Abstand > 100)');
+  const bestandHelm = lib.build('fig/crew/helm_offen', { palette: 'crew' });
+  ok([...bestandHelm.grid.values()].some((v) => dist(rgb(v.c), hex2('#56B4E9')) < 40), 'Positivkontrolle: der Bestandshelm fig/crew/helm_offen hat Voxel in Spielerfarbe S1');
 }
 
 console.log('\n== Generator und Rig');

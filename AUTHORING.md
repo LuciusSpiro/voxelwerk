@@ -419,6 +419,31 @@ unter `cha/` hat `anchor` (ungleich [0,0,0] nur mit passendem `at`); kein `color
 jede `options`-Ausprägung der Figur steht im Katalog und umgekehrt, Platz, Gruppe, Reihenfolge und Farben (je 4 Hauttöne und Haarfarben,
 Index 0 = Figurfarben) stimmen.
 
+**Passprobe** (`pruefePassung` in `tools/cha-lib.mjs`, Posen in `tools/cha-pose.mjs`, Abschnitt „Spielerfigur aus Schichten“ in `npm run check`, ca. 3 s):
+baut **jede Teilekombination** (Produkt der `options` aller Plätze, heute 2592) und prüft sie in den Posen stand, walk (Extreme des `cycle`: φ = 0, ¼, ½, ¾),
+aim, aim_rifle, aim_heavy, kneel, sit, crouch. Posen werden in Node ohne three.js angewendet (Gelenkhierarchie des Rigs, Euler YXZ, `lift`, Atmen/Blick
+bei t = 0 null); der Test gleicht jede Voxelecke gegen `applyPose` aus `render/voxel-three.js` ab. Die Spielerfigur bringt keine eigenen Posen mit,
+Quelle ist `assets/poses/human.json`; die Ersatzposen des Spiels (`actors.js`, `FALLBACK_POSES`) gelten nur, wenn eine Figur keine hat.
+Geprüft wird je Kombination:
+1. **Bau**: wirft das Bauen oder ist die Figur leer → rot.
+2. **Gelenkbereich** (vor der Pose): kein Voxel eines Gelenks außerhalb von `bereiche` + den Toleranzen der getragenen Teile (Toleranz je Platz und
+   Gattung, leere Werte tragen keine). Rechte Gelenke spiegeln die Toleranz in x.
+3. **Haar am Helm**: wird eine Kopfbedeckung getragen, darf kein sichtbares Haarvoxel (Voxel mit freier Seite, Haare in Marker-Grün gebaut, ohne Bart)
+   außerhalb der Gesichtsöffnung (`OEFFNUNG`: x −2..1, y 26..31, z ≥ 2) liegen.
+4. **Durchdringung in Pose**: je Posenzustand und Gelenkpaar (55 Paare) zählt die Probe die Voxel beider Gelenke, deren Mitte einem Voxel des anderen
+   Gelenks näher als 0,7 Voxel kommt **und die das in der Ruhepose nicht tun** (die Ruhe-Überlappung der Teile prüft `test-cha.mjs`).
+   Rot, wenn die Zahl über der **Schwelle des Paares** liegt: dem größten Wert, den dasselbe Paar (links/rechts gespiegelt zusammengefasst)
+   an den Bestandsfiguren `lerche/crew_0`, `fig/germanen/grundtyp` (mit Fellumhang) und `rom/legionaer` (Armschiene) in irgendeiner dieser Posen zeigt. Ein Paar,
+   das im Bestand nie kollidiert (z. B. Kopf/Oberschenkel), hat die Schwelle 0.
+
+**Treffer lesen:** `✗ <Kombination>: Pose sit, hips/thighL: 52 Voxel durchdringen sich (Schwelle 47, Bestand in dieser Pose 46) [288 Wertekombinationen]`.
+Die Kombination ist der erste Fund (Werte in Platz-Reihenfolge `koerper/gesicht/frisur/bart/kopf/oberteil/hose/schuhe/haende/umhang`), die Klammer
+sagt, bei wie vielen Wertekombinationen der am Paar beteiligten Plätze derselbe Befund auftritt. Gelenk und Pose nennen den Ort; die Zahl ist die Zahl der Treffer-Voxel.
+Zum Prüfen das genannte Teil (bei Bereichsfehlern die Schicht des Plätze-Werts am Gelenk, bei Haar die Hutmaske `…/head_maske`, bei Durchdringung die
+Platz-Werte des Paares) allein einsetzen und in der Pose ansehen (`tools/cha-bilder.mjs`). Unter dem Strich zeigt `npm run check` je Pose den größten Messwert mit Schwelle
+und Bestandswert dieser Pose; Werte über dem Bestandswert der Pose, aber unter der Paarschwelle, stehen als Hinweis darunter (heute: Fellumhang über der Bordtunika, Hüfte/Rumpf in aim-Posen).
+Grenzen: Die Schwelle ist eine Obergrenze („nichts Schlimmeres als heute“), kein Schönheitsurteil; Haar prüft nur den Helm; Gegenstände in der Hand und Atmen/Blick fließen nicht ein.
+
 ## Stimmungen (`assets/moods`)
 
 `planet_day`, `planet_dusk`, `ship_interior`, `precursor_neon`. Felder: `background`, `fog` {color, near, far (× Szenenradius)},

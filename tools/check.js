@@ -11,7 +11,7 @@ import { gridToVox } from '../core/vox.js';
 import { resolveScene } from '../core/scene.js';
 import { buildTerrain } from '../core/terrain.js';
 import { pruefeModell, printReport } from './pruefbogen.mjs';
-import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKatalog, platzOptionen } from './cha-lib.mjs';
+import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKatalog, platzOptionen, pruefePassung, ladeFigur } from './cha-lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), exportVox = args.includes('--vox'), pruefbogen = args.includes('--pruefbogen'), filter = args.find((a) => !a.startsWith('--'));
@@ -94,6 +94,18 @@ console.log('\n== Spielerfigur aus Schichten (cha/)');
       const katalog = JSON.parse(await fs.readFile(path.join(root, 'assets', 'katalog', 'charakter.json'), 'utf8'));
       melde(`Katalog assets/katalog/charakter.json (${katalog.teile.length} Teile): jedes Teil hat ein Modell, options der Figur und Katalog decken sich, Platz, Gruppe und Farben stimmen`,
         pruefeKatalog(katalog, { modelIds: idx.models, optionen: platzOptionen(lib, idx.models), figur: lib.get('figures', 'cha/spieler') }));
+      // Passprobe: jede Teilekombination × Posen (Baufehler, Bereiche, Haar durch Kopfbedeckung, Durchdringung in Pose gegen den Bestand)
+      const BESTAND = ['lerche/crew_0', 'fig/germanen/grundtyp', 'rom/legionaer'];
+      for (const b of BESTAND) await ladeFigur(lib, b);
+      await lib.load('poses', rig.poses);
+      const p = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND });
+      melde(`Passprobe: ${p.kombinationen} Kombinationen × ${Object.keys(p.messung).length} Posenzustände (Bau, Gelenkbereiche, Haar am Helm, Durchdringung gegen Bestand ${BESTAND.join(', ')}) in ${p.sekunden.toFixed(1)} s`, p.fehler);
+      for (const [pose, l] of Object.entries(p.messung)) {
+        const m = l[0];
+        if (m) console.log(`      ${pose.padEnd(10)} größte Durchdringung ${m.paar} ${m.max} Voxel (Schwelle ${m.schwelle}, Bestand in der Pose ${m.bestand})`);
+      }
+      const ueber = Object.entries(p.messung).flatMap(([pose, l]) => l.filter((x) => x.max > x.bestand).map((x) => `${pose} ${x.paar} ${x.max} (Bestand ${x.bestand})`));
+      if (ueber.length) console.log(`      über dem Bestandswert der Pose, unter der Paarschwelle: ${ueber.join('; ')}`);
     } catch (e) { err(`cha/: ${e.message}`); }
   }
 }
