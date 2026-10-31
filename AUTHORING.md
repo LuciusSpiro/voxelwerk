@@ -369,40 +369,55 @@ Palette der Fraktion (und die Besitz-Palette des Spiels per `palette`-Override) 
 
 Die Spielerfigur `cha/spieler` besteht je Gelenk aus **Schichten** (Körper, Hose, Schuhe, Oberteil, …), die aus
 Bestandsteilen (`fig/**`, unverändert) zusammengesetzt werden. Das Spiel wählt je **Platz** ein Teil; Haut und Haar
-färbt die Figur. **Nicht von Hand bearbeiten:** `assets/models/cha/**`, `assets/palettes/cha.json` und
-`assets/figures/cha/spieler.json` erzeugt `node tools/gen-cha.mjs` (wiederholbar, `--check` vergleicht nur).
+färbt die Figur. **Nicht von Hand bearbeiten:** `assets/models/cha/**`, `assets/palettes/cha.json`,
+`assets/figures/cha/spieler.json` und `assets/katalog/charakter.json` erzeugt `node tools/gen-cha.mjs` (wiederholbar, `--check` vergleicht nur).
 
 **Plätze** (Figur-`params`, ein Wert je Platz; Teile-ID `<platz>/<name>`): `koerper` (`standard`), `gesicht` (`lerche`),
 `frisur` (`dutt`), `bart` (`keiner`), `kopf` (`keine`), `oberteil` (`bordtunika`), `hose` (`bordhose`),
-`schuhe` (`bordstiefel`), `haende` (`keine`), `umhang` (`keiner`). `keine`/`keiner` sind gültige Werte ohne Datei (Fallback `cha/leer`).
-Das Standard-Outfit ist **voxelgleich** zu `lerche/crew_0` (ohne Spielerfarbe).
+`schuhe` (`bordstiefel`), `haende` (`keine`), `umhang` (`keiner`). `keine`/`keiner` sind gültige Werte ohne Datei (Fallback `cha/leer`);
+nur `gesicht` hat keinen leeren Wert (Pflicht). Teile heute: gesicht `lerche`/`narbe`, frisur `dutt`/`zoepfe`, bart `vollbart`,
+kopf `bordhelm`, oberteil `bordtunika`/`plankenweste`, hose `bordhose`/`germanenhose`, schuhe `bordstiefel`/`germanenstiefel`,
+haende `armschiene`, umhang `fellumhang`. Das Standard-Outfit ist **voxelgleich** zu `lerche/crew_0` (ohne Spielerfarbe).
 
 **Schichtfolge** = Reihenfolge der `use`-Schritte im Sammelmodell `cha/joint/<gattung>`
 (Gattungen `hips torso head upperArm lowerArm thigh shin`): Körper → Hose → Schuhe → Oberteil → Handschuhe → Umhang;
 am Kopf Körper → Bart → Gesicht → Frisur → Kopfbedeckung (Bart vor Gesicht, sonst malt der Bartschatten über die Lippen).
 Die Frisur liegt in einem eigenen Gitter (`cha/frisur_maskiert/head`), das eine Haarmaske der Kopfbedeckung
-(`cha/kopf/<name>/head_maske`, `mode: carve`) trifft, ohne den Schädel zu löschen. Kopfmaß: Lerche, 6 breit (x −3..2).
+(`cha/kopf/<name>/head_maske`, `mode: carve`) trifft, ohne den Schädel zu löschen: beim Bordhelm schneidet sie das Schalenvolumen und
+das Haar hinter, über und unter der Schale (Dutt, Zöpfe). Eine zweite Schablone (`…/head_ohren`, carve auf dem ganzen Kopf, vor der
+Kopfbedeckung) nimmt Ohren und Ohrring weg. Kopfmaß: Lerche, 6 breit (x −3..2); Germanen-Haar und -Bart sind dafür per `breit` auf 6 verbreitert.
 
 **Schicht** = Modell `cha/<platz>/<teil>/<gattung>` mit `"anchor": [0,0,0]`: ein `use` auf das Bestandsteil, `colors` legt dessen
-Rollen auf **Platzrollen** um (`top`, `hose`, `schuh`, `unter` … in Palette `cha`), danach `carve`-Boxen, falls das Teil Körper
+Rollen auf **Platzrollen** um (`top_plankenweste`, `hose_bordhose`, `schuh_bordstiefel` … in Palette `cha`), danach `carve`-Boxen, falls das Teil Körper
 und Kleidung mischt. Herausgelöste Ops stehen in `…/<gattung>_ops`. Beachten:
 - `paint` wirkt nur im eigenen Gitter: Schichten ohne Untergrund (Brauen, Narbe) brauchen `add`.
 - `carve` am `use` löscht im ganzen Gitter der Schicht, also nur auf dem Haar-Gitter maskieren.
 - Teilmodelle werden mit der Palette des Elternteils gebaut, daher **jede** vom Teil benutzte Rolle umlegen (Lecktest in `tools/test-cha.mjs`).
 - Anbaupunkt-Teile (`fellumhang`, Anker [0,20,−3]) brauchen im `use` `"at"` = Anker des Bestandsteils.
 
-**Farbrollen-Regeln:** `skin`, `skin_shadow`, `hair` setzt **nur** die Figur (`colors`); ein `use` unter `cha/` legt sie nie um
-und ersetzt nie die Palette. **Keine Spielerfarbe** (`cloth`, `cloth2`, `primary`, `secondary`, `spieler`) in einer Kleidungsrolle:
+**Farbrollen-Regeln:** Outfit-Farben wählt der Spieler nicht: **jedes Teil behält seine eigenen Bestandsfarben**. Dafür bekommt jede
+Platzrolle den Teilnamen als Suffix (`<rolle>_<teil>`, der Generator setzt ihn selbst); zwei Teile teilen nie eine Rolle, also kollidieren
+verschiedene Werte nicht (Bordtunika-Purpur gegen Plankenweste-Eisengrau). Der Standardwert einer Rolle kommt aus der Bestandspalette des Teils.
+`skin`, `skin_shadow`, `hair` setzt **nur** die Figur (`colors`); ein `use` unter `cha/` legt sie nie um
+und ersetzt nie die Palette. Einzige Ausnahme `PINNEN` in `tools/cha-lib.mjs`: der Fellumhang nagelt `hair` auf einen festen Wert, weil das
+Bestandsteil Fellflecken mit `hair` färbt und die Haarfarbe des Spielers sonst den Umhang färbte (Test: `hair` ändert nur den Kopf). **Keine Spielerfarbe** (`cloth`, `cloth2`, `primary`, `secondary`, `spieler`) in einer Kleidungsrolle:
 was Bestandsteile als Spielerfarbe tragen, bekommt in `cha` eine feste Teilfarbe. Die Rolle `spieler` ist für die Namensmarke reserviert.
 
 **Teil ergänzen:** in `tools/gen-cha.mjs` einen Eintrag in `TEILE` anlegen (Platz, Name, Bestandspalette, je Gattung `quelle`
 oder `ops`, `farben`, optional `params`/`decl`/`schnitte`/`at`), bei neuem Namen steht er automatisch in den `options` der Sammelmodelle.
-Dann `node tools/gen-cha.mjs`, `npm run check`, `npm test`. Gelenkbereiche (`bereiche`) und Toleranzen je Platz und Gattung
+`ops` löst Ops aus Bestandsteilen heraus (`namen`, `ohneBedingung`, `ohneNamen`, `paintZuAdd`, `breit`, mehrere Quellen als Liste), `schichten` setzt
+mehrere herausgelöste Teilmodelle der Reihe nach ein (Bart: Deckschicht per `use mode: paint`, Bartzopf als eigene Schicht), `zusatz` legt
+weitere Modelle wie die Hutmaske an, `danach` hängt Boxen an (Kettenhalter des Fellumhangs), `anzeige`/`volk` füllen den Katalog.
+Haut- und Haarfarben (`HAUT`, `HAAR`, Index 0 = Standard) und Plätze stehen oben im Generator.
+Dann `node tools/gen-cha.mjs`, `npm run check`, `npm test`. Bilder: `node tools/cha-bilder.mjs` (Node-Renderer, nach `shots/cha01/`). Gelenkbereiche (`bereiche`) und Toleranzen je Platz und Gattung
 (`toleranzen`) stehen in `assets/rigs/human.json`; `npm run check` meldet Schichten außerhalb von Bereich + Toleranz.
 
 **Prüfregeln** (`tools/cha-lib.mjs`, in `npm run check`, Mutationsprobe in `tools/test-cha.mjs`): jedes Modell und jedes eingesetzte Teil
 unter `cha/` hat `anchor` (ungleich [0,0,0] nur mit passendem `at`); kein `colors`/`palette` am `use`, das `skin`/`skin_shadow`/`hair` setzt;
-`cha/spieler` baut mit Standardwerten und mit jedem Einzelwert; Schichten liegen im Gelenkbereich.
+`cha/spieler` baut mit Standardwerten und mit jedem Einzelwert; Schichten liegen im Gelenkbereich; der **Katalog** `assets/katalog/charakter.json`
+(vom Generator erzeugt, Format laut Schnittstelle Voxelwerk ↔ Spiel) ist konsistent: jede Katalog-ID hat ein Modell (außer `keine`/`keiner`),
+jede `options`-Ausprägung der Figur steht im Katalog und umgekehrt, Platz, Gruppe, Reihenfolge und Farben (je 4 Hauttöne und Haarfarben,
+Index 0 = Figurfarben) stimmen.
 
 ## Stimmungen (`assets/moods`)
 
