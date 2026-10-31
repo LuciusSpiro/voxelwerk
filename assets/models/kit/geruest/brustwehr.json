@@ -51,7 +51,7 @@
       "label": "Kartenart"
     },
     "bauweise": {
-      "default": "rom_feld",
+      "default": "neutral",
       "options": [
         "neutral",
         "test",

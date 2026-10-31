@@ -9,7 +9,7 @@
     "w": {"default":4,"min":1,"max":16,"step":1,"label":"Breite (Voxel)"},
     "h": {"default":1,"min":1,"max":16,"step":1,"label":"Höhe (Voxel)"},
     "d": {"default":4,"min":1,"max":4,"step":1,"label":"Tiefe (Voxel)"},
-    "belag": {"default":0,"min":0,"max":3,"step":1,"label":"0 Grabensohle · 1 Wall-Rasen · 2 Platten dunkel · 3 Platten hell"},
+    "belag": {"default":3,"min":0,"max":3,"step":1,"label":"0 Grabensohle · 1 Wall-Rasen · 2 Platten dunkel · 3 Platten hell"},
     "par": {"default":-1,"min":-1,"max":3,"step":1,"label":"Kachellage im 2x2-Block, -1 = unbekannt"}
   },
   "ops": [

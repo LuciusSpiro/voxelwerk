@@ -134,7 +134,7 @@ const geruest = {
     cut: P(0, 0, 1, 'ohne Wirkung'),
     zustand: P(0, 0, 2, 'ohne Wirkung'),
     art: { default: 'aussenposten', options: ['aussenposten', 'station', 'ruine', 'schiff'], label: 'Kartenart' },
-    bauweise: { default: 'rom_feld', options: BAUWEISEN, label: 'Bauweise (füllt die Steckplätze)' },
+    bauweise: { default: 'neutral', options: BAUWEISEN, label: 'Bauweise (füllt die Steckplätze)' },
   },
   variants: {
     frei: { conn: 0 }, ende: { conn: 2 }, ende_w: { conn: 8 }, gerade_ns: { conn: 5 }, ecke: { conn: 6 }, ecke_no: { conn: 3 }, t: { conn: 7 }, kreuz: { conn: 15 },
@@ -163,8 +163,8 @@ const huelle = {
 
 W('kit/rom_feld/gemein/brustwehr_koerper', koerper);
 W('kit/rom_feld/gemein/brustwehr_oberkante', oberkante);
-W('kit/geruest/slot/brustwehr_koerper', neutralBody('kit/geruest/slot/brustwehr_koerper', 'Gerüst-Steckplatz brustwehr_koerper (neutral): Klotzreihe', 'h', 'stone'));
-W('kit/geruest/slot/brustwehr_oberkante', neutralBody('kit/geruest/slot/brustwehr_oberkante', 'Gerüst-Steckplatz brustwehr_oberkante (neutral): helle Klotzreihe', 'h', 'stone_light'));
+W('kit/geruest/slot/brustwehr_koerper', neutralBody('kit/geruest/slot/brustwehr_koerper', 'Gerüst-Steckplatz brustwehr_koerper (neutral): Klotzreihe', 10, 'stone'));
+W('kit/geruest/slot/brustwehr_oberkante', neutralBody('kit/geruest/slot/brustwehr_oberkante', 'Gerüst-Steckplatz brustwehr_oberkante (neutral): helle Klotzreihe', 6, 'stone_light'));
 W('kit/geruest/brustwehr', geruest);
 W('kit/rom_feld/brustwehr', huelle);
 console.log('Brustwehr geschrieben');
