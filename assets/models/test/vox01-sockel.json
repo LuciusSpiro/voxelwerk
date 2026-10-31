@@ -1,0 +1,17 @@
+{
+  "id": "test/vox01-sockel",
+  "name": "VOX-01 Szenenhilfe: Unterbau des 0,5-m-Plateaus (wie der Sockel im Spiel), w x d Kacheln, Anker = Ecke links hinten",
+  "tier": "architecture",
+  "palette": "sommer_wald",
+  "tags": ["test", "vox01", "szenenhilfe"],
+  "footprint": [1, 1],
+  "jitter": 0,
+  "params": {
+    "w": {"default": 1, "min": 1, "max": 16, "step": 1, "label": "Breite (Kacheln)"},
+    "d": {"default": 1, "min": 1, "max": 16, "step": 1, "label": "Tiefe (Kacheln)"}
+  },
+  "ops": [
+    {"name": "Sockel", "op": "box", "at": [0, 0, 0], "size": ["w * 4", 2, "d * 4"], "color": {"shade": "stone_dark", "f": 1.0}}
+  ],
+  "anchor": [0, 0, 0]
+}
