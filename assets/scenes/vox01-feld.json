@@ -1,6 +1,6 @@
 {
  "id": "vox01-feld",
- "name": "VOX-01 Paket 3: Römische Feldbefestigung (Brustwehr, Grabensohle, Wall mit Kante und Rampe, Wachposten, Bunkereingang)",
+ "name": "VOX-01 Paket 3/5c: Römische Feldbefestigung (Brustwehr, Grabensohle, Wall mit Kante und Rampe, Wachposten-Aufbau, Bunkereingang als Fassade)",
  "palette": "sommer_wald",
  "mood": "planet_day",
  "terrain": {
@@ -100,27 +100,12 @@
   {
    "model": "test/vox01-sockel",
    "at": [
-    12,
+    13,
     3
    ],
    "params": {
-    "w": 8,
-    "d": 2
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    12.5,
-    3.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 1,
-    "par": 2,
-    "art": "aussenposten",
-    "seed": 94
+    "w": 3,
+    "d": 1
    }
   },
   {
@@ -133,9 +118,9 @@
    "params": {
     "conn": 0,
     "belag": 1,
-    "par": 3,
+    "par": 1,
     "art": "aussenposten",
-    "seed": 99
+    "seed": 96
    }
   },
   {
@@ -148,9 +133,9 @@
    "params": {
     "conn": 0,
     "belag": 1,
-    "par": 2,
+    "par": 0,
     "art": "aussenposten",
-    "seed": 104
+    "seed": 101
    }
   },
   {
@@ -163,199 +148,19 @@
    "params": {
     "conn": 0,
     "belag": 1,
-    "par": 3,
-    "art": "aussenposten",
-    "seed": 109
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    16.5,
-    3.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 1,
-    "par": 2,
-    "art": "aussenposten",
-    "seed": 114
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    17.5,
-    3.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 1,
-    "par": 3,
-    "art": "aussenposten",
-    "seed": 119
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    18.5,
-    3.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 1,
-    "par": 2,
-    "art": "aussenposten",
-    "seed": 124
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    19.5,
-    3.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 1,
-    "par": 3,
-    "art": "aussenposten",
-    "seed": 129
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    12.5,
-    4.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 3,
-    "par": 0,
-    "art": "aussenposten",
-    "seed": 95
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    13.5,
-    4.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 3,
     "par": 1,
     "art": "aussenposten",
-    "seed": 100
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    14.5,
-    4.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 3,
-    "par": 0,
-    "art": "aussenposten",
-    "seed": 105
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    15.5,
-    4.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 3,
-    "par": 1,
-    "art": "aussenposten",
-    "seed": 110
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    16.5,
-    4.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 3,
-    "par": 0,
-    "art": "aussenposten",
-    "seed": 115
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    17.5,
-    4.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 3,
-    "par": 1,
-    "art": "aussenposten",
-    "seed": 120
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    18.5,
-    4.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 3,
-    "par": 0,
-    "art": "aussenposten",
-    "seed": 125
-   }
-  },
-  {
-   "model": "kit/rom_feld/boden",
-   "at": [
-    19.5,
-    4.5
-   ],
-   "lift": 0.53,
-   "params": {
-    "conn": 0,
-    "belag": 3,
-    "par": 1,
-    "art": "aussenposten",
-    "seed": 130
+    "seed": 106
    }
   },
   {
    "model": "kit/rom_feld/kante",
    "at": [
     12.5,
-    5.5
+    2.5
    ],
    "params": {
-    "conn": 2,
+    "conn": 6,
     "art": "aussenposten",
     "seed": 15
    }
@@ -364,7 +169,7 @@
    "model": "kit/rom_feld/kante",
    "at": [
     13.5,
-    5.5
+    2.5
    ],
    "params": {
     "conn": 10,
@@ -376,7 +181,7 @@
    "model": "kit/rom_feld/kante",
    "at": [
     14.5,
-    5.5
+    2.5
    ],
    "params": {
     "conn": 10,
@@ -388,10 +193,10 @@
    "model": "kit/rom_feld/kante",
    "at": [
     15.5,
-    5.5
+    2.5
    ],
    "params": {
-    "conn": 8,
+    "conn": 10,
     "art": "aussenposten",
     "seed": 18
    }
@@ -399,63 +204,350 @@
   {
    "model": "kit/rom_feld/kante",
    "at": [
-    17.5,
-    5.5
-   ],
-   "params": {
-    "conn": 2,
-    "art": "aussenposten",
-    "seed": 20
-   }
-  },
-  {
-   "model": "kit/rom_feld/kante",
-   "at": [
-    18.5,
-    5.5
-   ],
-   "params": {
-    "conn": 10,
-    "art": "aussenposten",
-    "seed": 21
-   }
-  },
-  {
-   "model": "kit/rom_feld/kante",
-   "at": [
-    19.5,
-    5.5
+    16.5,
+    2.5
    ],
    "params": {
     "conn": 8,
     "art": "aussenposten",
-    "seed": 22
+    "seed": 19
+   }
+  },
+  {
+   "model": "kit/rom_feld/kante",
+   "at": [
+    12.5,
+    3.5
+   ],
+   "params": {
+    "conn": 5,
+    "art": "aussenposten",
+    "seed": 15
+   }
+  },
+  {
+   "model": "kit/rom_feld/kante",
+   "at": [
+    12.5,
+    4.5
+   ],
+   "params": {
+    "conn": 3,
+    "art": "aussenposten",
+    "seed": 15
+   }
+  },
+  {
+   "model": "kit/rom_feld/kante",
+   "at": [
+    13.5,
+    4.5
+   ],
+   "params": {
+    "conn": 10,
+    "art": "aussenposten",
+    "seed": 16
+   }
+  },
+  {
+   "model": "kit/rom_feld/kante",
+   "at": [
+    14.5,
+    4.5
+   ],
+   "params": {
+    "conn": 10,
+    "art": "aussenposten",
+    "seed": 17
+   }
+  },
+  {
+   "model": "kit/rom_feld/kante",
+   "at": [
+    15.5,
+    4.5
+   ],
+   "params": {
+    "conn": 10,
+    "art": "aussenposten",
+    "seed": 18
+   }
+  },
+  {
+   "model": "kit/rom_feld/kante",
+   "at": [
+    16.5,
+    4.5
+   ],
+   "params": {
+    "conn": 8,
+    "art": "aussenposten",
+    "seed": 19
    }
   },
   {
    "model": "kit/rom_feld/rampe",
    "at": [
     16.5,
-    5.5
-   ]
+    3.5
+   ],
+   "rot": 90
   },
   {
    "model": "leit/rom/feld/wachposten",
    "at": [
-    14,
-    4
+    14.5,
+    3.5
    ],
-   "lift": 0.5,
+   "lift": 0.5
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    5.5,
+    3.5
+   ],
    "params": {
-    "h": 1
+    "conn": 14,
+    "art": "aussenposten",
+    "seed": 18
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    6.5,
+    3.5
+   ],
+   "params": {
+    "conn": 14,
+    "art": "aussenposten",
+    "seed": 21
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    7.5,
+    3.5
+   ],
+   "params": {
+    "conn": 14,
+    "art": "aussenposten",
+    "seed": 24
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    8.5,
+    3.5
+   ],
+   "params": {
+    "conn": 12,
+    "art": "aussenposten",
+    "seed": 27
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    5.5,
+    4.5
+   ],
+   "params": {
+    "conn": 7,
+    "art": "aussenposten",
+    "seed": 19
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    6.5,
+    4.5
+   ],
+   "params": {
+    "conn": 15,
+    "art": "aussenposten",
+    "seed": 22
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    7.5,
+    4.5
+   ],
+   "params": {
+    "conn": 15,
+    "art": "aussenposten",
+    "seed": 25
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    8.5,
+    4.5
+   ],
+   "params": {
+    "conn": 13,
+    "art": "aussenposten",
+    "seed": 28
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    5.5,
+    5.5
+   ],
+   "params": {
+    "conn": 7,
+    "art": "aussenposten",
+    "seed": 20
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    6.5,
+    5.5
+   ],
+   "params": {
+    "conn": 15,
+    "art": "aussenposten",
+    "seed": 23
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    7.5,
+    5.5
+   ],
+   "params": {
+    "conn": 15,
+    "art": "aussenposten",
+    "seed": 26
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    8.5,
+    5.5
+   ],
+   "params": {
+    "conn": 13,
+    "art": "aussenposten",
+    "seed": 29
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    5.5,
+    6.5
+   ],
+   "params": {
+    "conn": 11,
+    "art": "aussenposten",
+    "seed": 21
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    6.5,
+    6.5
+   ],
+   "params": {
+    "conn": 11,
+    "art": "aussenposten",
+    "seed": 24
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    7.5,
+    6.5
+   ],
+   "params": {
+    "conn": 11,
+    "art": "aussenposten",
+    "seed": 27
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    8.5,
+    6.5
+   ],
+   "params": {
+    "conn": 9,
+    "art": "aussenposten",
+    "seed": 30
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    3.5,
+    3.5
+   ],
+   "params": {
+    "conn": 2,
+    "art": "aussenposten",
+    "seed": 12
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    3.5,
+    6.5
+   ],
+   "params": {
+    "conn": 2,
+    "art": "aussenposten",
+    "seed": 15
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    4.5,
+    3.5
+   ],
+   "params": {
+    "conn": 10,
+    "art": "aussenposten",
+    "seed": 15
+   }
+  },
+  {
+   "model": "kit/rom/wand",
+   "at": [
+    4.5,
+    6.5
+   ],
+   "params": {
+    "conn": 10,
+    "art": "aussenposten",
+    "seed": 18
    }
   },
   {
    "model": "leit/rom/feld/bunkereingang",
    "at": [
-    5,
-    4.5
-   ]
+    5.01,
+    5
+   ],
+   "rot": -90
   },
   {
    "model": "kit/rom_feld/brustwehr",
@@ -698,12 +790,21 @@
   {
    "figure": "rom/legionaer",
    "at": [
-    14,
-    4
+    14.5,
+    3.5
    ],
-   "lift": 1.5,
+   "lift": 0.5,
    "rot": 0,
    "pose": "aim"
+  },
+  {
+   "figure": "rom/legionaer",
+   "at": [
+    3.6,
+    4.5
+   ],
+   "rot": 90,
+   "pose": "guard"
   },
   {
    "figure": "rom/legionaer",
@@ -771,13 +872,46 @@
   },
   "bunker": {
    "target": [
-    5,
-    1.5,
+    4.5,
+    1.2,
     5
    ],
-   "dist": 11,
+   "dist": 9,
    "elev": 40,
-   "az": 15,
+   "az": -60,
+   "fov": 30
+  },
+  "posten": {
+   "target": [
+    14.5,
+    1.2,
+    3.8
+   ],
+   "dist": 10,
+   "elev": 57,
+   "az": 0,
+   "fov": 30
+  },
+  "postenschraeg": {
+   "target": [
+    14.5,
+    1.5,
+    3.5
+   ],
+   "dist": 8,
+   "elev": 30,
+   "az": 25,
+   "fov": 30
+  },
+  "bunkerspiel": {
+   "target": [
+    5.5,
+    1,
+    5
+   ],
+   "dist": 12,
+   "elev": 57,
+   "az": 0,
    "fov": 30
   }
  }

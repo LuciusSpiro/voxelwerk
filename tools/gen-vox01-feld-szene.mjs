@@ -12,21 +12,28 @@ for (let z = 8; z <= 9; z++) for (let x = 3; x <= 4; x++) {
   place.push({ model: 'kit/rom_feld/boden', at: [x + 0.5, z + 0.5], lift: 0.03, params: { conn: 0, belag: 0, par: (x % 2) + 2 * (z % 2), art: ART, seed: 11 + x * 7 + z * 3 } });
 }
 
-// Wall: Plateau x 12..19, z 3..4 (0,5 m), Kante z 5 mit Rampe bei x 16
-place.push({ model: 'test/vox01-sockel', at: [12, 3], params: { w: 8, d: 2 } });
-for (let z = 3; z <= 4; z++) for (let x = 12; x <= 19; x++) {
-  const par = (x % 2) + 2 * (z % 2);
-  place.push({ model: 'kit/rom_feld/boden', at: [x + 0.5, z + 0.5], lift: 0.53, params: { conn: 0, belag: z === 3 ? 1 : 3, par, art: ART, seed: 31 + x * 5 + z } });
-}
-const kante = [[12, 2], [13, 10], [14, 10], [15, 8], [17, 2], [18, 10], [19, 8]];
-for (const [x, c] of kante) place.push({ model: 'kit/rom_feld/kante', at: [x + 0.5, 5.5], params: { conn: c, art: ART, seed: 3 + x } });
-place.push({ model: 'kit/rom_feld/rampe', at: [16.5, 5.5] });
-// Wachposten auf dem Plateau (2 x 2, Mitte bei 14,4), Figur oben
-place.push({ model: 'leit/rom/feld/wachposten', at: [14, 4], lift: 0.5, params: { h: 1 } });
-figures.push({ figure: 'rom/legionaer', at: [14, 4], lift: 1.5, rot: 0, pose: 'aim' });
+// Wall: Posten-Plateau wie in der Grabenkarte, 3 x 1 Kacheln (x 13..15, z 3), 0,5 m, Kante (0,75 m) rundum, Rampe im Osten (x 16)
+place.push({ model: 'test/vox01-sockel', at: [13, 3], params: { w: 3, d: 1 } });
+for (let x = 13; x <= 15; x++) place.push({ model: 'kit/rom_feld/boden', at: [x + 0.5, 3.5], lift: 0.53, params: { conn: 0, belag: 1, par: x % 2, art: ART, seed: 31 + x * 5 } });
+const kante = [[12, 2, 6], [13, 2, 10], [14, 2, 10], [15, 2, 10], [16, 2, 8], [12, 3, 5], [12, 4, 3], [13, 4, 10], [14, 4, 10], [15, 4, 10], [16, 4, 8]];
+for (const [x, z, c] of kante) place.push({ model: 'kit/rom_feld/kante', at: [x + 0.5, z + 0.5], params: { conn: c, art: ART, seed: 3 + x } });
+place.push({ model: 'kit/rom_feld/rampe', at: [16.5, 3.5], rot: 90 });
+// Wachposten (VOX-01 5c): Aufbau 3 x 1 auf dem Plateau, Anker in der Mitte der Kachel (14,5 | 3,5), y = 0 liegt auf der Plateau-Oberkante (0,5 m, im Spiel lift 0,5)
+place.push({ model: 'leit/rom/feld/wachposten', at: [14.5, 3.5], lift: 0.5 });
+figures.push({ figure: 'rom/legionaer', at: [14.5, 3.5], lift: 0.5, rot: 0, pose: 'aim' });
 
-// Bunkereingang (4 x 3 Kacheln, Mitte bei 4,3,5)
-place.push({ model: 'leit/rom/feld/bunkereingang', at: [5, 4.5] });
+// Bunkereingang (VOX-01 5c): Nische wie am Ziel der Grabenkarte, Front nach Westen. Mauerblock x 5..8 (Wandfläche bei x = 5), Seitenwände z 3 und 6,
+// offene Tasche x 3..4, z 4..5. Portal: Anker in der Mitte der Wandfläche (5,01 | 5,0), Drehung so, dass +z (Front) nach Westen zeigt.
+const wand = new Set();
+for (let z = 3; z <= 6; z++) for (let x = 5; x <= 8; x++) wand.add(x + ',' + z);
+for (let x = 3; x <= 4; x++) { wand.add(x + ',3'); wand.add(x + ',6'); }
+for (const k of wand) {
+  const [x, z] = k.split(',').map(Number);
+  const c = (wand.has(x + ',' + (z - 1)) ? 1 : 0) | (wand.has((x + 1) + ',' + z) ? 2 : 0) | (wand.has(x + ',' + (z + 1)) ? 4 : 0) | (wand.has((x - 1) + ',' + z) ? 8 : 0);
+  place.push({ model: 'kit/rom/wand', at: [x + 0.5, z + 0.5], params: { conn: c, art: ART, seed: x * 3 + z } });
+}
+place.push({ model: 'leit/rom/feld/bunkereingang', at: [5.01, 5], rot: -90 });
+figures.push({ figure: 'rom/legionaer', at: [3.6, 4.5], rot: 90, pose: 'guard' });
 
 // Brustwehr: Reihe z 10 (Ende, 4 Mittelstücke, Ecke nach Süden), 2 Stücke nach Süden, Ende
 const bw = [[6, 10, 2], [7, 10, 10], [8, 10, 10], [9, 10, 10], [10, 10, 10], [11, 10, 12], [11, 11, 5], [11, 12, 1],
@@ -42,7 +49,7 @@ figures.push({ figure: 'rom/legionaer', at: [4, 7.6], rot: 0, pose: 'guard' });
 
 const scene = {
   id: 'vox01-feld',
-  name: 'VOX-01 Paket 3: Römische Feldbefestigung (Brustwehr, Grabensohle, Wall mit Kante und Rampe, Wachposten, Bunkereingang)',
+  name: 'VOX-01 Paket 3/5c: Römische Feldbefestigung (Brustwehr, Grabensohle, Wall mit Kante und Rampe, Wachposten-Aufbau, Bunkereingang als Fassade)',
   palette: 'sommer_wald',
   mood: 'planet_day',
   terrain: {
@@ -61,7 +68,10 @@ const scene = {
     schraeg: { target: [10, 1.2, 7.5], dist: 15, elev: 30, az: 25, fov: 30 },
     brustwehr: { target: [9, 1, 10.5], dist: 9, elev: 40, az: 15, fov: 30 },
     wall: { target: [15.5, 1.2, 4.5], dist: 11, elev: 40, az: 20, fov: 30 },
-    bunker: { target: [5, 1.5, 5], dist: 11, elev: 40, az: 15, fov: 30 },
+    bunker: { target: [4.5, 1.2, 5], dist: 9, elev: 40, az: -60, fov: 30 },
+    posten: { target: [14.5, 1.2, 3.8], dist: 10, elev: 57, az: 0, fov: 30 },
+    postenschraeg: { target: [14.5, 1.5, 3.5], dist: 8, elev: 30, az: 25, fov: 30 },
+    bunkerspiel: { target: [5.5, 1, 5], dist: 12, elev: 57, az: 0, fov: 30 },
   },
 };
 fs.writeFileSync(new URL('../assets/scenes/vox01-feld.json', import.meta.url), JSON.stringify(scene, null, 1) + '\n');
