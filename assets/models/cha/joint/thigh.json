@@ -26,6 +26,7 @@
       "default": "bordhose",
       "options": [
         "bordhose",
+        "germanenhose",
         "keine"
       ],
       "label": "Hose"

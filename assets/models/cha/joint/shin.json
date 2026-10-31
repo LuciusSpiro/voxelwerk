@@ -26,6 +26,7 @@
       "default": "bordhose",
       "options": [
         "bordhose",
+        "germanenhose",
         "keine"
       ],
       "label": "Hose"
@@ -34,6 +35,7 @@
       "default": "bordstiefel",
       "options": [
         "bordstiefel",
+        "germanenstiefel",
         "keine"
       ],
       "label": "Schuhe"

@@ -26,6 +26,7 @@
       "default": "bordtunika",
       "options": [
         "bordtunika",
+        "plankenweste",
         "keine"
       ],
       "label": "Oberteil"

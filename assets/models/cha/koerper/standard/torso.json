@@ -20,7 +20,7 @@
       "op": "use",
       "model": "fig/basis/rumpf",
       "colors": {
-        "cloth": "unter"
+        "cloth": "unter_standard"
       }
     }
   ]

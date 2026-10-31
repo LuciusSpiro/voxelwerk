@@ -23,8 +23,8 @@
         "style": 0
       },
       "colors": {
-        "cloth2": "hose_zier",
-        "secondary": "hose"
+        "cloth2": "hose_zier_bordhose",
+        "secondary": "hose_bordhose"
       }
     }
   ]

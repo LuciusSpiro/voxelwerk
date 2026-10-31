@@ -20,8 +20,8 @@
       "op": "use",
       "model": "fig/basis/huefte",
       "colors": {
-        "cloth": "unter",
-        "leather": "unter_2"
+        "cloth": "unter_standard",
+        "leather": "unter_2_standard"
       }
     }
   ]

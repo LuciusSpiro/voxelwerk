@@ -26,9 +26,18 @@
       "default": "bordtunika",
       "options": [
         "bordtunika",
+        "plankenweste",
         "keine"
       ],
       "label": "Oberteil"
+    },
+    "haende": {
+      "default": "keine",
+      "options": [
+        "keine",
+        "armschiene"
+      ],
+      "label": "Handschuhe"
     }
   },
   "ops": [
@@ -44,6 +53,14 @@
       "name": "Oberteil",
       "op": "use",
       "model": "cha/oberteil/{oberteil}/lowerArm",
+      "fallback": [
+        "cha/leer"
+      ]
+    },
+    {
+      "name": "Handschuhe",
+      "op": "use",
+      "model": "cha/haende/{haende}/lowerArm",
       "fallback": [
         "cha/leer"
       ]

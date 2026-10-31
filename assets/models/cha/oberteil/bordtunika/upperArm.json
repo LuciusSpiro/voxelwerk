@@ -32,9 +32,9 @@
         "plate": "plate"
       },
       "colors": {
-        "cloth2": "top",
-        "secondary": "top_unter",
-        "trim": "top_zier"
+        "cloth2": "top_bordtunika",
+        "secondary": "top_unter_bordtunika",
+        "trim": "top_zier_bordtunika"
       }
     }
   ]

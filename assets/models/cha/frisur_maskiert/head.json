@@ -18,13 +18,15 @@
       "default": "dutt",
       "options": [
         "dutt",
+        "zoepfe",
         "keine"
       ]
     },
     "kopf": {
       "default": "keine",
       "options": [
-        "keine"
+        "keine",
+        "bordhelm"
       ]
     }
   },

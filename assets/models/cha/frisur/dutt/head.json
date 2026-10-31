@@ -20,8 +20,8 @@
       "op": "use",
       "model": "cha/frisur/dutt/head_ops",
       "colors": {
-        "cloth2": "haarband",
-        "trim": "schmuck"
+        "cloth2": "haarband_dutt",
+        "trim": "schmuck_dutt"
       }
     }
   ]

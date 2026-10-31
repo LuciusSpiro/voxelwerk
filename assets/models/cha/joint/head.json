@@ -25,7 +25,8 @@
     "bart": {
       "default": "keiner",
       "options": [
-        "keiner"
+        "keiner",
+        "vollbart"
       ],
       "label": "Bart"
     },
@@ -33,7 +34,7 @@
       "default": "lerche",
       "options": [
         "lerche",
-        "keine"
+        "narbe"
       ],
       "label": "Gesicht"
     },
@@ -41,6 +42,7 @@
       "default": "dutt",
       "options": [
         "dutt",
+        "zoepfe",
         "keine"
       ],
       "label": "Frisur"
@@ -48,7 +50,8 @@
     "kopf": {
       "default": "keine",
       "options": [
-        "keine"
+        "keine",
+        "bordhelm"
       ],
       "label": "Kopfbedeckung"
     }
@@ -86,6 +89,15 @@
         "frisur": "{frisur}",
         "kopf": "{kopf}"
       }
+    },
+    {
+      "name": "Ohren unter der Kopfbedeckung (carve)",
+      "op": "use",
+      "model": "cha/kopf/{kopf}/head_ohren",
+      "fallback": [
+        "cha/leer"
+      ],
+      "mode": "carve"
     },
     {
       "name": "Kopfbedeckung",

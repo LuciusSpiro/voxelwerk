@@ -23,7 +23,7 @@
         "bootH": 2
       },
       "colors": {
-        "cloth": "unter",
+        "cloth": "unter_standard",
         "metal_dark": "skin_shadow",
         "rubber": "skin_shadow"
       }

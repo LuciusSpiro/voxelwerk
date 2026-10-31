@@ -23,10 +23,10 @@
         "style": 0
       },
       "colors": {
-        "secondary": "hose",
-        "leather": "schuh",
-        "metal_dark": "schuh_2",
-        "trim": "schuh_zier"
+        "secondary": "hose_bordhose",
+        "leather": "schuh_bordhose",
+        "metal_dark": "schuh_2_bordhose",
+        "trim": "schuh_zier_bordhose"
       }
     },
     {

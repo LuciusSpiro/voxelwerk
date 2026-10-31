@@ -20,8 +20,8 @@
       "op": "use",
       "model": "cha/koerper/standard/head_ops",
       "colors": {
-        "cloth2": "haarband",
-        "trim": "schmuck"
+        "cloth2": "haarband_standard",
+        "trim": "schmuck_standard"
       }
     }
   ]

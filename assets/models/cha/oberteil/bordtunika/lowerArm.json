@@ -20,9 +20,9 @@
       "op": "use",
       "model": "fig/lerche/sleeve_lower",
       "colors": {
-        "leather": "top_leder",
-        "secondary": "top_unter",
-        "trim": "top_zier"
+        "leather": "top_leder_bordtunika",
+        "secondary": "top_unter_bordtunika",
+        "trim": "top_zier_bordtunika"
       }
     }
   ]

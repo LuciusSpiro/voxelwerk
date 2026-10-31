@@ -26,9 +26,18 @@
       "default": "bordtunika",
       "options": [
         "bordtunika",
+        "plankenweste",
         "keine"
       ],
       "label": "Oberteil"
+    },
+    "umhang": {
+      "default": "keiner",
+      "options": [
+        "keiner",
+        "fellumhang"
+      ],
+      "label": "Umhang"
     }
   },
   "ops": [
@@ -44,6 +53,14 @@
       "name": "Oberteil",
       "op": "use",
       "model": "cha/oberteil/{oberteil}/torso",
+      "fallback": [
+        "cha/leer"
+      ]
+    },
+    {
+      "name": "Umhang",
+      "op": "use",
+      "model": "cha/umhang/{umhang}/torso",
       "fallback": [
         "cha/leer"
       ]

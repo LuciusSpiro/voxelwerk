@@ -20,9 +20,9 @@
       "op": "use",
       "model": "fig/lerche/tunic_hips",
       "colors": {
-        "cloth2": "top",
-        "leather": "top_leder",
-        "trim": "top_zier"
+        "cloth2": "top_bordtunika",
+        "leather": "top_leder_bordtunika",
+        "trim": "top_zier_bordtunika"
       }
     }
   ]

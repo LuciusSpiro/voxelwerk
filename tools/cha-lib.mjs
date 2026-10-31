@@ -6,6 +6,11 @@ import { VoxelGrid } from '../core/grid.js';
 
 /** Rollen, die ausschließlich die Figur (colors) setzt. Kein use in cha/ darf sie umlegen oder per Palette ersetzen. */
 export const FIGURFARBEN = ['skin', 'skin_shadow', 'hair'];
+/**
+ * Ausnahme zu FIGURFARBEN: Plätze, deren Teile eine Figurrolle für ihre eigene Zier festnageln dürfen (colors am use).
+ * Der Fellumhang färbt Fellflecken mit hair; ohne Festnageln würde die Haarfarbe des Spielers den Umhang färben.
+ */
+export const PINNEN = { umhang: ['hair'] };
 /** Gattung → linkes bzw. mittiges Gelenk, an dem der Bereich gemessen wird (rechte Teile sind gespiegelte linke). */
 export const GELENK_LINKS = { hips: 'hips', torso: 'torso', head: 'head', upperArm: 'upperArmL', lowerArm: 'lowerArmL', thigh: 'thighL', shin: 'shinL' };
 
@@ -57,6 +62,7 @@ export function pruefeAnker(ids, get) {
 /**
  * Regel (b), Rollen: Haut und Haar gehören der Figur. Ein use in cha/ darf skin, skin_shadow, hair weder in `colors` setzen
  * (das schlägt die Figurfarbe) noch per `palette` eine andere Palette einsetzen (die brächte eigene Werte dieser Rollen mit).
+ * Ausnahme: PINNEN (Fellumhang nagelt hair fest, damit die Haarfarbe den Umhang nicht färbt).
  */
 export function pruefeRollen(ids, get) {
   const fehler = [];
@@ -64,7 +70,7 @@ export function pruefeRollen(ids, get) {
     const m = get(id);
     if (!m) continue;
     for (const op of alleUse(m.ops)) {
-      for (const k of Object.keys(op.colors || {})) if (FIGURFARBEN.includes(k)) fehler.push({ id, msg: `use "${op.name || op.model}": colors setzt ${k}; Haut und Haar kommen nur von der Figur (colors der Figur)` });
+      for (const k of Object.keys(op.colors || {})) if (FIGURFARBEN.includes(k) && !(PINNEN[id.split('/')[1]] || []).includes(k)) fehler.push({ id, msg: `use "${op.name || op.model}": colors setzt ${k}; Haut und Haar kommen nur von der Figur (colors der Figur)` });
       if (op.palette && op.palette !== m.palette) fehler.push({ id, msg: `use "${op.name || op.model}": palette "${op.palette}" ersetzt die Palette der Schicht und damit skin/skin_shadow/hair` });
     }
   }
@@ -132,6 +138,68 @@ export function baueFigur(lib, figId, opts = {}) {
     }
   }
   return { grid, pro };
+}
+
+/** Namen der leeren Werte: kein Modell nötig, Fallback cha/leer. */
+export const LEERE_WERTE = ['keine', 'keiner'];
+const HEX = /^#[0-9A-Fa-f]{6}$/;
+
+/**
+ * Regel (d), Katalog (assets/katalog/charakter.json) gegen Modelle und Figur:
+ *  - Plätze: Reihenfolge und Standardwerte wie die Figur-params (ohne koerper, der steht oben im Katalog), Gruppe charakter oder outfit
+ *  - Teile: id = <platz>/<name>, Platz und Gruppe stimmen, Anzeigename, Outfit mit herkunft; jedes Teil hat ein Modell (cha/<platz>/<name>/…),
+ *    ausgenommen die leeren Werte keine/keiner
+ *  - jede options-Ausprägung der Sammelmodelle steht im Katalog und umgekehrt jedes Teil des Katalogs in den options
+ *  - Farben: je 4 Hauttöne (skin + skin_shadow) und 4 Haarfarben, Index 0 = Farben der Figur
+ * optionen = { platz: [werte] } aus platzOptionen(). Rückgabe: Liste { id, msg }.
+ */
+export function pruefeKatalog(katalog, { modelIds, optionen, figur }) {
+  const fehler = [], f = (id, msg) => fehler.push({ id, msg });
+  if (katalog.version !== 1) f('katalog', `version ${katalog.version} (erwartet 1)`);
+  if (katalog.figur !== figur.id) f('katalog', `figur "${katalog.figur}" ist nicht ${figur.id}`);
+  const platzIds = Object.keys(figur.params).filter((k) => k !== 'koerper');
+  const ids = (katalog.plaetze || []).map((p) => p.id);
+  if (!gleich(ids, platzIds)) f('katalog', `plaetze [${ids}] stimmen nicht mit den Figur-params [${platzIds}] überein (Reihenfolge der Schnittstelle)`);
+  const plaetze = new Map((katalog.plaetze || []).map((p) => [p.id, p]));
+  for (const p of katalog.plaetze || []) {
+    if (!['charakter', 'outfit'].includes(p.gruppe)) f(`platz ${p.id}`, `gruppe "${p.gruppe}" (charakter oder outfit)`);
+    if (!p.name) f(`platz ${p.id}`, 'name fehlt');
+    if (p.standard !== figur.params[p.id]) f(`platz ${p.id}`, `standard "${p.standard}" ist nicht der Figurwert "${figur.params[p.id]}"`);
+  }
+  const gesehen = new Set();
+  for (const t of katalog.teile || []) {
+    const [platz, name, ...rest] = String(t.id).split('/');
+    if (!name || rest.length) { f(t.id, 'id muss <platz>/<name> sein'); continue; }
+    if (gesehen.has(t.id)) f(t.id, 'doppelt im Katalog');
+    gesehen.add(t.id);
+    const p = plaetze.get(platz);
+    if (!p) { f(t.id, `Platz "${platz}" fehlt in plaetze`); continue; }
+    if (t.platz !== platz) f(t.id, `platz "${t.platz}" passt nicht zur id (${platz})`);
+    if (t.gruppe !== p.gruppe) f(t.id, `gruppe "${t.gruppe}" ist nicht die Gruppe des Platzes (${p.gruppe})`);
+    if (!t.name || typeof t.name !== 'string') f(t.id, 'Anzeigename fehlt');
+    if (p.gruppe === 'outfit' && !['frei', 'haendler', 'fund'].includes(t.herkunft)) f(t.id, `herkunft "${t.herkunft}" (frei, haendler oder fund)`);
+    if (!LEERE_WERTE.includes(name) && !modelIds.some((m) => m.startsWith(`cha/${platz}/${name}/`))) f(t.id, `kein Modell cha/${platz}/${name}/…`);
+  }
+  for (const p of katalog.plaetze || []) if (!gesehen.has(`${p.id}/${p.standard}`)) f(`platz ${p.id}`, `Standard ${p.id}/${p.standard} fehlt unter teile`);
+  const imKatalog = (platz) => (katalog.teile || []).filter((t) => String(t.id).startsWith(platz + '/')).map((t) => String(t.id).split('/')[1]);
+  for (const platz of platzIds) {
+    const opt = optionen[platz] || [], kat = imKatalog(platz);
+    for (const w of opt) if (!kat.includes(w)) f(`${platz}/${w}`, 'options-Ausprägung der Figur fehlt im Katalog');
+    for (const w of kat) if (!opt.includes(w)) f(`${platz}/${w}`, 'Katalog-Teil ist keine options-Ausprägung der Figur');
+  }
+  const kk = (katalog.koerper || []).map((k) => k.id);
+  for (const w of optionen.koerper || []) if (!kk.includes(w)) f(`koerper/${w}`, 'options-Ausprägung der Figur fehlt unter koerper');
+  for (const w of kk) if (!(optionen.koerper || []).includes(w)) f(`koerper/${w}`, 'Katalog-Körper ist keine options-Ausprägung der Figur');
+  const { haut, haar } = katalog.farben || {};
+  if (!Array.isArray(haut) || haut.length !== 4) f('farben', `haut: ${haut?.length} Einträge (erwartet 4)`);
+  else for (const [i, h] of haut.entries()) if (!HEX.test(h.skin) || !HEX.test(h.skin_shadow)) f('farben', `haut[${i}]: skin und skin_shadow müssen Hexwerte sein`);
+  if (!Array.isArray(haar) || haar.length !== 4) f('farben', `haar: ${haar?.length} Einträge (erwartet 4)`);
+  else for (const [i, h] of haar.entries()) if (!HEX.test(h)) f('farben', `haar[${i}] ist kein Hexwert`);
+  if (Array.isArray(haut) && haut[0] && (haut[0].skin !== figur.colors.skin || haut[0].skin_shadow !== figur.colors.skin_shadow)) f('farben', 'haut[0] ist nicht der Hautton der Figur');
+  if (Array.isArray(haar) && haar[0] !== figur.colors.hair) f('farben', 'haar[0] ist nicht die Haarfarbe der Figur');
+  if (Array.isArray(haut) && new Set(haut.map((h) => h.skin)).size !== haut.length) f('farben', 'haut: Hauttöne sind nicht verschieden');
+  if (Array.isArray(haar) && new Set(haar).size !== haar.length) f('farben', 'haar: Haarfarben sind nicht verschieden');
+  return fehler;
 }
 
 /** Vergleich zweier Gitter: gleich (Position und Farbe), nurA, nurB, farbe (gleiche Position, andere Farbe). */
