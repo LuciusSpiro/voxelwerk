@@ -9,7 +9,7 @@
     "posten",
     "aussicht"
   ],
-  "notes": "VOX-01 Paket 5c. Aufbau auf dem flachen Posten-Plateau der Grabenkarte (3 x 1 Kacheln, Plateauhöhe 0,5 m): y = 0 ist die Plateau-Oberkante, der Anker liegt in der Mitte der Grundfläche 3 x 1. Die Standfläche in der Mitte (x 5..7) bleibt frei: links Sensormast mit Clipeus (Rundschild als Sensorspiegel, Weißlicht), rechts Standarte-Mast mit Sonnendach (Schirm 2,25 m hoch, nur nach hinten/Norden, 2 Voxel tief) und Wimpel. Alles steht in der hinteren (Nord-)Hälfte (z 0..1 von 4), bis höchstens 3 m, so dass die Figur aus der Spielkamera (Blick von Süden, 57°) nicht verdeckt wird. Vorderseite +z. Kein Parameter: die Höhe der Figur bleibt Sache des Spiels (Plateau, keine Standhöhe).",
+  "notes": "VOX-01 Paket 5c. Aufbau auf dem flachen Posten-Plateau der Grabenkarte (3 x 1 Kacheln, Plateauhöhe 0,5 m): y = 0 ist die Plateau-Oberkante, der Anker liegt in der Mitte der Grundfläche 3 x 1. Die Standfläche in der Mitte (x 5..7, frei von -0,25 m bis +0,5 m um den Anker bis 2,25 m Höhe) bleibt frei: links Sensormast mit Clipeus (Rundschild als Sensorspiegel, Weißlicht), rechts Standarte-Mast mit Sonnendach (Schirm 2,25 m hoch, ab 0,5 m rechts der Mitte, nur nach hinten/Norden, 2 Voxel tief) und Wimpel. Alles steht in der hinteren (Nord-)Hälfte (z 0..1 von 4), bis höchstens 3 m, so dass die Figur aus der Spielkamera (Blick von Süden, 57°) nicht verdeckt wird. Vorderseite +z. Kein Parameter: die Höhe der Figur bleibt Sache des Spiels (Plateau, keine Standhöhe).",
   "footprint": [
     3,
     1
@@ -187,12 +187,12 @@
       "name": "Sonnendach",
       "op": "box",
       "at": [
-        7,
+        8,
         9,
         0
       ],
       "size": [
-        5,
+        4,
         1,
         2
       ],
@@ -210,12 +210,12 @@
       "op": "box",
       "mode": "paint",
       "at": [
-        7,
+        8,
         9,
         1
       ],
       "size": [
-        5,
+        4,
         1,
         1
       ],
@@ -225,13 +225,13 @@
       "name": "Wimpel",
       "op": "box",
       "at": [
-        7,
+        8,
         10,
         0
       ],
       "size": [
-        3,
-        1,
+        2,
+        2,
         1
       ],
       "color": "primary"
