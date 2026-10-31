@@ -52,6 +52,7 @@ export const KIT_KINDS = {
   fenster:      { h: 3.0, hCut: 1.25, tile: true, budget: 600 },
   pfeiler:      { hMin: 2.2, tile: true, budget: 600 },
   deckung_halb: { hMax: 0.9, tile: true, budget: 600 },
+  brustwehr:    { hMax: 1.0, tile: true, budget: 2500 },                  // VOX-01: Palisade/Brustwehr (Stufe detail), niedriger als der Zaun
   deckung_voll: { hMin: 2.2, tile: true, budget: 600 },
   boden:        { hMax: 0.5, tile: true, budget: 150 },
   luke:         { hMax: 0.5, tile: true, budget: 3000 },
