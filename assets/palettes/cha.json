@@ -1,0 +1,23 @@
+{
+  "id": "cha",
+  "name": "Spielerfigur (Platzrollen)",
+  "extends": "base",
+  "generated": true,
+  "notes": "Standardfarben der Platzrollen der Schichten (cha/). skin, skin_shadow, hair kommen ausschließlich von der Figur (colors). Keine Spielerfarbe in Kleidungsrollen.",
+  "roles": {
+    "haarband": "#5B2A5E",
+    "hose": "#E9E3D3",
+    "hose_zier": "#5B2A5E",
+    "schmuck": "#D4A23A",
+    "schuh": "#5A4030",
+    "schuh_2": "#2E2620",
+    "schuh_zier": "#D4A23A",
+    "top": "#5B2A5E",
+    "top_leder": "#5A4030",
+    "top_unter": "#E9E3D3",
+    "top_zier": "#D4A23A",
+    "unter": "#8C949E",
+    "unter_2": "#3B3F46",
+    "spieler": "#56B4E9"
+  }
+}
