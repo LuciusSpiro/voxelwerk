@@ -11,7 +11,7 @@ import { gridToVox } from '../core/vox.js';
 import { resolveScene } from '../core/scene.js';
 import { buildTerrain } from '../core/terrain.js';
 import { pruefeModell, printReport } from './pruefbogen.mjs';
-import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur } from './cha-lib.mjs';
+import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKatalog, platzOptionen } from './cha-lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), exportVox = args.includes('--vox'), pruefbogen = args.includes('--pruefbogen'), filter = args.find((a) => !a.startsWith('--'));
@@ -91,6 +91,9 @@ console.log('\n== Spielerfigur aus Schichten (cha/)');
       melde('Gelenkbereiche (Rig bereiche + toleranzen): alle Schichten innerhalb', pruefeBereiche(idx.models, get, (id) => lib.build(id), rig));
       const r = pruefeFigur(lib, 'cha/spieler', idx.models);
       melde(`Figur cha/spieler baut mit Standardwerten und ${r.gebaut - 1} Einzelwerten`, r.fehler);
+      const katalog = JSON.parse(await fs.readFile(path.join(root, 'assets', 'katalog', 'charakter.json'), 'utf8'));
+      melde(`Katalog assets/katalog/charakter.json (${katalog.teile.length} Teile): jedes Teil hat ein Modell, options der Figur und Katalog decken sich, Platz, Gruppe und Farben stimmen`,
+        pruefeKatalog(katalog, { modelIds: idx.models, optionen: platzOptionen(lib, idx.models), figur: lib.get('figures', 'cha/spieler') }));
     } catch (e) { err(`cha/: ${e.message}`); }
   }
 }
