@@ -229,7 +229,7 @@ const vorhanden = new Set([...walk(A('models', 'cha')), ...walk(A('figures', 'ch
 let bad = 0;
 for (const [f, text] of files) {
   const abs = path.join(root, f), cur = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null;
-  if (cur === text) continue;
+  if (cur !== null && cur.replaceAll('\r\n', '\n') === text) continue;   // Zeilenenden egal (autocrlf)
   if (checkOnly) { bad++; console.log(`  ✗ ${f}: ${cur === null ? 'fehlt' : 'veraltet'}`); continue; }
   fs.mkdirSync(path.dirname(abs), { recursive: true }); fs.writeFileSync(abs, text);
 }
