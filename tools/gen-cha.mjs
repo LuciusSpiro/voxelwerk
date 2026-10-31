@@ -47,9 +47,9 @@ const PLAETZE = [
   { id: 'frisur', name: 'Frisur', gruppe: 'charakter', standard: 'dutt', keine: 'keine', keineName: 'Kahl' },
   { id: 'bart', name: 'Bart', gruppe: 'charakter', standard: 'keiner', keine: 'keiner', keineName: 'Kein Bart' },
   { id: 'kopf', name: 'Kopfbedeckung', gruppe: 'outfit', standard: 'keine', keine: 'keine', keineName: 'Keine' },
-  { id: 'oberteil', name: 'Oberteil', gruppe: 'outfit', standard: 'bordtunika', keine: 'keine', keineName: 'Keines' },
-  { id: 'hose', name: 'Hose', gruppe: 'outfit', standard: 'bordhose', keine: 'keine', keineName: 'Keine' },
-  { id: 'schuhe', name: 'Schuhe', gruppe: 'outfit', standard: 'bordstiefel', keine: 'keine', keineName: 'Keine' },
+  { id: 'oberteil', name: 'Oberteil', gruppe: 'outfit', standard: 'bordtunika', keine: 'keine', keineName: 'Unterzeug' },
+  { id: 'hose', name: 'Hose', gruppe: 'outfit', standard: 'bordhose', keine: 'keine', keineName: 'Unterzeug' },
+  { id: 'schuhe', name: 'Schuhe', gruppe: 'outfit', standard: 'bordstiefel', keine: 'keine', keineName: 'Barfuß' },
   { id: 'haende', name: 'Hände', gruppe: 'outfit', standard: 'keine', keine: 'keine', keineName: 'Keine' },
   { id: 'umhang', name: 'Umhang', gruppe: 'outfit', standard: 'keiner', keine: 'keiner', keineName: 'Keiner' },
 ];
@@ -133,7 +133,8 @@ const TEILE = [
   } },
 
   // ---- Kopfbedeckung: Helm ohne eingebauten Kopf als späte Schicht. Maske schneidet das Haar-Gitter (Schale und Haar außerhalb), Ohren werden abgedeckt
-  { platz: 'kopf', name: 'bordhelm', anzeige: 'Bordhelm', volk: 'crew', palette: 'crew', gattungen: {
+  // hut_zier fest: im Bestand ist primary der Spielerakzent des Helms (#56B4E9 = Spielerfarbe S1); die Spielerfigur trägt einen festen Crew-Akzent (Signalrot)
+  { platz: 'kopf', name: 'bordhelm', anzeige: 'Bordhelm', volk: 'crew', palette: 'crew', rollen: { hut_zier: '#B3342B' }, gattungen: {
     head: { ops: { quelle: 'fig/crew/helm_offen', ohneNamen: ['Kopf'] },
       farben: { secondary: 'hut', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', primary: 'hut_zier', glow: 'licht' },
       zusatz: {

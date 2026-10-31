@@ -145,7 +145,7 @@
     {
       "id": "oberteil/keine",
       "platz": "oberteil",
-      "name": "Keines",
+      "name": "Unterzeug",
       "gruppe": "outfit",
       "herkunft": "frei"
     },
@@ -168,7 +168,7 @@
     {
       "id": "hose/keine",
       "platz": "hose",
-      "name": "Keine",
+      "name": "Unterzeug",
       "gruppe": "outfit",
       "herkunft": "frei"
     },
@@ -191,7 +191,7 @@
     {
       "id": "schuhe/keine",
       "platz": "schuhe",
-      "name": "Keine",
+      "name": "Barfuß",
       "gruppe": "outfit",
       "herkunft": "frei"
     },
