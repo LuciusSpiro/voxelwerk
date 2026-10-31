@@ -1,0 +1,33 @@
+{
+  "id": "leit/rom/feld/wachposten",
+  "name": "Rom-Feld – Wachposten: Podium (Travertin, Messingkante, Amberlinie) mit niedriger Brüstung und Sensormast",
+  "tier": "architecture",
+  "palette": "sommer_wald",
+  "tags": ["leit", "rom_feld", "posten", "aussicht"],
+  "notes": "VOX-01 Paket 3, Entwurf B als Podium. h = Bodenhöhe der Standfläche über dem Anker in Metern (Standard 1,0, höchstens 1,5, in 25-cm-Schritten): die Figur steht mit lift = h. Offene Front (+z), Brüstung nur 25 cm an Nord-, West- und Ostkante, damit die Figur nicht dahinter verschwindet. Sensormast hinten links. Fuß 2 x 2 Kacheln.",
+  "footprint": [2, 2],
+  "jitter": 0,
+  "params": {
+    "h": {"default": 1, "min": 0.5, "max": 1.5, "step": 0.25, "label": "Bodenhöhe der Standfläche (m)"}
+  },
+  "let": {
+    "hv": "round(h * 4)",
+    "t1": "floor(hv / 2)"
+  },
+  "variants": {"niedrig": {"h": 0.5}, "hoch": {"h": 1.5}},
+  "ops": [
+    {"name": "Unterstufe", "op": "box", "at": [0, 0, 0], "size": [8, "t1", 8], "color": {"shade": "stone", "f": 0.98}},
+    {"name": "Fußband rot", "op": "box", "at": [0, 0, 0], "size": [8, 1, 8], "mode": "paint", "color": "primary"},
+    {"name": "Oberstufe", "op": "box", "at": [1, "t1", 1], "size": [6, "hv - t1", 6], "color": {"shade": "stone_light", "f": 1.0}},
+    {"name": "Standfläche mit Messingrand", "op": "box", "at": [1, "hv - 1", 1], "size": [6, 1, 6], "color": {"frame": "trim", "fill": {"shade": "stone_light", "f": 1.05}, "axes": "xz", "width": 1}},
+    {"name": "Amberlinie vorn", "op": "box", "at": [2, "hv - 1", 6], "size": [4, 1, 1], "color": {"role": "glow2", "emit": 0.6}, "jitter": false},
+    {"name": "Brüstung Nord", "op": "box", "at": [1, "hv", 1], "size": [6, 1, 1], "color": {"shade": "stone", "f": 1.0}},
+    {"name": "Brüstung West", "op": "box", "at": [1, "hv", 2], "size": [1, 1, 5], "color": {"shade": "stone", "f": 1.0}},
+    {"name": "Brüstung Ost", "op": "box", "at": [6, "hv", 2], "size": [1, 1, 5], "color": {"shade": "stone", "f": 1.0}},
+    {"name": "Brüstung Kante", "op": "box", "mode": "paint", "at": [1, "hv", 1], "size": [6, 1, 1], "color": "trim"},
+    {"name": "Mast", "op": "box", "at": [1, "hv + 1", 1], "size": [1, 3, 1], "color": "metal_dark"},
+    {"name": "Clipeus", "op": "box", "at": [0, "hv + 4", 0], "size": [3, 1, 3], "color": "trim"},
+    {"name": "Sensorauge", "op": "box", "at": [1, "hv + 5", 1], "size": [1, 1, 1], "color": {"role": "glow", "emit": 0.6}, "jitter": false}
+  ],
+  "anchor": [4, 0, 4]
+}
