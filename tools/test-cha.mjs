@@ -2,17 +2,21 @@
 // Haut/Haar über Figur-colors, Prüfregeln samt Mutationsprobe, Generator wiederholbar, Rig-Bereiche.
 // A2: alle Kombinationen der Teile, Lecktest über alle Teile, Farben je Teil, Haut/Haar im Katalog, Bordhelm (Haar, Haut, Ohren),
 // Schweben, Schichtfolge, Katalog samt Mutationsprobe.
+// A4: Vorschaubilder je Teil (existieren, gültiges PNG, Größe, Generator --check samt Mutationsprobe), Porträt aus Charakterkarte.
 // A3: Posen in Node gegen three.js, Passprobe über alle Kombinationen × Posen, Mutationsprobe der Passprobe, Spielerfarbe nie in der Kleidung.
 // Aufruf: node tools/test-cha.mjs        (Exit-Code 1 bei Fehlern)
 // Liest assets/ aus dem Repo (nichts wird geschrieben).
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { nodeLibrary, listAssets } from './fs-io.js';
 import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, pruefePassung, ladeFigur } from './cha-lib.mjs';
 import { poseWerte, gelenkMatrizen, weltPunkt, eulerYXZ } from './cha-pose.mjs';
+import { decodePng, encodePng } from './cha-render.mjs';
+import { KACHEL, PORTRAET, FENSTER, vorschauBild, portraet, kartenOptionen } from './cha-ansicht.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 let pass = 0, fail = 0;
@@ -341,7 +345,7 @@ const katalogPruefen = (k, o = optionen, f = fig) => pruefeKatalog(k, { modelIds
   eq(katalog.teile.filter((t) => t.platz === 'gesicht').map((t) => t.id), ['gesicht/lerche', 'gesicht/narbe'], 'Gesicht: lerche und narbe, kein leerer Wert');
   eq(katalog.teile.filter((t) => LEERE_WERTE.includes(t.id.split('/')[1])).map((t) => t.id), ['frisur/keine', 'bart/keiner', 'kopf/keine', 'oberteil/keine', 'hose/keine', 'schuhe/keine', 'haende/keine', 'umhang/keiner'], 'keine/keiner je Platz im Katalog, außer beim Gesicht');
   ok(katalog.teile.filter((t) => t.gruppe === 'outfit').every((t) => t.herkunft === 'frei'), 'alle Outfit-Teile haben herkunft "frei"');
-  ok(katalog.teile.every((t) => !('vorschau' in t)), 'vorschau ist noch nicht gesetzt (kommt in A4)');
+  ok(katalog.teile.every((t) => t.vorschau === `cha/vorschau/${t.platz}/${t.id.split('/')[1]}.png`), 'jedes Teil hat vorschau = cha/vorschau/<platz>/<name>.png (relativ zu assets/sprites/), auch die leeren Werte');
   eq(Object.fromEntries(katalog.teile.filter((t) => t.volk).map((t) => [t.id, t.volk])), {
     'gesicht/lerche': 'lerche', 'gesicht/narbe': 'lerche', 'frisur/dutt': 'lerche', 'frisur/zoepfe': 'germanen', 'bart/vollbart': 'germanen', 'kopf/bordhelm': 'crew',
     'oberteil/bordtunika': 'crew', 'oberteil/plankenweste': 'germanen', 'hose/bordhose': 'crew', 'hose/germanenhose': 'germanen', 'schuhe/bordstiefel': 'crew',
@@ -367,6 +371,8 @@ console.log('\n== Mutationsprobe Katalog (die Prüfung erkennt manipulierte Kata
   { const k = kl(); k.teile.push({ id: 'gesicht/keine', platz: 'gesicht', name: 'Keines', gruppe: 'charakter' }); rot(k, /keine options/, 'gesicht/keine im Katalog (Gesicht ist Pflicht) wird erkannt'); }
   { const k = kl(); [k.plaetze[0], k.plaetze[1]] = [k.plaetze[1], k.plaetze[0]]; rot(k, /Reihenfolge/, 'vertauschte Plätze werden erkannt'); }
   { const k = kl(); k.plaetze.find((p) => p.id === 'umhang').standard = 'fellumhang'; rot(k, /Figurwert/, 'abweichender Standard eines Platzes wird erkannt'); }
+  { const k = kl(); k.teile.find((t) => t.id === 'kopf/bordhelm').vorschau = 'cha/vorschau/kopf/anderer.png'; rot(k, /vorschau/, 'falscher vorschau-Pfad wird erkannt'); }
+  { const k = kl(); delete k.teile.find((t) => t.id === 'hose/keine').vorschau; rot(k, /vorschau/, 'fehlende vorschau eines leeren Werts wird erkannt'); }
   { const k = kl(); k.farben.haut.pop(); rot(k, /erwartet 4/, 'nur 3 Hauttöne werden erkannt'); }
   { const k = kl(); k.farben.haar[1] = 'schwarz'; rot(k, /Hexwert/, 'Haarfarbe ohne Hexwert wird erkannt'); }
   { const k = kl(); k.farben.haut[0].skin = '#FFFFFF'; rot(k, /Hautton der Figur/, 'haut[0] ungleich Figurfarbe wird erkannt'); }
@@ -516,6 +522,57 @@ console.log('\n== Spielerfarbe nie in der Kleidung');
   ok(SPIELERFARBEN.every((s) => dist(hex2('#B3342B'), hex2(s)) > 100), 'Crew-Rot ist keiner Spielerfarbe ähnlich (Abstand > 100)');
   const bestandHelm = lib.build('fig/crew/helm_offen', { palette: 'crew' });
   ok([...bestandHelm.grid.values()].some((v) => dist(rgb(v.c), hex2('#56B4E9')) < 40), 'Positivkontrolle: der Bestandshelm fig/crew/helm_offen hat Voxel in Spielerfarbe S1');
+}
+
+console.log('\n== Vorschaubilder und Porträt (A4)');
+{
+  const sprites = path.join(root, 'assets', 'sprites');
+  const png = (t) => { try { return decodePng(fs.readFileSync(path.join(sprites, t.vorschau))); } catch (e) { return { fehler: e.message }; } };
+  const alle = katalog.teile.map((t) => [t, png(t)]);
+  eq(alle.filter(([, b]) => b.fehler).map(([t, b]) => `${t.id}: ${b.fehler}`), [], `jede Katalog-Vorschau (${alle.length}) existiert und ist ein gültiges PNG (Signatur, CRC, Daten)`);
+  eq([...new Set(alle.filter(([, b]) => !b.fehler).map(([, b]) => `${b.w}x${b.h}`))], [`${KACHEL.w}x${KACHEL.h}`], `alle Vorschauen sind ${KACHEL.w} × ${KACHEL.h} (doppelte Bildfläche der Kachel 70 × 62 im Spielraster)`);
+  const deckung = (b) => { let n = 0; for (let i = 3; i < b.rgba.length; i += 4) if (b.rgba[i]) n++; return n / (b.w * b.h); };
+  ok(alle.every(([, b]) => !b.fehler && deckung(b) > 0.05 && deckung(b) < 0.8), 'jede Vorschau zeigt etwas (5 % bis 80 % der Fläche deckend), Rest transparent');
+  ok(alle.every(([, b]) => !b.fehler && [0, b.w - 1].every((x) => [0, b.h - 1].every((y) => b.rgba[(y * b.w + x) * 4 + 3] === 0))), 'Ecken transparent (kein Hintergrund)');
+  const bytes = alle.reduce((n, [t]) => n + fs.statSync(path.join(sprites, t.vorschau)).size, 0);
+  ok(bytes < 200 * 1024, `alle Vorschauen zusammen ${(bytes / 1024).toFixed(1)} KB (unter 200 KB)`);
+  const dateien = fs.readdirSync(path.join(sprites, 'cha', 'vorschau'), { recursive: true }).filter((f) => f.endsWith('.png')).map((f) => 'cha/vorschau/' + f.replace(/\\/g, '/')).sort();
+  eq(dateien, alle.map(([t]) => t.vorschau).sort(), 'keine überzähligen Bilder im Ordner vorschau/');
+  ok(katalog.plaetze.every((p) => FENSTER[p.id]), 'jeder Katalogplatz hat ein Vorschaufenster');
+  // Unterscheidbar: je Platz sehen verschiedene Werte verschieden aus (sonst zeigt das Fenster den Platz nicht)
+  for (const p of katalog.plaetze) {
+    const bilder = katalog.teile.filter((t) => t.platz === p.id).map((t) => Buffer.from(png(t).rgba || []).toString('base64'));
+    ok(new Set(bilder).size === bilder.length, `Platz ${p.id}: alle ${bilder.length} Werte haben verschiedene Bilder`);
+  }
+  // Wiederholbar: gleiches Teil zweimal gerendert gibt dieselben Bildpunkte, und die Datei im Repo ist der aktuelle Stand
+  const teil = katalog.teile.find((t) => t.id === 'kopf/bordhelm'), b1 = vorschauBild(lib, katalog, teil.id), b2 = vorschauBild(lib, katalog, teil.id);
+  ok(Buffer.from(b1.d).equals(Buffer.from(b2.d)), 'Rendern ist deterministisch (zweimal dasselbe Bild)');
+  ok(Buffer.from(b1.d).equals(Buffer.from(png(teil).rgba)), 'eingechecktes kopf/bordhelm.png entspricht dem Renderer');
+  let code = 0, out = '';
+  try { out = execFileSync(process.execPath, [path.join(root, 'tools', 'gen-cha-vorschau.mjs'), '--check'], { encoding: 'utf8' }); } catch (e) { code = e.status; out = String(e.stdout); }
+  ok(code === 0, `gen-cha-vorschau --check: Bilder stimmen mit dem Generator überein (${out.trim().split('\n').pop()})`);
+  // --check erkennt veraltete Bilder (Mutationsprobe auf einer Kopie)
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'cha-vorschau-'));
+  try {
+    for (const d of ['assets', 'tools', 'core']) fs.cpSync(path.join(root, d), path.join(tmp, d), { recursive: true });
+    const vz = path.join(tmp, 'assets', 'sprites', 'cha', 'vorschau'), f = path.join(vz, 'hose', 'bordhose.png'), b = fs.readFileSync(f);
+    const px = decodePng(b); px.rgba[(60 * px.w + 70) * 4] ^= 0x40; px.rgba[(60 * px.w + 70) * 4 + 3] = 255;
+    fs.writeFileSync(f, encodePng(px.w, px.h, px.rgba));
+    fs.unlinkSync(path.join(vz, 'schuhe', 'keine.png'));
+    fs.writeFileSync(path.join(vz, 'bart', 'phantom.png'), b);
+    let c2 = 0, o2 = '';
+    try { o2 = execFileSync(process.execPath, [path.join(tmp, 'tools', 'gen-cha-vorschau.mjs'), '--check'], { encoding: 'utf8' }); } catch (e) { c2 = e.status; o2 = String(e.stdout); }
+    ok(c2 === 1 && /hose\/bordhose\.png: veraltet/.test(o2) && /schuhe\/keine\.png: fehlt/.test(o2) && /bart\/phantom\.png: überzählig/.test(o2), '--check meldet verändertes, fehlendes und überzähliges Bild (Exit 1)');
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+  // Porträt aus einer Charakterkarte (Format der Spiel-Karte: Charakterplätze, haut, haar, outfit)
+  const karte = { v: 1, name: 'Test', koerper: 'standard', gesicht: 'narbe', frisur: 'zoepfe', bart: 'vollbart', haut: 2, haar: 3, outfit: { kopf: 'bordhelm', oberteil: 'plankenweste' } };
+  const o = kartenOptionen(katalog, karte);
+  eq(o.params, { gesicht: 'narbe', frisur: 'zoepfe', bart: 'vollbart', kopf: 'bordhelm', oberteil: 'plankenweste', hose: 'bordhose', schuhe: 'bordstiefel', haende: 'keine', umhang: 'keiner', koerper: 'standard' }, 'Karte → Plätze: fehlende Plätze nehmen den Katalog-Standard');
+  eq(o.colors, { ...katalog.farben.haut[2], hair: katalog.farben.haar[3] }, 'Karte → Farben: haut- und haar-Index aus dem Katalog');
+  const pa = portraet(lib, katalog, karte), pb = portraet(lib, katalog, { ...karte, haar: 0, haut: 0 }), pc = portraet(lib, katalog, karte, { bg: [0, 4, 19, 255] });
+  ok(pa.w === PORTRAET.w && pa.h === PORTRAET.h && PORTRAET.w === PORTRAET.h, `Porträt quadratisch ${PORTRAET.w} × ${PORTRAET.h} (Fenster 130 × 130 im Spielraster, doppelt)`);
+  ok(!Buffer.from(pa.d).equals(Buffer.from(pb.d)), 'Porträt ändert sich mit Haut- und Haarindex');
+  ok(pa.d[3] === 0 && pc.d[3] === 255, 'Porträt: transparent ohne bg, deckend mit bg');
 }
 
 console.log('\n== Generator und Rig');

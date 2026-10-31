@@ -69,54 +69,62 @@
       "platz": "gesicht",
       "name": "Lerche",
       "gruppe": "charakter",
-      "volk": "lerche"
+      "volk": "lerche",
+      "vorschau": "cha/vorschau/gesicht/lerche.png"
     },
     {
       "id": "gesicht/narbe",
       "platz": "gesicht",
       "name": "Narbe",
       "gruppe": "charakter",
-      "volk": "lerche"
+      "volk": "lerche",
+      "vorschau": "cha/vorschau/gesicht/narbe.png"
     },
     {
       "id": "frisur/dutt",
       "platz": "frisur",
       "name": "Dutt",
       "gruppe": "charakter",
-      "volk": "lerche"
+      "volk": "lerche",
+      "vorschau": "cha/vorschau/frisur/dutt.png"
     },
     {
       "id": "frisur/zoepfe",
       "platz": "frisur",
       "name": "Zöpfe",
       "gruppe": "charakter",
-      "volk": "germanen"
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/frisur/zoepfe.png"
     },
     {
       "id": "frisur/keine",
       "platz": "frisur",
       "name": "Kahl",
-      "gruppe": "charakter"
+      "gruppe": "charakter",
+      "vorschau": "cha/vorschau/frisur/keine.png"
     },
     {
       "id": "bart/keiner",
       "platz": "bart",
       "name": "Kein Bart",
-      "gruppe": "charakter"
+      "gruppe": "charakter",
+      "vorschau": "cha/vorschau/bart/keiner.png"
     },
     {
       "id": "bart/vollbart",
       "platz": "bart",
       "name": "Vollbart",
       "gruppe": "charakter",
-      "volk": "germanen"
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/bart/vollbart.png"
     },
     {
       "id": "kopf/keine",
       "platz": "kopf",
       "name": "Keine",
       "gruppe": "outfit",
-      "herkunft": "frei"
+      "herkunft": "frei",
+      "vorschau": "cha/vorschau/kopf/keine.png"
     },
     {
       "id": "kopf/bordhelm",
@@ -124,7 +132,8 @@
       "name": "Bordhelm",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "crew"
+      "volk": "crew",
+      "vorschau": "cha/vorschau/kopf/bordhelm.png"
     },
     {
       "id": "oberteil/bordtunika",
@@ -132,7 +141,8 @@
       "name": "Bordtunika",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "crew"
+      "volk": "crew",
+      "vorschau": "cha/vorschau/oberteil/bordtunika.png"
     },
     {
       "id": "oberteil/plankenweste",
@@ -140,14 +150,16 @@
       "name": "Plankenweste",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "germanen"
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/oberteil/plankenweste.png"
     },
     {
       "id": "oberteil/keine",
       "platz": "oberteil",
       "name": "Unterzeug",
       "gruppe": "outfit",
-      "herkunft": "frei"
+      "herkunft": "frei",
+      "vorschau": "cha/vorschau/oberteil/keine.png"
     },
     {
       "id": "hose/bordhose",
@@ -155,7 +167,8 @@
       "name": "Bordhose",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "crew"
+      "volk": "crew",
+      "vorschau": "cha/vorschau/hose/bordhose.png"
     },
     {
       "id": "hose/germanenhose",
@@ -163,14 +176,16 @@
       "name": "Germanenhose",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "germanen"
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/hose/germanenhose.png"
     },
     {
       "id": "hose/keine",
       "platz": "hose",
       "name": "Unterzeug",
       "gruppe": "outfit",
-      "herkunft": "frei"
+      "herkunft": "frei",
+      "vorschau": "cha/vorschau/hose/keine.png"
     },
     {
       "id": "schuhe/bordstiefel",
@@ -178,7 +193,8 @@
       "name": "Bordstiefel",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "crew"
+      "volk": "crew",
+      "vorschau": "cha/vorschau/schuhe/bordstiefel.png"
     },
     {
       "id": "schuhe/germanenstiefel",
@@ -186,21 +202,24 @@
       "name": "Germanenstiefel",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "germanen"
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/schuhe/germanenstiefel.png"
     },
     {
       "id": "schuhe/keine",
       "platz": "schuhe",
       "name": "Barfuß",
       "gruppe": "outfit",
-      "herkunft": "frei"
+      "herkunft": "frei",
+      "vorschau": "cha/vorschau/schuhe/keine.png"
     },
     {
       "id": "haende/keine",
       "platz": "haende",
       "name": "Keine",
       "gruppe": "outfit",
-      "herkunft": "frei"
+      "herkunft": "frei",
+      "vorschau": "cha/vorschau/haende/keine.png"
     },
     {
       "id": "haende/armschiene",
@@ -208,14 +227,16 @@
       "name": "Armschiene",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "rom"
+      "volk": "rom",
+      "vorschau": "cha/vorschau/haende/armschiene.png"
     },
     {
       "id": "umhang/keiner",
       "platz": "umhang",
       "name": "Keiner",
       "gruppe": "outfit",
-      "herkunft": "frei"
+      "herkunft": "frei",
+      "vorschau": "cha/vorschau/umhang/keiner.png"
     },
     {
       "id": "umhang/fellumhang",
@@ -223,7 +244,8 @@
       "name": "Fellumhang",
       "gruppe": "outfit",
       "herkunft": "frei",
-      "volk": "germanen"
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/umhang/fellumhang.png"
     }
   ],
   "farben": {

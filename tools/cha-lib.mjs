@@ -151,6 +151,7 @@ const HEX = /^#[0-9A-Fa-f]{6}$/;
  *  - Teile: id = <platz>/<name>, Platz und Gruppe stimmen, Anzeigename, Outfit mit herkunft; jedes Teil hat ein Modell (cha/<platz>/<name>/…),
  *    ausgenommen die leeren Werte keine/keiner
  *  - jede options-Ausprägung der Sammelmodelle steht im Katalog und umgekehrt jedes Teil des Katalogs in den options
+ *  - vorschau: Pfad des Kachelbilds relativ zu assets/sprites/ (cha/vorschau/<platz>/<name>.png; Dateien prüft tools/test-cha.mjs)
  *  - Farben: je 4 Hauttöne (skin + skin_shadow) und 4 Haarfarben, Index 0 = Farben der Figur
  * optionen = { platz: [werte] } aus platzOptionen(). Rückgabe: Liste { id, msg }.
  */
@@ -179,6 +180,7 @@ export function pruefeKatalog(katalog, { modelIds, optionen, figur }) {
     if (t.gruppe !== p.gruppe) f(t.id, `gruppe "${t.gruppe}" ist nicht die Gruppe des Platzes (${p.gruppe})`);
     if (!t.name || typeof t.name !== 'string') f(t.id, 'Anzeigename fehlt');
     if (p.gruppe === 'outfit' && !['frei', 'haendler', 'fund'].includes(t.herkunft)) f(t.id, `herkunft "${t.herkunft}" (frei, haendler oder fund)`);
+    if (t.vorschau !== `cha/vorschau/${platz}/${name}.png`) f(t.id, `vorschau "${t.vorschau}" ist nicht cha/vorschau/${platz}/${name}.png`);
     if (!LEERE_WERTE.includes(name) && !modelIds.some((m) => m.startsWith(`cha/${platz}/${name}/`))) f(t.id, `kein Modell cha/${platz}/${name}/…`);
   }
   for (const p of katalog.plaetze || []) if (!gesehen.has(`${p.id}/${p.standard}`)) f(`platz ${p.id}`, `Standard ${p.id}/${p.standard} fehlt unter teile`);

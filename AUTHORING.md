@@ -409,8 +409,24 @@ oder `ops`, `farben`, optional `params`/`decl`/`schnitte`/`at`), bei neuem Namen
 mehrere herausgelöste Teilmodelle der Reihe nach ein (Bart: Deckschicht per `use mode: paint`, Bartzopf als eigene Schicht), `zusatz` legt
 weitere Modelle wie die Hutmaske an, `danach` hängt Boxen an (Kettenhalter des Fellumhangs), `anzeige`/`volk` füllen den Katalog.
 Haut- und Haarfarben (`HAUT`, `HAAR`, Index 0 = Standard) und Plätze stehen oben im Generator.
-Dann `node tools/gen-cha.mjs`, `npm run check`, `npm test`. Bilder: `node tools/cha-bilder.mjs` (Node-Renderer, nach `shots/cha01/`). Gelenkbereiche (`bereiche`) und Toleranzen je Platz und Gattung
+Dann `node tools/gen-cha.mjs`, `npm run check`, `npm test`. Bilder: `node tools/cha-bilder.mjs [Präfix]` (Node-Renderer, nach `shots/cha01/`). Gelenkbereiche (`bereiche`) und Toleranzen je Platz und Gattung
 (`toleranzen`) stehen in `assets/rigs/human.json`; `npm run check` meldet Schichten außerhalb von Bereich + Toleranz.
+
+**Anprobe im Editor:** Ist eine Figur mit Katalog geöffnet (`http://localhost:3412/editor/?figure=cha/spieler`, Server mit `npm start`, anderer Port: `PORT=… node server.js`),
+zeigt die Seitenleiste den Bereich „Anprobe“: je Platz eine Auswahlliste (Werte und Anzeigenamen aus `assets/katalog/charakter.json`, gruppiert Charakter/Outfit),
+Hautton und Haarfarbe als Farbfelder (je 4 aus `farben`), „Zufall“ und „Standard“. Jede Änderung baut die Figur sofort neu (Kamera bleibt), die Pose lässt sich weiter wählen.
+Der Zustand steht in der URL, nur Abweichungen vom Standard: `?figure=cha/spieler&pose=sit&p.kopf=bordhelm&p.frisur=zoepfe&haut=2&haar=3` (`p.<platz>=<teil>`, `haut`/`haar` = Farbindex).
+Für Bilder `&anim=0` (Pose anhalten) und `&t=<Sekunden>` (Zeitpunkt, z. B. `walk` bei `t=0.25`) anhängen. Der Katalog kommt als statische Datei vom Server (kein eigener Endpunkt nötig).
+Der Editor lädt für leere Werte (`keine`, `keiner`) Modelle, die es nicht gibt, und meldet dafür 404 in der Konsole; die Figur baut trotzdem (Fallback `cha/leer`).
+
+**Vorschaubilder je Teil:** `node tools/gen-cha-vorschau.mjs` schreibt zu jedem Katalog-Teil (auch `keine`/`keiner`) ein Bild nach `assets/sprites/cha/vorschau/<platz>/<name>.png`
+(**eingecheckt**, 140 × 124 px transparent = doppelte Bildfläche der Spielkachel 70 × 62; zusammen unter 40 KB). Standardfigur mit genau diesem Teil, Node-Renderer, feste Kamera:
+Kopf-Plätze (Gesicht, Frisur, Bart, Kopfbedeckung) Kopf ¾ von vorn, Oberteil Rumpf, Hose Hüfte bis Knie, Schuhe Unterschenkel, Handschuhe linker Unterarm, Umhang von hinten.
+Ausschnitt und Blick je Platz stehen in `FENSTER` (`tools/cha-ansicht.mjs`). `--check` erzeugt im Speicher und vergleicht die Bildpunkte (nicht die Dateibytes) mit den Dateien und meldet veraltete, fehlende
+und überzählige Bilder (Exit 1); `node tools/gen-cha-vorschau.mjs kopf/bordhelm` erneuert nur ein Teil. Das Katalogfeld `vorschau` (Pfad relativ zu `assets/sprites/`) setzt `gen-cha.mjs`.
+**Reihenfolge nach jeder Änderung an Teilen:** `node tools/gen-cha.mjs`, `node tools/gen-cha-vorschau.mjs`, `npm test`. Die Bilder stehen nicht im `manifest.json` (`npm run sprites`, das beschreibt nur Schiffs-Drehsprites).
+**Porträt:** `portraet(lib, katalog, karte, { bg })` in `tools/cha-ansicht.mjs` rendert aus einer Charakterkarte (Charakterplätze, `haut`, `haar`, `outfit`) den Kopf in Nahansicht, 260 × 260 px (Referenz für die Live-Porträts des Spiels);
+`node tools/cha-bilder.mjs a4` schreibt vier Beispiele nach `shots/cha01/a4-portraet-<n>.png` (nicht im Git).
 
 **Prüfregeln** (`tools/cha-lib.mjs`, in `npm run check`, Mutationsprobe in `tools/test-cha.mjs`): jedes Modell und jedes eingesetzte Teil
 unter `cha/` hat `anchor` (ungleich [0,0,0] nur mit passendem `at`); kein `colors`/`palette` am `use`, das `skin`/`skin_shadow`/`hair` setzt;

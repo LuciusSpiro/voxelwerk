@@ -76,3 +76,25 @@ export function reihe(file, figs, { px = 11, yaws = [18, 100], pitch = 10, crop 
   fs.mkdirSync(path.dirname(file), { recursive: true });
   cv.save(file);
 }
+
+/** Liest ein PNG, das encodePng geschrieben hat (8 Bit RGBA, Filter 0): { w, h, rgba }. Prüft Signatur, Blocklängen und CRC; wirft bei allem anderen. */
+export function decodePng(buf) {
+  if (buf.length < 33 || !buf.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) throw new Error('keine PNG-Signatur');
+  let pos = 8, w = 0, h = 0, ende = false;
+  const idat = [];
+  while (pos + 12 <= buf.length) {
+    const len = buf.readUInt32BE(pos), type = buf.toString('latin1', pos + 4, pos + 8), data = buf.subarray(pos + 8, pos + 8 + len);
+    if (data.length !== len || pos + 12 + len > buf.length) throw new Error(`Block ${type} abgeschnitten`);
+    if (buf.readUInt32BE(pos + 8 + len) !== crc32(Buffer.concat([Buffer.from(type, 'latin1'), data]))) throw new Error(`CRC-Fehler im Block ${type}`);
+    if (type === 'IHDR') { w = data.readUInt32BE(0); h = data.readUInt32BE(4); if (data[8] !== 8 || data[9] !== 6) throw new Error('nur 8 Bit RGBA'); }
+    if (type === 'IDAT') idat.push(data);
+    pos += 12 + len;
+    if (type === 'IEND') { ende = true; break; }
+  }
+  if (!ende || !w || !h) throw new Error('IHDR oder IEND fehlt');
+  const raw = zlib.inflateSync(Buffer.concat(idat));
+  if (raw.length !== (w * 4 + 1) * h) throw new Error('falsche Datenlänge');
+  const rgba = new Uint8ClampedArray(w * h * 4);
+  for (let y = 0; y < h; y++) { if (raw[y * (w * 4 + 1)] !== 0) throw new Error('nur Filter 0'); rgba.set(raw.subarray(y * (w * 4 + 1) + 1, (y + 1) * (w * 4 + 1)), y * w * 4); }
+  return { w, h, rgba };
+}

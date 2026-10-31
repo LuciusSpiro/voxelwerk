@@ -3,7 +3,8 @@
 //   assets/models/cha/**          Schicht-Wrapper (use + colors + carve/paint), Sammelmodelle cha/joint/<gattung>
 //   assets/palettes/cha.json      Platzrollen (Standardfarben aus den Bestandspaletten, je Teil eigene Rollen)
 //   assets/figures/cha/spieler.json
-//   assets/katalog/charakter.json Katalog für das Spiel (Plätze, Teile, Hauttöne, Haarfarben)
+//   assets/katalog/charakter.json Katalog für das Spiel (Plätze, Teile, Hauttöne, Haarfarben; je Teil das Feld vorschau = Pfad des Kachelbilds,
+//                                 die Bilder selbst erzeugt tools/gen-cha-vorschau.mjs)
 // Erzeugte Dateien nie von Hand bearbeiten: Teile ergänzt man in TEILE unten (siehe AUTHORING.md, "Spielerfigur aus Schichten").
 //
 // Aufruf: node tools/gen-cha.mjs [--check]
@@ -370,7 +371,7 @@ put('assets/katalog/charakter.json', {
   teile: katalogPlaetze.flatMap((p) => werte(p).map((n) => {
     const t = TEILE.find((x) => x.platz === p.id && x.name === n);
     if (!t && n !== p.keine) throw new Error(`Katalog: ${p.id}/${n} ist weder Teil noch leerer Wert`);
-    return { id: `${p.id}/${n}`, platz: p.id, name: t ? t.anzeige : p.keineName, gruppe: p.gruppe, ...(p.gruppe === 'outfit' ? { herkunft: 'frei' } : {}), ...(t?.volk ? { volk: t.volk } : {}) };
+    return { id: `${p.id}/${n}`, platz: p.id, name: t ? t.anzeige : p.keineName, gruppe: p.gruppe, ...(p.gruppe === 'outfit' ? { herkunft: 'frei' } : {}), ...(t?.volk ? { volk: t.volk } : {}), vorschau: `cha/vorschau/${p.id}/${n}.png` };
   })),
   farben: { haut: HAUT, haar: HAAR },
 });
