@@ -1,6 +1,8 @@
 // Voxelwerk-Editor (v1): Bibliothek durchsuchen, Modelle/Figuren/Szenen ansehen, Parameter und Paletten
 // ausprobieren, Rezepte als JSON bearbeiten (Anwenden = Vorschau, Speichern = Datei), .vox exportieren.
 // URL: ?model=rom/kiste | ?figure=rom/legionaer | ?scene=rom-aussenposten  [&mood=…&pose=…&palette=…&shot=1&raster=1]
+// Anprobe (Figur mit Katalog, heute cha/spieler): Bereich „Anprobe“ mit Teil je Platz, Haut, Haar, Zufall; Zustand in der URL:
+//   ?figure=cha/spieler&pose=sit&p.kopf=bordhelm&p.frisur=zoepfe&haut=2&haar=1   (&anim=0 hält die Pose an, &t=<Sekunden> setzt den Zeitpunkt)
 // Taste G: Raster-Overlay (Kachel 1 m, Zelle 8×8, Kantenmitte markiert). Sockets aus dem Rezeptfeld "sockets".
 import * as THREE from 'three';
 import { Library } from '../core/library.js';
@@ -9,6 +11,9 @@ import { voxelSize, TIERS } from '../core/scales.js';
 import { gridToVox } from '../core/vox.js';
 import { Viewer } from '../render/viewer.js';
 import { modelObject, figureObject, sceneObject, applyPose } from '../render/voxel-three.js';
+
+// Katalog der Anprobe: assets/katalog/charakter.json (Plätze, Teile, Farben); der Server liefert ihn als statische Datei aus.
+const KATALOGE = ['charakter'];
 
 const $ = (s) => document.querySelector(s);
 const ROOT = new URL('../', import.meta.url).href;
@@ -23,7 +28,7 @@ if (SHOT) document.body.classList.add('shot');
 
 const viewer = new Viewer($('#view'), { preserve: true });
 window.__viewer = viewer;
-const state = { kind: null, id: null, params: {}, palette: url.get('palette') || null, mood: url.get('mood'), pose: url.get('pose'), saved: null, index: null, raster: url.get('raster') === '1' };
+const state = { anprobe: null, kind: null, id: null, params: {}, palette: url.get('palette') || null, mood: url.get('mood'), pose: url.get('pose'), saved: null, index: null, raster: url.get('raster') === '1' };
 const CELL = 8;   // Zelle = 8×8 Kacheln à 1 m
 
 function msg(text, cls = '') { const m = $('#msg'); m.textContent = text; m.className = cls; }
@@ -66,6 +71,7 @@ async function select(kind, id, keep = false) {
     // Parameter per URL: &p.open=1&p.w=20 – wie &palette= nur beim Start
     else for (const [k, v] of url) if (k.startsWith('p.') && kind === 'models') state.params[k.slice(2)] = isNaN(+v) ? v : +v;
     state.kind = kind; state.id = id; state.saved = formatJSON(obj);
+    state.anprobe = kind === 'figures' ? await ladeAnprobe(obj, keep) : null;
     $('#json').value = state.saved;
     syncUrl();
     renderIndex();
@@ -77,7 +83,7 @@ async function select(kind, id, keep = false) {
 // Adresszeile spiegelt die Auswahl (Reload behält Asset, Palette, Stimmung, Raster)
 function syncUrl() {
   const { kind, id } = state; if (!kind) return;
-  history.replaceState(null, '', `?${kind.slice(0, -1)}=${id}${state.palette ? '&palette=' + state.palette : ''}${state.mood ? '&mood=' + state.mood : ''}${state.raster ? '&raster=1' : ''}${SHOT ? '&shot=1' : ''}`);
+  history.replaceState(null, '', `?${kind.slice(0, -1)}=${id}${state.palette ? '&palette=' + state.palette : ''}${state.mood ? '&mood=' + state.mood : ''}${kind === 'figures' && state.pose ? '&pose=' + state.pose : ''}${anprobeUrl()}${state.raster ? '&raster=1' : ''}${SHOT ? '&shot=1' : ''}${['anim', 't'].filter((k) => url.has(k)).map((k) => `&${k}=${url.get(k)}`).join('')}`);
 }
 
 async function ensureMoods() { for (const m of state.index.moods) await lib.load('moods', m); for (const p of state.index.palettes) await lib.load('palettes', p); }
@@ -99,7 +105,7 @@ function scaleRef(x) {
   m.position.set(x, 0.97, 0); return m;
 }
 
-async function preview() {
+async function preview(keepCam = false) {
   await ensureMoods();
   const { kind, id } = state; if (!kind) return;
   let hud = '', title = id, sub = '';
@@ -122,13 +128,14 @@ async function preview() {
     hud = `${dims.join('×')} Voxel = ${dims.map((d) => (d * s).toFixed(2)).join(' × ')} m · ${built.grid.size.toLocaleString('de-DE')} Voxel · ${(built.mesh.lit.quads + built.mesh.emit.quads).toLocaleString('de-DE')} Quads`;
     controlsModel(m);
   } else if (kind === 'figures') {
-    const f = figureObject(lib, id, { palette: state.palette || undefined, phase: 0 });
+    const f = figureObject(lib, id, { palette: state.palette || undefined, phase: 0, ...anprobeOpts() });
     f.pose = state.pose || 'stand'; applyPose(f, f.pose, 0);
     const g = stage(f.root); g.add(scaleRef(1.0));
     viewer.setContent(g, [f]); viewer.setSockets([]);
     viewer.setRaster({ origin: [-CELL / 2, -CELL / 2], y: 0, cell: CELL, visible: state.raster }); viewer.bounds = new THREE.Box3(new THREE.Vector3(-0.8, 0, -0.6), new THREE.Vector3(1.3, 2.4, 0.6));
     viewer.setMood(lib.get('moods', state.mood || 'planet_day'), viewer.bounds, { fog: false });
-    viewer.frameContent({ elev: +(url.get('elev') ?? 14), az: +(url.get('az') ?? 30), pad: 0.75 });
+    if (!keepCam) viewer.frameContent({ elev: +(url.get('elev') ?? 14), az: +(url.get('az') ?? 30), pad: 0.75 });
+    viewer.anim = url.get('anim') !== '0'; if (url.has('t')) viewer.t = +url.get('t');
     title = lib.get('figures', id).name || id; sub = `${id} · Rig ${lib.get('figures', id).rig}`;
     hud = `${f.root.userData.voxels.toLocaleString('de-DE')} Voxel`;
     controlsFigure(f);
@@ -249,12 +256,80 @@ function switchRow(k, def, v) {
 function controlsFigure(f) {
   const c = $('#controls'); c.innerHTML = '';
   c.appendChild(paletteRow(lib.get('figures', state.id).palette)); c.appendChild(moodRow());
-  c.appendChild(selectRow('Pose', Object.keys(f.poses), state.pose || 'stand', (v) => { state.pose = v; viewer.figures.forEach((x) => (x.pose = v)); }));
+  c.appendChild(selectRow('Pose', Object.keys(f.poses), state.pose || 'stand', (v) => { state.pose = v; viewer.figures.forEach((x) => (x.pose = v)); syncUrl(); }));
   const r = document.createElement('div'); r.className = 'row';
   r.innerHTML = '<label>Animation</label><input type="checkbox" checked>';
+  r.querySelector('input').checked = viewer.anim;
   r.querySelector('input').onchange = (e) => (viewer.anim = e.target.checked);
   c.appendChild(r);
+  if (state.anprobe) c.appendChild(anprobeSection());
 }
+
+// ---------------------------------------------------------------------------------------------
+// Anprobe (Figuren mit Katalog)
+// ---------------------------------------------------------------------------------------------
+/** Katalog laden, der zu dieser Figur gehört (katalog.figur === Figur-ID); Zustand aus der URL (nur beim Start): p.<platz>, haut, haar. */
+async function ladeAnprobe(fig, keep) {
+  for (const name of KATALOGE) {
+    let k; try { k = await io.json(`assets/katalog/${name}.json`); } catch { continue; }
+    if (k.figur !== fig.id) continue;
+    const params = {}, idx = (v, n) => (Number.isInteger(+v) && +v >= 0 && +v < n ? +v : 0);
+    if (keep) for (const p of k.plaetze) { const v = url.get('p.' + p.id); if (v && k.teile.some((t) => t.id === `${p.id}/${v}`)) params[p.id] = v; }
+    return { katalog: k, params, haut: keep ? idx(url.get('haut'), k.farben.haut.length) : 0, haar: keep ? idx(url.get('haar'), k.farben.haar.length) : 0 };
+  }
+  return null;
+}
+const anprobeOpts = () => {
+  const a = state.anprobe; if (!a) return {};
+  return { params: a.params, colors: { ...a.katalog.farben.haut[a.haut], hair: a.katalog.farben.haar[a.haar] } };
+};
+/** Nur Abweichungen vom Standard in die URL (kurze Links). */
+function anprobeUrl() {
+  const a = state.anprobe; if (!a) return '';
+  const std = lib.get('figures', state.id).params || {};
+  return Object.entries(a.params).filter(([k, v]) => v !== std[k]).map(([k, v]) => `&p.${k}=${v}`).join('') + (a.haut ? '&haut=' + a.haut : '') + (a.haar ? '&haar=' + a.haar : '');
+}
+function anprobeNeu() { syncUrl(); preview(true); }
+function anprobeSection() {
+  const a = state.anprobe, k = a.katalog, std = lib.get('figures', state.id).params || {};
+  const box = document.createElement('div'); box.id = 'anprobe'; box.className = 'anprobe';
+  const kopf = document.createElement('h3'); kopf.textContent = 'Anprobe'; box.appendChild(kopf);
+  const gruppen = [['charakter', 'Charakter'], ['outfit', 'Outfit']];
+  for (const [g, label] of gruppen) {
+    const h = document.createElement('div'); h.className = 'folder'; h.textContent = label; box.appendChild(h);
+    for (const p of k.plaetze.filter((x) => x.gruppe === g)) {
+      const teile = k.teile.filter((t) => t.platz === p.id), wert = a.params[p.id] ?? std[p.id];
+      const r = document.createElement('div'); r.className = 'row'; r.innerHTML = `<label title="${esc(p.id)}">${esc(p.name)}</label>`;
+      const s = document.createElement('select'); s.dataset.platz = p.id;
+      for (const t of teile) { const n = t.id.split('/')[1], op = document.createElement('option'); op.value = n; op.textContent = t.name; if (n === wert) op.selected = true; s.appendChild(op); }
+      s.onchange = () => { a.params[p.id] = s.value; anprobeNeu(); };
+      r.appendChild(s); box.appendChild(r);
+    }
+  }
+  const farbe = (label, liste, key, hex) => {
+    const r = document.createElement('div'); r.className = 'row'; r.innerHTML = `<label>${label}</label>`;
+    const b = document.createElement('div'); b.className = 'btns';
+    liste.forEach((f, i) => {
+      const bt = document.createElement('button'); bt.className = 'swatch' + (a[key] === i ? ' on' : ''); bt.style.background = hex(f); bt.title = `${label} ${i}`; bt.dataset.farbe = key + i;
+      bt.onclick = () => { a[key] = i; anprobeNeu(); }; b.appendChild(bt);
+    });
+    r.appendChild(b); box.appendChild(r);
+  };
+  const fh = document.createElement('div'); fh.className = 'folder'; fh.textContent = 'Farben'; box.appendChild(fh);
+  farbe('Haut', k.farben.haut, 'haut', (f) => f.skin); farbe('Haar', k.farben.haar, 'haar', (f) => f);
+  const z = document.createElement('div'); z.className = 'btns';
+  const bz = document.createElement('button'); bz.textContent = 'Zufall'; bz.id = 'zufall';
+  bz.onclick = () => {
+    const pick = (l) => l[Math.floor(Math.random() * l.length)];
+    for (const p of k.plaetze) a.params[p.id] = pick(k.teile.filter((t) => t.platz === p.id)).id.split('/')[1];
+    a.haut = Math.floor(Math.random() * k.farben.haut.length); a.haar = Math.floor(Math.random() * k.farben.haar.length); anprobeNeu();
+  };
+  const br = document.createElement('button'); br.textContent = 'Standard';
+  br.onclick = () => { a.params = {}; a.haut = 0; a.haar = 0; anprobeNeu(); };
+  z.append(bz, br); box.appendChild(z);
+  return box;
+}
+
 function controlsScene(sc) {
   const c = $('#controls'); c.innerHTML = '';
   c.appendChild(moodRow());
