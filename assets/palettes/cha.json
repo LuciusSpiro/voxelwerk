@@ -5,12 +5,19 @@
   "generated": true,
   "notes": "Platzrollen der Schichten (cha/), je Teil eigene Rollen (<name>_<teil>) mit den Bestandsfarben des Teils. skin, skin_shadow, hair kommen ausschließlich von der Figur (colors); Ausnahme siehe PINNEN in tools/cha-lib.mjs. Keine Spielerfarbe in Kleidungsrollen.",
   "roles": {
+    "adler_lorica": {
+      "color": "#FFC46B",
+      "emit": 1.5
+    },
     "akzent_anzughose": "#B3342B",
     "akzent_einsatzanzug": "#B3342B",
     "band_bartlang": "#D9A93A",
     "band_stirnband": "#D9A441",
     "band_zopfband": "#D9A93A",
+    "dunkel_lorica": "#2C3037",
+    "eisen_lorica": "#565D67",
     "gamasche_germanenstiefel": "#7A5234",
+    "gold_lorica": "#D4A23A",
     "gummi_einsatzstiefel": "#24262B",
     "gummi_germanenstiefel": "#24262B",
     "gummi_ocreae": "#24262B",
@@ -26,8 +33,11 @@
     "hose_zier_germanenhose": "#8E959D",
     "hut_bordhelm": "#DDE1E4",
     "hut_zier_bordhelm": "#B3342B",
+    "kappe_lorica": "#5B2A5E",
+    "lack_lorica": "#E9E3D3",
     "leder_anzughose": "#3B3F46",
     "leder_einsatzanzug": "#3B3F46",
+    "leder_lorica": "#6B4A2A",
     "licht_2_einsatzanzug": {
       "color": "#FFB347",
       "emit": 1.5
@@ -66,6 +76,7 @@
     "metall_hell_plankenweste": "#B4BAC0",
     "metall_ocreae": "#565D67",
     "metall_plankenweste": "#7A8088",
+    "niet_lorica": "#A3ABB4",
     "ohrring_offen": "#2C5DB8",
     "perle_wild": "#3E6EB4",
     "planke_germanenstiefel": "#8E959D",
@@ -83,6 +94,7 @@
     "schuh_zier_bordstiefel": "#D4A23A",
     "stoff_einsatzhandschuh": "#8C949E",
     "stoff_einsatzstiefel": "#8C949E",
+    "stoff_lorica": "#8E1B22",
     "stoff_ocreae": "#8E1B22",
     "top_bordtunika": "#5B2A5E",
     "top_einsatzanzug": "#DDE1E4",

@@ -159,6 +159,15 @@
       "vorschau": "cha/vorschau/oberteil/plankenweste.png"
     },
     {
+      "id": "oberteil/lorica",
+      "platz": "oberteil",
+      "name": "Lorica",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "rom",
+      "vorschau": "cha/vorschau/oberteil/lorica.png"
+    },
+    {
       "id": "oberteil/robe",
       "platz": "oberteil",
       "name": "Robe",
