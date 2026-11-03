@@ -19,7 +19,7 @@ export const PINNEN = { umhang: ['hair'] };
  */
 export const CHA_TOLERANZEN = {
   koerper: { head: { min: [0, 0, 1], max: [0, 2, 0] } },
-  frisur: { head: { min: [0, 2, 3], max: [0, 4, 0] } },
+  frisur: { head: { min: [1, 2, 3], max: [1, 4, 0] } },
 };
 /** Toleranzen des Rigs plus CHA_TOLERANZEN (je Wert das Maximum). */
 export function toleranzenVon(rig) {

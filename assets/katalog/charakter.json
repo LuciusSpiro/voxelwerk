@@ -12,7 +12,7 @@
       "id": "frisur",
       "name": "Frisur",
       "gruppe": "charakter",
-      "standard": "dutt"
+      "standard": "kurz"
     },
     {
       "id": "kopf",
@@ -53,20 +53,36 @@
   ],
   "teile": [
     {
-      "id": "frisur/dutt",
+      "id": "frisur/kurz",
       "platz": "frisur",
-      "name": "Dutt",
+      "name": "Kurzschnitt",
       "gruppe": "charakter",
-      "volk": "lerche",
-      "vorschau": "cha/vorschau/frisur/dutt.png"
+      "volk": "rom",
+      "vorschau": "cha/vorschau/frisur/kurz.png"
     },
     {
-      "id": "frisur/zoepfe",
+      "id": "frisur/stirnband",
       "platz": "frisur",
-      "name": "Zöpfe",
+      "name": "Stirnband mit Zopf",
       "gruppe": "charakter",
-      "volk": "germanen",
-      "vorschau": "cha/vorschau/frisur/zoepfe.png"
+      "volk": "rom",
+      "vorschau": "cha/vorschau/frisur/stirnband.png"
+    },
+    {
+      "id": "frisur/welle",
+      "platz": "frisur",
+      "name": "Welle",
+      "gruppe": "charakter",
+      "volk": "rom",
+      "vorschau": "cha/vorschau/frisur/welle.png"
+    },
+    {
+      "id": "frisur/offen",
+      "platz": "frisur",
+      "name": "Offenes Haar",
+      "gruppe": "charakter",
+      "volk": "rom",
+      "vorschau": "cha/vorschau/frisur/offen.png"
     },
     {
       "id": "frisur/keine",

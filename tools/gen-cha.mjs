@@ -44,7 +44,7 @@ const SCHICHT_NAME = { koerper: 'Körper', hose: 'Hose', schuhe: 'Schuhe', obert
  */
 const PLAETZE = [
   { id: 'koerper', name: 'Körper', gruppe: 'koerper', standard: 'standard' },
-  { id: 'frisur', name: 'Frisur', gruppe: 'charakter', standard: 'dutt', keine: 'keine', keineName: 'Kahl' },
+  { id: 'frisur', name: 'Frisur', gruppe: 'charakter', standard: 'kurz', keine: 'keine', keineName: 'Kahl' },
   { id: 'kopf', name: 'Kopfbedeckung', gruppe: 'outfit', standard: 'keine', keine: 'keine', keineName: 'Keine' },
   { id: 'oberteil', name: 'Oberteil', gruppe: 'outfit', standard: 'bordtunika', keine: 'keine', keineName: 'Unterzeug' },
   { id: 'hose', name: 'Hose', gruppe: 'outfit', standard: 'bordhose', keine: 'keine', keineName: 'Unterzeug' },
@@ -95,25 +95,70 @@ const KOPF_8 = [
   box('Mund', [-1, 26, 3], [2, 1, 1], { shade: 'skin', f: 0.86 }, { mode: 'paint', jitter: false }),
   box('Wangen', [2, 27, 3], [1, 1, 1], { shade: 'skin', f: 0.93 }, { mode: 'paint', jitter: false, ...spiegel }),
 ];
-/** Haarkappe (Dutt und Zöpfe gemeinsam): liegt auf der Schädelhülle, lässt das Gesicht (z 3, y <= 29) frei. */
-const HAARKAPPE = [
-  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
-  box('Haar oben', [-4, 32, -4], [8, 1, 8], { shade: 'hair', f: 1.12 }),
-  box('Scheitel', [0, 32, -4], [1, 1, 8], { shade: 'hair', f: 0.78 }, { mode: 'paint' }),
-  box('Haar hinten', [-4, 27, -4], [8, 4, 1], 'hair'),
-  box('Haar Seiten', [3, 28, -3], [1, 3, 3], 'hair', spiegel),
-  box('Strähne', [-4, 30, 3], [2, 1, 1], 'hair'),
+// ---- CHA-02 B1: Römische Frisuren (Anfang) ----------------------------------------------------------------------------------------------------------
+// Nach FIG-01 frisuren-ideen.png, obere Reihe. Haar sitzt auf der Schädelhülle (x -4..3, y 26..32, z -4..3), das Gesicht (z 3, y <= 30) bleibt frei, Haar steht bis 1 Voxel
+// über der Hülle (y 33/34, x -5/4, z -5). Haarrolle = `hair` (Figur, 8 Farben); Stirnband und Ohrring haben je Teil eine feste eigene Farbrolle (kein Haar).
+// Keine Kopplung an einen Körper: jede Frisur ist für jede Figur wählbar.
+const eck = (name, at) => box(name, at, [1, 1, 1], undefined, { mode: 'carve', ...spiegel });   // Ecke des Haars abrunden (Spiegelpaar)
+/** Kurzschnitt: gerader Schnitt mit Pony, Seitenscheitel links (x -4..-2 tiefer), keine Fransen über den Augen. */
+const FRISUR_KURZ = [
+  box('Haarkranz', [-4, 31, -4], [8, 2, 8], { shade: 'hair', f: 1.04 }, { jitter: false }),
+  box('Haar oben', [-4, 33, -4], [8, 1, 7], { shade: 'hair', f: 1.12 }, { jitter: false }),
+  eck('Ecken hinten', [3, 33, -4]), eck('Ecken vorn', [3, 33, 2]),
+  box('Scheitel', [-2, 33, -4], [1, 1, 7], { shade: 'hair', f: 0.8 }, { mode: 'paint', jitter: false }),
+  box('Pony Strähne', [-4, 30, 3], [3, 1, 1], { shade: 'hair', f: 0.94 }),
+  box('Haar Seiten', [3, 29, -4], [1, 2, 6], 'hair', { jitter: false, ...spiegel }),
+  box('Haar Seiten unten', [3, 28, -4], [1, 1, 4], { shade: 'hair', f: 0.9 }, { jitter: false, ...spiegel }),
+  box('Haar hinten', [-4, 28, -4], [8, 3, 1], { shade: 'hair', f: 0.9 }, { jitter: false }),
 ];
-const DUTT = [
-  box('Haarband', [-1, 31, -5], [2, 2, 1], 'cloth2'),
-  box('Dutt', [-1, 32, -6], [2, 2, 2], { shade: 'hair', f: 1.06 }),
-  box('Dutt Spitze', [-1, 34, -6], [2, 1, 1], 'hair'),
+/** Stirnband mit Zopf: kurzes Haar über einem goldenen Stirnband (rings um den Kopf, y 31), Seiten und Nacken darunter bis y 27, ein Zopf links (x -5) hängt bis y 23. */
+const FRISUR_STIRNBAND = [
+  box('Haar oben', [-4, 32, -4], [8, 1, 8], { shade: 'hair', f: 1.1 }, { jitter: false }),
+  box('Haarkappe', [-4, 33, -4], [8, 1, 7], { shade: 'hair', f: 1.12 }, { jitter: false }),
+  eck('Ecken hinten', [3, 33, -4]), eck('Ecken vorn', [3, 33, 2]),
+  box('Scheitel', [0, 33, -4], [1, 1, 7], { shade: 'hair', f: 0.82 }, { mode: 'paint', jitter: false }),
+  box('Haar Seiten', [3, 27, -4], [1, 4, 6], 'hair', { jitter: false, ...spiegel }),
+  box('Haar hinten', [-4, 27, -4], [8, 4, 1], { shade: 'hair', f: 0.9 }, { jitter: false }),
+  box('Stirnband vorn', [-4, 31, 3], [8, 1, 1], 'trim', { jitter: false }),
+  box('Stirnband hinten', [-4, 31, -4], [8, 1, 1], 'trim', { jitter: false }),
+  box('Stirnband Seiten', [3, 31, -3], [1, 1, 6], 'trim', { jitter: false, ...spiegel }),
+  box('Zopf', [-5, 24, -3], [1, 5, 2], { stripes: [{ shade: 'hair', f: 1.15 }, { shade: 'hair', f: 0.75 }], axis: 'y', period: 2 }),
+  box('Zopfansatz', [-5, 29, -3], [1, 1, 2], 'hair', { jitter: false }),
+  box('Zopfband', [-5, 23, -3], [1, 1, 1], 'trim', { jitter: false }),
 ];
-const ZOEPFE = [
-  box('Zopf', [1, 23, -5], [1, 7, 1], { stripes: ['hair', { shade: 'hair', f: 0.78 }], axis: 'y', period: 2 }, spiegel),
-  box('Zopf-Band', [1, 29, -5], [1, 1, 1], 'primary', spiegel),
-  box('Zopfringe', [1, 26, -5], [1, 1, 1], 'metal_light', { jitter: false, ...spiegel }),
+/** Welle: mittellang, wellig über den Ohren (Seiten gestaffelt, x -5/4), kleine Strähnen auf dem Scheitel (y 34). */
+const FRISUR_WELLE = [
+  box('Haarkranz', [-4, 31, -4], [8, 2, 8], { noise: ['hair', { shade: 'hair', f: 1.12 }], weights: [4, 1], cell: 1 }),
+  box('Haar oben', [-4, 33, -4], [8, 1, 7], { noise: [{ shade: 'hair', f: 1.1 }, { shade: 'hair', f: 0.88 }], weights: [3, 1], cell: 1 }),
+  eck('Ecken hinten', [3, 33, -4]), eck('Ecken vorn', [3, 33, 2]),
+  box('Strähne links', [-3, 34, 0], [2, 1, 1], 'hair', { jitter: false }),
+  box('Strähne Mitte', [0, 34, -2], [1, 1, 2], { shade: 'hair', f: 1.1 }, { jitter: false }),
+  box('Strähne rechts', [2, 34, -3], [1, 1, 1], { shade: 'hair', f: 0.9 }, { jitter: false }),
+  box('Pony Strähne', [-4, 30, 3], [2, 1, 1], 'hair'),
+  box('Pony Strähne rechts', [2, 30, 3], [2, 1, 1], 'hair'),
+  box('Haar Seiten', [3, 27, -4], [1, 4, 6], 'hair', spiegel),
+  box('Welle Seite oben', [4, 28, -3], [1, 3, 4], { shade: 'hair', f: 0.92 }, spiegel),
+  box('Welle Seite unten', [4, 26, -2], [1, 2, 4], 'hair', spiegel),
+  box('Haar hinten', [-4, 26, -4], [8, 5, 1], 'hair'),
+  box('Welle hinten oben', [-4, 28, -5], [8, 3, 1], { shade: 'hair', f: 0.9 }),
+  box('Welle hinten unten', [-3, 26, -5], [6, 2, 1], 'hair'),
 ];
+/** Offenes Haar: lang bis auf die Schultern. Seiten fallen bis zum Kinn (y 26), der Rücken bis y 23 (hinter dem Hals, z -5..-4); blauer Ohrring rechts (x 4). */
+const FRISUR_OFFEN = [
+  box('Haarkranz', [-4, 31, -4], [8, 2, 8], { shade: 'hair', f: 1.04 }, { jitter: false }),
+  box('Haar oben', [-4, 33, -4], [8, 1, 7], { shade: 'hair', f: 1.12 }, { jitter: false }),
+  eck('Ecken hinten', [3, 33, -4]), eck('Ecken vorn', [3, 33, 2]),
+  box('Scheitel', [0, 33, -4], [1, 1, 7], { shade: 'hair', f: 0.8 }, { mode: 'paint', jitter: false }),
+  box('Pony Seite', [-4, 30, 3], [2, 1, 1], 'hair', spiegel),
+  box('Haar Seiten', [3, 26, -4], [1, 5, 7], 'hair', { jitter: false, ...spiegel }),
+  box('Haar Seiten außen', [4, 27, -4], [1, 5, 5], { shade: 'hair', f: 0.9 }, { jitter: false, ...spiegel }),
+  box('Haar hinten', [-4, 24, -4], [8, 7, 1], { shade: 'hair', f: 0.92 }, { jitter: false }),
+  box('Haar hinten außen', [-5, 24, -5], [10, 8, 1], { stripes: ['hair', { shade: 'hair', f: 0.82 }], axis: 'x', period: 2 }),
+  box('Ohrring', [4, 25, 0], [1, 2, 1], 'primary', { jitter: false }),
+  eck('Spitzen', [3, 24, -5]), box('Spitzen Mitte', [-3, 24, -5], [1, 1, 1], undefined, { mode: 'carve' }), box('Spitzen Mitte 2', [1, 24, -5], [1, 1, 1], undefined, { mode: 'carve' }),
+];
+// ---- CHA-02 B1 (Ende) --------------------------------------------------------------------------------------------------------------------------------
+
 /** Bordhelm (aus fig/crew/helm_offen), auf den 8er-Kopf verbreitert: Schale über Hinterkopf und Seiten, Gesichtsrahmen bei z 3. */
 const HELM_BORD = [
   box('Halsring', [-2, 25, -2], [4, 1, 4], 'metal'),
@@ -158,12 +203,18 @@ const TEILE = [
     head: { ops: { eigene: KOPF_8 }, farben: {} },   // 8er-Kopf mit festem Gesicht (CHA-02, Entwurf FIG-01 Richtung A); Hals gehört zum Kopf
   } },
 
-  // ---- Frisur: bis Paket B die bisherigen Einträge, an den 8er-Kopf angepasst (Haar liegt auf der Schädelhülle x -4..3, y bis 32, z -4..3)
-  { platz: 'frisur', name: 'dutt', anzeige: 'Dutt', volk: 'lerche', palette: 'lerche_rom', gattungen: {
-    head: { ops: { eigene: [...HAARKAPPE, ...DUTT] }, farben: { cloth2: 'haarband' } },
+  // ---- Frisur (CHA-02 B1: vier römische Frisuren, B2 ergänzt die germanischen). Haar liegt auf der Schädelhülle x -4..3, y bis 32, z -4..3
+  { platz: 'frisur', name: 'kurz', anzeige: 'Kurzschnitt', volk: 'rom', palette: 'rom', gattungen: {
+    head: { ops: { eigene: FRISUR_KURZ }, farben: {} },
   } },
-  { platz: 'frisur', name: 'zoepfe', anzeige: 'Zöpfe', volk: 'germanen', palette: 'nord', gattungen: {
-    head: { ops: { eigene: [...HAARKAPPE, ...ZOEPFE] }, farben: { primary: 'haarband', metal_light: 'metall_hell' } },
+  { platz: 'frisur', name: 'stirnband', anzeige: 'Stirnband mit Zopf', volk: 'rom', palette: 'rom', rollen: { band: '#D9A441' }, gattungen: {
+    head: { ops: { eigene: FRISUR_STIRNBAND }, farben: { trim: 'band' } },
+  } },
+  { platz: 'frisur', name: 'welle', anzeige: 'Welle', volk: 'rom', palette: 'rom', gattungen: {
+    head: { ops: { eigene: FRISUR_WELLE }, farben: {} },
+  } },
+  { platz: 'frisur', name: 'offen', anzeige: 'Offenes Haar', volk: 'rom', palette: 'rom', rollen: { ohrring: '#2C5DB8' }, gattungen: {
+    head: { ops: { eigene: FRISUR_OFFEN }, farben: { primary: 'ohrring' } },
   } },
 
   // ---- Kopfbedeckung: Helm ohne eingebauten Kopf als späte Schicht, an den 8er-Kopf angepasst (Paket C gestaltet die Helme neu). Maske schneidet das Haar-Gitter
@@ -173,10 +224,9 @@ const TEILE = [
       farben: { secondary: 'hut', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', primary: 'hut_zier', glow: 'licht' },
       zusatz: {
         maske: { name: 'Haarmaske (schneidet das Haar-Gitter)', ops: [
-          { name: 'Schalenvolumen', op: 'box', at: [-4, 26, -4], size: [8, 5, 7], color: SCHABLONE },
-          { name: 'Haar über der Schale', op: 'box', at: [-4, 31, -4], size: [8, 2, 8], color: SCHABLONE },
-          { name: 'Haar hinter der Schale (Dutt)', op: 'box', at: [-4, 26, -6], size: [8, 9, 2], color: SCHABLONE },
-          { name: 'Haar unter der Schale (Zöpfe)', op: 'box', at: [-4, 20, -6], size: [8, 6, 9], color: SCHABLONE },
+          { name: 'Haar in und neben der Schale (auch x -5 und 4)', op: 'box', at: [-6, 26, -6], size: [12, 5, 9], color: SCHABLONE },
+          { name: 'Haar über der Schale (bis y 34, Fransen vor dem Rahmen)', op: 'box', at: [-6, 31, -6], size: [12, 4, 12], color: SCHABLONE },
+          { name: 'Haar unter der Schale (langes Haar im Nacken, Ohrring)', op: 'box', at: [-6, 20, -6], size: [12, 6, 9], color: SCHABLONE },
         ] },
       } },
   } },
@@ -360,7 +410,7 @@ for (const gattung of Object.keys(GELENKE)) {
   } else {
     // Frisur als eigene Schicht in eigenem Gitter; die Hutmaske (cha/kopf/<name>/head_maske) schneidet nur dieses Gitter
     putModel('cha/frisur_maskiert/head', { name: 'Frisur unter der Kopfbedeckung (Maske schneidet nur das Haar-Gitter)', tags: ['cha', 'schicht'],
-      params: { frisur: { default: 'dutt', options: werte(platzOf('frisur')) }, kopf: { default: 'keine', options: werte(platzOf('kopf')) } },
+      params: { frisur: { default: platzOf('frisur').standard, options: werte(platzOf('frisur')) }, kopf: { default: 'keine', options: werte(platzOf('kopf')) } },
       ops: [leerOp('Frisur', 'cha/frisur/{frisur}/head'), { name: 'Haarmaske (carve)', ...useOp('cha/kopf/{kopf}/head_maske', { fallback: ['cha/leer'], mode: 'carve' }) }] });
     ops.push(leerOp(SCHICHT_NAME.koerper, 'cha/koerper/{koerper}/head'));
     ops.push({ name: 'Frisur (unter Hutmaske)', ...useOp('cha/frisur_maskiert/head', { params: { frisur: '{frisur}', kopf: '{kopf}' } }) });

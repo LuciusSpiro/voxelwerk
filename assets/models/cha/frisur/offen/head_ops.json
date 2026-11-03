@@ -1,0 +1,274 @@
+{
+  "id": "cha/frisur/offen/head_ops",
+  "tier": "detail",
+  "palette": "cha",
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "generated": true,
+  "name": "frisur offen (head): herausgelöste Ops",
+  "tags": [
+    "cha",
+    "ops"
+  ],
+  "notes": "Ops aus eigenen Boxen, Reihenfolge wie im Bestand.",
+  "ops": [
+    {
+      "name": "Haarkranz",
+      "op": "box",
+      "at": [
+        -4,
+        31,
+        -4
+      ],
+      "size": [
+        8,
+        2,
+        8
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.04
+      },
+      "jitter": false
+    },
+    {
+      "name": "Haar oben",
+      "op": "box",
+      "at": [
+        -4,
+        33,
+        -4
+      ],
+      "size": [
+        8,
+        1,
+        7
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.12
+      },
+      "jitter": false
+    },
+    {
+      "name": "Ecken hinten",
+      "op": "box",
+      "at": [
+        3,
+        33,
+        -4
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "mode": "carve",
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Ecken vorn",
+      "op": "box",
+      "at": [
+        3,
+        33,
+        2
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "mode": "carve",
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Scheitel",
+      "op": "box",
+      "at": [
+        0,
+        33,
+        -4
+      ],
+      "size": [
+        1,
+        1,
+        7
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.8
+      },
+      "mode": "paint",
+      "jitter": false
+    },
+    {
+      "name": "Pony Seite",
+      "op": "box",
+      "at": [
+        -4,
+        30,
+        3
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": "hair",
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Haar Seiten",
+      "op": "box",
+      "at": [
+        3,
+        26,
+        -4
+      ],
+      "size": [
+        1,
+        5,
+        7
+      ],
+      "color": "hair",
+      "jitter": false,
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Haar Seiten außen",
+      "op": "box",
+      "at": [
+        4,
+        27,
+        -4
+      ],
+      "size": [
+        1,
+        5,
+        5
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.9
+      },
+      "jitter": false,
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Haar hinten",
+      "op": "box",
+      "at": [
+        -4,
+        24,
+        -4
+      ],
+      "size": [
+        8,
+        7,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.92
+      },
+      "jitter": false
+    },
+    {
+      "name": "Haar hinten außen",
+      "op": "box",
+      "at": [
+        -5,
+        24,
+        -5
+      ],
+      "size": [
+        10,
+        8,
+        1
+      ],
+      "color": {
+        "stripes": [
+          "hair",
+          {
+            "shade": "hair",
+            "f": 0.82
+          }
+        ],
+        "axis": "x",
+        "period": 2
+      }
+    },
+    {
+      "name": "Ohrring",
+      "op": "box",
+      "at": [
+        4,
+        25,
+        0
+      ],
+      "size": [
+        1,
+        2,
+        1
+      ],
+      "color": "primary",
+      "jitter": false
+    },
+    {
+      "name": "Spitzen",
+      "op": "box",
+      "at": [
+        3,
+        24,
+        -5
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "mode": "carve",
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Spitzen Mitte",
+      "op": "box",
+      "at": [
+        -3,
+        24,
+        -5
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "mode": "carve"
+    },
+    {
+      "name": "Spitzen Mitte 2",
+      "op": "box",
+      "at": [
+        1,
+        24,
+        -5
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "mode": "carve"
+    }
+  ]
+}

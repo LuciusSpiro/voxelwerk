@@ -2,7 +2,7 @@
 // ausprobieren, Rezepte als JSON bearbeiten (Anwenden = Vorschau, Speichern = Datei), .vox exportieren.
 // URL: ?model=rom/kiste | ?figure=rom/legionaer | ?scene=rom-aussenposten  [&mood=…&pose=…&palette=…&shot=1&raster=1]
 // Anprobe (Figur mit Katalog, heute cha/spieler): Bereich „Anprobe“ mit Teil je Platz, Haut, Haar, Zufall; Zustand in der URL:
-//   ?figure=cha/spieler&pose=sit&p.kopf=bordhelm&p.frisur=zoepfe&haut=2&haar=1   (&anim=0 hält die Pose an, &t=<Sekunden> setzt den Zeitpunkt)
+//   ?figure=cha/spieler&pose=sit&p.kopf=bordhelm&p.frisur=offen&haut=2&haar=1   (&anim=0 hält die Pose an, &t=<Sekunden> setzt den Zeitpunkt)
 // Taste G: Raster-Overlay (Kachel 1 m, Zelle 8×8, Kantenmitte markiert). Sockets aus dem Rezeptfeld "sockets".
 import * as THREE from 'three';
 import { Library } from '../core/library.js';

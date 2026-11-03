@@ -1,4 +1,5 @@
-// CHA-02 A1: 8er-Kopf mit festem Gesicht (Kopfmaß samt Mutationsprobe), Katalog Version 2 (ohne gesicht und bart, 6 Hauttöne, 8 Haarfarben), Frisuren dutt/zoepfe und Bordhelm auf dem neuen Kopf.
+// CHA-02 A1: 8er-Kopf mit festem Gesicht (Kopfmaß samt Mutationsprobe), Katalog Version 2 (ohne gesicht und bart, 6 Hauttöne, 8 Haarfarben), Bordhelm auf dem neuen Kopf.
+// CHA-02 B1: vier römische Frisuren (kurz, stirnband, welle, offen): Bau, Haarfarbe (Lecktest), Kopfbreite, Frisur × Bordhelm, Toleranz, Dreiecke, Mutationsproben.
 // Tests der Spielerfigur aus Schichten (cha/): Standardfigur, Voxelgleichheit zu lerche/crew_0 (außer Kopf), Farbrollen (Lecktest),
 // Haut/Haar über Figur-colors, Prüfregeln samt Mutationsprobe, Generator wiederholbar, Rig-Bereiche.
 // A2: alle Kombinationen der Teile, Lecktest über alle Teile, Farben je Teil, Haut/Haar im Katalog, Bordhelm (Haar, Haut, Ohren),
@@ -14,7 +15,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { nodeLibrary, listAssets } from './fs-io.js';
-import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur } from './cha-lib.mjs';
+import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur, haarAussen } from './cha-lib.mjs';
+import { meshGrid } from '../core/mesher.js';
 import { kopfDurchdringung } from './cha-kopfpass.mjs';
 import { poseWerte, gelenkMatrizen, weltPunkt, eulerYXZ } from './cha-pose.mjs';
 import { decodePng, encodePng } from './cha-render.mjs';
@@ -41,7 +43,7 @@ const zaehlePink = (grid) => { let n = 0; for (const v of grid.values()) if (ist
 console.log('\n== Figur cha/spieler');
 const fig = lib.get('figures', 'cha/spieler');
 eq(Object.keys(fig.params), ['koerper', 'frisur', 'kopf', 'oberteil', 'hose', 'schuhe', 'haende', 'umhang'], 'params genau mit den Platzschlüsseln der Schnittstelle Version 2 (Reihenfolge der Plätze, ohne gesicht und bart)');
-eq(fig.params, { koerper: 'standard', frisur: 'dutt', kopf: 'keine', oberteil: 'bordtunika', hose: 'bordhose', schuhe: 'bordstiefel', haende: 'keine', umhang: 'keiner' }, 'Standardwerte laut Schnittstelle');
+eq(fig.params, { koerper: 'standard', frisur: 'kurz', kopf: 'keine', oberteil: 'bordtunika', hose: 'bordhose', schuhe: 'bordstiefel', haende: 'keine', umhang: 'keiner' }, 'Standardwerte laut Schnittstelle');
 ok(PLATZ_ENTFALLEN.every((p) => !(p in fig.params)), 'die Plätze gesicht und bart gibt es in den Figur-params nicht mehr');
 eq(Object.keys(fig.colors).sort(), ['hair', 'skin', 'skin_shadow'], 'Figur-colors setzen nur Haut und Haar');
 const std = baueFigur(lib, 'cha/spieler');
@@ -60,9 +62,14 @@ const ohneKopf = (r) => { const g = new Map(); for (const [jn, vs] of Object.ent
   ok(farbe === 0, `Farben außer dem Kopf identisch (${farbe} Abweichungen; die frühere Spielerfarbe cloth2 steht als feste Teilfarbe in der Palette cha)`);
   for (const jn of Object.keys(ref.pro)) if (jn !== 'head') eq(std.pro[jn].length, ref.pro[jn].length, `Gelenk ${jn}: gleiche Voxelzahl`);
   {
-    const m = new Map(std.pro.head.map((v) => [`${v.x},${v.y},${v.z}`, v]));
-    const gleichKopf = ref.pro.head.filter((v) => { const w = m.get(`${v.x},${v.y},${v.z}`); return w && w.c === v.c && w.e === v.e; }).length;
-    ok(gleichKopf === ref.pro.head.length && gleichKopf === std.pro.head.length, `auch der Kopf ist voxelidentisch (A2: lerche/crew_0 trägt den 8er-Kopf mit Dutt; ${gleichKopf} von ${std.pro.head.length} Voxeln)`);
+    // B1: lerche/crew_0 behält sein Dutt-Haar (eigenes Kopfteil), cha/spieler trägt den Kurzschnitt: verglichen wird der Kopf ohne Haar (Haar = Marker grün)
+    const HAARC = '#00FF00', istGruen = (c) => { const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255; return g > 150 && r < 90 && b < 90; };
+    const farben = { hair: HAARC, cloth2: HAARC };
+    const kopfRef = baueFigur(lib, 'lerche/crew_0', { colors: farben }).pro.head, kopfNackt = baueFigur(lib, 'cha/spieler', { params: { frisur: 'keine' }, colors: farben }).pro.head;
+    const m = new Map(kopfNackt.map((v) => [`${v.x},${v.y},${v.z}`, v]));
+    const ohneHaar = kopfRef.filter((v) => !istGruen(v.c));
+    const gleichKopf = ohneHaar.filter((v) => { const w = m.get(`${v.x},${v.y},${v.z}`); return w && w.c === v.c && w.e === v.e; }).length;
+    ok(gleichKopf === ohneHaar.length && kopfRef.length >= kopfNackt.length, `der Kopf ohne Haar ist voxelidentisch (lerche/crew_0 trägt den 8er-Kopf mit Dutt-Haar, cha/spieler den Kurzschnitt; ${gleichKopf} von ${ohneHaar.length} Nicht-Haar-Voxeln, Haar wird nicht verglichen)`);
   }
 }
 
@@ -219,12 +226,12 @@ for (const rolle of FIGURFARBEN) {
 }
 {
   // Bereiche: Rig-Daten manipulieren (Bereich verkleinert bzw. Toleranz entfernt), die Schichten müssen rot werden
-  const S = 'cha/hose/bordhose/thigh', D = 'cha/frisur/dutt/head', bauen = (id) => lib.build(id);
+  const S = 'cha/hose/bordhose/thigh', D = 'cha/frisur/welle/head', bauen = (id) => lib.build(id);
   const rig2 = structuredClone(rig); rig2.bereiche.thighL.max[1] = 9;
   ok(hat(pruefeBereiche(idx.models, get, bauen, rig2), S, /y max 13 > 9/), 'Schicht außerhalb des (verkleinerten) Bereichs wird erkannt');
   const tol3 = toleranzenVon(rig); delete tol3.frisur;
   const f3 = pruefeBereiche(idx.models, get, bauen, rig, tol3);
-  ok(hat(f3, D, /y max 34 > 30/) && hat(f3, D, /z min -6 < -3/), 'Dutt ohne Toleranz für frisur verletzt den Kopfbereich (Toleranz wird gebraucht und benutzt)');
+  ok(hat(f3, D, /y max 34 > 30/) && hat(f3, D, /z min -5 < -3/) && hat(f3, D, /x min -5 < -4/), 'Welle ohne Toleranz für frisur verletzt den Kopfbereich (Toleranz wird gebraucht und benutzt)');
   const tol4 = toleranzenVon(rig); delete tol4.koerper;
   ok(hat(pruefeBereiche(idx.models, get, bauen, rig, tol4), 'cha/koerper/standard/head', /y max 32 > 30/), 'der 8er-Kopf ohne Zusatztoleranz verletzt den Kopfbereich des Rigs (y 32 > 30)');
   ok(pruefeBereiche(idx.models, get, bauen, rig).length === 0, 'mit den Toleranzen des Rigs: kein Befund (Gegenprobe)');
@@ -249,7 +256,7 @@ const katalog = JSON.parse(fs.readFileSync(path.join(root, 'assets', 'katalog', 
 
 console.log('\n== Teile je Platz (Schnittstelle Voxelwerk ↔ Spiel)');
 eq(Object.fromEntries(PLAETZE.map((p) => [p, optionen[p]])), {
-  koerper: ['standard'], frisur: ['dutt', 'zoepfe', 'keine'], kopf: ['keine', 'bordhelm'],
+  koerper: ['standard'], frisur: ['kurz', 'stirnband', 'welle', 'offen', 'keine'], kopf: ['keine', 'bordhelm'],
   oberteil: ['bordtunika', 'plankenweste', 'keine'], hose: ['bordhose', 'germanenhose', 'keine'], schuhe: ['bordstiefel', 'germanenstiefel', 'keine'],
   haende: ['keine', 'armschiene'], umhang: ['keiner', 'fellumhang'],
 }, 'options der Sammelmodelle: Teilenamen exakt wie in der Schnittstelle, Standard zuerst, leerer Wert zuletzt');
@@ -281,8 +288,8 @@ console.log('\n== Alle Kombinationen');
 console.log('\n== Lecktest über alle Teile');
 {
   const konfigs = [['Standard', {}], ...PLAETZE.flatMap((p) => optionen[p].map((w) => [`${p}=${w}`, kombi(p, w)]))];
-  konfigs.push(['alles germanisch', { frisur: 'zoepfe', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' }]);
-  konfigs.push(['Bordhelm, Fellumhang, Zöpfe', { kopf: 'bordhelm', umhang: 'fellumhang', frisur: 'zoepfe' }]);
+  konfigs.push(['alles germanisch mit Stirnband', { frisur: 'stirnband', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' }]);
+  konfigs.push(['Bordhelm, Fellumhang, Stirnband', { kopf: 'bordhelm', umhang: 'fellumhang', frisur: 'stirnband' }], ['Bordhelm, Fellumhang, offenes Haar', { kopf: 'bordhelm', umhang: 'fellumhang', frisur: 'offen' }]);
   const rollenAlle = basisRollen.filter((r) => !FIGURFARBEN.includes(r) && r !== 'black');
   const spielerRollen = ['primary', 'secondary', 'cloth', 'cloth2', 'spieler'];
   const pinkAlle = Object.fromEntries(rollenAlle.map((r) => [r, PINK]));
@@ -365,7 +372,7 @@ console.log('\n== Bordhelm: Haar und Haut unter der Schale');
     return { haarAussen: f.filter((v) => cls(v.c) === 'haar' && !offen(v)), haarOffen: f.filter((v) => cls(v.c) === 'haar' && offen(v)), hautAussen: f.filter((v) => cls(v.c) === 'haut' && v.y >= 26 && !offen(v)), gesicht: f.filter((v) => cls(v.c) === 'haut' && offen(v)).map(schluessel).sort() };
   };
   const rep = [];
-  for (const frisur of ['dutt', 'zoepfe', 'keine']) {
+  for (const frisur of ['kurz', 'stirnband', 'welle', 'offen', 'keine']) {
     const m = messe({ kopf: 'bordhelm', frisur }), o = messe({ kopf: 'keine', frisur });
     eq([m.haarAussen.length, m.hautAussen.length], [0, 0], `Bordhelm + ${frisur}: 0 Haar- und 0 Hautvoxel außerhalb der Gesichtsöffnung (Schale, hinten, unten)`);
     eq(m.gesicht, o.gesicht, `Bordhelm + ${frisur}: Haut in der Gesichtsöffnung unverändert (die Maske schneidet nur das Haar)`);
@@ -375,6 +382,86 @@ console.log('\n== Bordhelm: Haar und Haut unter der Schale');
   console.log('    Haar in der Gesichtsöffnung (Stirnfransen, Brauen, gewollt): ' + rep.join(', '));
   const seite = (params) => baueFigur(lib, 'cha/spieler', { params, colors: { skin: HAUTC, skin_shadow: SCHC } }).pro.head.filter((v) => (v.x === 3 || v.x === -4) && v.y >= 26 && v.y <= 31 && v.z <= 2 && cls(v.c) === 'haut');
   eq([seite({ kopf: 'bordhelm', frisur: 'keine' }).length, seite({ kopf: 'keine', frisur: 'keine' }).length > 0], [0, true], 'Schläfen: ohne Helm sichtbar, unter dem Bordhelm abgedeckt (der 8er-Kopf hat keine Ohren)');
+}
+
+console.log('\n== Römische Frisuren (CHA-02 B1)');
+{
+  const ROM = ['kurz', 'stirnband', 'welle', 'offen'];
+  const HAARC = '#00FF00', GOLD = 0xD9A441, BLAU = 0x2C5DB8;
+  const KOPFHUELLE = { x: [-5, 4], y: [23, 34], z: [-5, 3] };   // Schädel x -4..3, y 26..32, z -4..3 plus Hals; Haar bis 1 Voxel darüber (hinten bis z -5, Nacken bis y 23)
+  const kopfVon = (l, params, colors = {}) => baueFigur(l, 'cha/spieler', { params, colors }).pro.head;
+  const nackt = new Map(kopfVon(lib, { frisur: 'keine' }).map((v) => [schluessel(v), v]));
+  const draussen = (vox) => vox.filter((v) => v.x < KOPFHUELLE.x[0] || v.x > KOPFHUELLE.x[1] || v.y < KOPFHUELLE.y[0] || v.y > KOPFHUELLE.y[1] || v.z < KOPFHUELLE.z[0] || v.z > KOPFHUELLE.z[1]);
+  /** Haar-Hülle: Voxel der Frisur außerhalb von Hals und Schädel müssen in KOPFHUELLE liegen (höchstens 1 Voxel über dem Schädel) */
+  const huellenFehler = (l, f) => draussen(kopfVon(l, { frisur: f }).filter((v) => !nackt.has(schluessel(v)))).map(schluessel);
+  /** Haarrolle nur im Haar: Farbwechsel der Haarfarbe ändert nur Voxel der Frisur, feste Teilfarben (Stirnband, Ohrring) bleiben */
+  const festeFarben = (vox) => vox.filter((v) => v.c === GOLD || v.c === BLAU).map(schluessel).sort();
+  const leck = (l, f) => {
+    const a = kopfVon(l, { frisur: f }, { hair: '#3B2416' }), b = kopfVon(l, { frisur: f }, { hair: '#FF00FF' }), c = kopfVon(l, { frisur: f }, { hair: '#E0BF6A' });
+    const geaendert = a.filter((v, i) => v.c !== b[i].c);
+    const haut = kopfVon(l, { frisur: 'keine' }, { hair: '#FF00FF' });   // Nackt: Haarfarbe ändert nichts
+    return { n: geaendert.length, festA: festeFarben(a), festB: festeFarben(b), festC: festeFarben(c), nackt: nackt.size === haut.length && [...nackt.values()].every((v) => haut.find((w) => w.x === v.x && w.y === v.y && w.z === v.z).c === v.c) };
+  };
+  for (const f of ROM) {
+    const id = `cha/frisur/${f}/head`;
+    ok(!!get(id) && get(id).anchor.every((v) => v === 0) && get(`${id}_ops`).anchor.every((v) => v === 0), `${f}: Teil existiert, anchor [0,0,0]`);
+    const k = kopfVon(lib, { frisur: f });
+    ok(k.length > nackt.size + 20, `${f}: baut (${k.length} Kopfvoxel, nackt ${nackt.size})`);
+    eq(huellenFehler(lib, f), [], `${f}: Haar höchstens 1 Voxel über dem Schädel (x -5..4, y bis 34, z ab -5, Nacken bis y 23), Hals und Schädel bleiben 8 breit`);
+    eq([...nackt.values()].filter((v) => !k.some((w) => w.x === v.x && w.y === v.y && w.z === v.z)).length, 0, `${f}: kein Schädel- oder Halsvoxel fehlt (der Kopf bleibt 8 × 7 × 8)`);
+    const gesicht = [...nackt.values()].filter((v) => v.z === 3 && v.y <= 29), m = new Map(k.map((w) => [schluessel(w), w]));
+    eq(gesicht.filter((v) => m.get(schluessel(v)).c !== v.c).length, 0, `${f}: das Gesicht (z 3, y 26..29: Augen, Mund, Wangen) bleibt frei`);
+    const l = leck(lib, f);
+    ok(l.n > 40, `${f}: die Haarfarbe färbt ${l.n} Voxel um`);
+    ok(l.nackt, 'Kontrolle: bei Frisur keine ändert die Haarfarbe nichts');
+    eq([l.festA, l.festB].map((x) => x.join()).every((x) => x === l.festC.join()), true, `${f}: feste Teilfarben (Stirnband-Gold, Ohrring-Blau) hängen nicht an der Haarfarbe`);
+  }
+  eq(Object.fromEntries(ROM.map((f) => [f, [leck(lib, f).festA.length > 0, kopfVon(lib, { frisur: f }).some((v) => v.c === BLAU)]])), { kurz: [false, false], stirnband: [true, false], welle: [false, false], offen: [true, true] }, 'feste Farben nur dort, wo sie gehören: Stirnband-Gold (stirnband), Ohrring-Blau (offen)');
+  const pal = lib.get('palettes', 'cha').roles;
+  eq([pal.band_stirnband, pal.ohrring_offen], ['#D9A441', '#2C5DB8'], 'Stirnband und Ohrring: feste eigene Farbrollen je Teil (band_stirnband, ohrring_offen), keine Haarfarbe');
+  // Haarfarbe: jede der 8 Farben ergibt andere Haarvoxel
+  { const bilder = katalog.farben.haar.map((h) => kopfVon(lib, { frisur: 'welle' }, { hair: h }).map((v) => v.c).join()); ok(new Set(bilder).size === 8, 'Haarfarben: alle 8 Farben ergeben verschiedene Köpfe (Welle)'); }
+  // Mutationsprobe Haarrolle: das Stirnband färbt sich mit der Haarfarbe → der Lecktest wird rot
+  {
+    const l2 = nodeLibrary(root); for (const id of chaIds) await l2.load('models', id); await l2.load('figures', 'cha/spieler');
+    const b = l2.get('models', 'cha/frisur/stirnband/head_ops').ops.find((o) => o.name === 'Stirnband vorn'); b.color = 'hair';
+    const lk = leck(l2, 'stirnband'), vorn = kopfVon(l2, { frisur: 'stirnband' }).filter((v) => v.c === GOLD).length;
+    ok(lk.festA.join() !== leck(lib, 'stirnband').festA.join() && vorn < festeFarben(kopfVon(lib, { frisur: 'stirnband' })).length, 'Mutationsprobe: Stirnband in Haarfarbe → die feste Goldfarbe fehlt vorn, der Lecktest meldet die Abweichung');
+    const l3 = nodeLibrary(root); for (const id of chaIds) await l3.load('models', id); await l3.load('figures', 'cha/spieler');
+    l3.get('models', 'cha/frisur/welle/head_ops').ops.push({ op: 'box', name: 'Haarsträhne zu weit', at: [6, 28, -1], size: [1, 3, 1], color: 'hair' });
+    ok(huellenFehler(l3, 'welle').length === 3, 'Mutationsprobe: ein Haarstrang bei x 6 (2 Voxel über der Hülle) wird von der Hüllenprüfung gemeldet');
+    const l4 = nodeLibrary(root); for (const id of chaIds) await l4.load('models', id); await l4.load('figures', 'cha/spieler');
+    const sk = l4.get('models', 'cha/frisur/kurz/head_ops').ops; sk.push({ op: 'box', name: 'Auge zugehaart', at: [1, 28, 3], size: [1, 1, 1], color: 'hair' });
+    const k4 = kopfVon(l4, { frisur: 'kurz' }), m4 = new Map(k4.map((w) => [schluessel(w), w]));
+    ok([...nackt.values()].filter((v) => v.z === 3 && v.y <= 29 && m4.get(schluessel(v)).c !== v.c).length === 1, 'Mutationsprobe: Haar über dem Auge wird von der Gesichtsprüfung gemeldet');
+  }
+  // Frisur × Bordhelm: ohne Haarmaske sticht jede Frisur durch den Helm, mit der Maske nicht
+  {
+    const aussen = (l, f) => haarAussen(baueFigur(l, 'cha/spieler', { params: { frisur: f, kopf: 'bordhelm' }, colors: { hair: HAARC } }).pro.head).length;
+    eq(ROM.map((f) => aussen(lib, f)), [0, 0, 0, 0], 'Bordhelm × jede der vier Frisuren: kein sichtbares Haar außerhalb der Gesichtsöffnung (Haarmaske)');
+    const l2 = nodeLibrary(root); for (const id of chaIds) await l2.load('models', id); await l2.load('figures', 'cha/spieler');
+    l2.get('models', 'cha/kopf/bordhelm/head_maske').ops = [];
+    ok(ROM.every((f) => aussen(l2, f) > 10), `Mutationsprobe: Bordhelm ohne Haarmaske → bei jeder der vier Frisuren sticht Haar durch (${ROM.map((f) => aussen(l2, f)).join(', ')} Voxel)`);
+    const l3 = nodeLibrary(root); for (const id of chaIds) await l3.load('models', id); await l3.load('figures', 'cha/spieler');
+    for (const o of l3.get('models', 'cha/kopf/bordhelm/head_maske').ops) if (o.at[0] === -6) { o.at[0] = -4; o.size[0] = 8; }   // Maske nur so breit wie der Schädel
+    const a3 = ROM.map((f) => aussen(l3, f));
+    ok(a3[2] > 0 && a3[3] > 0, `Mutationsprobe: Maske nur 8 breit → Welle und offenes Haar (x -5/4) ragen am Helm vorbei (${a3.join(', ')} Voxel)`);
+  }
+  // Dreiecke: Frisuren nach Dreieckszahl des Kopfes (Mesher wie das Spiel), Standard und Worst Case der Figur
+  {
+    const tri = (params) => {
+      const fg = lib.get('figures', 'cha/spieler'), p = { ...fg.params, ...params };
+      let n = 0;
+      for (const part of Object.values(fg.parts)) { const b = lib.build(part.model, { params: lib.partParams(part.model, p, part.params), palette: fg.palette, colors: fg.colors }); const mm = meshGrid(b.grid); n += (mm.lit.indices.length + mm.emit.indices.length) / 3; }
+      return n;
+    };
+    const kopfTri = Object.fromEntries(['keine', ...ROM].map((f) => [f, tri({ frisur: f })]));
+    console.log('    Dreiecke Spielerfigur (Standardkleidung) je Frisur: ' + Object.entries(kopfTri).map(([f, n]) => `${f} ${n}`).join(', '));
+    const worst = tri({ kopf: 'bordhelm', frisur: 'offen', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' });
+    console.log(`    Worst Case (Bordhelm, offenes Haar, volle Ausrüstung): ${worst} Dreiecke`);
+    ok(ROM.every((f) => kopfTri[f] - kopfTri.keine <= 700), `jede Frisur kostet höchstens 700 Dreiecke gegenüber dem kahlen Kopf (${ROM.map((f) => `${f} +${kopfTri[f] - kopfTri.keine}`).join(', ')})`);
+    ok(worst <= 6000, `Worst Case der Spielerfigur höchstens 6000 Dreiecke (${worst}; Standard heute ${kopfTri.kurz})`);
+  }
 }
 
 console.log('\n== Schweben');
@@ -394,11 +481,11 @@ console.log('\n== Schweben');
   const schwebend = [];
   for (const [p, ws] of Object.entries(optionen)) for (const w of ws) { const l = lose(kombi(p, w)); if (l.length) schwebend.push(`${p}=${w}: ${l.join(' ')}`); }
   eq(schwebend, ['oberteil=plankenweste: -4,13,-4 -4,14,-4'], 'Einzelteile: nur die Werkzeugöse der Plankenweste schwebt (2 Voxel, Bestand fig/germanen/huefte, unverändert gelassen)');
-  eq([lose({ frisur: 'zoepfe' }), lose({ frisur: 'dutt' })], [[], []], 'Zöpfe und Dutt hängen am Kopf');
+  eq(['kurz', 'stirnband', 'welle', 'offen'].map((frisur) => lose({ frisur })), [[], [], [], []], 'alle vier Frisuren (Zopf, langes Haar, Strähnen, Ohrring) hängen am Kopf');
   const fell = [];
   for (const o of ['bordtunika', 'keine']) for (const h of ['bordhose', 'germanenhose']) { const l = lose({ umhang: 'fellumhang', oberteil: o, hose: h }); if (l.length) fell.push(`${o}/${h}: ${l.join(' ')}`); }
   eq(fell, [], 'Fellumhang ohne germanisches Oberteil: die Kette hängt an den Kettenhaltern');
-  eq(lose({ kopf: 'bordhelm', frisur: 'zoepfe' }), [], 'Bordhelm mit Zöpfen: nichts schwebt');
+  eq(['kurz', 'stirnband', 'welle', 'offen'].map((frisur) => lose({ kopf: 'bordhelm', frisur })), [[], [], [], []], 'Bordhelm mit jeder Frisur: nichts schwebt');
 }
 
 console.log('\n== Schichtfolge');
@@ -448,12 +535,12 @@ const katalogPruefen = (k, o = optionen, f = fig) => pruefeKatalog(k, { modelIds
   ok(katalog.teile.filter((t) => t.gruppe === 'outfit').every((t) => t.herkunft === 'frei'), 'alle Outfit-Teile haben herkunft "frei"');
   ok(katalog.teile.every((t) => t.vorschau === `cha/vorschau/${t.platz}/${t.id.split('/')[1]}.png`), 'jedes Teil hat vorschau = cha/vorschau/<platz>/<name>.png (relativ zu assets/sprites/), auch die leeren Werte');
   eq(Object.fromEntries(katalog.teile.filter((t) => t.volk).map((t) => [t.id, t.volk])), {
-    'frisur/dutt': 'lerche', 'frisur/zoepfe': 'germanen', 'kopf/bordhelm': 'crew',
+    'frisur/kurz': 'rom', 'frisur/stirnband': 'rom', 'frisur/welle': 'rom', 'frisur/offen': 'rom', 'kopf/bordhelm': 'crew',
     'oberteil/bordtunika': 'crew', 'oberteil/plankenweste': 'germanen', 'hose/bordhose': 'crew', 'hose/germanenhose': 'germanen', 'schuhe/bordstiefel': 'crew',
     'schuhe/germanenstiefel': 'germanen', 'haende/armschiene': 'rom', 'umhang/fellumhang': 'germanen',
   }, 'volk je Teil (lerche, crew, germanen, rom)');
   eq(Object.fromEntries(katalog.teile.map((t) => [t.id, t.name])), {
-    'frisur/dutt': 'Dutt', 'frisur/zoepfe': 'Zöpfe', 'frisur/keine': 'Kahl',
+    'frisur/kurz': 'Kurzschnitt', 'frisur/stirnband': 'Stirnband mit Zopf', 'frisur/welle': 'Welle', 'frisur/offen': 'Offenes Haar', 'frisur/keine': 'Kahl',
     'kopf/keine': 'Keine', 'kopf/bordhelm': 'Bordhelm', 'oberteil/bordtunika': 'Bordtunika', 'oberteil/plankenweste': 'Plankenweste', 'oberteil/keine': 'Unterzeug',
     'hose/bordhose': 'Bordhose', 'hose/germanenhose': 'Germanenhose', 'hose/keine': 'Unterzeug', 'schuhe/bordstiefel': 'Bordstiefel', 'schuhe/germanenstiefel': 'Germanenstiefel', 'schuhe/keine': 'Barfuß',
     'haende/keine': 'Keine', 'haende/armschiene': 'Armschiene', 'umhang/keiner': 'Keiner', 'umhang/fellumhang': 'Fellumhang',
@@ -484,7 +571,7 @@ console.log('\n== Mutationsprobe Katalog (die Prüfung erkennt manipulierte Kata
   { const k = kl(); k.teile.find((t) => t.id === 'hose/bordhose').herkunft = 'geschenkt'; rot(k, /herkunft/, 'ungültige herkunft wird erkannt'); }
   rot(kl(), /options-Ausprägung der Figur fehlt/, 'Figur mit zusätzlicher options-Ausprägung (umhang=drachenhaut) wird erkannt', { ...optionen, umhang: [...optionen.umhang, 'drachenhaut'] });
   { const f = structuredClone(fig); f.params.umhang = 'drachenhaut'; rot(kl(), /Figurwert/, 'Figur-Standard, den der Katalog nicht kennt, wird erkannt', undefined, f); }
-  { const k = kl(); k.teile.find((t) => t.id === 'frisur/dutt').id = 'frisur/dutt/x'; rot(k, /<platz>\/<name>/, 'id mit drei Segmenten wird erkannt'); }
+  { const k = kl(); k.teile.find((t) => t.id === 'frisur/kurz').id = 'frisur/kurz/x'; rot(k, /<platz>\/<name>/, 'id mit drei Segmenten wird erkannt'); }
   // Rolle PINNEN: hair festnageln nur beim Umhang erlaubt
   const U = 'cha/umhang/fellumhang/torso', T = 'cha/oberteil/bordtunika/torso';
   ok(pruefeRollen(idx.models, get).every((f) => f.id !== U), 'Fellumhang darf hair festnageln (PINNEN), die Regel bleibt für ihn ohne Befund');
@@ -574,7 +661,7 @@ const passe = (l) => pruefePassung(l, 'cha/spieler', idx.models, { bestand: BEST
 {
   const r = passe(lib);
   eq(r.fehler, [], `Passprobe über alle ${r.kombinationen} Kombinationen × ${Object.keys(r.messung).length} Posenzustände ohne Befund`);
-  eq(r.kombinationen, 648, '648 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart)');
+  eq(r.kombinationen, 1080, '1080 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart)');
   ok(r.sekunden < 20, `Laufzeit ${r.sekunden.toFixed(1)} s (Grenze 20 s)`);
   console.log(`    Laufzeit ${r.sekunden.toFixed(1)} s`);
   const alle = Object.entries(r.messung);
@@ -670,9 +757,9 @@ console.log('\n== Vorschaubilder und Porträt (A4)');
     ok(c2 === 1 && /hose\/bordhose\.png: veraltet/.test(o2) && /schuhe\/keine\.png: fehlt/.test(o2) && /frisur\/phantom\.png: überzählig/.test(o2), '--check meldet verändertes, fehlendes und überzähliges Bild (Exit 1)');
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
   // Porträt aus einer Charakterkarte (Format der Spiel-Karte: Charakterplätze, haut, haar, outfit)
-  const karte = { v: 2, name: 'Test', koerper: 'standard', frisur: 'zoepfe', haut: 2, haar: 3, outfit: { kopf: 'bordhelm', oberteil: 'plankenweste' } };
+  const karte = { v: 2, name: 'Test', koerper: 'standard', frisur: 'stirnband', haut: 2, haar: 3, outfit: { kopf: 'bordhelm', oberteil: 'plankenweste' } };
   const o = kartenOptionen(katalog, karte);
-  eq(o.params, { frisur: 'zoepfe', kopf: 'bordhelm', oberteil: 'plankenweste', hose: 'bordhose', schuhe: 'bordstiefel', haende: 'keine', umhang: 'keiner', koerper: 'standard' }, 'Karte → Plätze: fehlende Plätze nehmen den Katalog-Standard');
+  eq(o.params, { frisur: 'stirnband', kopf: 'bordhelm', oberteil: 'plankenweste', hose: 'bordhose', schuhe: 'bordstiefel', haende: 'keine', umhang: 'keiner', koerper: 'standard' }, 'Karte → Plätze: fehlende Plätze nehmen den Katalog-Standard');
   eq(o.colors, { ...katalog.farben.haut[2], hair: katalog.farben.haar[3] }, 'Karte → Farben: haut- und haar-Index aus dem Katalog');
   const pa = portraet(lib, katalog, karte), pb = portraet(lib, katalog, { ...karte, haar: 0, haut: 0 }), pc = portraet(lib, katalog, karte, { bg: [0, 4, 19, 255] });
   ok(pa.w === PORTRAET.w && pa.h === PORTRAET.h && PORTRAET.w === PORTRAET.h, `Porträt quadratisch ${PORTRAET.w} × ${PORTRAET.h} (Fenster 130 × 130 im Spielraster, doppelt)`);

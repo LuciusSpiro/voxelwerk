@@ -373,10 +373,10 @@ färbt die Figur. **Nicht von Hand bearbeiten:** `assets/models/cha/**`, `assets
 `assets/figures/cha/spieler.json` und `assets/katalog/charakter.json` erzeugt `node tools/gen-cha.mjs` (wiederholbar, `--check` vergleicht nur).
 
 **Plätze** (Figur-`params`, ein Wert je Platz; Teile-ID `<platz>/<name>`; **Katalog Version 2**, CHA-02): `koerper` (`standard`),
-`frisur` (`dutt`), `kopf` (`keine`), `oberteil` (`bordtunika`), `hose` (`bordhose`),
+`frisur` (`kurz`), `kopf` (`keine`), `oberteil` (`bordtunika`), `hose` (`bordhose`),
 `schuhe` (`bordstiefel`), `haende` (`keine`), `umhang` (`keiner`). `keine`/`keiner` sind gültige Werte ohne Datei (Fallback `cha/leer`).
 Die Plätze `gesicht` und `bart` der Version 1 gibt es nicht mehr: das **Gesicht ist fest** (steckt im Körper-Kopf), ein Bart gehört künftig in die Frisur.
-Teile heute: frisur `dutt`/`zoepfe` (an den neuen Kopf angepasst, die acht endgültigen Frisuren kommen in CHA-02 Paket B), kopf `bordhelm`,
+Teile heute: frisur `kurz` (Kurzschnitt), `stirnband` (Stirnband mit Zopf), `welle`, `offen` (Offenes Haar), alle vier römisch (CHA-02 B1, Bild: `node tools/cha-frisurbild.mjs <Ordner>`; die germanischen kommen mit B2), kopf `bordhelm`,
 oberteil `bordtunika`/`plankenweste`, hose `bordhose`/`germanenhose`, schuhe `bordstiefel`/`germanenstiefel`,
 haende `armschiene`, umhang `fellumhang`. Das Standard-Outfit ist **voxelgleich** zu `lerche/crew_0` (ohne Spielerfarbe) **außer dem Kopf**.
 
@@ -391,7 +391,7 @@ Der Rig `human` bleibt unverändert; sein Kopfbereich (y bis 30, z ab −3) stam
 am Kopf Körper (mit Gesicht) → Frisur → Kopfbedeckung.
 Die Frisur liegt in einem eigenen Gitter (`cha/frisur_maskiert/head`), das eine Haarmaske der Kopfbedeckung
 (`cha/kopf/<name>/head_maske`, `mode: carve`) trifft, ohne den Schädel zu löschen: beim Bordhelm schneidet sie das Schalenvolumen und
-das Haar hinter, über und unter der Schale (Dutt, Zöpfe). Der 8er-Kopf hat keine Ohren, eine Ohrschablone gibt es nicht mehr. Kopfmaß: 8 breit (x −4..3).
+das Haar hinter, über und unter der Schale (auch außerhalb der Schale: Seiten x -5 und 4, Nacken, Ohrring; Frisuren mit langen Teilen brauchen die Zusatztoleranz in `CHA_TOLERANZEN`, x ±1). Der 8er-Kopf hat keine Ohren, eine Ohrschablone gibt es nicht mehr. Kopfmaß: 8 breit (x −4..3).
 
 **Schicht** = Modell `cha/<platz>/<teil>/<gattung>` mit `"anchor": [0,0,0]`: ein `use` auf das Bestandsteil, `colors` legt dessen
 Rollen auf **Platzrollen** um (`top_plankenweste`, `hose_bordhose`, `schuh_bordstiefel` … in Palette `cha`), danach `carve`-Boxen, falls das Teil Körper
@@ -421,7 +421,7 @@ Dann `node tools/gen-cha.mjs`, `npm run check`, `npm test`. Bilder: `node tools/
 **Anprobe im Editor:** Ist eine Figur mit Katalog geöffnet (`http://localhost:3412/editor/?figure=cha/spieler`, Server mit `npm start`, anderer Port: `PORT=… node server.js`),
 zeigt die Seitenleiste den Bereich „Anprobe“: je Platz eine Auswahlliste (Werte und Anzeigenamen aus `assets/katalog/charakter.json`, gruppiert Charakter/Outfit),
 Hautton und Haarfarbe als Farbfelder (6 bzw. 8 aus `farben`), „Zufall“ und „Standard“. Jede Änderung baut die Figur sofort neu (Kamera bleibt), die Pose lässt sich weiter wählen.
-Der Zustand steht in der URL, nur Abweichungen vom Standard: `?figure=cha/spieler&pose=sit&p.kopf=bordhelm&p.frisur=zoepfe&haut=2&haar=3` (`p.<platz>=<teil>`, `haut`/`haar` = Farbindex).
+Der Zustand steht in der URL, nur Abweichungen vom Standard: `?figure=cha/spieler&pose=sit&p.kopf=bordhelm&p.frisur=offen&haut=2&haar=3` (`p.<platz>=<teil>`, `haut`/`haar` = Farbindex).
 Für Bilder `&anim=0` (Pose anhalten) und `&t=<Sekunden>` (Zeitpunkt, z. B. `walk` bei `t=0.25`) anhängen. Der Katalog kommt als statische Datei vom Server (kein eigener Endpunkt nötig).
 Der Editor lädt für leere Werte (`keine`, `keiner`) Modelle, die es nicht gibt, und meldet dafür 404 in der Konsole; die Figur baut trotzdem (Fallback `cha/leer`).
 

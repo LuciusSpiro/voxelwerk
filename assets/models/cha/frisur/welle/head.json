@@ -1,5 +1,5 @@
 {
-  "id": "cha/frisur/dutt/head",
+  "id": "cha/frisur/welle/head",
   "tier": "detail",
   "palette": "cha",
   "anchor": [
@@ -8,7 +8,7 @@
     0
   ],
   "generated": true,
-  "name": "frisur dutt (head)",
+  "name": "frisur welle (head)",
   "tags": [
     "cha",
     "schicht",
@@ -18,10 +18,8 @@
   "ops": [
     {
       "op": "use",
-      "model": "cha/frisur/dutt/head_ops",
-      "colors": {
-        "cloth2": "haarband_dutt"
-      }
+      "model": "cha/frisur/welle/head_ops",
+      "colors": {}
     }
   ]
 }

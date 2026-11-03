@@ -16,60 +16,45 @@
   "notes": "Zusatzmodell zu cha/kopf/bordhelm/head, schneidet per use mode carve.",
   "ops": [
     {
-      "name": "Schalenvolumen",
+      "name": "Haar in und neben der Schale (auch x -5 und 4)",
       "op": "box",
       "at": [
-        -4,
-        26,
-        -4
-      ],
-      "size": [
-        8,
-        5,
-        7
-      ],
-      "color": "#808080"
-    },
-    {
-      "name": "Haar über der Schale",
-      "op": "box",
-      "at": [
-        -4,
-        31,
-        -4
-      ],
-      "size": [
-        8,
-        2,
-        8
-      ],
-      "color": "#808080"
-    },
-    {
-      "name": "Haar hinter der Schale (Dutt)",
-      "op": "box",
-      "at": [
-        -4,
+        -6,
         26,
         -6
       ],
       "size": [
-        8,
-        9,
-        2
+        12,
+        5,
+        9
       ],
       "color": "#808080"
     },
     {
-      "name": "Haar unter der Schale (Zöpfe)",
+      "name": "Haar über der Schale (bis y 34, Fransen vor dem Rahmen)",
       "op": "box",
       "at": [
-        -4,
+        -6,
+        31,
+        -6
+      ],
+      "size": [
+        12,
+        4,
+        12
+      ],
+      "color": "#808080"
+    },
+    {
+      "name": "Haar unter der Schale (langes Haar im Nacken, Ohrring)",
+      "op": "box",
+      "at": [
+        -6,
         20,
         -6
       ],
       "size": [
-        8,
+        12,
         6,
         9
       ],
