@@ -14,7 +14,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { nodeLibrary, listAssets } from './fs-io.js';
-import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur } from './cha-lib.mjs';
+import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur } from './cha-lib.mjs';
+import { kopfDurchdringung } from './cha-kopfpass.mjs';
 import { poseWerte, gelenkMatrizen, weltPunkt, eulerYXZ } from './cha-pose.mjs';
 import { decodePng, encodePng } from './cha-render.mjs';
 import { KACHEL, PORTRAET, FENSTER, vorschauBild, portraet, kartenOptionen } from './cha-ansicht.mjs';
@@ -58,7 +59,11 @@ const ohneKopf = (r) => { const g = new Map(); for (const [jn, vs] of Object.ent
   ok(nurA === 0 && nurB === 0, `Geometrie außer dem Kopf identisch (${gleichV} von ${A.size} Voxeln)`);
   ok(farbe === 0, `Farben außer dem Kopf identisch (${farbe} Abweichungen; die frühere Spielerfarbe cloth2 steht als feste Teilfarbe in der Palette cha)`);
   for (const jn of Object.keys(ref.pro)) if (jn !== 'head') eq(std.pro[jn].length, ref.pro[jn].length, `Gelenk ${jn}: gleiche Voxelzahl`);
-  ok(std.pro.head.length !== ref.pro.head.length, `der Kopf ist der neue (${std.pro.head.length} Voxel statt ${ref.pro.head.length} beim Bestandskopf)`);
+  {
+    const m = new Map(std.pro.head.map((v) => [`${v.x},${v.y},${v.z}`, v]));
+    const gleichKopf = ref.pro.head.filter((v) => { const w = m.get(`${v.x},${v.y},${v.z}`); return w && w.c === v.c && w.e === v.e; }).length;
+    ok(gleichKopf === ref.pro.head.length && gleichKopf === std.pro.head.length, `auch der Kopf ist voxelidentisch (A2: lerche/crew_0 trägt den 8er-Kopf mit Dutt; ${gleichKopf} von ${std.pro.head.length} Voxeln)`);
+  }
 }
 
 console.log('\n== Kopf 8 × 7 × 8 mit festem Gesicht (CHA-02 A1)');
@@ -89,6 +94,55 @@ console.log('\n== Kopf 8 × 7 × 8 mit festem Gesicht (CHA-02 A1)');
   // Rig und Posen bleiben unverändert: die Kopfbereiche des Rigs stammen vom Bestandskopf, der 8er-Kopf braucht die Zusatztoleranzen der Prüfregeln
   eq([rig.bereiche.head, rig.toleranzen.frisur?.head, rig.toleranzen.kopf?.head], [{ min: [-4, 25, -3], max: [3, 30, 3] }, { min: [0, 2, 2], max: [0, 3, 0] }, { min: [0, 0, 1], max: [0, 2, 0] }], 'Rig human unverändert (Kopfbereich und Toleranzen vom Bestandskopf)');
   ok(Object.keys(CHA_TOLERANZEN).length > 0 && toleranzenVon(rig).koerper.head.max[1] === 2, 'der 8er-Kopf liegt über dem Rig-Bereich: Zusatztoleranz für Körper-Kopf in cha-lib (toleranzenVon)');
+}
+
+console.log('\n== Kopf aller Figuren (CHA-02 A2)');
+{
+  const figIds = idx.figures;   // alle Dateien in assets/figures, keine feste Liste: künftige Figuren werden automatisch erfasst
+  for (const f of figIds) await ladeFigur(lib, f);
+  const fehler = figIds.flatMap((f) => pruefeFigurKopf(lib, f, idx.models));
+  eq(fehler, [], `alle ${figIds.length} Figuren in assets/figures: Kopfteil mit 8er-Schädel (use-Baum), Hülle >= ${KOPF_MASS.breite} × ${KOPF_MASS.hoehe} × ${KOPF_MASS.tiefe}, Hals 4 × 4 bei y ${KOPF_MASS.halsY} (keine Ausnahmen)`);
+  ok(['cha/spieler', 'lerche/crew_0', 'lerche/crew_1', 'lerche/crew_2', 'lerche/ivo', 'lerche/scavenger', 'crew/nova', 'crew/juno', 'crew/tami', 'rom/legionaer', 'test/puppe', 'fig/germanen/grundtyp', 'fig/germanen/enterer', 'fig/test/grundtyp'].every((f) => figIds.includes(f)), 'die Bestandsliste ist im Lauf enthalten (Spieler, Lerche, Crew, Rostmeute, Rom, Germanen, Test)');
+  console.log(`    ${figIds.length} Figuren: ${figIds.join(', ')}`);
+  // Mutationsproben (Modelle im Speicher): eine Figur mit 6er-Kopf wird rot, ein Helm ohne 8er-Schädel darunter ebenfalls
+  const frisch = async (f) => { const l = nodeLibrary(root); for (const id of idx.models) await l.load('models', id); await ladeFigur(l, f); return l; };
+  {
+    const l = await frisch('lerche/crew_0');
+    l.get('models', 'fig/lerche/head').ops = [{ op: 'box', name: 'Hals', at: [-1, 25, -1], size: [2, 1, 2], color: 'skin_shadow' }, { op: 'box', name: 'Schädel 6er', at: [-3, 26, -3], size: [6, 5, 6], color: 'skin' }];
+    const r = pruefeFigurKopf(l, 'lerche/crew_0', idx.models);
+    ok(r.some((x) => /Kopfhülle breite 6 \(mindestens 8\)/.test(x.msg)) && r.some((x) => /Hals bei y 25 unvollständig/.test(x.msg)) && r.some((x) => /enthält nicht den 8er-Schädel/.test(x.msg)), `Mutationsprobe: lerche/crew_0 mit altem 6er-Kopf wird rot (${r.map((x) => x.msg.slice(0, 40)).join(' | ')})`);
+  }
+  {
+    const l = await frisch('crew/nova');
+    const h = l.get('models', 'fig/crew/helm_offen');
+    h.ops = h.ops.filter((o) => o.name !== 'Kopf');
+    ok(pruefeFigurKopf(l, 'crew/nova', idx.models).some((x) => /enthält nicht den 8er-Schädel/.test(x.msg)), 'Mutationsprobe: Helm ohne 8er-Schädel darunter (Hülle bleibt 8 breit) → Kopfregel meldet es');
+  }
+  // Kopf berührt Rumpf, Schulter und Schulteraufsatz in den Posen nicht schlimmer als nach A2 (Schutz gegen Rückschritt); A1 zum Vergleich
+  {
+    const a2 = JSON.parse(fs.readFileSync(path.join(root, 'tools', 'cha-kopfpass-a2.json'), 'utf8')), a1 = JSON.parse(fs.readFileSync(path.join(root, 'tools', 'cha-kopfpass-a1.json'), 'utf8'));
+    const ohne = figIds.filter((f) => !f.startsWith('cha/'));
+    eq(ohne.filter((f) => !a2[f]), [], 'für jede Bestandsfigur gibt es Passprobewerte in tools/cha-kopfpass-a2.json (neue Figuren: node tools/cha-kopfpass.mjs > tools/cha-kopfpass-a2.json)');
+    let schlechter = 0, hoeher = 0, gesamtA1 = 0, gesamtA2 = 0;
+    for (const f of ohne.filter((f) => a2[f])) {
+      const m = kopfDurchdringung(lib, f);
+      for (const [z, paare] of Object.entries(m)) for (const [p, n] of Object.entries(paare)) {
+        gesamtA2 += n; gesamtA1 += a1[f]?.[z]?.[p] ?? 0;
+        if (n > (a2[f][z]?.[p] ?? 0)) { schlechter++; console.log(`    schlechter als A2: ${f} ${z} ${p}: ${n} > ${a2[f][z]?.[p]}`); }
+        if (n > (a1[f]?.[z]?.[p] ?? 0)) hoeher++;
+      }
+    }
+    eq(schlechter, 0, 'Kopf gegen Rumpf, Schulter, Oberarm (samt Aufsätzen) in allen Posen nicht schlimmer als der Stand nach A2');
+    console.log(`    gegenüber dem Stand vor A2 (alter Kopf, tools/cha-kopfpass-a1.json): ${hoeher} Werte (Figur, Pose, Paar) höher; Summe der durchdrungenen Voxel ${gesamtA1} → ${gesamtA2}`);
+    ok(gesamtA2 > gesamtA1, 'Positivkontrolle: die Messung sieht die stärkere Durchdringung des größeren Kopfes (nachher mehr als vorher)');
+    // Mutationsprobe: ein Kragenbrett am Helm kippt in den Posen in den Rumpf
+    const l = await frisch('rom/legionaer');
+    const mess = (lb) => Object.values(kopfDurchdringung(lb, 'rom/legionaer')).reduce((s, p) => s + Object.values(p).reduce((a, b) => a + b, 0), 0);
+    const vorher = mess(l), l2 = await frisch('rom/legionaer');
+    l2.get('models', 'fig/rom/helm').ops.push({ op: 'box', name: 'Kragenbrett', at: [-4, 25, -6], size: [8, 2, 12], color: '#ff0000' });
+    const nachher = mess(l2);
+    ok(nachher > vorher, `Mutationsprobe: Helm mit Kragenbrett (8 × 2 × 12 über den Schultern) → mehr Durchdringung in Posen (${vorher} → ${nachher})`);
+  }
 }
 
 console.log('\n== Rollen-Lecktest');

@@ -8,7 +8,7 @@
   "tags": ["figur", "baukasten", "test", "test_gross"],
   "scale": 1.1,
   "posen": { "ruhe": "stand", "ziel": "strike" },
-  "waffe": { "typ": "nahkampf", "bauweise": "neutral", "platzhalter": true },
+  "waffe": { "typ": "nahkampf", "bauweise": "neutral", "platzhalter": false },
   "params": { "rank": 0 },
   "parts": {
     "hips": { "model": "fig/basis/huefte" },
@@ -25,6 +25,6 @@
   },
   "attach": {
     "back": { "model": "fig/rom/umhang", "params": { "bottom": 9 } },
-    "handR": { "model": "fig/rom/gladius" }
+    "handR": { "model": "item/waffe/nahkampf", "params": { "bauweise": "neutral" } }
   }
 }

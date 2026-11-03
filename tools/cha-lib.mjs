@@ -506,3 +506,58 @@ export function pruefePassung(lib, figId, ids, opts = {}) {
   });
   return { fehler, kombinationen: gesamt, messung: ausgabe, sekunden: (Date.now() - t0) / 1000 };
 }
+
+/**
+ * Figur mit Anbauten, die am Körper hängen (Aufsätze head_top → Gelenk head, shoulder → torso, back → torso); Anbauten an Händen (Waffen) fehlen.
+ * Alle Anbauten sind in Figur-Koordinaten modelliert, ihr anchor ist die Gelenkposition. Wie baueFigur, dazu pro.<gelenk> und grid um die Anbauten ergänzt.
+ * Für Bestandsfiguren (A2): Passprobe und Bilder über alle Figuren, nicht nur den Katalog. opts wie baueFigur.
+ */
+export function baueFigurMitAnbauten(lib, figId, opts = {}) {
+  const r = baueFigur(lib, figId, opts), fig = lib.get('figures', figId), rig = lib.get('rigs', fig.rig);
+  const params = { ...(fig.params || {}), ...(opts.params || {}) }, colors = { ...(fig.colors || {}), ...(opts.colors || {}) };
+  for (const [g, a] of Object.entries(fig.attach || {})) {
+    const jn = g === 'back' ? 'torso' : g;
+    if (!r.pro[jn]) continue;   // Hände (Waffen) und fehlende Gelenke
+    const b = lib.build(a.model, { params: lib.partParams(a.model, params, a.params), palette: a.palette || fig.palette, colors });
+    const at = rig.joints[g].at, an = b.anchor;
+    for (const v of b.grid.values()) {
+      const p = { x: v.x - an[0] + at[0], y: v.y - an[1] + at[1], z: v.z - an[2] + at[2], c: v.c, e: v.e };
+      r.pro[jn].push(p); r.grid.set(p.x, p.y, p.z, p.c, p.e);
+    }
+  }
+  return r;
+}
+
+/** Alle Modell-IDs, die ein Modell über use-Schritte erreicht (Vorlagen {x} → alle passenden IDs), samt dem Modell selbst. */
+function modellHuelle(lib, id, ids, seen = new Set()) {
+  if (seen.has(id)) return seen;
+  seen.add(id);
+  const m = lib.get('models', id);
+  if (m) for (const u of alleUse(m.ops)) for (const k of kandidaten(u, ids)) modellHuelle(lib, k, ids, seen);
+  return seen;
+}
+
+/**
+ * Regel (f), Kopf jeder Figur (CHA-02 A2): Das Kopfteil (Gelenk head, ohne Anbauten) jeder Figur
+ *  1. trägt den 8er-Schädel: sein use-Baum enthält fig/basis/kopf oder den Körper-Kopf cha/koerper/…/head (der nackte Kopf liegt unter Helm und Haar),
+ *  2. hat über der Halslinie (y >= 26) eine Hülle von mindestens 8 × 7 × 8 Voxeln (Helm und Haar dürfen größer sein),
+ *  3. hat den Hals 4 × 4 bei y 25.
+ * Rückgabe Liste { id, msg } (leer = in Ordnung).
+ */
+export function pruefeFigurKopf(lib, figId, ids) {
+  const fehler = [], fig = lib.get('figures', figId), part = fig?.parts?.head;
+  if (!part) return [{ id: figId, msg: 'Figur ohne Kopfteil (parts.head)' }];
+  const huelle = modellHuelle(lib, part.model, ids);
+  if (![...huelle].some((m) => m === 'fig/basis/kopf' || m.startsWith('cha/koerper/'))) fehler.push({ id: figId, msg: `Kopfteil ${part.model} enthält nicht den 8er-Schädel (fig/basis/kopf bzw. cha/koerper/…/head)` });
+  let b;
+  try { b = baueFigur(lib, figId); } catch (e) { return [...fehler, { id: figId, msg: `Kopf baut nicht: ${e.message}` }]; }
+  const vs = (b.pro.head || []).filter((v) => v.y >= KOPF_MASS.halsY + 1);
+  if (!vs.length) return [...fehler, { id: figId, msg: 'Kopf ohne Voxel über y 25' }];
+  const mn = [Infinity, Infinity, Infinity], mx = [-Infinity, -Infinity, -Infinity];
+  for (const v of vs) for (const [i, w] of [[0, v.x], [1, v.y], [2, v.z]]) { if (w < mn[i]) mn[i] = w; if (w > mx[i]) mx[i] = w; }
+  const mass = { breite: mx[0] - mn[0] + 1, hoehe: mx[1] - mn[1] + 1, tiefe: mx[2] - mn[2] + 1 };
+  for (const k of Object.keys(mass)) if (mass[k] < KOPF_MASS[k]) fehler.push({ id: figId, msg: `Kopfhülle ${k} ${mass[k]} (mindestens ${KOPF_MASS[k]})` });
+  const hals = new Set((b.pro.head || []).filter((v) => v.y === KOPF_MASS.halsY).map((v) => `${v.x},${v.z}`));
+  for (const x of [-2, -1, 0, 1]) for (const z of [-2, -1, 0, 1]) if (!hals.has(`${x},${z}`)) { fehler.push({ id: figId, msg: `Hals bei y ${KOPF_MASS.halsY} unvollständig (4 × 4 fehlt bei x ${x}, z ${z})` }); return fehler; }
+  return fehler;
+}

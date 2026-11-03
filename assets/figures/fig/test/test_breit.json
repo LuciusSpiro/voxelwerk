@@ -7,7 +7,7 @@
   "palette": "base",
   "tags": ["figur", "baukasten", "test", "test_breit"],
   "posen": { "ruhe": "guard", "ziel": "aim" },
-  "waffe": { "typ": "sturmgewehr", "bauweise": "neutral", "platzhalter": true },
+  "waffe": { "typ": "sturmgewehr", "bauweise": "neutral", "platzhalter": false },
   "params": { "rank": 0 },
   "parts": {
     "hips": { "model": "fig/basis/huefte" },
@@ -24,6 +24,6 @@
   },
   "attach": {
     "back": { "model": "lerche/item/medipack" },
-    "handR": { "model": "lerche/item/scav_rifle" }
+    "handR": { "model": "item/waffe/sturmgewehr", "params": { "bauweise": "neutral" } }
   }
 }

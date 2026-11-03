@@ -1,0 +1,1370 @@
+{
+ "crew/juno": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "crew/nova": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "crew/tami": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/germanen/enterer": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 20,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 30,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 27,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 20,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 202,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/germanen/grenadier": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 6,
+   "head|upperArmL": 2,
+   "head|upperArmR": 4
+  },
+  "aim_rifle": {
+   "head|torso": 16,
+   "head|upperArmL": 3,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 15,
+   "head|upperArmL": 2,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 20,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 90,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/germanen/grundtyp": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 9,
+   "head|upperArmL": 2,
+   "head|upperArmR": 4
+  },
+  "aim_rifle": {
+   "head|torso": 17,
+   "head|upperArmL": 3,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 14,
+   "head|upperArmL": 2,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 24,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 62,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/germanen/haescher": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 1,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 4,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 3,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 16,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 46,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/germanen/niederhalter": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 2,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 3,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 1,
+   "head|upperArmL": 7,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 2,
+   "head|upperArmL": 2,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 14,
+   "head|upperArmL": 5,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 3,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 62,
+   "head|upperArmL": 3,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/germanen/schuetze": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 2,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 29,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 27,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 31,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 78,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/test/enterer": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 14,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 16,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 16,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 12,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 178,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/test/grenadier": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 4,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 80,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/test/grundtyp": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 24,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/test/haescher": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 40,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/test/niederhalter": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 40,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/test/schuetze": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 2,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 26,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 25,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 19,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 58,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/test/test_breit": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 4,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 2,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 4,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "fig/test/test_gross": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 24,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "lerche/crew_0": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "lerche/crew_1": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "lerche/crew_2": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 2,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "lerche/ivo": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 4,
+   "head|upperArmL": 0,
+   "head|upperArmR": 5
+  },
+  "aim_rifle": {
+   "head|torso": 8,
+   "head|upperArmL": 5,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 8,
+   "head|upperArmL": 7,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 48,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "lerche/scavenger": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 4,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 4,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 8,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "rom/legionaer": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 4
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 6,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 10,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 20,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 24,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ },
+ "test/puppe": {
+  "stand": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ0": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¼": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ½": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "walk φ¾": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_rifle": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "aim_heavy": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "kneel": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "sit": {
+   "head|torso": 0,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  },
+  "crouch": {
+   "head|torso": 8,
+   "head|upperArmL": 0,
+   "head|upperArmR": 0
+  }
+ }
+}
