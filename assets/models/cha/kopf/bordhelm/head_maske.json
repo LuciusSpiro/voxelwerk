@@ -74,6 +74,81 @@
         9
       ],
       "color": "#808080"
+    },
+    {
+      "name": "Zöpfe vor der Brust und Schläfen links (B2)",
+      "op": "box",
+      "at": [
+        -4,
+        20,
+        3
+      ],
+      "size": [
+        1,
+        11,
+        2
+      ],
+      "color": "#808080"
+    },
+    {
+      "name": "Zöpfe vor der Brust und Schläfen rechts (B2)",
+      "op": "box",
+      "at": [
+        3,
+        20,
+        3
+      ],
+      "size": [
+        1,
+        11,
+        2
+      ],
+      "color": "#808080"
+    },
+    {
+      "name": "Haar über dem Helmdach (B2)",
+      "op": "box",
+      "at": [
+        -5,
+        33,
+        -6
+      ],
+      "size": [
+        10,
+        3,
+        10
+      ],
+      "color": "#808080"
+    },
+    {
+      "name": "Haar neben der Schale links (B2)",
+      "op": "box",
+      "at": [
+        4,
+        22,
+        -6
+      ],
+      "size": [
+        2,
+        13,
+        10
+      ],
+      "color": "#808080"
+    },
+    {
+      "name": "Haar neben der Schale rechts (B2)",
+      "op": "box",
+      "at": [
+        -6,
+        22,
+        -6
+      ],
+      "size": [
+        2,
+        13,
+        10
+      ],
+      "color": "#808080"
     }
   ]
 }

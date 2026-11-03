@@ -69,6 +69,38 @@
       "vorschau": "cha/vorschau/frisur/zoepfe.png"
     },
     {
+      "id": "frisur/bartkurz",
+      "platz": "frisur",
+      "name": "Kurzhaar mit Bart",
+      "gruppe": "charakter",
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/frisur/bartkurz.png"
+    },
+    {
+      "id": "frisur/bartlang",
+      "platz": "frisur",
+      "name": "Langhaar mit Vollbart",
+      "gruppe": "charakter",
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/frisur/bartlang.png"
+    },
+    {
+      "id": "frisur/zopfband",
+      "platz": "frisur",
+      "name": "Zöpfe mit Stirnband",
+      "gruppe": "charakter",
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/frisur/zopfband.png"
+    },
+    {
+      "id": "frisur/wild",
+      "platz": "frisur",
+      "name": "Wildes Haar",
+      "gruppe": "charakter",
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/frisur/wild.png"
+    },
+    {
       "id": "frisur/keine",
       "platz": "frisur",
       "name": "Kahl",
