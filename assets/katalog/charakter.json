@@ -141,6 +141,33 @@
       "vorschau": "cha/vorschau/kopf/bordhelm.png"
     },
     {
+      "id": "kopf/galea",
+      "platz": "kopf",
+      "name": "Galea",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "rom",
+      "vorschau": "cha/vorschau/kopf/galea.png"
+    },
+    {
+      "id": "kopf/spangenhelm",
+      "platz": "kopf",
+      "name": "Spangenhelm",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/kopf/spangenhelm.png"
+    },
+    {
+      "id": "kopf/hoernerhelm",
+      "platz": "kopf",
+      "name": "Hörnerhelm",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "germanen",
+      "vorschau": "cha/vorschau/kopf/hoernerhelm.png"
+    },
+    {
       "id": "oberteil/bordtunika",
       "platz": "oberteil",
       "name": "Bordtunika",

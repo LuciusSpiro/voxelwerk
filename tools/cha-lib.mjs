@@ -19,7 +19,8 @@ export const PINNEN = { umhang: ['hair'] };
  */
 export const CHA_TOLERANZEN = {
   koerper: { head: { min: [0, 0, 1], max: [0, 2, 0] } },
-  frisur: { head: { min: [1, 5, 3], max: [1, 4, 1] } },   // B2: Zöpfe vor der Brust (y 20, z 4), Locken und Perle neben dem Kopf (x -5 und 4, oberhalb der Schultern)
+  frisur: { head: { min: [1, 5, 3], max: [1, 4, 1] } },
+  kopf: { head: { min: [1, 0, 2], max: [1, 4, 1] } },   // CHA-02 C: Hörner x -5/4, Crista und Kuppel bis y 34, Stirnschirm z 4, Nackenschutz z -5   // B2: Zöpfe vor der Brust (y 20, z 4), Locken und Perle neben dem Kopf (x -5 und 4, oberhalb der Schultern)
 };
 /** Toleranzen des Rigs plus CHA_TOLERANZEN (je Wert das Maximum). */
 export function toleranzenVon(rig) {
