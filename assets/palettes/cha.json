@@ -5,9 +5,16 @@
   "generated": true,
   "notes": "Platzrollen der Schichten (cha/), je Teil eigene Rollen (<name>_<teil>) mit den Bestandsfarben des Teils. skin, skin_shadow, hair kommen ausschließlich von der Figur (colors); Ausnahme siehe PINNEN in tools/cha-lib.mjs. Keine Spielerfarbe in Kleidungsrollen.",
   "roles": {
+    "adler_lorica": {
+      "color": "#FFC46B",
+      "emit": 1.5
+    },
     "band_bartlang": "#D9A93A",
     "band_stirnband": "#D9A441",
     "band_zopfband": "#D9A93A",
+    "dunkel_lorica": "#2C3037",
+    "eisen_lorica": "#565D67",
+    "gold_lorica": "#D4A23A",
     "gummi_germanenstiefel": "#24262B",
     "handschuh_2_armschiene": "#E9E3D3",
     "handschuh_armschiene": "#2C3037",
@@ -19,6 +26,9 @@
     "hose_zier_germanenhose": "#8E959D",
     "hut_bordhelm": "#DDE1E4",
     "hut_zier_bordhelm": "#B3342B",
+    "kappe_lorica": "#5B2A5E",
+    "lack_lorica": "#E9E3D3",
+    "leder_lorica": "#6B4A2A",
     "licht_armschiene": {
       "color": "#A8F0FF",
       "emit": 1.7
@@ -44,6 +54,7 @@
     "metall_hell_germanenstiefel": "#B4BAC0",
     "metall_hell_plankenweste": "#B4BAC0",
     "metall_plankenweste": "#7A8088",
+    "niet_lorica": "#A3ABB4",
     "ohrring_offen": "#2C5DB8",
     "perle_wild": "#3E6EB4",
     "schuh_2_bordhose": "#2E2620",
@@ -53,6 +64,7 @@
     "schuh_germanenstiefel": "#52575E",
     "schuh_zier_bordhose": "#D4A23A",
     "schuh_zier_bordstiefel": "#D4A23A",
+    "stoff_lorica": "#8E1B22",
     "top_bordtunika": "#5B2A5E",
     "top_leder_bordtunika": "#5A4030",
     "top_leder_plankenweste": "#7A5234",

@@ -59,6 +59,13 @@ if (lib.get('figures', 'cha/spieler') && (!filter || 'cha/spieler'.includes(filt
   try { zeilen.push({ id: 'cha/spieler (Worst Case: ' + Object.values(params).join(', ') + ')', ...messe('cha/spieler', { params }) }); } catch (e) { zeilen.push({ id: 'cha/spieler Worst Case', fehler: e.message }); }
 }
 
+// ---- CHA-02 D2: Worst Case mit Lorica (Rüstung statt Plankenweste)
+if (lib.get('figures', 'cha/spieler') && (!filter || filter.startsWith('cha'))) {
+  const params = { ...WORST, oberteil: 'lorica' };
+  try { zeilen.push({ id: 'cha/spieler (Worst Case Lorica: ' + Object.values(params).join(', ') + ')', ...messe('cha/spieler', { params }) }); } catch (e) { zeilen.push({ id: 'cha/spieler Worst Case Lorica', fehler: e.message }); }
+}
+// ---- CHA-02 D2 (Ende)
+
 if (json) console.log(JSON.stringify(zeilen, null, 1));
 else {
   console.log('Figur'.padEnd(34) + 'Voxel'.padStart(7) + 'Dreiecke'.padStart(10) + '  Anbau V/D'.padEnd(14) + 'Kopfteil'.padEnd(34) + 'Breite×Höhe×Tiefe');

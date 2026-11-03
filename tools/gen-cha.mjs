@@ -262,6 +262,55 @@ const HELM_BORD = [
   box('Stirnlampe', [-4, 30, 3], [1, 1, 1], { role: 'glow', emit: 1.2 }, { jitter: false }),
 ];
 
+// ---- CHA-02 D2: Lorica (Richtung A aus FIG-01, Branch fig01 a/rumpf, huefte, schulter, oberarm, unterarm), zerlegt auf die Gelenke des Oberteils ------------------------------
+// Koordinaten wie im Entwurf (Figur-Koordinaten, anchor 0). Platten und Lackflächen ohne Helligkeitsstreuung (jitter false). Der Unteranzug (use fig/basis/...) entfällt: ihn liefert der Körper-Layer.
+// Schulterpanzer hängen am Gelenk torso (nicht am Oberarm): in der Pose aim dreht der Arm unter dem Panzer heraus (Test "Schulterpanzer verdeckt in aim das Gesicht nicht").
+// Keine Spielerfarbe: der Entwurf färbt die Schulterkappen mit cloth2 (Spielerfarbe), hier feste Teilfarbe lorica_kappe. primary wird nicht benutzt.
+const J = { jitter: false };
+const LORICA_RUMPF = [
+  box('Brustpanzer', [-4, 20, -2], [8, 5, 5], 'secondary', J),
+  box('Goldkante oben', [-4, 24, -2], [8, 1, 5], 'trim', { mode: 'paint', ...J }),
+  box('Halsausschnitt', [-2, 24, -2], [4, 1, 4], 'metal_dark', J),
+  box('Gurtreifen', [-4, 16, -2], [8, 4, 4], { stripes: [{ shade: 'secondary', f: 0.74 }, 'secondary'], axis: 'y', period: 1 }, J),
+  box('Verschluss vorn', [-1, 16, 1], [2, 4, 1], 'metal_dark', { mode: 'paint', ...J }),
+  box('Adler Flügel', [-3, 22, 2], [6, 1, 1], 'trim', { mode: 'paint', ...J }),
+  box('Adler Kopf', [-1, 23, 2], [2, 1, 1], 'trim', { mode: 'paint', ...J }),
+  box('Adler Kern', [-1, 22, 2], [2, 1, 1], { role: 'glow2', emit: 1.3 }, { mode: 'paint', ...J }),
+];
+/** Schulterpanzer links (x 5..10), gestuft in drei Platten; das Teilmodell wird links und gespiegelt rechts eingesetzt. Kappe oben mit Goldrand in fester Teilfarbe (Entwurf: cloth2 = Spielerfarbe). */
+const LORICA_SCHULTER = [
+  box('Schulterkappe', [5, 24, -3], [4, 1, 7], 'secondary', J),
+  box('Schulterplatte 2', [6, 22, -3], [4, 2, 7], { shade: 'secondary', f: 0.93 }, J),
+  box('Schulterplatte 3', [7, 20, -3], [3, 2, 7], { shade: 'secondary', f: 0.86 }, J),
+  box('Platte 2 Goldkante', [6, 22, -3], [4, 1, 7], 'trim', { mode: 'paint', ...J }),
+  box('Platte 3 Goldkante', [7, 20, -3], [3, 1, 7], 'trim', { mode: 'paint', ...J }),
+  box('Kappe oben: feste Farbe mit Goldrand', [5, 24, -3], [4, 1, 7], { frame: 'trim', fill: 'cloth2', axes: 'xz', width: 1 }, { mode: 'paint', ...J }),
+  box('Kappe rund', [8, 24, -3], [1, 1, 1], undefined, { mode: 'carve', mirror: 'z', mirrorAt: 0.5 }),
+  box('Platte 2 rund', [9, 23, -3], [1, 1, 1], undefined, { mode: 'carve', mirror: 'z', mirrorAt: 0.5 }),
+  box('Armloch (Oberarm bleibt frei)', [4, 17, -1], [3, 7, 3], undefined, { mode: 'carve' }),
+  box('Niete', [10, 22, 0], [1, 1, 1], 'metal_light'),
+];
+const LORICA_HUEFTE = [
+  box('Gürtel', [-4, 14, -3], [8, 2, 6], { stripes: ['metal_dark', 'trim'], axis: 'x', period: 2 }, J),
+  box('Schnalle', [-1, 14, 3], [2, 2, 1], 'trim', J),
+  box('Tunika-Rock hinten', [-4, 9, -2], [8, 5, 1], 'cloth'),   // nur vorn und hinten: zwischen den Bahnen bleiben die Oberschenkel frei (keine Querüberlappung Hüfte/Oberschenkel)
+  box('Tunika-Rock vorn', [-4, 9, 3], [8, 5, 1], 'cloth'),
+  box('Pteruges vorn', [-4, 9, 3], [2, 5, 1], 'secondary', { ...J, repeat: { count: 3, step: [3, 0, 0] } }),
+  box('Pteruges hinten', [-4, 9, -3], [2, 5, 1], 'secondary', { ...J, repeat: { count: 3, step: [3, 0, 0] } }),
+  box('Pteruges Seiten', [4, 9, -3], [1, 5, 2], 'secondary', { ...J, ...spiegel, repeat: { count: 2, step: [0, 0, 4] } }),
+  box('Lamellenspitzen', [-5, 9, -3], [10, 1, 6], 'trim', { mode: 'paint', ...J }),
+  box('Schurz (Balteus)', [-1, 9, 3], [2, 5, 1], { stripes: ['leather', 'trim'], axis: 'y', period: 2 }),
+];
+const LORICA_OBERARM = [
+  box('Armband', [4, 18, -1], [3, 1, 3], 'trim', J),
+];
+const LORICA_UNTERARM = [
+  box('Unterarm', [4, 13, -1], [3, 4, 3], 'cloth'),
+  box('Armschiene', [4, 13, -1], [3, 4, 3], { frame: 'trim', fill: 'secondary', axes: 'y', width: 1 }, J),
+  box('Ellbogenkachel', [4, 16, -1], [3, 1, 1], 'metal', { mode: 'paint' }),
+];
+// ---- CHA-02 D2 (Ende) --------------------------------------------------------------------------------------------------------------------------------
+
 /**
  * Teile. Je Teil und Gattung ein Eintrag:
  *   quelle   Bestandsteil, das per use eingesetzt wird (unverändert)
@@ -344,6 +393,19 @@ const TEILE = [
     upperArm: { quelle: 'fig/germanen/oberarm', farben: { leather: 'top_leder', metal_light: 'metall_hell', primary: 'top', trim: 'top_zier' } },
     lowerArm: { quelle: 'fig/germanen/unterarm', params: { glove: 0 }, farben: { leather: 'top_leder', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', primary: 'top' } },
   } },
+
+  // ---- CHA-02 D2: Lorica (Volk rom). Rumpf, Hüfte (Gürtel, Rock), Arme gehören zum Oberteil; die Schulterpanzer sitzen am Gelenk torso (zweites Teilmodell, links und gespiegelt rechts).
+  // Entwurf-Rollen: secondary Lackplatten, trim Gold, cloth Tunikarot, cloth2 (Spielerfarbe im Entwurf) → feste Teilfarbe lorica_kappe. Unterschenkel und Umhang des Entwurfs gehören zu Hose, Schuhe, Umhang (Paket D1) und fehlen hier.
+  { platz: 'oberteil', name: 'lorica', anzeige: 'Lorica', volk: 'rom', palette: 'rom', rollen: { kappe: '#5B2A5E' }, gattungen: {
+    torso: { schichten: [
+      { name: 'rumpf', ops: { eigene: LORICA_RUMPF } },
+      { name: 'schulter', ops: { eigene: LORICA_SCHULTER }, beideSeiten: true },
+    ], farben: { secondary: 'lack', trim: 'gold', metal_dark: 'dunkel', metal_light: 'niet', glow2: 'adler', cloth2: 'kappe' } },
+    hips: { ops: { eigene: LORICA_HUEFTE }, farben: { secondary: 'lack', trim: 'gold', metal_dark: 'dunkel', cloth: 'stoff', leather: 'leder' } },
+    upperArm: { ops: { eigene: LORICA_OBERARM }, farben: { trim: 'gold' } },
+    lowerArm: { ops: { eigene: LORICA_UNTERARM }, farben: { trim: 'gold', secondary: 'lack', cloth: 'stoff', metal: 'eisen' } },
+  } },
+  // ---- CHA-02 D2 (Ende)
 
   // ---- Hose und Schuhe (Unterschenkel per Schnitt getrennt)
   { platz: 'hose', name: 'bordhose', anzeige: 'Bordhose', volk: 'crew', palette: 'lerche_rom', gattungen: {
@@ -475,6 +537,7 @@ for (const t of TEILE) {
       for (const s of g.schichten) {
         putModel(`${id}_${s.name}`, { name: `${layer.name}: herausgelöste Ops (${s.name})`, tags: ['cha', 'ops'], notes: `Ops aus ${quellenText(s.ops)}, Reihenfolge wie im Bestand.`, ops: waehleAlle(id, s.ops) });
         uses.push(useOp(`${id}_${s.name}`, { ...(s.modus ? { mode: s.modus } : {}), colors: farben }));
+        if (s.beideSeiten) uses.push({ ...useOp(`${id}_${s.name}`, { colors: farben }), name: `${s.name} (gespiegelt)`, mirror: 'x', mirrorAt: 0 });   // CHA-02 D2: links und gespiegelt rechts
       }
       putModel(id, { ...layer, notes: `Schicht aus ${quellenText(g.schichten.map((s) => s.ops).flat())}, herausgelöst.`, ops: uses });
     } else {

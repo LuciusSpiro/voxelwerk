@@ -15,7 +15,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { nodeLibrary, listAssets } from './fs-io.js';
-import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur, haarAussen } from './cha-lib.mjs';
+import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, DURCHDRINGUNG_RADIUS, pruefePassung, ladeFigur, haarAussen } from './cha-lib.mjs';
 import { meshGrid } from '../core/mesher.js';
 import { kopfDurchdringung } from './cha-kopfpass.mjs';
 import { poseWerte, gelenkMatrizen, weltPunkt, eulerYXZ } from './cha-pose.mjs';
@@ -257,7 +257,7 @@ const katalog = JSON.parse(fs.readFileSync(path.join(root, 'assets', 'katalog', 
 console.log('\n== Teile je Platz (Schnittstelle Voxelwerk ↔ Spiel)');
 eq(Object.fromEntries(PLAETZE.map((p) => [p, optionen[p]])), {
   koerper: ['standard'], frisur: ['kurz', 'stirnband', 'welle', 'offen', 'bartkurz', 'bartlang', 'zopfband', 'wild', 'keine'], kopf: ['keine', 'bordhelm'],
-  oberteil: ['bordtunika', 'plankenweste', 'keine'], hose: ['bordhose', 'germanenhose', 'keine'], schuhe: ['bordstiefel', 'germanenstiefel', 'keine'],
+  oberteil: ['bordtunika', 'plankenweste', 'lorica', 'keine'], hose: ['bordhose', 'germanenhose', 'keine'], schuhe: ['bordstiefel', 'germanenstiefel', 'keine'],
   haende: ['keine', 'armschiene'], umhang: ['keiner', 'fellumhang'],
 }, 'options der Sammelmodelle: Teilenamen exakt wie in der Schnittstelle, Standard zuerst, leerer Wert zuletzt');
 ok(PLATZ_ENTFALLEN.every((p) => !(p in optionen)), 'Plätze gesicht und bart gibt es in den Sammelmodellen nicht mehr (festes Gesicht, Bart steckt in der Frisur)');
@@ -689,12 +689,12 @@ const katalogPruefen = (k, o = optionen, f = fig) => pruefeKatalog(k, { modelIds
   ok(katalog.teile.every((t) => t.vorschau === `cha/vorschau/${t.platz}/${t.id.split('/')[1]}.png`), 'jedes Teil hat vorschau = cha/vorschau/<platz>/<name>.png (relativ zu assets/sprites/), auch die leeren Werte');
   eq(Object.fromEntries(katalog.teile.filter((t) => t.volk).map((t) => [t.id, t.volk])), {
     'frisur/kurz': 'rom', 'frisur/stirnband': 'rom', 'frisur/welle': 'rom', 'frisur/offen': 'rom', 'frisur/bartkurz': 'germanen', 'frisur/bartlang': 'germanen', 'frisur/zopfband': 'germanen', 'frisur/wild': 'germanen', 'kopf/bordhelm': 'crew',
-    'oberteil/bordtunika': 'crew', 'oberteil/plankenweste': 'germanen', 'hose/bordhose': 'crew', 'hose/germanenhose': 'germanen', 'schuhe/bordstiefel': 'crew',
+    'oberteil/bordtunika': 'crew', 'oberteil/plankenweste': 'germanen', 'oberteil/lorica': 'rom', 'hose/bordhose': 'crew', 'hose/germanenhose': 'germanen', 'schuhe/bordstiefel': 'crew',
     'schuhe/germanenstiefel': 'germanen', 'haende/armschiene': 'rom', 'umhang/fellumhang': 'germanen',
   }, 'volk je Teil (lerche, crew, germanen, rom)');
   eq(Object.fromEntries(katalog.teile.map((t) => [t.id, t.name])), {
     'frisur/kurz': 'Kurzschnitt', 'frisur/stirnband': 'Stirnband mit Zopf', 'frisur/welle': 'Welle', 'frisur/offen': 'Offenes Haar', 'frisur/bartkurz': 'Kurzhaar mit Bart', 'frisur/bartlang': 'Langhaar mit Vollbart', 'frisur/zopfband': 'Zöpfe mit Stirnband', 'frisur/wild': 'Wildes Haar', 'frisur/keine': 'Kahl',
-    'kopf/keine': 'Keine', 'kopf/bordhelm': 'Bordhelm', 'oberteil/bordtunika': 'Bordtunika', 'oberteil/plankenweste': 'Plankenweste', 'oberteil/keine': 'Unterzeug',
+    'kopf/keine': 'Keine', 'kopf/bordhelm': 'Bordhelm', 'oberteil/bordtunika': 'Bordtunika', 'oberteil/plankenweste': 'Plankenweste', 'oberteil/lorica': 'Lorica', 'oberteil/keine': 'Unterzeug',
     'hose/bordhose': 'Bordhose', 'hose/germanenhose': 'Germanenhose', 'hose/keine': 'Unterzeug', 'schuhe/bordstiefel': 'Bordstiefel', 'schuhe/germanenstiefel': 'Germanenstiefel', 'schuhe/keine': 'Barfuß',
     'haende/keine': 'Keine', 'haende/armschiene': 'Armschiene', 'umhang/keiner': 'Keiner', 'umhang/fellumhang': 'Fellumhang',
   }, 'Anzeigenamen deutsch und kurz (leere Werte: Unterzeug bei Oberteil und Hose, Barfuß bei Schuhen)');
@@ -814,7 +814,7 @@ const passe = (l) => pruefePassung(l, 'cha/spieler', idx.models, { bestand: BEST
 {
   const r = passe(lib);
   eq(r.fehler, [], `Passprobe über alle ${r.kombinationen} Kombinationen × ${Object.keys(r.messung).length} Posenzustände ohne Befund`);
-  eq(r.kombinationen, 1944, '1944 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart)');
+  eq(r.kombinationen, 2592, '2592 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart; CHA-02 D2: Oberteil lorica dazu, vorher 1944)');
   ok(r.sekunden < 20, `Laufzeit ${r.sekunden.toFixed(1)} s (Grenze 20 s)`);
   console.log(`    Laufzeit ${r.sekunden.toFixed(1)} s`);
   const alle = Object.entries(r.messung);
@@ -933,6 +933,107 @@ console.log('\n== Generator und Rig');
   ok(Object.values(rig.toleranzen).every((g) => Object.entries(g).every(([gat, t]) => GELENK_LINKS[gat] && [...t.min, ...t.max].every((v) => v >= 0))), 'Toleranzen: bekannte Gattungen, nur nichtnegative Werte');
   const spiegel = (b) => [-b.max[0] - 1, -b.min[0] - 1];
   for (const [l, r] of [['upperArmL', 'upperArmR'], ['lowerArmL', 'lowerArmR'], ['thighL', 'thighR'], ['shinL', 'shinR']]) eq(spiegel(rig.bereiche[l]), [rig.bereiche[r].min[0], rig.bereiche[r].max[0]], `Bereich ${r} ist ${l} an x = 0 gespiegelt`);
+}
+
+// =============================================================================================
+// CHA-02 D2: Lorica (Richtung A), Schulterpanzer am Rumpf
+// =============================================================================================
+console.log('\n== CHA-02 D2: Lorica');
+{
+  const { posiere } = await import('./cha-pose.mjs');
+  const { meshGrid: mg } = await import('../core/mesher.js');
+  const katD2 = JSON.parse(fs.readFileSync(path.join(root, 'assets', 'katalog', 'charakter.json'), 'utf8'));
+  const tl = katD2.teile.find((t) => t.id === 'oberteil/lorica');
+  ok(tl && tl.volk === 'rom' && tl.herkunft === 'frei' && tl.name === 'Lorica' && tl.vorschau === 'cha/vorschau/oberteil/lorica.png', 'Katalog: oberteil/lorica "Lorica" (volk rom, herkunft frei, Vorschau)');
+  const palD2 = lib.get('palettes', 'cha').roles, loRollen = Object.keys(palD2).filter((r) => r.endsWith('_lorica'));
+  ok(loRollen.length >= 6 && !loRollen.some((r) => r.startsWith('primary')), `Lorica: ${loRollen.length} eigene Farbrollen (*_lorica), keine primary`);
+  const umlegungen = (g) => { const out = []; const rek = (id) => { const m = get(id); if (!m) return; for (const o of m.ops) if (o.op === 'use') { if (o.colors) out.push(o.colors); rek(o.model); } }; rek(`cha/oberteil/lorica/${g}`); return out; };
+  ok(['torso', 'hips', 'upperArm', 'lowerArm'].every((g) => umlegungen(g).length && umlegungen(g).every((c) => Object.values(c).every((z) => /_lorica$/.test(z)) && !('primary' in c))), 'Lorica: alle Farb-Umlegungen gehen auf *_lorica (keine Spielerfarbe, kein primary)');
+  const spielerfarben = ['#56B4E9', '#E69F00', '#CC79A7', '#7FE0C2'];
+  ok(!Object.entries(palD2).some(([k, v]) => k !== 'spieler' && spielerfarben.includes(String(typeof v === 'string' ? v : v.color).toUpperCase())), 'Palette cha enthält keine der vier Spielerfarben');
+  ok(get('cha/oberteil/lorica/torso_rumpf').ops.length > 0 && get('cha/oberteil/lorica/torso_schulter').ops.length > 0 && get('cha/oberteil/lorica/torso').ops.filter((o) => /torso_schulter/.test(o.model)).length === 2, 'Lorica: Schulterpanzer ist ein eigenes Teilmodell, links und gespiegelt rechts am Gelenk torso eingesetzt');
+  ok(!get('cha/oberteil/lorica/upperArm_ops').ops.some((o) => /Schulter/.test(o.name)), 'Lorica: kein Schulterpanzer am Oberarm');
+  const platten = [...get('cha/oberteil/lorica/torso_schulter').ops, ...get('cha/oberteil/lorica/torso_rumpf').ops].filter((o) => o.op === 'box' && o.mode !== 'carve' && o.size.some((s) => s > 1));
+  ok(platten.every((o) => o.jitter === false), `Lorica: Platten und Lackflächen (${platten.length} Boxen am Rumpf und Panzer) ohne Helligkeitsstreuung`);
+
+  // Sichtprisma: vor dem Gesicht (Kopfkoordinaten: x -4..3, y 26..31, z ab 3,5, nach vorn offen) liegt in aim, aim_rifle und aim_heavy kein Voxel des Oberteils
+  // (die Voxel, die das Oberteil gegenüber "keine" dazubringt, in der Pose gedreht und in Kopfkoordinaten zurückgerechnet; der Kopf dreht in der Pose mit)
+  const kegelTreffer = (l, params, pose) => {
+    const rg = l.get('rigs', 'human'), po = l.get('poses', 'human'), w = poseWerte(po, pose), M = gelenkMatrizen(rg, w);
+    const mit = baueFigur(l, 'cha/spieler', { params }), ohne = baueFigur(l, 'cha/spieler', { params: { ...params, oberteil: 'keine' } });
+    const key = (v) => `${v.x},${v.y},${v.z}`, Rh = M.head.R, th = M.head.t, at = rg.joints.head.at;
+    const kopfKoord = (p) => { const d = [p[0] - th[0], p[1] - th[1], p[2] - th[2]]; return [Rh[0] * d[0] + Rh[3] * d[1] + Rh[6] * d[2] + at[0], Rh[1] * d[0] + Rh[4] * d[1] + Rh[7] * d[2] + at[1], Rh[2] * d[0] + Rh[5] * d[1] + Rh[8] * d[2] + at[2]]; };
+    let n = 0;
+    for (const jn of ['torso', 'hips', 'upperArmL', 'upperArmR', 'lowerArmL', 'lowerArmR']) {
+      const alt = new Set((ohne.pro[jn] || []).map(key)), neu = (mit.pro[jn] || []).filter((v) => !alt.has(key(v)));
+      const p = posiere(rg, { [jn]: neu }, w, M)[jn];
+      for (let i = 0; i < p.length; i += 3) { const h = kopfKoord([p[i], p[i + 1], p[i + 2]]); if (h[2] > 3.5 && h[0] > -4 && h[0] < 3 && h[1] >= 26 && h[1] <= 31) n++; }
+    }
+    return n;
+  };
+  const wahlen = [{ oberteil: 'lorica', frisur: 'kurz' }, { oberteil: 'lorica', frisur: 'bartlang', kopf: 'bordhelm' }, { oberteil: 'lorica', frisur: 'offen' }];
+  const POSEN_AIM = ['aim', 'aim_rifle', 'aim_heavy'];
+  for (const pose of POSEN_AIM) eq(wahlen.map((p) => kegelTreffer(lib, p, pose)), [0, 0, 0], `Oberteil: in ${pose} liegt kein Voxel des Oberteils im Sichtprisma vor dem Gesicht`);
+
+  // Schulterpanzer verdeckt in aim das Gesicht nicht: von den Gesichtspunkten (z 3, y 26..30) aus Richtung Kamera (Blickwinkel yaw -60..60, pitch 0, 12, 35 und Spielkamera 57)
+  // trifft der Strahl (Radius 0,7) keinen Voxel des Schulterpanzers. Der Panzer sind die Zellen des Teilmodells torso_schulter (links und gespiegelt), gleich wo sie sitzen (Rumpf oder Oberarm).
+  const schulterZellen = (l) => { const b = l.build('cha/oberteil/lorica/torso_schulter', { palette: 'cha' }), z = new Set(); for (const v of b.grid.values()) { z.add(`${v.x},${v.y},${v.z}`); z.add(`${-v.x - 1},${v.y},${v.z}`); } return z; };
+  const verdeckt = (l, params, pose) => {
+    const rg = l.get('rigs', 'human'), po = l.get('poses', 'human'), w = poseWerte(po, pose), M = gelenkMatrizen(rg, w), zellen = schulterZellen(l);
+    const mit = baueFigur(l, 'cha/spieler', { params }), ohne = baueFigur(l, 'cha/spieler', { params: { ...params, oberteil: 'keine' } });
+    const key = (v) => `${v.x},${v.y},${v.z}`;
+    const panzer = [];
+    for (const jn of ['torso', 'upperArmL', 'upperArmR']) {
+      const alt = new Set((ohne.pro[jn] || []).map(key)), p = posiere(rg, { [jn]: (mit.pro[jn] || []).filter((v) => zellen.has(key(v)) && !alt.has(key(v))) }, w, M)[jn];
+      for (let i = 0; i < p.length; i += 3) panzer.push([p[i], p[i + 1], p[i + 2]]);
+    }
+    const gesicht = [];
+    for (let x = -3; x <= 2; x++) for (let y = 26; y <= 30; y++) gesicht.push(weltPunkt(rg, M, 'head', [x + 0.5, y + 0.5, 3.5]));
+    const sicht = [];
+    for (const pitch of [0, 12, 35, 57]) for (const yaw of pitch === 57 ? [0] : [-60, -40, -20, 0, 20, 40, 60]) { const yr = yaw * Math.PI / 180, pr = pitch * Math.PI / 180; sicht.push([Math.sin(yr) * Math.cos(pr), Math.sin(pr), Math.cos(yr) * Math.cos(pr)]); }
+    let n = 0;
+    for (const f of gesicht) if (sicht.some((c) => panzer.some((q) => { const d = [q[0] - f[0], q[1] - f[1], q[2] - f[2]], t = d[0] * c[0] + d[1] * c[1] + d[2] * c[2]; if (t <= 0) return false; return Math.hypot(d[0] - t * c[0], d[1] - t * c[1], d[2] - t * c[2]) < 0.7; }))) n++;
+    return { n, panzer: panzer.length };
+  };
+  for (const pose of POSEN_AIM) { const r = wahlen.map((p) => verdeckt(lib, p, pose)); eq([r.map((x) => x.n), r.every((x) => x.panzer > 100)], [[0, 0, 0], true], `Schulterpanzer verdeckt in ${pose} das Gesicht nicht (Strahlentest von 30 Gesichtspunkten zu 25 Kamerarichtungen; ${r[0].panzer} Panzer-Voxel geprüft)`); }
+  {
+    const l = nodeLibrary(root);
+    for (const id of chaIds) await l.load('models', id);
+    await l.load('figures', 'cha/spieler'); await l.load('rigs', 'human'); await l.load('poses', 'human');
+    const t = l.get('models', 'cha/oberteil/lorica/torso'), ua = l.get('models', 'cha/oberteil/lorica/upperArm');
+    t.ops = t.ops.filter((o) => !/torso_schulter/.test(o.model));
+    ua.ops.push({ op: 'use', model: 'cha/oberteil/lorica/torso_schulter' });
+    const r = POSEN_AIM.map((pose) => verdeckt(l, wahlen[0], pose));
+    ok(r.some((x) => x.n > 0) && r.every((x) => x.panzer > 100), `Mutationsprobe: Schulterpanzer am Oberarm statt am Rumpf wird rot (verdeckte Gesichtspunkte in aim/aim_rifle/aim_heavy: ${r.map((x) => x.n)}; ${r[0].panzer} Panzer-Voxel geprüft)`);
+  }
+  // Kopf berührt keinen Schulterpanzer: kein neuer Kontakt (gegenüber der Ruhepose) zwischen Kopf und Panzer in keiner Pose
+  {
+    const rg = lib.get('rigs', 'human'), po = lib.get('poses', 'human');
+    const ruhe = { joints: {}, lift: 0 }, M0 = gelenkMatrizen(rg, ruhe);
+    const kontakt = (Pa, Pb) => { const s = new Set(); for (let i = 0; i < Pa.length; i += 3) for (let j = 0; j < Pb.length; j += 3) if (Math.hypot(Pa[i] - Pb[j], Pa[i + 1] - Pb[j + 1], Pa[i + 2] - Pb[j + 2]) < DURCHDRINGUNG_RADIUS) s.add(i); return s; };
+    let max = 0, wo = '';
+    for (const frisur of ['kurz', 'stirnband', 'welle', 'offen', 'bartkurz', 'bartlang', 'zopfband', 'wild']) for (const kopf of ['keine', 'bordhelm']) {
+      const b = baueFigur(lib, 'cha/spieler', { params: { oberteil: 'lorica', frisur, kopf } });
+      const k0 = baueFigur(lib, 'cha/spieler', { params: { oberteil: 'keine', frisur, kopf } });
+      const key = (v) => `${v.x},${v.y},${v.z}`, alt = new Set(k0.pro.torso.map(key));
+      const panzer = b.pro.torso.filter((v) => !alt.has(key(v)) && (v.x >= 5 || v.x <= -6));
+      const c0 = kontakt(posiere(rg, { head: b.pro.head }, ruhe, M0).head, posiere(rg, { torso: panzer }, ruhe, M0).torso);
+      for (const pose of ['stand', 'aim', 'aim_rifle', 'aim_heavy', 'kneel', 'sit', 'crouch', ['walk', 0.25], ['walk', 0.75]]) {
+        const [pn, phi] = [].concat(pose), w = poseWerte(po, pn, phi), M = gelenkMatrizen(rg, w);
+        const k = kontakt(posiere(rg, { head: b.pro.head }, w, M).head, posiere(rg, { torso: panzer }, w, M).torso);
+        const neu = [...k].filter((i) => !c0.has(i)).length;
+        if (neu > max) { max = neu; wo = `${frisur}/${kopf}/${pn}`; }
+      }
+    }
+    // Grenze 2: das offene Haar (x -5, auf der Schulter) streift in aim_rifle den Panzer am Rand (Voxel nebeneinander, 1 Voxel Abstand in Ruhe); jede Frisur sonst 0
+    ok(max <= 2, `Kopf (alle 8 Frisuren, mit und ohne Bordhelm) berührt in keiner Pose einen Schulterpanzer neu: höchstens 2 Randvoxel (größter Wert ${max}${wo ? ' bei ' + wo : ''})`);
+  }
+  // Dreiecke: Lorica höchstens +2000 gegenüber keine-Oberteil
+  {
+    const tri = (params) => { const f = lib.get('figures', 'cha/spieler'); let n = 0; for (const part of Object.values(f.parts)) { const b = lib.build(part.model, { params: lib.partParams(part.model, { ...f.params, ...params }, part.params), palette: f.palette, colors: f.colors }); const m = mg(b.grid); n += (m.lit.indices.length + m.emit.indices.length) / 3; } return Math.round(n); };
+    const a = tri({ oberteil: 'keine' }), b2 = tri({ oberteil: 'lorica' });
+    ok(b2 - a <= 2000, `Dreiecke: Lorica ${b2 - a >= 0 ? '+' : ''}${b2 - a} gegenüber Oberteil keine (${a} → ${b2}, höchstens +2000)`);
+  }
 }
 
 console.log(`\n${fail ? '✗' : '✓'} ${pass} bestanden, ${fail} fehlgeschlagen`);
