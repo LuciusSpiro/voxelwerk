@@ -41,7 +41,10 @@
       "default": "keine",
       "options": [
         "keine",
-        "bordhelm"
+        "bordhelm",
+        "galea",
+        "spangenhelm",
+        "hoernerhelm"
       ],
       "label": "Kopfbedeckung"
     }

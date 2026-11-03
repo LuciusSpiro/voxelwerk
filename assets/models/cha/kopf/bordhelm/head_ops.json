@@ -47,6 +47,23 @@
       "mode": "under"
     },
     {
+      "name": "Wangenband",
+      "op": "box",
+      "at": [
+        -4,
+        26,
+        -4
+      ],
+      "size": [
+        8,
+        2,
+        7
+      ],
+      "color": "metal_light",
+      "mode": "paint",
+      "jitter": false
+    },
+    {
       "name": "Helmdach",
       "op": "box",
       "at": [
@@ -60,6 +77,45 @@
         8
       ],
       "color": "secondary"
+    },
+    {
+      "name": "Kuppel",
+      "op": "box",
+      "at": [
+        -3,
+        33,
+        -3
+      ],
+      "size": [
+        6,
+        1,
+        6
+      ],
+      "color": {
+        "shade": "secondary",
+        "f": 1.04
+      },
+      "jitter": false
+    },
+    {
+      "name": "Kuppel Ecken",
+      "op": "box",
+      "at": [
+        2,
+        33,
+        2
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "mode": "carve",
+      "mirror": "xz",
+      "mirrorAt": {
+        "x": 0,
+        "z": 0
+      }
     },
     {
       "name": "Gesichtsrahmen oben",
@@ -81,12 +137,12 @@
       "op": "box",
       "at": [
         3,
-        26,
+        27,
         3
       ],
       "size": [
         1,
-        5,
+        4,
         1
       ],
       "color": "metal_light",
@@ -107,6 +163,22 @@
         8
       ],
       "color": "primary"
+    },
+    {
+      "name": "Akzent Kuppel",
+      "op": "box",
+      "at": [
+        -1,
+        33,
+        -3
+      ],
+      "size": [
+        2,
+        1,
+        6
+      ],
+      "color": "primary",
+      "jitter": false
     },
     {
       "name": "Akzent Seite",

@@ -260,7 +260,7 @@ const katalog = JSON.parse(fs.readFileSync(path.join(root, 'assets', 'katalog', 
 
 console.log('\n== Teile je Platz (Schnittstelle Voxelwerk ↔ Spiel)');
 eq(Object.fromEntries(PLAETZE.map((p) => [p, optionen[p]])), {
-  koerper: ['standard'], frisur: ['kurz', 'stirnband', 'welle', 'offen', 'bartkurz', 'bartlang', 'zopfband', 'wild', 'keine'], kopf: ['keine', 'bordhelm'],
+  koerper: ['standard'], frisur: ['kurz', 'stirnband', 'welle', 'offen', 'bartkurz', 'bartlang', 'zopfband', 'wild', 'keine'], kopf: ['keine', 'bordhelm', 'galea', 'spangenhelm', 'hoernerhelm'],   // CHA-02 C
   oberteil: ['bordtunika', 'plankenweste', 'lorica', 'robe', 'einsatzanzug', 'keine'], hose: ['bordhose', 'germanenhose', 'anzughose', 'keine'], schuhe: ['bordstiefel', 'germanenstiefel', 'einsatzstiefel', 'ocreae', 'keine'],   // CHA-02 D1: robe, einsatzanzug, anzughose, einsatzstiefel, ocreae, einsatzhandschuh, sagum
   haende: ['keine', 'armschiene', 'einsatzhandschuh'], umhang: ['keiner', 'fellumhang', 'sagum'],
 }, 'options der Sammelmodelle: Teilenamen exakt wie in der Schnittstelle, Standard zuerst, leerer Wert zuletzt');
@@ -638,6 +638,104 @@ console.log('\n== Frisuren unterscheidbar (Oberseite, Bart, wild)');
   }
 }
 
+// =============================================================================================
+// CHA-02 C: Kopfbedeckungen (Bordhelm überarbeitet, Galea, Spangenhelm, Hörnerhelm), offen, mit Haarmaske für alle 8 Frisuren
+// =============================================================================================
+console.log('\n== Kopfbedeckungen (CHA-02 C)');
+{
+  const HELME = ['bordhelm', 'galea', 'spangenhelm', 'hoernerhelm'];
+  const FRISUREN8 = ['kurz', 'stirnband', 'welle', 'offen', 'bartkurz', 'bartlang', 'zopfband', 'wild'];
+  const HAARC = '#00FF00', HAUTC = '#FF8800', SCHC = '#CC5500';
+  const kopfC = (l, params, colors = {}) => baueFigur(l, 'cha/spieler', { params, colors }).pro.head;
+  const frischC = async () => { const l = nodeLibrary(root); for (const id of chaIds) await l.load('models', id); await l.load('figures', 'cha/spieler'); return l; };
+  const nacktC = new Map(kopfC(lib, { frisur: 'keine', kopf: 'keine' }).map((v) => [schluessel(v), v]));
+  const aussenC = (l, f, h) => haarAussen(baueFigur(l, 'cha/spieler', { params: { frisur: f, kopf: h }, colors: { hair: HAARC } }).pro.head).length;
+  // Katalog: genau diese Kopfbedeckungen, Volk und Name, kein Pileus/Crista als eigenes Teil
+  const kopfTeile = katalog.teile.filter((t) => t.platz === 'kopf');
+  eq(kopfTeile.map((t) => t.id), ['kopf/keine', 'kopf/bordhelm', 'kopf/galea', 'kopf/spangenhelm', 'kopf/hoernerhelm'], 'Katalog: Kopfbedeckung keine, Bordhelm, Galea, Spangenhelm, Hörnerhelm');
+  eq(kopfTeile.slice(1).map((t) => [t.name, t.volk, t.herkunft]), [['Bordhelm', 'crew', 'frei'], ['Galea', 'rom', 'frei'], ['Spangenhelm', 'germanen', 'frei'], ['Hörnerhelm', 'germanen', 'frei']], 'Katalog: Namen, Volk und Herkunft frei');
+  ok(!katalog.teile.some((t) => t.platz === 'kopf' && /pileus|crista/i.test(t.id + t.name)) && !chaIds.some((i) => /^cha\/kopf\/(pileus|crista)/.test(i)), 'Pileus und Crista sind kein eigenes Katalogteil im Platz kopf (nur Teil eines Helms)');
+  ok(kopfTeile.every((t) => fs.existsSync(path.join(root, 'assets', 'sprites', t.vorschau))), 'jede Kopfbedeckung hat ihr Vorschaubild');
+  // Gesichtsöffnung und Haut/Hülle
+  const gesichtN = [...nacktC.values()].filter((v) => v.z === 3 && v.x >= -3 && v.x <= 2 && v.y >= 26 && v.y <= 30);
+  const tol = toleranzenVon(rig).kopf.head, ber = rig.bereiche.head;
+  const lo = [0, 1, 2].map((i) => ber.min[i] - tol.min[i]), hi = [0, 1, 2].map((i) => ber.max[i] + tol.max[i]);
+  const istHaut = (c) => { const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255; return r > 140 && g > 40 && g < 150 && b < 25; };
+  const nachbar = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+  for (const h of HELME) {
+    const id = `cha/kopf/${h}/head`;
+    ok(!!get(id) && !!get(id + '_maske') && get(id).anchor.every((v) => v === 0) && get(id + '_ops').anchor.every((v) => v === 0) && get(id + '_maske').anchor.every((v) => v === 0), `${h}: Teil und Haarmaske existieren, anchor [0,0,0]`);
+    const k = kopfC(lib, { frisur: 'keine', kopf: h }), m = new Map(k.map((v) => [schluessel(v), v]));
+    ok(k.length > nacktC.size, `${h}: baut (${k.length} Kopfvoxel, nackt ${nacktC.size})`);
+    // Gesicht frei: Voxel der Gesichtsöffnung (Augen, Mund, Wangen, Nase) unverändert, davor nichts
+    eq(gesichtN.filter((v) => !m.get(schluessel(v)) || m.get(schluessel(v)).c !== v.c).length, 0, `${h}: Gesicht frei: alle ${gesichtN.length} Voxel der Öffnung (Augen y 28-29, Mund y 26, Wangen y 27, Stirn y 30) unverändert gegenüber dem nackten Kopf`);
+    eq(k.filter((v) => v.z >= 4 && v.x >= -3 && v.x <= 2 && v.y <= 30).length, 0, `${h}: nichts vor dem Gesicht (z >= 4, x -3..2, y <= 30)`);
+    // Hülle innerhalb Rig-Bereich + Toleranz kopf
+    const neu = k.filter((v) => !nacktC.has(schluessel(v)));
+    const raus = neu.filter((v) => v.x < lo[0] || v.x > hi[0] || v.y < lo[1] || v.y > hi[1] || v.z < lo[2] || v.z > hi[2]);
+    eq(raus.length, 0, `${h}: Kopfhülle innerhalb Bereich + Toleranz kopf (x ${lo[0]}..${hi[0]}, y ${lo[1]}..${hi[1]}, z ${lo[2]}..${hi[2]}); Helmvoxel ${neu.length}`);
+    // keine Haut außerhalb der Öffnung sichtbar (y >= 26)
+    const haut = baueFigur(lib, 'cha/spieler', { params: { frisur: 'keine', kopf: h }, colors: { skin: HAUTC, skin_shadow: SCHC } }).pro.head, hs = new Set(haut.map(schluessel));
+    const frei = (v) => nachbar.some(([a, b, c]) => !hs.has(schluessel({ x: v.x + a, y: v.y + b, z: v.z + c })));
+    const hautAussen = haut.filter((v) => v.y >= 26 && istHaut(v.c) && frei(v) && !(v.z >= OEFFNUNG.zMin && v.x >= OEFFNUNG.xMin && v.x <= OEFFNUNG.xMax && v.y <= OEFFNUNG.yMax));
+    eq(hautAussen.length, 0, `${h}: keine Haut außerhalb der Gesichtsöffnung sichtbar (Helm deckt Schädel, Seiten, Nacken)`);
+    // nichts schwebt (ganze Figur, Ruhepose)
+    for (const f of ['kurz', 'bartlang']) {
+      const vs = [...baueFigur(lib, 'cha/spieler', { params: { frisur: f, kopf: h } }).grid.values()], mm = new Map(vs.map((v) => [schluessel(v), v])), seen = new Set([schluessel(vs[0])]), st = [vs[0]];
+      while (st.length) { const a = st.pop(); for (const [dx, dy, dz] of nachbar) { const kk = `${a.x + dx},${a.y + dy},${a.z + dz}`; if (mm.has(kk) && !seen.has(kk)) { seen.add(kk); st.push(mm.get(kk)); } } }
+      eq(mm.size - seen.size, 0, `${h} + ${f}: nichts schwebt`);
+    }
+    // Haarmaske: jede der 8 Frisuren ohne Haar durch den Helm
+    eq(FRISUREN8.map((f) => aussenC(lib, f, h)), FRISUREN8.map(() => 0), `${h} × jede der 8 Frisuren: kein sichtbares Haar außerhalb der Gesichtsöffnung (Haarmaske)`);
+  }
+  ok(FRISUREN8.every((f) => haarAussen(kopfC(lib, { frisur: f, kopf: 'keine' }, { hair: HAARC })).length > 15), 'Kontrolle ohne Helm: jede der 8 Frisuren hat sichtbares Haar außerhalb der Öffnung');
+  // Gestaltung und Rollen
+  {
+    const pal = lib.get('palettes', 'cha').roles;
+    eq([pal.crista_galea, pal.hut_zier_bordhelm], ['#9E1F27', '#B3342B'], 'Galea: Crista in eigener roter Teilrolle, Bordhelm-Akzent bleibt Crew-Rot');
+    ok(Object.keys(pal).filter((r) => /_(galea|spangenhelm|hoernerhelm|bordhelm)$/.test(r)).every((r) => !/^(skin|hair)/.test(r)) && pal.spieler === '#56B4E9' && !Object.entries(pal).some(([r, v]) => r !== 'spieler' && v === '#56B4E9'), 'keine Haut-/Haarrolle und nicht die Spielerfarbe in den Kopfbedeckungen');
+    const g = kopfC(lib, { frisur: 'keine', kopf: 'galea' }), cr = g.filter((v) => v.y >= 33 && v.x >= -1 && v.x <= 0);
+    ok(cr.length >= 24 && g.filter((v) => v.y >= 33 && (v.x < -1 || v.x > 0)).length === 0, `Galea: Crista längs als Kamm (${cr.length} Voxel y 33..34, x -1..0), sonst nichts über y 32`);
+    const hn = kopfC(lib, { frisur: 'keine', kopf: 'hoernerhelm' }), hl = hn.filter((v) => v.x === 4 && v.y >= 30).length, hr = hn.filter((v) => v.x === -5 && v.y >= 30).length;
+    ok(hl > 5 && hl === hr, `Hörnerhelm: zwei gleiche Hörner links und rechts (x 4 und -5, je ${hl} Voxel)`);
+  }
+  // Dreiecke (Mesher wie das Spiel): Kopfbedeckung höchstens +900 gegenüber keine, Worst Case unter 10000
+  {
+    const tri = (params) => {
+      const fg = lib.get('figures', 'cha/spieler'), p = { ...fg.params, ...params };
+      let n = 0;
+      for (const part of Object.values(fg.parts)) { const b = lib.build(part.model, { params: lib.partParams(part.model, p, part.params), palette: fg.palette, colors: fg.colors }); const mm = meshGrid(b.grid); n += (mm.lit.indices.length + mm.emit.indices.length) / 3; }
+      return n;
+    };
+    const voll = { oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' };
+    const t0 = tri({ kopf: 'keine', frisur: 'kurz' }), t = Object.fromEntries(HELME.map((h) => [h, tri({ kopf: h, frisur: 'kurz' })]));
+    const worst = Math.max(...HELME.flatMap((h) => ['bartlang', 'wild', 'offen', 'zopfband'].map((f) => tri({ ...voll, kopf: h, frisur: f }))), tri({ ...voll, kopf: 'keine', frisur: 'bartlang' }));
+    console.log(`    Dreiecke (Kurzschnitt, Standardkleidung): keine ${t0}, ` + HELME.map((h) => `${h} ${t[h]} (+${t[h] - t0})`).join(', ') + `; Worst Case mit voller Ausrüstung und Kopfbedeckung ${worst}`);
+    ok(HELME.every((h) => t[h] - t0 <= 900), `jede Kopfbedeckung kostet höchstens +900 Dreiecke gegenüber keine (${HELME.map((h) => `${h} +${t[h] - t0}`).join(', ')})`);
+    ok(worst < 10000, `Worst Case der Spielerfigur (volle Ausrüstung, Kopfbedeckung, langes Haar) unter 10000 Dreiecken (${worst})`);
+  }
+  // Mutationsproben
+  for (const h of HELME) {
+    const l = await frischC(); l.get('models', `cha/kopf/${h}/head_maske`).ops = [];
+    const a = FRISUREN8.map((f) => aussenC(l, f, h));
+    ok(a.every((n) => n > 0) && a.reduce((x, y) => x + y) > 100, `Mutationsprobe ${h}: ohne Haarmaske sticht bei jeder der 8 Frisuren Haar durch (${a.join(', ')} Voxel)`);
+    const l2 = await frischC(), m2 = l2.get('models', `cha/kopf/${h}/head_maske`);
+    m2.ops = m2.ops.filter((o) => !/\(B2\)/.test(o.name));
+    ok(['zopfband', 'wild', 'offen'].some((f) => aussenC(l2, f, h) > 0), `Mutationsprobe ${h}: Maske ohne die breiten Boxen (B2) → Haar ragt neben oder über dem Helm vorbei`);
+  }
+  {
+    const l = await frischC();
+    l.get('models', 'cha/kopf/hoernerhelm/head_ops').ops.push({ op: 'box', name: 'Horn zu lang', at: [6, 32, -2], size: [1, 2, 2], color: 'trim' });
+    const k = kopfC(l, { frisur: 'keine', kopf: 'hoernerhelm' });
+    ok(k.filter((v) => !nacktC.has(schluessel(v))).some((v) => v.x > hi[0]), 'Mutationsprobe: Horn bei x 6 liegt über der Toleranz kopf (Hüllenprüfung rot)');
+    const l2 = await frischC();
+    l2.get('models', 'cha/kopf/galea/head_ops').ops.push({ op: 'box', name: 'Visier', at: [-3, 26, 4], size: [6, 3, 1], color: 'trim' });
+    const k2 = kopfC(l2, { frisur: 'keine', kopf: 'galea' });
+    ok(k2.filter((v) => v.z >= 4 && v.x >= -3 && v.x <= 2 && v.y <= 30).length > 0, 'Mutationsprobe: Visier vor dem Gesicht → Gesichtsprüfung rot (geschlossener Helm)');
+  }
+}
+// ---- CHA-02 C (Ende)
+
 console.log('\n== Schweben');
 {
   const komp = (grid) => {
@@ -714,14 +812,14 @@ const katalogPruefen = (k, o = optionen, f = fig) => pruefeKatalog(k, { modelIds
   ok(katalog.teile.filter((t) => t.gruppe === 'outfit').every((t) => t.herkunft === 'frei'), 'alle Outfit-Teile haben herkunft "frei"');
   ok(katalog.teile.every((t) => t.vorschau === `cha/vorschau/${t.platz}/${t.id.split('/')[1]}.png`), 'jedes Teil hat vorschau = cha/vorschau/<platz>/<name>.png (relativ zu assets/sprites/), auch die leeren Werte');
   eqS(Object.fromEntries(katalog.teile.filter((t) => t.volk).map((t) => [t.id, t.volk])), {
-    'frisur/kurz': 'rom', 'frisur/stirnband': 'rom', 'frisur/welle': 'rom', 'frisur/offen': 'rom', 'frisur/bartkurz': 'germanen', 'frisur/bartlang': 'germanen', 'frisur/zopfband': 'germanen', 'frisur/wild': 'germanen', 'kopf/bordhelm': 'crew',
+    'frisur/kurz': 'rom', 'frisur/stirnband': 'rom', 'frisur/welle': 'rom', 'frisur/offen': 'rom', 'frisur/bartkurz': 'germanen', 'frisur/bartlang': 'germanen', 'frisur/zopfband': 'germanen', 'frisur/wild': 'germanen', 'kopf/bordhelm': 'crew', 'kopf/galea': 'rom', 'kopf/spangenhelm': 'germanen', 'kopf/hoernerhelm': 'germanen',
     'oberteil/bordtunika': 'crew', 'oberteil/plankenweste': 'germanen', 'oberteil/lorica': 'rom', 'hose/bordhose': 'crew', 'hose/germanenhose': 'germanen', 'schuhe/bordstiefel': 'crew',
     'schuhe/germanenstiefel': 'germanen', 'haende/armschiene': 'rom', 'umhang/fellumhang': 'germanen',
     'oberteil/robe': 'lerche', 'oberteil/einsatzanzug': 'crew', 'hose/anzughose': 'crew', 'schuhe/einsatzstiefel': 'crew', 'schuhe/ocreae': 'rom', 'haende/einsatzhandschuh': 'crew', 'umhang/sagum': 'rom',   // CHA-02 D1
   }, 'volk je Teil (lerche, crew, germanen, rom)');
   eqS(Object.fromEntries(katalog.teile.map((t) => [t.id, t.name])), {
     'frisur/kurz': 'Kurzschnitt', 'frisur/stirnband': 'Stirnband mit Zopf', 'frisur/welle': 'Welle', 'frisur/offen': 'Offenes Haar', 'frisur/bartkurz': 'Kurzhaar mit Bart', 'frisur/bartlang': 'Langhaar mit Vollbart', 'frisur/zopfband': 'Zöpfe mit Stirnband', 'frisur/wild': 'Wildes Haar', 'frisur/keine': 'Kahl',
-    'kopf/keine': 'Keine', 'kopf/bordhelm': 'Bordhelm', 'oberteil/bordtunika': 'Bordtunika', 'oberteil/plankenweste': 'Plankenweste', 'oberteil/lorica': 'Lorica', 'oberteil/keine': 'Unterzeug',
+    'kopf/keine': 'Keine', 'kopf/bordhelm': 'Bordhelm', 'kopf/galea': 'Galea', 'kopf/spangenhelm': 'Spangenhelm', 'kopf/hoernerhelm': 'Hörnerhelm', 'oberteil/bordtunika': 'Bordtunika', 'oberteil/plankenweste': 'Plankenweste', 'oberteil/lorica': 'Lorica', 'oberteil/keine': 'Unterzeug',
     'hose/bordhose': 'Bordhose', 'hose/germanenhose': 'Germanenhose', 'hose/keine': 'Unterzeug', 'schuhe/bordstiefel': 'Bordstiefel', 'schuhe/germanenstiefel': 'Germanenstiefel', 'schuhe/keine': 'Barfuß',
     'haende/keine': 'Keine', 'haende/armschiene': 'Armschiene', 'umhang/keiner': 'Keiner', 'umhang/fellumhang': 'Fellumhang',
     'oberteil/robe': 'Robe', 'oberteil/einsatzanzug': 'Einsatzanzug', 'hose/anzughose': 'Anzughose', 'schuhe/einsatzstiefel': 'Einsatzstiefel', 'schuhe/ocreae': 'Ocreae', 'haende/einsatzhandschuh': 'Einsatzhandschuh', 'umhang/sagum': 'Sagum',   // CHA-02 D1
@@ -845,7 +943,7 @@ const NUR_MUTATION = { frisur: ['kurz', 'bartlang'], kopf: ['keine', 'bordhelm']
 {
   const r = passe(lib);
   eq(r.fehler, [], `Passprobe über alle ${r.kombinationen} Kombinationen × ${Object.keys(r.messung).length} Posenzustände ohne Befund`);
-  eq(r.kombinationen, 19440, '19440 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart)');
+  eq(r.kombinationen, 48600, '48600 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart)');
   ok(r.sekunden < 20, `Laufzeit ${r.sekunden.toFixed(1)} s (Grenze 20 s)`);
   console.log(`    Laufzeit ${r.sekunden.toFixed(1)} s`);
   const alle = Object.entries(r.messung);

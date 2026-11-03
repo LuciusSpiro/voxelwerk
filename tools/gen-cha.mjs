@@ -247,14 +247,21 @@ const WILD = [
   box('Locke Stirn rechts', [2, 30, 3], [2, 1, 1], 'hair'),
   box('Perle', [4, 25, 2], [1, 1, 1], 'cloth', { jitter: false }),
 ];
-/** Bordhelm (aus fig/crew/helm_offen), auf den 8er-Kopf verbreitert: Schale über Hinterkopf und Seiten, Gesichtsrahmen bei z 3. */
+/**
+ * Bordhelm (aus fig/crew/helm_offen), auf den 8er-Kopf verbreitert: Schale über Hinterkopf und Seiten, Gesichtsrahmen bei z 3.
+ * CHA-02 C: kein weißer Eimer mehr: zweistufige Kuppel (y 32 voll, y 33 sechs breit mit abgeschrägten Ecken), Wangenband dunkel, Wangenrahmen 1 Voxel kürzer (y 27..30, lässt die Kinnkante frei).
+ */
 const HELM_BORD = [
   box('Halsring', [-2, 25, -2], [4, 1, 4], 'metal'),
   box('Helmschale', [-4, 26, -4], [8, 6, 7], 'secondary', { mode: 'under' }),
+  box('Wangenband', [-4, 26, -4], [8, 2, 7], 'metal_light', { mode: 'paint', jitter: false }),
   box('Helmdach', [-4, 32, -4], [8, 1, 8], 'secondary'),
+  box('Kuppel', [-3, 33, -3], [6, 1, 6], { shade: 'secondary', f: 1.04 }, { jitter: false }),
+  box('Kuppel Ecken', [2, 33, 2], [1, 1, 1], undefined, { mode: 'carve', mirror: 'xz', mirrorAt: { x: 0, z: 0 } }),
   box('Gesichtsrahmen oben', [-4, 31, 3], [8, 1, 1], 'metal_light'),
-  box('Gesichtsrahmen Seiten', [3, 26, 3], [1, 5, 1], 'metal_light', spiegel),
+  box('Gesichtsrahmen Seiten', [3, 27, 3], [1, 4, 1], 'metal_light', spiegel),
   box('Akzentstreifen', [-1, 32, -4], [2, 1, 8], 'primary'),
+  box('Akzent Kuppel', [-1, 33, -3], [2, 1, 6], 'primary', { jitter: false }),
   box('Akzent Seite', [3, 29, -4], [1, 1, 7], 'primary', { mode: 'paint', ...spiegel }),
   box('Funkmodul', [3, 27, -3], [1, 3, 2], 'metal_dark'),
   box('Antenne', [3, 30, -3], [1, 3, 1], 'metal_light'),
@@ -310,6 +317,66 @@ const LORICA_UNTERARM = [
   box('Ellbogenkachel', [4, 16, -1], [3, 1, 1], 'metal', { mode: 'paint' }),
 ];
 // ---- CHA-02 D2 (Ende) --------------------------------------------------------------------------------------------------------------------------------
+// ---- CHA-02 C: Kopfbedeckungen (offen, Gesicht frei: z 3, x -3..2, y 26..30 bleibt unberührt). Alle bedecken die Schädelhülle (x -4..3, y 26..32, z -4..3) bis auf diese Gesichtsöffnung. Höhe bis y 34, Hörner x -5/4 (Toleranz kopf in cha-lib).
+const KUPPELECKEN = (name, at) => box(name, at, [1, 1, 1], undefined, { mode: 'carve', mirror: 'xz', mirrorAt: { x: 0, z: 0 } });
+/** Galea (aus fig/rom/helm): Bronzeschale, Stirnschirm, Wangenplatten, Nackenschutz und Crista (Kamm längs, rote Rolle, Teil des Helms). Visier und Leuchtschlitz des Bestands entfallen (offen). */
+const HELM_GALEA = [
+  box('Schale', [-4, 26, -4], [8, 6, 7], 'trim', { jitter: false }),
+  box('Dach', [-4, 32, -4], [8, 1, 8], { shade: 'trim', f: 1.06 }, { jitter: false }),
+  box('Wangenplatten', [3, 26, -4], [1, 4, 6], { shade: 'trim', f: 0.8 }, { mode: 'paint', jitter: false, ...spiegel }),
+  box('Stirnband', [-4, 31, -4], [8, 1, 7], 'metal_light', { mode: 'paint', jitter: false }),
+  box('Stirnrahmen', [-4, 31, 3], [8, 1, 1], 'metal_light', { jitter: false }),
+  box('Stirnschirm', [-4, 31, 4], [8, 1, 1], { shade: 'trim', f: 0.9 }, { jitter: false }),
+  box('Wangenrahmen', [3, 27, 3], [1, 4, 1], { shade: 'trim', f: 0.8 }, { jitter: false, ...spiegel }),
+  box('Nackenschutz', [-4, 26, -5], [8, 3, 1], { shade: 'trim', f: 0.85 }, { jitter: false }),
+  box('Nackenschutz Rand', [-4, 26, -5], [8, 1, 1], 'metal_light', { mode: 'paint', jitter: false }),
+  box('Crista', [-1, 33, -4], [2, 2, 8], { stripes: ['primary', { shade: 'primary', f: 0.8 }], axis: 'z', period: 1 }, { jitter: false }),
+  box('Crista Ende hinten', [-1, 33, -4], [2, 1, 1], undefined, { mode: 'carve' }),
+  box('Crista Ende vorn', [-1, 33, 3], [2, 1, 1], undefined, { mode: 'carve' }),
+];
+/** Spangenhelm (aus fig/germanen/helm_a): Stahlschale, Spangen längs und quer über die Kuppel, Stirnreif, Kettenbrünne im Nacken, Spitze. Brille und Nasal des Bestands entfallen (offen). */
+const SPANGEN_FARBE = { noise: ['primary', { shade: 'primary', f: 0.85 }], weights: [3, 1], cell: 2 };
+const HELM_SPANGEN = [
+  box('Schale', [-4, 26, -4], [8, 6, 7], SPANGEN_FARBE, { jitter: false }),
+  box('Dach', [-4, 32, -4], [8, 1, 8], { shade: 'primary', f: 1.1 }, { jitter: false }),
+  box('Kuppel', [-3, 33, -3], [6, 1, 6], { shade: 'primary', f: 1.16 }, { jitter: false }),
+  KUPPELECKEN('Kuppel Ecken', [2, 33, 2]),
+  box('Spitze', [-1, 34, -1], [2, 1, 2], 'metal_light', { jitter: false }),
+  box('Spange längs', [-1, 32, -4], [2, 1, 8], 'metal_light', { jitter: false }),
+  box('Spange quer', [-4, 32, -1], [8, 1, 2], 'metal_light', { jitter: false }),
+  box('Spange hinten', [-1, 26, -4], [2, 6, 1], 'metal_light', { jitter: false }),
+  box('Spange Kuppel', [-1, 33, -3], [2, 1, 6], 'metal_light', { jitter: false }),
+  box('Stirnreif', [-4, 31, -4], [8, 1, 7], 'metal_dark', { mode: 'paint', jitter: false }),
+  box('Stirnrahmen', [-4, 31, 3], [8, 1, 1], 'metal_dark', { jitter: false }),
+  box('Wangenrahmen', [3, 27, 3], [1, 4, 1], 'metal_dark', { jitter: false, ...spiegel }),
+  box('Kettenbrünne Seiten', [3, 26, -4], [1, 3, 6], { checker: ['metal', 'metal_dark'], period: 1 }, { mode: 'paint', jitter: false, ...spiegel }),
+  box('Kettenbrünne hinten', [-4, 26, -5], [8, 3, 1], { checker: ['metal', 'metal_dark'], period: 1 }, { jitter: false }),
+];
+/** Hörnerhelm (aus fig/germanen/helm_b): Klinker-Lederkappe, Stirnreif, Nackenplanken, zwei Hörner seitlich (x 4 und -5: eine Hülle über der Schädelbreite, Fuß aus Metall, Horn und Spitze aus Bein). */
+const KLINKER = { stripes: [{ shade: 'leather', f: 0.8 }, 'leather'], axis: 'y', period: 1 };
+const HELM_HOERNER = [
+  box('Schale', [-4, 26, -4], [8, 6, 7], KLINKER, { jitter: false }),
+  box('Dach', [-4, 32, -4], [8, 1, 8], { shade: 'leather', f: 1.1 }, { jitter: false }),
+  box('Stirnreif', [-4, 31, -4], [8, 1, 7], 'metal_dark', { mode: 'paint', jitter: false }),
+  box('Stirnrahmen', [-4, 31, 3], [8, 1, 1], 'metal_dark', { jitter: false }),
+  box('Wangenrahmen', [3, 27, 3], [1, 4, 1], KLINKER, { jitter: false, ...spiegel }),
+  box('Nackenplanken', [-4, 26, -5], [8, 2, 1], KLINKER, { jitter: false }),
+  box('Spange oben', [-1, 32, -4], [2, 1, 8], 'metal_light', { jitter: false }),
+  box('Hornfuß', [4, 30, -2], [1, 2, 3], 'metal_light', { jitter: false, ...spiegel }),
+  box('Horn', [4, 32, -2], [1, 2, 3], 'trim', { jitter: false, ...spiegel }),
+  box('Hornspitze', [4, 34, -2], [1, 1, 2], 'trim', { jitter: false, ...spiegel }),
+];
+/** Haarmaske aller Kopfbedeckungen (CHA-02 C): schneidet jedes Haar außerhalb der Gesichtsöffnung (x -3..2, z >= 3, y <= 30); alle Helme decken die ganze Schädelhülle. */
+const HAARMASKE = [
+  { name: 'Haar in und neben der Schale (auch x -5 und 4)', op: 'box', at: [-6, 26, -6], size: [12, 5, 9], color: SCHABLONE },
+  { name: 'Haar über der Schale (bis y 34, Fransen vor dem Rahmen)', op: 'box', at: [-6, 31, -6], size: [12, 4, 12], color: SCHABLONE },
+  { name: 'Haar unter der Schale (langes Haar im Nacken, Ohrring)', op: 'box', at: [-6, 20, -6], size: [12, 6, 9], color: SCHABLONE },
+  { name: 'Zöpfe vor der Brust und Schläfen links (B2)', op: 'box', at: [-4, 20, 3], size: [1, 11, 2], color: SCHABLONE },
+  { name: 'Zöpfe vor der Brust und Schläfen rechts (B2)', op: 'box', at: [3, 20, 3], size: [1, 11, 2], color: SCHABLONE },
+  { name: 'Haar über dem Helmdach (B2)', op: 'box', at: [-5, 33, -6], size: [10, 3, 10], color: SCHABLONE },
+  { name: 'Haar neben der Schale links (B2)', op: 'box', at: [4, 22, -6], size: [2, 13, 10], color: SCHABLONE },
+  { name: 'Haar neben der Schale rechts (B2)', op: 'box', at: [-6, 22, -6], size: [2, 13, 10], color: SCHABLONE },
+];
 
 /**
  * Teile. Je Teil und Gattung ein Eintrag:
@@ -366,19 +433,24 @@ const TEILE = [
     head: { ops: { eigene: HELM_BORD },
       farben: { secondary: 'hut', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', primary: 'hut_zier', glow: 'licht' },
       zusatz: {
-        maske: { name: 'Haarmaske (schneidet das Haar-Gitter)', ops: [
-          { name: 'Haar in und neben der Schale (auch x -5 und 4)', op: 'box', at: [-6, 26, -6], size: [12, 5, 9], color: SCHABLONE },
-          { name: 'Haar über der Schale (bis y 34, Fransen vor dem Rahmen)', op: 'box', at: [-6, 31, -6], size: [12, 4, 12], color: SCHABLONE },
-          { name: 'Haar unter der Schale (langes Haar im Nacken, Ohrring)', op: 'box', at: [-6, 20, -6], size: [12, 6, 9], color: SCHABLONE },
-          // B2: Haar der germanischen Frisuren (Zöpfe vor der Brust, Locken über und neben der Schale)
-          { name: 'Zöpfe vor der Brust und Schläfen links (B2)', op: 'box', at: [-4, 20, 3], size: [1, 11, 2], color: SCHABLONE },
-          { name: 'Zöpfe vor der Brust und Schläfen rechts (B2)', op: 'box', at: [3, 20, 3], size: [1, 11, 2], color: SCHABLONE },
-          { name: 'Haar über dem Helmdach (B2)', op: 'box', at: [-5, 33, -6], size: [10, 3, 10], color: SCHABLONE },
-          { name: 'Haar neben der Schale links (B2)', op: 'box', at: [4, 22, -6], size: [2, 13, 10], color: SCHABLONE },
-          { name: 'Haar neben der Schale rechts (B2)', op: 'box', at: [-6, 22, -6], size: [2, 13, 10], color: SCHABLONE },
-        ] },
+        maske: { name: 'Haarmaske (schneidet das Haar-Gitter)', ops: HAARMASKE },
       } },
   } },
+
+  // ---- CHA-02 C: Kopfbedeckungen Galea, Spangenhelm, Hörnerhelm (Haarmaske HAARMASKE wie beim Bordhelm)
+  { platz: 'kopf', name: 'galea', anzeige: 'Galea', volk: 'rom', palette: 'rom', gattungen: {
+    head: { ops: { eigene: HELM_GALEA }, farben: { trim: 'schale', metal_light: 'beschlag', primary: 'crista' },
+      zusatz: { maske: { name: 'Haarmaske (schneidet das Haar-Gitter)', ops: HAARMASKE } } },
+  } },
+  { platz: 'kopf', name: 'spangenhelm', anzeige: 'Spangenhelm', volk: 'germanen', palette: 'nord', gattungen: {
+    head: { ops: { eigene: HELM_SPANGEN }, farben: { primary: 'schale', metal_light: 'spange', metal_dark: 'reif', metal: 'kette' },
+      zusatz: { maske: { name: 'Haarmaske (schneidet das Haar-Gitter)', ops: HAARMASKE } } },
+  } },
+  { platz: 'kopf', name: 'hoernerhelm', anzeige: 'Hörnerhelm', volk: 'germanen', palette: 'nord', gattungen: {
+    head: { ops: { eigene: HELM_HOERNER }, farben: { leather: 'schale', metal_dark: 'reif', metal_light: 'fuss', trim: 'horn' },
+      zusatz: { maske: { name: 'Haarmaske (schneidet das Haar-Gitter)', ops: HAARMASKE } } },
+  } },
+  // ---- CHA-02 C (Ende)
 
   // ---- Oberteil
   { platz: 'oberteil', name: 'bordtunika', anzeige: 'Bordtunika', volk: 'crew', palette: 'lerche_rom', gattungen: {

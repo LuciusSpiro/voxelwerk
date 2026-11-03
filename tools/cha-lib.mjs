@@ -23,6 +23,7 @@ export const CHA_TOLERANZEN = {
   frisur: { head: { min: [1, 5, 3], max: [1, 4, 1] } },
   // CHA-02 D2: Lorica. Schulterpanzer am Rumpf (x 5..10 und gespiegelt -11..-6, y bis 24)
   oberteil: { torso: { min: [6, 0, 0], max: [6, 0, 0] } },   // B2: Zöpfe vor der Brust (y 20, z 4), Locken und Perle neben dem Kopf (x -5 und 4, oberhalb der Schultern)
+  kopf: { head: { min: [1, 0, 2], max: [1, 4, 1] } },   // CHA-02 C: Hörner x -5/4, Crista und Kuppel bis y 34, Stirnschirm z 4, Nackenschutz z -5   // B2: Zöpfe vor der Brust (y 20, z 4), Locken und Perle neben dem Kopf (x -5 und 4, oberhalb der Schultern)
 };
 /**
  * CHA-02 D1: zusätzliche Toleranzen für die recycelten Teile (Robe: Rock bis y 8, Taschen hinter der Hüfte, weite Stulpen; Einsatzanzug: Tornister bei z -6, Armgerät bei x 7;
