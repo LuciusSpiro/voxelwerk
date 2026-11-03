@@ -19,13 +19,15 @@ export const PORTRAET = { w: 260, h: 260 };
  */
 export const KOPFFENSTER = { x: [-5, 4], y: [24, 35], yaw: 28, pitch: 6, gelenke: ['head'] };   // 8er-Kopf (x -4..3, y 25..32), Frisur bis y 34
 export const FENSTER = {
-  frisur: { x: [-6, 5], y: [19, 35], yaw: 28, pitch: 6, gelenke: ['head'] }, kopf: KOPFFENSTER,   // Frisur tiefer, damit Zöpfe und langer Bart in der Kachel stehen
+  frisur: { x: [-6, 5], y: [22, 35], yaw: 28, pitch: 6, gelenke: ['head'] }, kopf: KOPFFENSTER,   // Kopf (y 22..35: Frisur bis y 34, Zöpfe und Bart bis y 23) füllt etwa 85 % der Kachelhöhe
   oberteil: { x: [-7, 7], y: [11, 26], yaw: 28, pitch: 8, gelenke: ['torso', 'upperArmL', 'upperArmR'] },    // Rumpf mit Oberarmen
   hose: { x: [-5, 5], y: [5, 16], yaw: 28, pitch: 8, gelenke: ['hips', 'thighL', 'thighR'] },         // Hüfte bis Knie
   schuhe: { x: [-5, 4], y: [0, 7], yaw: 28, pitch: 10, gelenke: ['shinL', 'shinR'] },       // Unterschenkel und Füße
   haende: { x: [3, 8], y: [9, 17], yaw: 40, pitch: 8, gelenke: ['lowerArmL'] },       // linker Unterarm
   umhang: { x: [-8, 7], y: [7, 27], yaw: 198, pitch: 8, gelenke: ['torso', 'hips', 'upperArmL', 'upperArmR', 'thighL', 'thighR'] },      // von hinten, ohne Kopf und Füße
 };
+/** Haarfarbe (Index im Katalog) der Kacheln je Platz: Frisurkacheln zeigen helles Haar (aschblond), dunkles Haar ist auf dem dunklen Kachelgrund nicht zu unterscheiden. */
+export const KACHEL_HAAR = { frisur: 7 };
 export const PLAETZE_MIT_VORSCHAU = Object.keys(FENSTER);
 
 /**
@@ -54,7 +56,7 @@ export const farbenAus = (katalog, haut = 0, haar = 0) => ({ ...katalog.farben.h
 export function vorschauBild(lib, katalog, teilId) {
   const [platz, name] = teilId.split('/');
   if (!FENSTER[platz]) throw new Error(`Platz "${platz}" hat kein Vorschaufenster`);
-  const fig = baueFigur(lib, katalog.figur, { params: { [platz]: name }, colors: farbenAus(katalog) });
+  const fig = baueFigur(lib, katalog.figur, { params: { [platz]: name }, colors: farbenAus(katalog, 0, KACHEL_HAAR[platz] ?? 0) });
   const f = FENSTER[platz], vox = f.gelenke.flatMap((j) => fig.pro[j]);
   return zeichneAusschnitt(vox, f, KACHEL.w, KACHEL.h).canvas;
 }

@@ -31,7 +31,7 @@
       "color": "hair"
     },
     {
-      "name": "Haar oben",
+      "name": "Stoppelrand",
       "op": "box",
       "at": [
         -4,
@@ -45,27 +45,26 @@
       ],
       "color": {
         "shade": "hair",
-        "f": 1.12
+        "f": 0.8
       }
     },
     {
-      "name": "Scheitel",
+      "name": "Kappe",
       "op": "box",
       "at": [
-        0,
-        32,
-        -4
+        -3,
+        33,
+        -3
       ],
       "size": [
+        6,
         1,
-        1,
-        8
+        6
       ],
       "color": {
         "shade": "hair",
-        "f": 0.78
-      },
-      "mode": "paint"
+        "f": 1.14
+      }
     },
     {
       "name": "Haar hinten",
@@ -132,24 +131,7 @@
       "mirrorAt": 0
     },
     {
-      "name": "Koteletten vorn",
-      "op": "box",
-      "at": [
-        3,
-        27,
-        3
-      ],
-      "size": [
-        1,
-        2,
-        1
-      ],
-      "color": "hair",
-      "mirror": "x",
-      "mirrorAt": 0
-    },
-    {
-      "name": "Bart Wange",
+      "name": "Stoppeln Wange",
       "op": "box",
       "at": [
         1,
@@ -159,28 +141,11 @@
       "size": [
         2,
         2,
-        1
-      ],
-      "color": "hair",
-      "mirror": "x",
-      "mirrorAt": 0
-    },
-    {
-      "name": "Bart Wange vorn",
-      "op": "box",
-      "at": [
-        1,
-        26,
-        4
-      ],
-      "size": [
-        2,
-        1,
         1
       ],
       "color": {
         "shade": "hair",
-        "f": 0.9
+        "f": 0.8
       },
       "mirror": "x",
       "mirrorAt": 0
@@ -200,7 +165,7 @@
       ],
       "color": {
         "shade": "hair",
-        "f": 0.9
+        "f": 0.8
       }
     },
     {
@@ -214,29 +179,11 @@
       "size": [
         6,
         1,
-        2
-      ],
-      "color": {
-        "shade": "hair",
-        "f": 0.92
-      }
-    },
-    {
-      "name": "Kinnspitze",
-      "op": "box",
-      "at": [
-        -2,
-        24,
-        4
-      ],
-      "size": [
-        4,
-        1,
         1
       ],
       "color": {
         "shade": "hair",
-        "f": 0.85
+        "f": 0.8
       }
     }
   ]

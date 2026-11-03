@@ -19,7 +19,9 @@
     {
       "op": "use",
       "model": "cha/frisur/bartlang/head_ops",
-      "colors": {}
+      "colors": {
+        "trim": "band_bartlang"
+      }
     }
   ]
 }

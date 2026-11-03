@@ -388,7 +388,7 @@ console.log('\n== Römische Frisuren (CHA-02 B1)');
 {
   const ROM = ['kurz', 'stirnband', 'welle', 'offen'];
   const HAARC = '#00FF00', GOLD = 0xD9A441, BLAU = 0x2C5DB8;
-  const KOPFHUELLE = { x: [-5, 4], y: [23, 34], z: [-5, 3] };   // Schädel x -4..3, y 26..32, z -4..3 plus Hals; Haar bis 1 Voxel darüber (hinten bis z -5, Nacken bis y 23)
+  const KOPFHUELLE = { x: [-5, 4], y: [23, 34], z: [-5, 4] };   // Schädel x -4..3, y 26..32, z -4..3 plus Hals; Haar bis 1 Voxel darüber (hinten bis z -5, vorn bis z 4: Tolle der Welle über der Stirn, Nacken bis y 23)
   const kopfVon = (l, params, colors = {}) => baueFigur(l, 'cha/spieler', { params, colors }).pro.head;
   const nackt = new Map(kopfVon(lib, { frisur: 'keine' }).map((v) => [schluessel(v), v]));
   const draussen = (vox) => vox.filter((v) => v.x < KOPFHUELLE.x[0] || v.x > KOPFHUELLE.x[1] || v.y < KOPFHUELLE.y[0] || v.y > KOPFHUELLE.y[1] || v.z < KOPFHUELLE.z[0] || v.z > KOPFHUELLE.z[1]);
@@ -455,11 +455,12 @@ console.log('\n== Römische Frisuren (CHA-02 B1)');
       for (const part of Object.values(fg.parts)) { const b = lib.build(part.model, { params: lib.partParams(part.model, p, part.params), palette: fg.palette, colors: fg.colors }); const mm = meshGrid(b.grid); n += (mm.lit.indices.length + mm.emit.indices.length) / 3; }
       return n;
     };
-    const kopfTri = Object.fromEntries(['keine', ...ROM].map((f) => [f, tri({ frisur: f })]));
+    const ALLE8 = [...ROM, 'bartkurz', 'bartlang', 'zopfband', 'wild'];
+    const kopfTri = Object.fromEntries(['keine', ...ALLE8].map((f) => [f, tri({ frisur: f })]));
     console.log('    Dreiecke Spielerfigur (Standardkleidung) je Frisur: ' + Object.entries(kopfTri).map(([f, n]) => `${f} ${n}`).join(', '));
     const worst = tri({ kopf: 'bordhelm', frisur: 'offen', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' });
     console.log(`    Worst Case (Bordhelm, offenes Haar, volle Ausrüstung): ${worst} Dreiecke`);
-    ok(ROM.every((f) => kopfTri[f] - kopfTri.keine <= 700), `jede Frisur kostet höchstens 700 Dreiecke gegenüber dem kahlen Kopf (${ROM.map((f) => `${f} +${kopfTri[f] - kopfTri.keine}`).join(', ')})`);
+    ok(ALLE8.every((f) => kopfTri[f] - kopfTri.keine <= 700), `jede der 8 Frisuren kostet höchstens 700 Dreiecke gegenüber dem kahlen Kopf (${ALLE8.map((f) => `${f} +${kopfTri[f] - kopfTri.keine}`).join(', ')})`);
     ok(worst <= 6000, `Worst Case der Spielerfigur höchstens 6000 Dreiecke (${worst}; Standard heute ${kopfTri.kurz})`);
   }
 }
@@ -475,8 +476,8 @@ console.log('\n== Germanische Frisuren mit Bart (CHA-02 B2)');
   const kopf = (l, params, colors = { hair: HAARC }) => baueFigur(l, 'cha/spieler', { params, colors }).pro.head;
   const koord = (v) => `${v.x},${v.y},${v.z}`;
   const istGruen = (c) => { const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255; return g > 150 && r < 90 && b < 90; };
-  // Zöpfe sichtbar: Haarvoxel an den Gesichtsrändern (x 3 und -4, y <= 29) in der Gesichtsebene und davor (z >= 3), vor denen kein Kopfvoxel weiter vorn in derselben Spalte liegt (frei nach +z = Blick von vorn)
-  const zopfSichtbar = (l, frisur) => { const h = kopf(l, { frisur }), s = new Set(h.map(koord)); return h.filter((v) => v.y <= 29 && v.z >= 3 && (v.x === 3 || v.x === -4) && istGruen(v.c) && ![1, 2, 3, 4, 5].some((d) => s.has(`${v.x},${v.y},${v.z + d}`))).length; };
+  // Zöpfe sichtbar: Haarvoxel außerhalb der Kopfbreite (x <= -5 oder x >= 4, y <= 29, z >= 2, neben dem Gesicht), vor denen kein Kopfvoxel weiter vorn in derselben Spalte liegt (frei nach +z = Blick von vorn)
+  const zopfSichtbar = (l, frisur) => { const h = kopf(l, { frisur }), s = new Set(h.map(koord)); return h.filter((v) => v.y <= 29 && v.z >= 2 && (v.x <= -5 || v.x >= 4) && istGruen(v.c) && ![1, 2, 3, 4, 5].some((d) => s.has(`${v.x},${v.y},${v.z + d}`))).length; };
   // Bart färbt mit: Voxel am Kinn und an den Wangen (z >= 3, y <= 27) ändern ihre Farbe, wenn hair auf Magenta steht
   const bartVoxel = (l, frisur) => { const a = kopf(l, { frisur }, { hair: '#3B2416' }), b = new Map(kopf(l, { frisur }, { hair: PINK }).map((v) => [koord(v), v])); return a.filter((v) => v.z >= 3 && v.y <= 27 && v.x >= -3 && v.x <= 2 && b.get(koord(v)) && b.get(koord(v)).c !== v.c).length; };
   const aussenHelm = (l, frisur) => haarAussen(kopf(l, { frisur, kopf: 'bordhelm' })).length;
@@ -501,7 +502,7 @@ console.log('\n== Germanische Frisuren mit Bart (CHA-02 B2)');
   {
     const gold = (hair) => kopf(lib, { frisur: 'zopfband' }, { hair }).find((v) => v.y === 30 && v.z === 3 && v.x === 0).c;
     eq(gold('#3B2416') === gold(PINK), true, 'zopfband: Stirnband bleibt bei jeder Haarfarbe gleich (feste Teilrolle band_zopfband)');
-    const perle = (hair) => kopf(lib, { frisur: 'wild' }, { hair }).find((v) => v.x === 4 && v.y === 27 && v.z === 1).c;
+    const perle = (hair) => kopf(lib, { frisur: 'wild' }, { hair }).find((v) => v.x === 4 && v.y === 25 && v.z === 2).c;
     eq(perle('#3B2416') === perle(PINK), true, 'wild: Perle bleibt bei jeder Haarfarbe gleich (feste Teilrolle perle_wild)');
     ok(lib.get('palettes', 'cha').roles.band_zopfband === '#D9A93A' && lib.get('palettes', 'cha').roles.perle_wild === '#3E6EB4', 'Stirnband-Gold und Perlenblau stehen als feste Rollen in der Palette cha');
   }
@@ -526,8 +527,10 @@ console.log('\n== Germanische Frisuren mit Bart (CHA-02 B2)');
   // 6. Zöpfe sichtbar von vorn (CHA-01-Befund: die alten Zöpfe hingen nur hinten); nichts geht durch Rumpf, Schulter, Arme
   {
     const n = zopfSichtbar(lib, 'zopfband');
-    ok(n >= 10, `zopfband: ${n} Zopfvoxel an den Gesichtsrändern bis vor die Brust (z >= 3), von vorn frei sichtbar (mindestens 10)`);
-    eq(zopfSichtbar(lib, 'stirnband'), 0, 'Kontrolle: der Zopf von stirnband (römisch) hängt seitlich hinten (x -5), 0 von vorn sichtbare Voxel an den Gesichtsrändern');
+    ok(n >= 10, `zopfband: ${n} Zopfvoxel außerhalb der Kopfbreite (x 4 und -5) bei z >= 2, von vorn frei sichtbar (mindestens 10)`);
+    const ns = zopfSichtbar(lib, 'stirnband');
+    ok(ns >= 5, `stirnband: der Zopf hängt vor der Schulter (x -5, z 3), ${ns} Voxel von vorn frei sichtbar (mindestens 5)`);
+    eq(['kurz', 'offen', 'bartkurz'].map((f) => zopfSichtbar(lib, f)), [0, 0, 0], 'Kontrolle: Frisuren ohne Zopf haben 0 sichtbare Voxel außerhalb der Kopfbreite vorn');
     const schnitt = [];
     for (const f of G4) for (const o of [{ oberteil: 'bordtunika' }, { oberteil: 'plankenweste', umhang: 'fellumhang' }]) {
       const r = baueFigur(lib, 'cha/spieler', { params: { frisur: f, ...o } }), h = new Set(r.pro.head.map(koord));
@@ -539,7 +542,7 @@ console.log('\n== Germanische Frisuren mit Bart (CHA-02 B2)');
   // 7. Mutationsproben der neuen Prüfungen
   {
     const l = await frischB2();
-    for (const o of l.get('models', 'cha/frisur/zopfband/head_ops').ops) if (['Zopf', 'Zopf Bogen', 'Zopfband'].includes(o.name)) o.at = [o.at[0], o.at[1], -5];
+    for (const o of l.get('models', 'cha/frisur/zopfband/head_ops').ops) if (['Zopf', 'Zopf Ansatz', 'Zopfband'].includes(o.name)) o.at = [o.at[0], o.at[1], -5];
     ok(zopfSichtbar(l, 'zopfband') < 10, `Mutationsprobe: Zöpfe nach hinten (z -5) gelegt → Sichtbarkeitsprüfung rot (${zopfSichtbar(l, 'zopfband')} < 10)`);
     const l2 = await frischB2();
     for (const o of l2.get('models', 'cha/frisur/bartlang/head_ops').ops) if (['Kinn', 'Bart unten', 'Bart lang', 'Bart Spitze', 'Bart Wange', 'Bart Wange vorn', 'Oberlippe'].includes(o.name)) o.color = '#3B2416';
@@ -551,6 +554,66 @@ console.log('\n== Germanische Frisuren mit Bart (CHA-02 B2)');
     l4.get('models', 'cha/frisur/bartlang/head_ops').ops.push({ op: 'box', name: 'Augenbinde', at: [1, 28, 3], size: [1, 2, 1], color: 'hair' });
     const h4 = new Map(kopf(l4, { frisur: 'bartlang' }).map((v) => [koord(v), v]));
     ok(!kopf(lib, { frisur: 'keine' }).filter((v) => v.z === 3 && v.x === 1 && [28, 29].includes(v.y)).every((v) => h4.get(koord(v)).c === v.c), 'Mutationsprobe: Haar über dem Auge → Augenprüfung rot');
+  }
+}
+
+// =============================================================================================
+// CHA-02 B (Nacharbeit): eigene Oberseite je Frisur, Bart kurz/lang, Zöpfe, wild ohne Einzelzacken
+// =============================================================================================
+console.log('\n== Frisuren unterscheidbar (Oberseite, Bart, wild)');
+{
+  const ALLE = ['kurz', 'stirnband', 'welle', 'offen', 'bartkurz', 'bartlang', 'zopfband', 'wild'];
+  const HAARC = '#00FF00';
+  const koord = (v) => `${v.x},${v.y},${v.z}`;
+  const istGruen = (c) => { const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255; return g > 150 && r < 90 && b < 90; };
+  const kopf = (l, frisur) => baueFigur(l, 'cha/spieler', { params: { frisur }, colors: { hair: HAARC } }).pro.head;
+  const frisch = async () => { const l = nodeLibrary(root); for (const id of chaIds) await l.load('models', id); await l.load('figures', 'cha/spieler'); return l; };
+  /** Höhenkarte der Oberseite: je Spalte (x, z) das höchste Haarvoxel mit y 32..34 (Draufsicht der Spielkamera) */
+  const hoehe = (l, frisur) => { const m = new Map(); for (const v of kopf(l, frisur)) if (v.y >= 32 && istGruen(v.c)) { const k = v.x + ',' + v.z; m.set(k, Math.max(m.get(k) ?? 0, v.y)); } return m; };
+  /** Unterschied zweier Oberseiten: Zahl der Spalten (x, z) mit verschiedener Haarhöhe */
+  const unterschied = (a, b) => { let n = 0; for (const k of new Set([...a.keys(), ...b.keys()])) if ((a.get(k) ?? 0) !== (b.get(k) ?? 0)) n++; return n; };
+  const N_OBEN = 8;
+  const karten = Object.fromEntries(ALLE.map((f) => [f, hoehe(lib, f)]));
+  const paare = ALLE.flatMap((a, i) => ALLE.slice(i + 1).map((b) => [a, b, unterschied(karten[a], karten[b])]));
+  const schlecht = paare.filter(([, , n]) => n < N_OBEN);
+  eq(schlecht, [], `jede der ${paare.length} Frisurenpaare unterscheidet sich in der Oberseite (Höhenkarte y 32..34) in mindestens ${N_OBEN} Spalten (kleinster Wert ${Math.min(...paare.map((p) => p[2]))})`);
+  // Mutationsprobe: zwei identische Kappen (bartkurz bekommt die Ops von stirnband, kurz die von offen) → Paarprüfung rot
+  {
+    const l = await frisch();
+    l.get('models', 'cha/frisur/bartkurz/head_ops').ops = structuredClone(l.get('models', 'cha/frisur/stirnband/head_ops').ops);
+    ok(unterschied(hoehe(l, 'bartkurz'), hoehe(l, 'stirnband')) < N_OBEN, 'Mutationsprobe: zwei identische Kappen (bartkurz = stirnband) → Oberseitenprüfung rot (Unterschied 0)');
+    const l2 = await frisch();
+    const kurz = l2.get('models', 'cha/frisur/kurz/head_ops').ops, offen = l2.get('models', 'cha/frisur/offen/head_ops').ops;
+    l2.get('models', 'cha/frisur/kurz/head_ops').ops = structuredClone(offen);
+    ok(unterschied(hoehe(l2, 'kurz'), hoehe(l2, 'offen')) < N_OBEN && kurz.length > 0, 'Mutationsprobe: kurz mit den Ops von offen → rot');
+  }
+  // bartkurz / bartlang: Frontsilhouette (Haarvoxel mit z >= 3 vor dem Gesicht, y <= 29) unterscheidet sich; bartlang steht vor (z >= 4), bartkurz ist flach
+  {
+    const front = (l, f) => new Set(kopf(l, f).filter((v) => v.z >= 3 && v.y <= 29 && istGruen(v.c)).map(koord));
+    const vorn = (l, f) => kopf(l, f).filter((v) => v.z >= 4 && v.y <= 29 && istGruen(v.c)).length;
+    const a = front(lib, 'bartkurz'), b = front(lib, 'bartlang');
+    const diff = [...a].filter((k) => !b.has(k)).length + [...b].filter((k) => !a.has(k)).length;
+    ok(diff >= 16, `bartkurz und bartlang unterscheiden sich in der Frontsilhouette (z >= 3) um ${diff} Voxel (mindestens 16)`);
+    eq([vorn(lib, 'bartkurz'), vorn(lib, 'bartlang') >= 12], [0, true], `bartkurz ist flach (kein Bartvoxel bei z >= 4), bartlang steht vor (${vorn(lib, 'bartlang')} Voxel bei z >= 4)`);
+    const mund = (f) => kopf(lib, f).filter((v) => v.z >= 3 && [-1, 0].includes(v.x) && v.y === 26 && istGruen(v.c)).length;
+    eq([mund('bartkurz'), mund('bartlang')], [0, 0], 'Mund (x -1..0, y 26) bleibt bei beiden Bärten frei');
+    const l = await frisch();
+    l.get('models', 'cha/frisur/bartlang/head_ops').ops = structuredClone(l.get('models', 'cha/frisur/bartkurz/head_ops').ops);
+    const a2 = front(l, 'bartkurz'), b2 = front(l, 'bartlang');
+    ok([...a2].filter((k) => !b2.has(k)).length + [...b2].filter((k) => !a2.has(k)).length < 16, 'Mutationsprobe: bartlang mit den Ops von bartkurz → Frontsilhouettenprüfung rot');
+  }
+  // wild: keine Einzelzacken am Rand: kein 1×1×1-Haarvoxel auf y >= 33, das an x 4/-5 oder z -4/3 (bzw. weiter außen) liegt und in der Nachbarschaft (6er) frei ist
+  {
+    // "frei" = kein Nachbar außer dem darunterliegenden Haar; ein Einzelvoxel hängt also nur von unten an der Kappe
+    const zacken = (l, f) => { const h = kopf(l, f), s = new Set(h.map(koord)); return h.filter((v) => v.y >= 33 && istGruen(v.c) && (v.x >= 4 || v.x <= -5 || v.z <= -4 || v.z >= 3) && [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 0, -1]].every(([a, b, c]) => !s.has(`${v.x + a},${v.y + b},${v.z + c}`))).map(koord); };
+    eq(zacken(lib, 'wild'), [], 'wild: keine Einzelzacken (1×1×1-Haarvoxel mit freier Nachbarschaft auf y >= 33) am Rand (x 4/-5, z -4/3)');
+    // Innere Buckel: höchstens drei Voxel-Cluster auf y 34, je höchstens 2×1×2
+    const oben = kopf(lib, 'wild').filter((v) => v.y === 34 && istGruen(v.c));
+    ok(oben.length <= 12 && oben.length >= 4, `wild: ${oben.length} Voxel auf y 34 (höchstens drei Buckel 2×1×2 im Inneren)`);
+    ok(oben.every((v) => v.x >= -3 && v.x <= 1 && v.z >= -3 && v.z <= 1), 'wild: die Buckel liegen im Inneren (x -3..1, z -3..1), nicht am Rand');
+    const l = await frisch();
+    l.get('models', 'cha/frisur/wild/head_ops').ops.push({ op: 'box', name: 'Zacke Rand', at: [-4, 34, -4], size: [1, 1, 1], color: 'hair' }, { op: 'box', name: 'Zacke hinten', at: [1, 34, -4], size: [1, 1, 1], color: 'hair' });
+    ok(zacken(l, 'wild').length >= 2, `Mutationsprobe: zwei Einzelzacken am Rand → Zackenprüfung rot (${zacken(l, 'wild').length} gefunden)`);
   }
 }
 

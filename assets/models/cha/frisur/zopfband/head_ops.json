@@ -49,21 +49,39 @@
       }
     },
     {
+      "name": "Scheitelwulst",
+      "op": "box",
+      "at": [
+        -1,
+        33,
+        -4
+      ],
+      "size": [
+        2,
+        1,
+        7
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.2
+      }
+    },
+    {
       "name": "Scheitel",
       "op": "box",
       "at": [
         0,
-        32,
+        33,
         -4
       ],
       "size": [
         1,
         1,
-        8
+        7
       ],
       "color": {
         "shade": "hair",
-        "f": 0.78
+        "f": 0.75
       },
       "mode": "paint"
     },
@@ -72,28 +90,46 @@
       "op": "box",
       "at": [
         -4,
-        27,
+        26,
         -4
       ],
       "size": [
         8,
-        4,
+        5,
         1
       ],
       "color": "hair"
+    },
+    {
+      "name": "Haar hinten lang",
+      "op": "box",
+      "at": [
+        -4,
+        24,
+        -5
+      ],
+      "size": [
+        8,
+        7,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.92
+      }
     },
     {
       "name": "Haar Seiten",
       "op": "box",
       "at": [
         3,
-        27,
-        -3
+        25,
+        -4
       ],
       "size": [
         1,
-        4,
-        4
+        6,
+        8
       ],
       "color": "hair",
       "mirror": "x",
@@ -150,24 +186,27 @@
       "mirrorAt": 0
     },
     {
-      "name": "Zopf Schläfe",
+      "name": "Zopf",
       "op": "box",
       "at": [
-        3,
-        26,
+        4,
+        25,
         3
       ],
       "size": [
         1,
-        4,
+        5,
         1
       ],
       "color": {
         "stripes": [
-          "hair",
           {
             "shade": "hair",
-            "f": 0.78
+            "f": 1.15
+          },
+          {
+            "shade": "hair",
+            "f": 0.7
           }
         ],
         "axis": "y",
@@ -177,41 +216,27 @@
       "mirrorAt": 0
     },
     {
-      "name": "Zopf Bogen",
+      "name": "Zopf Ansatz",
       "op": "box",
       "at": [
-        3,
-        25,
-        3
-      ],
-      "size": [
-        1,
-        1,
+        4,
+        27,
         2
       ],
-      "color": "hair",
-      "mirror": "x",
-      "mirrorAt": 0
-    },
-    {
-      "name": "Zopf",
-      "op": "box",
-      "at": [
-        3,
-        23,
-        4
-      ],
       "size": [
         1,
-        2,
+        3,
         1
       ],
       "color": {
         "stripes": [
-          "hair",
           {
             "shade": "hair",
-            "f": 0.78
+            "f": 1.15
+          },
+          {
+            "shade": "hair",
+            "f": 0.7
           }
         ],
         "axis": "y",
@@ -224,9 +249,9 @@
       "name": "Zopfband",
       "op": "box",
       "at": [
-        3,
-        23,
-        4
+        4,
+        24,
+        3
       ],
       "size": [
         1,

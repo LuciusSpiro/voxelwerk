@@ -54,11 +54,47 @@
       "jitter": false
     },
     {
+      "name": "Haar oben hinten (eine Lage höher)",
+      "op": "box",
+      "at": [
+        -4,
+        34,
+        -4
+      ],
+      "size": [
+        8,
+        1,
+        4
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.18
+      },
+      "jitter": false
+    },
+    {
       "name": "Ecken hinten",
       "op": "box",
       "at": [
         3,
         33,
+        -4
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "mode": "carve",
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Ecken hinten oben",
+      "op": "box",
+      "at": [
+        3,
+        34,
         -4
       ],
       "size": [
@@ -86,26 +122,6 @@
       "mode": "carve",
       "mirror": "x",
       "mirrorAt": 0
-    },
-    {
-      "name": "Scheitel",
-      "op": "box",
-      "at": [
-        -2,
-        33,
-        -4
-      ],
-      "size": [
-        1,
-        1,
-        7
-      ],
-      "color": {
-        "shade": "hair",
-        "f": 0.8
-      },
-      "mode": "paint",
-      "jitter": false
     },
     {
       "name": "Pony Strähne",

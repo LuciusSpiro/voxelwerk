@@ -5,6 +5,7 @@
   "generated": true,
   "notes": "Platzrollen der Schichten (cha/), je Teil eigene Rollen (<name>_<teil>) mit den Bestandsfarben des Teils. skin, skin_shadow, hair kommen ausschließlich von der Figur (colors); Ausnahme siehe PINNEN in tools/cha-lib.mjs. Keine Spielerfarbe in Kleidungsrollen.",
   "roles": {
+    "band_bartlang": "#D9A93A",
     "band_stirnband": "#D9A441",
     "band_zopfband": "#D9A93A",
     "gummi_germanenstiefel": "#24262B",

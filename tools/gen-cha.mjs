@@ -100,18 +100,18 @@ const KOPF_8 = [
 // über der Hülle (y 33/34, x -5/4, z -5). Haarrolle = `hair` (Figur, 8 Farben); Stirnband und Ohrring haben je Teil eine feste eigene Farbrolle (kein Haar).
 // Keine Kopplung an einen Körper: jede Frisur ist für jede Figur wählbar.
 const eck = (name, at) => box(name, at, [1, 1, 1], undefined, { mode: 'carve', ...spiegel });   // Ecke des Haars abrunden (Spiegelpaar)
-/** Kurzschnitt: gerader Schnitt mit Pony, Seitenscheitel links (x -4..-2 tiefer), keine Fransen über den Augen. */
+/** Kurzschnitt (Caesar-Pony): Stirnfransen als Stufe nach vorn, die hintere Kappenhälfte (z -4..-1) eine Lage höher; kein Scheitel. Oberseite von oben: drei Stufen (y 32 vorn, 33 Mitte, 34 hinten). */
 const FRISUR_KURZ = [
   box('Haarkranz', [-4, 31, -4], [8, 2, 8], { shade: 'hair', f: 1.04 }, { jitter: false }),
   box('Haar oben', [-4, 33, -4], [8, 1, 7], { shade: 'hair', f: 1.12 }, { jitter: false }),
-  eck('Ecken hinten', [3, 33, -4]), eck('Ecken vorn', [3, 33, 2]),
-  box('Scheitel', [-2, 33, -4], [1, 1, 7], { shade: 'hair', f: 0.8 }, { mode: 'paint', jitter: false }),
+  box('Haar oben hinten (eine Lage höher)', [-4, 34, -4], [8, 1, 4], { shade: 'hair', f: 1.18 }, { jitter: false }),
+  eck('Ecken hinten', [3, 33, -4]), eck('Ecken hinten oben', [3, 34, -4]), eck('Ecken vorn', [3, 33, 2]),
   box('Pony Strähne', [-4, 30, 3], [3, 1, 1], { shade: 'hair', f: 0.94 }),
   box('Haar Seiten', [3, 29, -4], [1, 2, 6], 'hair', { jitter: false, ...spiegel }),
   box('Haar Seiten unten', [3, 28, -4], [1, 1, 4], { shade: 'hair', f: 0.9 }, { jitter: false, ...spiegel }),
   box('Haar hinten', [-4, 28, -4], [8, 3, 1], { shade: 'hair', f: 0.9 }, { jitter: false }),
 ];
-/** Stirnband mit Zopf: kurzes Haar über einem goldenen Stirnband (rings um den Kopf, y 31), Seiten und Nacken darunter bis y 27, ein Zopf links (x -5) hängt bis y 23. */
+/** Stirnband mit Zopf: kurzes Haar über einem goldenen Stirnband (rings um den Kopf, y 31), Seiten und Nacken darunter bis y 27. Der Zopf links (x -5) kommt vom Ohr nach vorn (z 3) und hängt vor der Schulter bis y 23. */
 const FRISUR_STIRNBAND = [
   box('Haar oben', [-4, 32, -4], [8, 1, 8], { shade: 'hair', f: 1.1 }, { jitter: false }),
   box('Haarkappe', [-4, 33, -4], [8, 1, 7], { shade: 'hair', f: 1.12 }, { jitter: false }),
@@ -122,109 +122,130 @@ const FRISUR_STIRNBAND = [
   box('Stirnband vorn', [-4, 31, 3], [8, 1, 1], 'trim', { jitter: false }),
   box('Stirnband hinten', [-4, 31, -4], [8, 1, 1], 'trim', { jitter: false }),
   box('Stirnband Seiten', [3, 31, -3], [1, 1, 6], 'trim', { jitter: false, ...spiegel }),
-  box('Zopf', [-5, 24, -3], [1, 5, 2], { stripes: [{ shade: 'hair', f: 1.15 }, { shade: 'hair', f: 0.75 }], axis: 'y', period: 2 }),
-  box('Zopfansatz', [-5, 29, -3], [1, 1, 2], 'hair', { jitter: false }),
-  box('Zopfband', [-5, 23, -3], [1, 1, 1], 'trim', { jitter: false }),
+  box('Zopfansatz', [-5, 29, 1], [1, 1, 3], 'hair', { jitter: false }),   // vom Seitenhaar (x -4, z bis 1) nach vorn bis z 3
+  box('Zopf', [-5, 24, 3], [1, 5, 1], { stripes: [{ shade: 'hair', f: 1.15 }, { shade: 'hair', f: 0.7 }], axis: 'y', period: 2 }),
+  box('Zopfband', [-5, 23, 3], [1, 1, 1], 'trim', { jitter: false }),
 ];
-/** Welle: mittellang, wellig über den Ohren (Seiten gestaffelt, x -5/4), kleine Strähnen auf dem Scheitel (y 34). */
+/** Welle: mittellang, Seitenwellen als S-Linie (oben x 4, Mitte x 3, unten x 4, in z gegeneinander versetzt), die Strähnen sind zu einer Tolle vorn gebündelt (y 34) mit Überhang über der Stirn. */
 const FRISUR_WELLE = [
-  box('Haarkranz', [-4, 31, -4], [8, 2, 8], { noise: ['hair', { shade: 'hair', f: 1.12 }], weights: [4, 1], cell: 1 }),
-  box('Haar oben', [-4, 33, -4], [8, 1, 7], { noise: [{ shade: 'hair', f: 1.1 }, { shade: 'hair', f: 0.88 }], weights: [3, 1], cell: 1 }),
+  box('Haarkranz', [-4, 31, -4], [8, 2, 8], { noise: ['hair', { shade: 'hair', f: 1.12 }], weights: [4, 1], cell: 2 }, { jitter: false }),
+  box('Haar oben', [-4, 33, -4], [8, 1, 7], { noise: [{ shade: 'hair', f: 1.1 }, { shade: 'hair', f: 0.88 }], weights: [3, 1], cell: 2 }, { jitter: false }),
   eck('Ecken hinten', [3, 33, -4]), eck('Ecken vorn', [3, 33, 2]),
-  box('Strähne links', [-3, 34, 0], [2, 1, 1], 'hair', { jitter: false }),
-  box('Strähne Mitte', [0, 34, -2], [1, 1, 2], { shade: 'hair', f: 1.1 }, { jitter: false }),
-  box('Strähne rechts', [2, 34, -3], [1, 1, 1], { shade: 'hair', f: 0.9 }, { jitter: false }),
+  box('Tolle', [-2, 34, 0], [3, 1, 3], { shade: 'hair', f: 1.16 }, { jitter: false }),
+  box('Tolle Überhang', [-2, 33, 3], [3, 1, 2], { shade: 'hair', f: 1.1 }, { jitter: false }),   // z 3..4 über der Stirn (y 33, über dem Gesicht)
   box('Pony Strähne', [-4, 30, 3], [2, 1, 1], 'hair'),
   box('Pony Strähne rechts', [2, 30, 3], [2, 1, 1], 'hair'),
   box('Haar Seiten', [3, 27, -4], [1, 4, 6], 'hair', spiegel),
-  box('Welle Seite oben', [4, 28, -3], [1, 3, 4], { shade: 'hair', f: 0.92 }, spiegel),
-  box('Welle Seite unten', [4, 26, -2], [1, 2, 4], 'hair', spiegel),
+  box('Welle Seite oben', [4, 29, -3], [1, 3, 4], { shade: 'hair', f: 0.92 }, spiegel),   // S-Linie: oben x 4 (z -3..0) ...
+  box('Welle Seite unten', [4, 25, -1], [1, 2, 4], 'hair', spiegel),   // ... Mitte x 3 ... unten wieder x 4 (z -1..2)
   box('Haar hinten', [-4, 26, -4], [8, 5, 1], 'hair'),
   box('Welle hinten oben', [-4, 28, -5], [8, 3, 1], { shade: 'hair', f: 0.9 }),
   box('Welle hinten unten', [-3, 26, -5], [6, 2, 1], 'hair'),
 ];
-/** Offenes Haar: lang bis auf die Schultern. Seiten fallen bis zum Kinn (y 26), der Rücken bis y 23 (hinter dem Hals, z -5..-4); blauer Ohrring rechts (x 4). */
+/**
+ * Offenes Haar: lang bis auf die Schultern, Scheitel seitlich (x -2), die linke Seite eine Lage höher (y 34). Rechts (x+) liegt das Haar hinter dem Ohr (z -4..-2, endet bei y 28) und der blaue Ohrring ragt heraus;
+ * links fällt es nach vorn über die Schulter (x -5, bis z 2, y 23). Die Rückenplatte verjüngt sich V-förmig (10 breit y 28..31, 8 breit y 25..27, 6 breit y 24), die Strähnenenden enden bei y 24/25/26 abwechselnd.
+ */
 const FRISUR_OFFEN = [
   box('Haarkranz', [-4, 31, -4], [8, 2, 8], { shade: 'hair', f: 1.04 }, { jitter: false }),
-  box('Haar oben', [-4, 33, -4], [8, 1, 7], { shade: 'hair', f: 1.12 }, { jitter: false }),
-  eck('Ecken hinten', [3, 33, -4]), eck('Ecken vorn', [3, 33, 2]),
-  box('Scheitel', [0, 33, -4], [1, 1, 7], { shade: 'hair', f: 0.8 }, { mode: 'paint', jitter: false }),
+  box('Haar oben', [-1, 33, -4], [5, 1, 7], { shade: 'hair', f: 1.12 }, { jitter: false }),
+  box('Haar oben links höher', [-4, 33, -4], [3, 2, 7], { shade: 'hair', f: 1.16 }, { jitter: false }),
+  eck('Ecken hinten', [3, 33, -4]), eck('Ecken vorn', [3, 33, 2]), eck('Ecken links hinten oben', [-4, 34, -4]), eck('Ecken links vorn oben', [-4, 34, 2]),
+  box('Scheitel', [-2, 34, -4], [1, 1, 7], { shade: 'hair', f: 0.78 }, { mode: 'paint', jitter: false }),
   box('Pony Seite', [-4, 30, 3], [2, 1, 1], 'hair', spiegel),
-  box('Haar Seiten', [3, 26, -4], [1, 5, 7], 'hair', { jitter: false, ...spiegel }),
-  box('Haar Seiten außen', [4, 27, -4], [1, 5, 5], { shade: 'hair', f: 0.9 }, { jitter: false, ...spiegel }),
-  box('Haar hinten', [-4, 24, -4], [8, 7, 1], { shade: 'hair', f: 0.92 }, { jitter: false }),
-  box('Haar hinten außen', [-5, 24, -5], [10, 8, 1], { stripes: ['hair', { shade: 'hair', f: 0.82 }], axis: 'x', period: 2 }),
-  box('Ohrring', [4, 25, 0], [1, 2, 1], 'primary', { jitter: false }),
-  eck('Spitzen', [3, 24, -5]), box('Spitzen Mitte', [-3, 24, -5], [1, 1, 1], undefined, { mode: 'carve' }), box('Spitzen Mitte 2', [1, 24, -5], [1, 1, 1], undefined, { mode: 'carve' }),
+  box('Haar rechts hinter dem Ohr', [3, 28, -4], [1, 3, 3], 'hair', { jitter: false }),
+  box('Haar rechts hinter dem Ohr außen', [4, 28, -4], [1, 4, 3], { shade: 'hair', f: 0.9 }, { jitter: false }),
+  box('Haar links', [-4, 26, -4], [1, 5, 7], 'hair', { jitter: false }),
+  box('Haar links über der Schulter', [-5, 24, -4], [1, 7, 6], { shade: 'hair', f: 0.9 }, { jitter: false }),
+  box('Strähne links 1', [-5, 23, -3], [1, 1, 2], { shade: 'hair', f: 0.82 }, { jitter: false }),
+  box('Haar hinten', [-4, 26, -4], [8, 5, 1], { shade: 'hair', f: 0.92 }, { jitter: false }),
+  box('Rücken oben', [-5, 28, -5], [10, 4, 1], { stripes: ['hair', { shade: 'hair', f: 0.82 }], axis: 'x', period: 2 }),
+  box('Rücken Mitte', [-4, 25, -5], [8, 3, 1], { stripes: ['hair', { shade: 'hair', f: 0.82 }], axis: 'x', period: 2 }),
+  box('Rücken unten', [-3, 24, -5], [6, 1, 1], { shade: 'hair', f: 0.82 }),
+  ...[[-3, 24], [0, 24], [2, 24], [-4, 25], [3, 25]].map(([x, y], i) => carve(`Strähnenende ${i + 1}`, [x, y, -5], [1, 1, 1])),
+  box('Ohrring', [4, 25, 1], [1, 2, 1], 'primary', { jitter: false }),
 ];
 // ---- CHA-02 B1 (Ende) --------------------------------------------------------------------------------------------------------------------------------
 
 // ---- B2: vier germanische Frisuren mit Bart (CHA-02 B). Haar und Bart tragen die Rolle hair (die Haarfarbe färbt beides); Gold und Schmuck sind feste Teilrollen.
 // Maße: Schädel x -4..3, y 26..32, z -4..3, Gesicht bei z 3 (Augen y 28-29 bei x 1 und -2, Mund y 26 bei x -1..0, Wangen y 27): Bart lässt Augen und Mund frei.
-const STREIFEN = { stripes: ['hair', { shade: 'hair', f: 0.78 }], axis: 'y', period: 2 };
+const STREIFEN_ZOPF = { stripes: [{ shade: 'hair', f: 1.15 }, { shade: 'hair', f: 0.7 }], axis: 'y', period: 2 };
 const schatten = (f) => ({ shade: 'hair', f });
-const KAPPE_G = [
-  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
-  box('Haar oben', [-4, 32, -4], [8, 1, 8], schatten(1.12)),
-  box('Scheitel', [0, 32, -4], [1, 1, 8], schatten(0.78), { mode: 'paint' }),
-];
+/** Kurzhaar mit kurzem Bart: kurze Kappe (6×6, y 33) mit abgesetztem dunklem Stoppelrand (y 32, f 0,8); der Bart ist flach (nur z 3, dunkler Ton) und lässt den Mund (x -1..0, y 26) frei. */
 const BART_KURZ = [
-  ...KAPPE_G,
+  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
+  box('Stoppelrand', [-4, 32, -4], [8, 1, 8], schatten(0.8)),
+  box('Kappe', [-3, 33, -3], [6, 1, 6], schatten(1.14)),
   box('Haar hinten', [-4, 28, -4], [8, 3, 1], 'hair'),
   box('Haar Seiten', [3, 29, -3], [1, 2, 3], 'hair', spiegel),
   box('Strähne', [-4, 30, 3], [2, 1, 1], 'hair'),
   box('Koteletten', [3, 26, -1], [1, 3, 4], 'hair', spiegel),
-  box('Koteletten vorn', [3, 27, 3], [1, 2, 1], 'hair', spiegel),
-  box('Bart Wange', [1, 26, 3], [2, 2, 1], 'hair', spiegel),
-  box('Bart Wange vorn', [1, 26, 4], [2, 1, 1], schatten(0.9), spiegel),
-  box('Oberlippe', [-1, 27, 3], [2, 1, 1], schatten(0.9)),
-  box('Kinn', [-3, 25, 3], [6, 1, 2], schatten(0.92)),
-  box('Kinnspitze', [-2, 24, 4], [4, 1, 1], schatten(0.85)),
+  box('Stoppeln Wange', [1, 26, 3], [2, 2, 1], schatten(0.8), spiegel),
+  box('Oberlippe', [-1, 27, 3], [2, 1, 1], schatten(0.8)),
+  box('Kinn', [-3, 25, 3], [6, 1, 1], schatten(0.8)),
 ];
+/**
+ * Langhaar mit Vollbart: Suebenknoten hinten oben (3×2×2 bei [1,33,-3], Band in Rolle trim), Streifen nach hinten gekämmt; der Bart ist voll und steht vor (z 3..4, Kieferbreite von Haar zu Haar, Rahmen ums Gesicht bis x 4/-5),
+ * Schnurrbart über dem Mund, Gabelbart am Kinn (y 24, Spalt bei x -1..0). Tiefer als y 24 und weiter als z 4 geht es wegen Passprobe und Bereichstoleranz nicht (Unterschied zum kurzen Bart über Tiefe und Breite).
+ */
 const BART_LANG = [
-  ...KAPPE_G,
+  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
+  box('Haar oben (nach hinten gekämmt)', [-4, 32, -4], [8, 1, 8], { stripes: [schatten(1.14), schatten(0.9)], axis: 'x', period: 2 }, { jitter: false }),
+  box('Knoten', [1, 33, -3], [3, 2, 2], schatten(1.15), { jitter: false }),
+  box('Knotenband', [1, 33, -3], [3, 1, 2], 'trim', { mode: 'paint', jitter: false }),
   box('Haar hinten', [-4, 26, -4], [8, 5, 1], 'hair'),
   box('Haar hinten lang', [-4, 24, -6], [8, 7, 2], 'hair'),   // z -6..-5 hinter dem Fellumhang-Ansatz (z -4); tiefer als y 24 stößt es in der Pose crouch in den Fellumhang
   box('Haar Seiten', [3, 26, -4], [1, 5, 6], 'hair', spiegel),
-  box('Koteletten', [3, 26, 2], [1, 3, 1], 'hair', spiegel),
-  box('Koteletten vorn', [3, 27, 3], [1, 2, 1], 'hair', spiegel),
+  box('Bart Rahmen', [3, 25, 2], [1, 4, 3], 'hair', spiegel),   // Kieferbreite, schließt an das Haar der Seiten an (x 3 und -4, z 2..4)
+  box('Bart Rahmen außen', [4, 26, 1], [1, 3, 3], schatten(0.9), spiegel),   // über die Kopfbreite hinaus (x 4 und -5): Rahmen ums Gesicht
   box('Bart Wange', [1, 26, 3], [2, 2, 1], 'hair', spiegel),
   box('Bart Wange vorn', [1, 26, 4], [2, 2, 1], schatten(0.9), spiegel),
-  box('Oberlippe', [-1, 27, 3], [2, 1, 1], schatten(0.9)),
+  box('Schnurrbart', [-1, 27, 3], [2, 1, 2], schatten(0.9)),
   box('Kinn', [-3, 25, 3], [6, 1, 2], schatten(0.92)),
   box('Bart unten', [-3, 24, 4], [6, 1, 1], schatten(0.86)),   // y 24 nur bei z 4: bei z 3 läge er im Oberteil, tiefer stößt er in der Pose aim an den Unterarm
+  carve('Gabelbart', [-1, 24, 4], [2, 1, 1]),
 ];
-/** Zöpfe hängen an den Gesichtsrändern (x 3 und -4) vor die Brust (z 3..4, y 23..29; tiefer stößt der Zopf in den Zielposen an den Unterarm): von vorn und ¾ zu sehen, innerhalb der Rumpfbreite, nicht durch Schulter und Arm (x >= 4, y <= 23). */
+/** Zöpfe aus der Kopfbreite heraus auf x 4 und -5 (z 2..3) bis y 22, kräftige Streifen; dahinter langes Seiten- und Rückenhaar bis y 24. Von vorn sichtbar neben dem Gesicht. Scheitelwulst (x -1..0) statt flacher Kappe. */
 const ZOPF_BAND = [
-  ...KAPPE_G,
-  box('Haar hinten', [-4, 27, -4], [8, 4, 1], 'hair'),
-  box('Haar Seiten', [3, 27, -3], [1, 4, 4], 'hair', spiegel),
+  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
+  box('Haar oben', [-4, 32, -4], [8, 1, 8], schatten(1.12)),
+  box('Scheitelwulst', [-1, 33, -4], [2, 1, 7], schatten(1.2)),
+  box('Scheitel', [0, 33, -4], [1, 1, 7], schatten(0.75), { mode: 'paint' }),
+  box('Haar hinten', [-4, 26, -4], [8, 5, 1], 'hair'),
+  box('Haar hinten lang', [-4, 24, -5], [8, 7, 1], schatten(0.92)),
+  box('Haar Seiten', [3, 25, -4], [1, 6, 8], 'hair', spiegel),   // x 3 und -4, y 25..30, z -4..3: trägt die Zöpfe
   box('Stirnband vorn', [-4, 30, 3], [8, 1, 1], 'trim', { jitter: false }),
   box('Stirnband hinten', [-4, 30, -4], [8, 1, 1], 'trim', { jitter: false }),
   box('Stirnband Seiten', [3, 30, -3], [1, 1, 6], 'trim', { jitter: false, ...spiegel }),
-  box('Zopf Schläfe', [3, 26, 3], [1, 4, 1], STREIFEN, spiegel),
-  box('Zopf Bogen', [3, 25, 3], [1, 1, 2], 'hair', spiegel),
-  box('Zopf', [3, 23, 4], [1, 2, 1], STREIFEN, spiegel),
-  box('Zopfband', [3, 23, 4], [1, 1, 1], 'trim', { jitter: false, ...spiegel }),
+  box('Zopf', [4, 25, 3], [1, 5, 1], STREIFEN_ZOPF, spiegel),
+  box('Zopf Ansatz', [4, 27, 2], [1, 3, 1], STREIFEN_ZOPF, spiegel),
+  box('Zopfband', [4, 24, 3], [1, 1, 1], 'trim', { jitter: false, ...spiegel }),
 ];
-const WILD_LOCKEN_OBEN = [[-4, -4], [-2, -3], [0, -4], [2, -3], [-4, -1], [-1, -1], [1, 0], [3, -2], [-3, 1], [2, 2]];
+/**
+ * Wildes Haar: Umriss statt Oberseite. Keine Einzelzacken oben: drei 2×1×2-Buckel im Inneren, oberste Ecken rund; Locken an Seiten (x 4/-5) und Rücken (z -6) als 2×2-Klumpen im Schachbrett vor/zurück versetzt,
+ * unregelmäßiger Saum (y 23/24/25), Seitensträhne mit Perle vor dem Ohr (x 4, z 2, Perle y 25: y 24 stößt in der Ruhepose an den Fellumhang). Farbe: Rauschen in Blöcken von 2.
+ */
+const WILD_FARBE = { noise: ['hair', schatten(0.8)], weights: [5, 2], cell: 2 };
+const WILD_SEITE = [[30, -4], [28, -2], [26, 0]];   // Seitenklumpen (y unten, z links), je 2 hoch und 2 tief, Schachbrett
+const WILD_RUECKEN = [[-4, 30], [0, 30], [-2, 28], [2, 28], [-2, 24], [2, 24]];   // Rückenklumpen (x links, y unten), je 2 × 2
 const WILD = [
-  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
-  box('Haar oben', [-4, 32, -4], [8, 1, 8], schatten(1.12)),
-  ...WILD_LOCKEN_OBEN.map(([x, z], i) => box(`Locke oben ${i + 1}`, [x, 33, z], [1, 1, 1], schatten(1.16))),
-  ...[[-2, -3], [2, -3], [-1, -1]].map(([x, z], i) => box(`Locke Spitze ${i + 1}`, [x, 34, z], [1, 1, 1], schatten(1.2))),
-  box('Haar hinten', [-4, 26, -4], [8, 5, 1], 'hair'),
-  box('Haar hinten lang', [-4, 24, -6], [8, 7, 2], 'hair'),
-  box('Saum 1', [-4, 23, -6], [2, 1, 1], schatten(0.86)),   // Hemd-Zipfel: tiefer stößt das Haar in der Pose crouch in den Fellumhang
-  box('Saum 2', [-1, 23, -6], [2, 1, 1], schatten(0.86)),
-  box('Saum 3', [2, 23, -6], [2, 1, 1], schatten(0.86)),
-  box('Locken Seite', [3, 26, -4], [2, 5, 6], 'hair', spiegel),
-  box('Locken Kranz', [4, 31, -4], [1, 1, 6], schatten(1.05), spiegel),
-  box('Locken Wange', [3, 26, 2], [1, 4, 2], schatten(0.94), spiegel),
-  box('Locken Saum', [4, 25, -3], [1, 1, 3], schatten(0.86), spiegel),
+  box('Haarkranz', [-4, 31, -4], [8, 1, 7], WILD_FARBE, { jitter: false }),
+  box('Haar oben', [-4, 32, -4], [8, 1, 8], WILD_FARBE, { jitter: false }),
+  box('Haar Dach', [-4, 33, -4], [8, 1, 7], WILD_FARBE, { jitter: false }),
+  eck('Ecken oben hinten', [3, 33, -4]), eck('Ecken oben vorn', [3, 33, 2]),
+  box('Buckel 1', [-2, 34, -3], [2, 1, 2], WILD_FARBE, { jitter: false }),
+  box('Buckel 2', [0, 34, -1], [2, 1, 2], WILD_FARBE, { jitter: false }),
+  box('Haar hinten', [-4, 26, -4], [8, 5, 1], WILD_FARBE, { jitter: false }),
+  box('Haar hinten Platte', [-4, 25, -5], [8, 6, 1], WILD_FARBE, { jitter: false }),
+  box('Haar Seiten', [3, 26, -4], [1, 6, 7], WILD_FARBE, { jitter: false, ...spiegel }),
+  ...WILD_SEITE.map(([y, z], i) => box(`Locke Seite ${i + 1}`, [4, y, z], [1, 2, 2], WILD_FARBE, { jitter: false, ...spiegel })),
+  ...WILD_RUECKEN.map(([x, y], i) => box(`Locke Rücken ${i + 1}`, [x, y, -6], [2, 2, 1], WILD_FARBE, { jitter: false })),
+  box('Saum 23 a', [-2, 23, -6], [2, 1, 1], WILD_FARBE, { jitter: false }),
+  box('Saum 23 b', [2, 23, -6], [2, 1, 1], WILD_FARBE, { jitter: false }),
+  box('Seitensträhne', [4, 25, 2], [1, 3, 1], WILD_FARBE, { jitter: false }),
   box('Locke Stirn links', [-4, 30, 3], [2, 1, 1], 'hair'),
   box('Locke Stirn rechts', [2, 30, 3], [2, 1, 1], 'hair'),
-  box('Perle', [4, 27, 1], [1, 1, 1], 'cloth', { jitter: false, ...spiegel }),
+  box('Perle', [4, 25, 2], [1, 1, 1], 'cloth', { jitter: false }),
 ];
 /** Bordhelm (aus fig/crew/helm_offen), auf den 8er-Kopf verbreitert: Schale über Hinterkopf und Seiten, Gesichtsrahmen bei z 3. */
 const HELM_BORD = [
@@ -286,7 +307,7 @@ const TEILE = [
 
   // ---- B2: germanische Frisuren mit Bart (Haar und Bart = Rolle hair; Stirnband und Perle feste Teilfarbe)
   { platz: 'frisur', name: 'bartkurz', anzeige: 'Kurzhaar mit Bart', volk: 'germanen', palette: 'nord', gattungen: { head: { ops: { eigene: BART_KURZ }, farben: {} } } },
-  { platz: 'frisur', name: 'bartlang', anzeige: 'Langhaar mit Vollbart', volk: 'germanen', palette: 'nord', gattungen: { head: { ops: { eigene: BART_LANG }, farben: {} } } },
+  { platz: 'frisur', name: 'bartlang', anzeige: 'Langhaar mit Vollbart', volk: 'germanen', palette: 'nord', rollen: { band: '#D9A93A' }, gattungen: { head: { ops: { eigene: BART_LANG }, farben: { trim: 'band' } } } },
   { platz: 'frisur', name: 'zopfband', anzeige: 'Zöpfe mit Stirnband', volk: 'germanen', palette: 'nord', rollen: { band: '#D9A93A' }, gattungen: { head: { ops: { eigene: ZOPF_BAND }, farben: { trim: 'band' } } } },
   { platz: 'frisur', name: 'wild', anzeige: 'Wildes Haar', volk: 'germanen', palette: 'nord', rollen: { perle: '#3E6EB4' }, gattungen: { head: { ops: { eigene: WILD }, farben: { cloth: 'perle' } } } },
 
