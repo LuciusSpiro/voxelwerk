@@ -159,6 +159,73 @@ const FRISUR_OFFEN = [
 ];
 // ---- CHA-02 B1 (Ende) --------------------------------------------------------------------------------------------------------------------------------
 
+// ---- B2: vier germanische Frisuren mit Bart (CHA-02 B). Haar und Bart tragen die Rolle hair (die Haarfarbe färbt beides); Gold und Schmuck sind feste Teilrollen.
+// Maße: Schädel x -4..3, y 26..32, z -4..3, Gesicht bei z 3 (Augen y 28-29 bei x 1 und -2, Mund y 26 bei x -1..0, Wangen y 27): Bart lässt Augen und Mund frei.
+const STREIFEN = { stripes: ['hair', { shade: 'hair', f: 0.78 }], axis: 'y', period: 2 };
+const schatten = (f) => ({ shade: 'hair', f });
+const KAPPE_G = [
+  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
+  box('Haar oben', [-4, 32, -4], [8, 1, 8], schatten(1.12)),
+  box('Scheitel', [0, 32, -4], [1, 1, 8], schatten(0.78), { mode: 'paint' }),
+];
+const BART_KURZ = [
+  ...KAPPE_G,
+  box('Haar hinten', [-4, 28, -4], [8, 3, 1], 'hair'),
+  box('Haar Seiten', [3, 29, -3], [1, 2, 3], 'hair', spiegel),
+  box('Strähne', [-4, 30, 3], [2, 1, 1], 'hair'),
+  box('Koteletten', [3, 26, -1], [1, 3, 4], 'hair', spiegel),
+  box('Koteletten vorn', [3, 27, 3], [1, 2, 1], 'hair', spiegel),
+  box('Bart Wange', [1, 26, 3], [2, 2, 1], 'hair', spiegel),
+  box('Bart Wange vorn', [1, 26, 4], [2, 1, 1], schatten(0.9), spiegel),
+  box('Oberlippe', [-1, 27, 3], [2, 1, 1], schatten(0.9)),
+  box('Kinn', [-3, 25, 3], [6, 1, 2], schatten(0.92)),
+  box('Kinnspitze', [-2, 24, 4], [4, 1, 1], schatten(0.85)),
+];
+const BART_LANG = [
+  ...KAPPE_G,
+  box('Haar hinten', [-4, 26, -4], [8, 5, 1], 'hair'),
+  box('Haar hinten lang', [-4, 24, -6], [8, 7, 2], 'hair'),   // z -6..-5 hinter dem Fellumhang-Ansatz (z -4); tiefer als y 24 stößt es in der Pose crouch in den Fellumhang
+  box('Haar Seiten', [3, 26, -4], [1, 5, 6], 'hair', spiegel),
+  box('Koteletten', [3, 26, 2], [1, 3, 1], 'hair', spiegel),
+  box('Koteletten vorn', [3, 27, 3], [1, 2, 1], 'hair', spiegel),
+  box('Bart Wange', [1, 26, 3], [2, 2, 1], 'hair', spiegel),
+  box('Bart Wange vorn', [1, 26, 4], [2, 2, 1], schatten(0.9), spiegel),
+  box('Oberlippe', [-1, 27, 3], [2, 1, 1], schatten(0.9)),
+  box('Kinn', [-3, 25, 3], [6, 1, 2], schatten(0.92)),
+  box('Bart unten', [-3, 24, 4], [6, 1, 1], schatten(0.86)),   // y 24 nur bei z 4: bei z 3 läge er im Oberteil, tiefer stößt er in der Pose aim an den Unterarm
+];
+/** Zöpfe hängen an den Gesichtsrändern (x 3 und -4) vor die Brust (z 3..4, y 23..29; tiefer stößt der Zopf in den Zielposen an den Unterarm): von vorn und ¾ zu sehen, innerhalb der Rumpfbreite, nicht durch Schulter und Arm (x >= 4, y <= 23). */
+const ZOPF_BAND = [
+  ...KAPPE_G,
+  box('Haar hinten', [-4, 27, -4], [8, 4, 1], 'hair'),
+  box('Haar Seiten', [3, 27, -3], [1, 4, 4], 'hair', spiegel),
+  box('Stirnband vorn', [-4, 30, 3], [8, 1, 1], 'trim', { jitter: false }),
+  box('Stirnband hinten', [-4, 30, -4], [8, 1, 1], 'trim', { jitter: false }),
+  box('Stirnband Seiten', [3, 30, -3], [1, 1, 6], 'trim', { jitter: false, ...spiegel }),
+  box('Zopf Schläfe', [3, 26, 3], [1, 4, 1], STREIFEN, spiegel),
+  box('Zopf Bogen', [3, 25, 3], [1, 1, 2], 'hair', spiegel),
+  box('Zopf', [3, 23, 4], [1, 2, 1], STREIFEN, spiegel),
+  box('Zopfband', [3, 23, 4], [1, 1, 1], 'trim', { jitter: false, ...spiegel }),
+];
+const WILD_LOCKEN_OBEN = [[-4, -4], [-2, -3], [0, -4], [2, -3], [-4, -1], [-1, -1], [1, 0], [3, -2], [-3, 1], [2, 2]];
+const WILD = [
+  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
+  box('Haar oben', [-4, 32, -4], [8, 1, 8], schatten(1.12)),
+  ...WILD_LOCKEN_OBEN.map(([x, z], i) => box(`Locke oben ${i + 1}`, [x, 33, z], [1, 1, 1], schatten(1.16))),
+  ...[[-2, -3], [2, -3], [-1, -1]].map(([x, z], i) => box(`Locke Spitze ${i + 1}`, [x, 34, z], [1, 1, 1], schatten(1.2))),
+  box('Haar hinten', [-4, 26, -4], [8, 5, 1], 'hair'),
+  box('Haar hinten lang', [-4, 24, -6], [8, 7, 2], 'hair'),
+  box('Saum 1', [-4, 23, -6], [2, 1, 1], schatten(0.86)),   // Hemd-Zipfel: tiefer stößt das Haar in der Pose crouch in den Fellumhang
+  box('Saum 2', [-1, 23, -6], [2, 1, 1], schatten(0.86)),
+  box('Saum 3', [2, 23, -6], [2, 1, 1], schatten(0.86)),
+  box('Locken Seite', [3, 26, -4], [2, 5, 6], 'hair', spiegel),
+  box('Locken Kranz', [4, 31, -4], [1, 1, 6], schatten(1.05), spiegel),
+  box('Locken Wange', [3, 26, 2], [1, 4, 2], schatten(0.94), spiegel),
+  box('Locken Saum', [4, 25, -3], [1, 1, 3], schatten(0.86), spiegel),
+  box('Locke Stirn links', [-4, 30, 3], [2, 1, 1], 'hair'),
+  box('Locke Stirn rechts', [2, 30, 3], [2, 1, 1], 'hair'),
+  box('Perle', [4, 27, 1], [1, 1, 1], 'cloth', { jitter: false, ...spiegel }),
+];
 /** Bordhelm (aus fig/crew/helm_offen), auf den 8er-Kopf verbreitert: Schale über Hinterkopf und Seiten, Gesichtsrahmen bei z 3. */
 const HELM_BORD = [
   box('Halsring', [-2, 25, -2], [4, 1, 4], 'metal'),
@@ -217,6 +284,12 @@ const TEILE = [
     head: { ops: { eigene: FRISUR_OFFEN }, farben: { primary: 'ohrring' } },
   } },
 
+  // ---- B2: germanische Frisuren mit Bart (Haar und Bart = Rolle hair; Stirnband und Perle feste Teilfarbe)
+  { platz: 'frisur', name: 'bartkurz', anzeige: 'Kurzhaar mit Bart', volk: 'germanen', palette: 'nord', gattungen: { head: { ops: { eigene: BART_KURZ }, farben: {} } } },
+  { platz: 'frisur', name: 'bartlang', anzeige: 'Langhaar mit Vollbart', volk: 'germanen', palette: 'nord', gattungen: { head: { ops: { eigene: BART_LANG }, farben: {} } } },
+  { platz: 'frisur', name: 'zopfband', anzeige: 'Zöpfe mit Stirnband', volk: 'germanen', palette: 'nord', rollen: { band: '#D9A93A' }, gattungen: { head: { ops: { eigene: ZOPF_BAND }, farben: { trim: 'band' } } } },
+  { platz: 'frisur', name: 'wild', anzeige: 'Wildes Haar', volk: 'germanen', palette: 'nord', rollen: { perle: '#3E6EB4' }, gattungen: { head: { ops: { eigene: WILD }, farben: { cloth: 'perle' } } } },
+
   // ---- Kopfbedeckung: Helm ohne eingebauten Kopf als späte Schicht, an den 8er-Kopf angepasst (Paket C gestaltet die Helme neu). Maske schneidet das Haar-Gitter
   // hut_zier fest: im Bestand ist primary der Spielerakzent des Helms (#56B4E9 = Spielerfarbe S1); die Spielerfigur trägt einen festen Crew-Akzent (Signalrot)
   { platz: 'kopf', name: 'bordhelm', anzeige: 'Bordhelm', volk: 'crew', palette: 'crew', rollen: { hut_zier: '#B3342B' }, gattungen: {
@@ -227,6 +300,12 @@ const TEILE = [
           { name: 'Haar in und neben der Schale (auch x -5 und 4)', op: 'box', at: [-6, 26, -6], size: [12, 5, 9], color: SCHABLONE },
           { name: 'Haar über der Schale (bis y 34, Fransen vor dem Rahmen)', op: 'box', at: [-6, 31, -6], size: [12, 4, 12], color: SCHABLONE },
           { name: 'Haar unter der Schale (langes Haar im Nacken, Ohrring)', op: 'box', at: [-6, 20, -6], size: [12, 6, 9], color: SCHABLONE },
+          // B2: Haar der germanischen Frisuren (Zöpfe vor der Brust, Locken über und neben der Schale)
+          { name: 'Zöpfe vor der Brust und Schläfen links (B2)', op: 'box', at: [-4, 20, 3], size: [1, 11, 2], color: SCHABLONE },
+          { name: 'Zöpfe vor der Brust und Schläfen rechts (B2)', op: 'box', at: [3, 20, 3], size: [1, 11, 2], color: SCHABLONE },
+          { name: 'Haar über dem Helmdach (B2)', op: 'box', at: [-5, 33, -6], size: [10, 3, 10], color: SCHABLONE },
+          { name: 'Haar neben der Schale links (B2)', op: 'box', at: [4, 22, -6], size: [2, 13, 10], color: SCHABLONE },
+          { name: 'Haar neben der Schale rechts (B2)', op: 'box', at: [-6, 22, -6], size: [2, 13, 10], color: SCHABLONE },
         ] },
       } },
   } },

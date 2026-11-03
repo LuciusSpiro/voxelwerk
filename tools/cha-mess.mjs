@@ -14,7 +14,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), json = args.includes('--json'), filter = args.find((a) => !a.startsWith('--'));
 const lib = nodeLibrary(root), idx = await listAssets(root);
 
-const WORST = { kopf: 'bordhelm', frisur: 'offen', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' };
+const WORST = { kopf: 'bordhelm', frisur: 'bartlang', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' };
 
 async function ladeFigur(figId) {
   const f = await lib.load('figures', figId);

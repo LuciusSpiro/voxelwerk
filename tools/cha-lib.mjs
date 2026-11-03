@@ -19,7 +19,7 @@ export const PINNEN = { umhang: ['hair'] };
  */
 export const CHA_TOLERANZEN = {
   koerper: { head: { min: [0, 0, 1], max: [0, 2, 0] } },
-  frisur: { head: { min: [1, 2, 3], max: [1, 4, 0] } },
+  frisur: { head: { min: [1, 5, 3], max: [1, 4, 1] } },   // B2: Zöpfe vor der Brust (y 20, z 4), Locken und Perle neben dem Kopf (x -5 und 4, oberhalb der Schultern)
 };
 /** Toleranzen des Rigs plus CHA_TOLERANZEN (je Wert das Maximum). */
 export function toleranzenVon(rig) {
@@ -285,7 +285,7 @@ export function pruefeFigur(lib, figId, ids) {
 const HAAR_HEX = '#00FF00';
 const istHaar = (c) => { const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255; return g > 150 && r < 90 && b < 90; };
 /** Gesichtsöffnung des Bordhelms auf dem 8er-Kopf (Figur-Koordinaten, Voxelindizes): nur hier darf Haar der Frisur (Stirnfransen) sichtbar bleiben. */
-export const OEFFNUNG = { xMin: -3, xMax: 2, yMin: 26, yMax: 30, zMin: 3 };
+export const OEFFNUNG = { xMin: -3, xMax: 2, yMin: 22, yMax: 30, zMin: 3 };   // yMin 22: der Bart reicht unter das Kinn (B2)
 /** Radius (Voxel), unter dem zwei Voxelmitten verschiedener Gelenke als durchdrungen gelten (Würfel mit Kantenlänge 1 überlappen dann über die halbe Kante). */
 export const DURCHDRINGUNG_RADIUS = 0.7;
 const KOERPER_GELENKE = ['hips', 'torso', 'head', 'upperArmL', 'upperArmR', 'lowerArmL', 'lowerArmR', 'thighL', 'thighR', 'shinL', 'shinR'];

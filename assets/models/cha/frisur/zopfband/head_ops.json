@@ -1,0 +1,242 @@
+{
+  "id": "cha/frisur/zopfband/head_ops",
+  "tier": "detail",
+  "palette": "cha",
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "generated": true,
+  "name": "frisur zopfband (head): herausgelöste Ops",
+  "tags": [
+    "cha",
+    "ops"
+  ],
+  "notes": "Ops aus eigenen Boxen, Reihenfolge wie im Bestand.",
+  "ops": [
+    {
+      "name": "Haarkranz",
+      "op": "box",
+      "at": [
+        -4,
+        31,
+        -4
+      ],
+      "size": [
+        8,
+        1,
+        7
+      ],
+      "color": "hair"
+    },
+    {
+      "name": "Haar oben",
+      "op": "box",
+      "at": [
+        -4,
+        32,
+        -4
+      ],
+      "size": [
+        8,
+        1,
+        8
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.12
+      }
+    },
+    {
+      "name": "Scheitel",
+      "op": "box",
+      "at": [
+        0,
+        32,
+        -4
+      ],
+      "size": [
+        1,
+        1,
+        8
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.78
+      },
+      "mode": "paint"
+    },
+    {
+      "name": "Haar hinten",
+      "op": "box",
+      "at": [
+        -4,
+        27,
+        -4
+      ],
+      "size": [
+        8,
+        4,
+        1
+      ],
+      "color": "hair"
+    },
+    {
+      "name": "Haar Seiten",
+      "op": "box",
+      "at": [
+        3,
+        27,
+        -3
+      ],
+      "size": [
+        1,
+        4,
+        4
+      ],
+      "color": "hair",
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Stirnband vorn",
+      "op": "box",
+      "at": [
+        -4,
+        30,
+        3
+      ],
+      "size": [
+        8,
+        1,
+        1
+      ],
+      "color": "trim",
+      "jitter": false
+    },
+    {
+      "name": "Stirnband hinten",
+      "op": "box",
+      "at": [
+        -4,
+        30,
+        -4
+      ],
+      "size": [
+        8,
+        1,
+        1
+      ],
+      "color": "trim",
+      "jitter": false
+    },
+    {
+      "name": "Stirnband Seiten",
+      "op": "box",
+      "at": [
+        3,
+        30,
+        -3
+      ],
+      "size": [
+        1,
+        1,
+        6
+      ],
+      "color": "trim",
+      "jitter": false,
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Zopf Schläfe",
+      "op": "box",
+      "at": [
+        3,
+        26,
+        3
+      ],
+      "size": [
+        1,
+        4,
+        1
+      ],
+      "color": {
+        "stripes": [
+          "hair",
+          {
+            "shade": "hair",
+            "f": 0.78
+          }
+        ],
+        "axis": "y",
+        "period": 2
+      },
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Zopf Bogen",
+      "op": "box",
+      "at": [
+        3,
+        25,
+        3
+      ],
+      "size": [
+        1,
+        1,
+        2
+      ],
+      "color": "hair",
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Zopf",
+      "op": "box",
+      "at": [
+        3,
+        23,
+        4
+      ],
+      "size": [
+        1,
+        2,
+        1
+      ],
+      "color": {
+        "stripes": [
+          "hair",
+          {
+            "shade": "hair",
+            "f": 0.78
+          }
+        ],
+        "axis": "y",
+        "period": 2
+      },
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Zopfband",
+      "op": "box",
+      "at": [
+        3,
+        23,
+        4
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "trim",
+      "jitter": false,
+      "mirror": "x",
+      "mirrorAt": 0
+    }
+  ]
+}

@@ -1,0 +1,495 @@
+{
+  "id": "cha/frisur/wild/head_ops",
+  "tier": "detail",
+  "palette": "cha",
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "generated": true,
+  "name": "frisur wild (head): herausgelöste Ops",
+  "tags": [
+    "cha",
+    "ops"
+  ],
+  "notes": "Ops aus eigenen Boxen, Reihenfolge wie im Bestand.",
+  "ops": [
+    {
+      "name": "Haarkranz",
+      "op": "box",
+      "at": [
+        -4,
+        31,
+        -4
+      ],
+      "size": [
+        8,
+        1,
+        7
+      ],
+      "color": "hair"
+    },
+    {
+      "name": "Haar oben",
+      "op": "box",
+      "at": [
+        -4,
+        32,
+        -4
+      ],
+      "size": [
+        8,
+        1,
+        8
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.12
+      }
+    },
+    {
+      "name": "Locke oben 1",
+      "op": "box",
+      "at": [
+        -4,
+        33,
+        -4
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 2",
+      "op": "box",
+      "at": [
+        -2,
+        33,
+        -3
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 3",
+      "op": "box",
+      "at": [
+        0,
+        33,
+        -4
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 4",
+      "op": "box",
+      "at": [
+        2,
+        33,
+        -3
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 5",
+      "op": "box",
+      "at": [
+        -4,
+        33,
+        -1
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 6",
+      "op": "box",
+      "at": [
+        -1,
+        33,
+        -1
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 7",
+      "op": "box",
+      "at": [
+        1,
+        33,
+        0
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 8",
+      "op": "box",
+      "at": [
+        3,
+        33,
+        -2
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 9",
+      "op": "box",
+      "at": [
+        -3,
+        33,
+        1
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke oben 10",
+      "op": "box",
+      "at": [
+        2,
+        33,
+        2
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.16
+      }
+    },
+    {
+      "name": "Locke Spitze 1",
+      "op": "box",
+      "at": [
+        -2,
+        34,
+        -3
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.2
+      }
+    },
+    {
+      "name": "Locke Spitze 2",
+      "op": "box",
+      "at": [
+        2,
+        34,
+        -3
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.2
+      }
+    },
+    {
+      "name": "Locke Spitze 3",
+      "op": "box",
+      "at": [
+        -1,
+        34,
+        -1
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.2
+      }
+    },
+    {
+      "name": "Haar hinten",
+      "op": "box",
+      "at": [
+        -4,
+        26,
+        -4
+      ],
+      "size": [
+        8,
+        5,
+        1
+      ],
+      "color": "hair"
+    },
+    {
+      "name": "Haar hinten lang",
+      "op": "box",
+      "at": [
+        -4,
+        24,
+        -6
+      ],
+      "size": [
+        8,
+        7,
+        2
+      ],
+      "color": "hair"
+    },
+    {
+      "name": "Saum 1",
+      "op": "box",
+      "at": [
+        -4,
+        23,
+        -6
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.86
+      }
+    },
+    {
+      "name": "Saum 2",
+      "op": "box",
+      "at": [
+        -1,
+        23,
+        -6
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.86
+      }
+    },
+    {
+      "name": "Saum 3",
+      "op": "box",
+      "at": [
+        2,
+        23,
+        -6
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.86
+      }
+    },
+    {
+      "name": "Locken Seite",
+      "op": "box",
+      "at": [
+        3,
+        26,
+        -4
+      ],
+      "size": [
+        2,
+        5,
+        6
+      ],
+      "color": "hair",
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Locken Kranz",
+      "op": "box",
+      "at": [
+        4,
+        31,
+        -4
+      ],
+      "size": [
+        1,
+        1,
+        6
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 1.05
+      },
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Locken Wange",
+      "op": "box",
+      "at": [
+        3,
+        26,
+        2
+      ],
+      "size": [
+        1,
+        4,
+        2
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.94
+      },
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Locken Saum",
+      "op": "box",
+      "at": [
+        4,
+        25,
+        -3
+      ],
+      "size": [
+        1,
+        1,
+        3
+      ],
+      "color": {
+        "shade": "hair",
+        "f": 0.86
+      },
+      "mirror": "x",
+      "mirrorAt": 0
+    },
+    {
+      "name": "Locke Stirn links",
+      "op": "box",
+      "at": [
+        -4,
+        30,
+        3
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": "hair"
+    },
+    {
+      "name": "Locke Stirn rechts",
+      "op": "box",
+      "at": [
+        2,
+        30,
+        3
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ],
+      "color": "hair"
+    },
+    {
+      "name": "Perle",
+      "op": "box",
+      "at": [
+        4,
+        27,
+        1
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "cloth",
+      "jitter": false,
+      "mirror": "x",
+      "mirrorAt": 0
+    }
+  ]
+}

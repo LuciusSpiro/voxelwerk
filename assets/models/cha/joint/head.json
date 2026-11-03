@@ -29,6 +29,10 @@
         "stirnband",
         "welle",
         "offen",
+        "bartkurz",
+        "bartlang",
+        "zopfband",
+        "wild",
         "keine"
       ],
       "label": "Frisur"
