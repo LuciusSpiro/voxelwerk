@@ -53,6 +53,7 @@ const zeilen = [];
 for (const id of idx.figures.filter((i) => !filter || i.includes(filter))) {
   try { await ladeFigur(id); zeilen.push({ id, ...messe(id) }); } catch (e) { zeilen.push({ id, fehler: e.message }); }
 }
+let WORST = null;
 if (lib.get('figures', 'cha/spieler') && (!filter || 'cha/spieler'.includes(filter) || filter.startsWith('cha'))) {
   // Worst Case: je Platz das Teil mit den meisten Dreiecken (einzeln gegen die Standardfigur gemessen); Plätze und Werte stehen als options in den Sammelmodellen
   for (const id of idx.models.filter((i) => i.startsWith('cha/'))) await lib.load('models', id);
@@ -64,12 +65,13 @@ if (lib.get('figures', 'cha/spieler') && (!filter || 'cha/spieler'.includes(filt
     for (const w of ws) { const d = messe('cha/spieler', { params: { [p]: w } }).dreiecke; tabelle.push({ platz: p, teil: w, dreiecke: d, gegenLeer: basis === null ? null : d - basis }); if (!best || d > best.d) best = { w, d }; }
     params[p] = best.w;
   }
+  WORST = params;
   if (args.includes('--teile')) { console.log('Teil'.padEnd(28) + 'Dreiecke'.padStart(9) + '  gegen leer'); for (const t of tabelle) console.log(`${t.platz}/${t.teil}`.padEnd(28) + String(t.dreiecke).padStart(9) + (t.gegenLeer === null ? '' : `  ${t.gegenLeer >= 0 ? '+' : ''}${t.gegenLeer}`)); console.log(''); }
   try { zeilen.push({ id: 'cha/spieler (Worst Case: ' + Object.values(params).join(', ') + ')', ...messe('cha/spieler', { params }) }); } catch (e) { zeilen.push({ id: 'cha/spieler Worst Case', fehler: e.message }); }
 }
 
 // ---- CHA-02 D2: Worst Case mit Lorica (Rüstung statt Plankenweste)
-if (lib.get('figures', 'cha/spieler') && (!filter || filter.startsWith('cha'))) {
+if (WORST && lib.get('figures', 'cha/spieler') && (!filter || filter.startsWith('cha'))) {
   const params = { ...WORST, oberteil: 'lorica' };
   try { zeilen.push({ id: 'cha/spieler (Worst Case Lorica: ' + Object.values(params).join(', ') + ')', ...messe('cha/spieler', { params }) }); } catch (e) { zeilen.push({ id: 'cha/spieler Worst Case Lorica', fehler: e.message }); }
 }
