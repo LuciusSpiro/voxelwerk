@@ -14,14 +14,13 @@
     "schicht",
     "frisur"
   ],
-  "notes": "Schicht aus fig/lerche/head, herausgelöst.",
+  "notes": "Schicht aus eigenen Boxen, herausgelöst.",
   "ops": [
     {
       "op": "use",
       "model": "cha/frisur/dutt/head_ops",
       "colors": {
-        "cloth2": "haarband_dutt",
-        "trim": "schmuck_dutt"
+        "cloth2": "haarband_dutt"
       }
     }
   ]

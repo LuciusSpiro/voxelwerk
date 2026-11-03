@@ -14,7 +14,7 @@
     "schicht",
     "frisur"
   ],
-  "notes": "Schicht aus fig/basis/kopf, fig/germanen/kopf, herausgelöst.",
+  "notes": "Schicht aus eigenen Boxen, herausgelöst.",
   "ops": [
     {
       "op": "use",

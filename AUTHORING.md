@@ -372,20 +372,26 @@ Bestandsteilen (`fig/**`, unverändert) zusammengesetzt werden. Das Spiel wählt
 färbt die Figur. **Nicht von Hand bearbeiten:** `assets/models/cha/**`, `assets/palettes/cha.json`,
 `assets/figures/cha/spieler.json` und `assets/katalog/charakter.json` erzeugt `node tools/gen-cha.mjs` (wiederholbar, `--check` vergleicht nur).
 
-**Plätze** (Figur-`params`, ein Wert je Platz; Teile-ID `<platz>/<name>`): `koerper` (`standard`), `gesicht` (`lerche`),
-`frisur` (`dutt`), `bart` (`keiner`), `kopf` (`keine`), `oberteil` (`bordtunika`), `hose` (`bordhose`),
-`schuhe` (`bordstiefel`), `haende` (`keine`), `umhang` (`keiner`). `keine`/`keiner` sind gültige Werte ohne Datei (Fallback `cha/leer`);
-nur `gesicht` hat keinen leeren Wert (Pflicht). Teile heute: gesicht `lerche`/`narbe`, frisur `dutt`/`zoepfe`, bart `vollbart`,
-kopf `bordhelm`, oberteil `bordtunika`/`plankenweste`, hose `bordhose`/`germanenhose`, schuhe `bordstiefel`/`germanenstiefel`,
-haende `armschiene`, umhang `fellumhang`. Das Standard-Outfit ist **voxelgleich** zu `lerche/crew_0` (ohne Spielerfarbe).
+**Plätze** (Figur-`params`, ein Wert je Platz; Teile-ID `<platz>/<name>`; **Katalog Version 2**, CHA-02): `koerper` (`standard`),
+`frisur` (`dutt`), `kopf` (`keine`), `oberteil` (`bordtunika`), `hose` (`bordhose`),
+`schuhe` (`bordstiefel`), `haende` (`keine`), `umhang` (`keiner`). `keine`/`keiner` sind gültige Werte ohne Datei (Fallback `cha/leer`).
+Die Plätze `gesicht` und `bart` der Version 1 gibt es nicht mehr: das **Gesicht ist fest** (steckt im Körper-Kopf), ein Bart gehört künftig in die Frisur.
+Teile heute: frisur `dutt`/`zoepfe` (an den neuen Kopf angepasst, die acht endgültigen Frisuren kommen in CHA-02 Paket B), kopf `bordhelm`,
+oberteil `bordtunika`/`plankenweste`, hose `bordhose`/`germanenhose`, schuhe `bordstiefel`/`germanenstiefel`,
+haende `armschiene`, umhang `fellumhang`. Das Standard-Outfit ist **voxelgleich** zu `lerche/crew_0` (ohne Spielerfarbe) **außer dem Kopf**.
+
+**Der 8er-Kopf** (CHA-02 A1, Quelle: Entwurf FIG-01 Richtung A): Teil `cha/koerper/standard/head` (Boxen in `KOPF_8`, `tools/gen-cha.mjs`): Schädel 8×7×8
+(x −4..3, y 26..32, z −4..3), Hals 4×4 bei y 25 (gehört zum Kopfteil), festes Gesicht bei z = 3 (Augen 1×2, Mund, Wangen), nur Rollen `skin`/`skin_shadow`
+(Hautton aus der Figur, 6 Töne im Katalog) und feste Augenfarbe, `jitter: false` auf Hals und Schädel. Regel (e) `pruefeKopf` (`tools/cha-lib.mjs`) hält das Maß fest.
+Der Rig `human` bleibt unverändert; sein Kopfbereich (y bis 30, z ab −3) stammt vom Bestandskopf, deshalb gelten für Körper-Kopf und Frisur zusätzliche Toleranzen in
+`CHA_TOLERANZEN` (`toleranzenVon(rig)` in `tools/cha-lib.mjs`, je Wert das Maximum aus Rig und Zusatz). Haarfarbe: 8 Werte, Hautton: 6 (`HAAR`, `HAUT`).
 
 **Schichtfolge** = Reihenfolge der `use`-Schritte im Sammelmodell `cha/joint/<gattung>`
 (Gattungen `hips torso head upperArm lowerArm thigh shin`): Körper → Hose → Schuhe → Oberteil → Handschuhe → Umhang;
-am Kopf Körper → Bart → Gesicht → Frisur → Kopfbedeckung (Bart vor Gesicht, sonst malt der Bartschatten über die Lippen).
+am Kopf Körper (mit Gesicht) → Frisur → Kopfbedeckung.
 Die Frisur liegt in einem eigenen Gitter (`cha/frisur_maskiert/head`), das eine Haarmaske der Kopfbedeckung
 (`cha/kopf/<name>/head_maske`, `mode: carve`) trifft, ohne den Schädel zu löschen: beim Bordhelm schneidet sie das Schalenvolumen und
-das Haar hinter, über und unter der Schale (Dutt, Zöpfe). Eine zweite Schablone (`…/head_ohren`, carve auf dem ganzen Kopf, vor der
-Kopfbedeckung) nimmt Ohren und Ohrring weg. Kopfmaß: Lerche, 6 breit (x −3..2); Germanen-Haar und -Bart sind dafür per `breit` auf 6 verbreitert.
+das Haar hinter, über und unter der Schale (Dutt, Zöpfe). Der 8er-Kopf hat keine Ohren, eine Ohrschablone gibt es nicht mehr. Kopfmaß: 8 breit (x −4..3).
 
 **Schicht** = Modell `cha/<platz>/<teil>/<gattung>` mit `"anchor": [0,0,0]`: ein `use` auf das Bestandsteil, `colors` legt dessen
 Rollen auf **Platzrollen** um (`top_plankenweste`, `hose_bordhose`, `schuh_bordstiefel` … in Palette `cha`), danach `carve`-Boxen, falls das Teil Körper
@@ -404,24 +410,24 @@ Bestandsteil Fellflecken mit `hair` färbt und die Haarfarbe des Spielers sonst 
 was Bestandsteile als Spielerfarbe tragen, bekommt in `cha` eine feste Teilfarbe. Die Rolle `spieler` ist für die Namensmarke reserviert.
 
 **Teil ergänzen:** in `tools/gen-cha.mjs` einen Eintrag in `TEILE` anlegen (Platz, Name, Bestandspalette, je Gattung `quelle`
-oder `ops`, `farben`, optional `params`/`decl`/`schnitte`/`at`), bei neuem Namen steht er automatisch in den `options` der Sammelmodelle.
+oder `ops` (eigene Boxen `{ eigene: [...] }` oder herausgelöst), `farben`, optional `params`/`decl`/`schnitte`/`at`), bei neuem Namen steht er automatisch in den `options` der Sammelmodelle.
 `ops` löst Ops aus Bestandsteilen heraus (`namen`, `ohneBedingung`, `ohneNamen`, `paintZuAdd`, `breit`, mehrere Quellen als Liste), `schichten` setzt
 mehrere herausgelöste Teilmodelle der Reihe nach ein (Bart: Deckschicht per `use mode: paint`, Bartzopf als eigene Schicht), `zusatz` legt
 weitere Modelle wie die Hutmaske an, `danach` hängt Boxen an (Kettenhalter des Fellumhangs), `anzeige`/`volk` füllen den Katalog.
 Haut- und Haarfarben (`HAUT`, `HAAR`, Index 0 = Standard) und Plätze stehen oben im Generator.
 Dann `node tools/gen-cha.mjs`, `npm run check`, `npm test`. Bilder: `node tools/cha-bilder.mjs [Präfix]` (Node-Renderer, nach `shots/cha01/`). Gelenkbereiche (`bereiche`) und Toleranzen je Platz und Gattung
-(`toleranzen`) stehen in `assets/rigs/human.json`; `npm run check` meldet Schichten außerhalb von Bereich + Toleranz.
+(`toleranzen`) stehen in `assets/rigs/human.json` (plus `CHA_TOLERANZEN` für den 8er-Kopf); `npm run check` meldet Schichten außerhalb von Bereich + Toleranz.
 
 **Anprobe im Editor:** Ist eine Figur mit Katalog geöffnet (`http://localhost:3412/editor/?figure=cha/spieler`, Server mit `npm start`, anderer Port: `PORT=… node server.js`),
 zeigt die Seitenleiste den Bereich „Anprobe“: je Platz eine Auswahlliste (Werte und Anzeigenamen aus `assets/katalog/charakter.json`, gruppiert Charakter/Outfit),
-Hautton und Haarfarbe als Farbfelder (je 4 aus `farben`), „Zufall“ und „Standard“. Jede Änderung baut die Figur sofort neu (Kamera bleibt), die Pose lässt sich weiter wählen.
+Hautton und Haarfarbe als Farbfelder (6 bzw. 8 aus `farben`), „Zufall“ und „Standard“. Jede Änderung baut die Figur sofort neu (Kamera bleibt), die Pose lässt sich weiter wählen.
 Der Zustand steht in der URL, nur Abweichungen vom Standard: `?figure=cha/spieler&pose=sit&p.kopf=bordhelm&p.frisur=zoepfe&haut=2&haar=3` (`p.<platz>=<teil>`, `haut`/`haar` = Farbindex).
 Für Bilder `&anim=0` (Pose anhalten) und `&t=<Sekunden>` (Zeitpunkt, z. B. `walk` bei `t=0.25`) anhängen. Der Katalog kommt als statische Datei vom Server (kein eigener Endpunkt nötig).
 Der Editor lädt für leere Werte (`keine`, `keiner`) Modelle, die es nicht gibt, und meldet dafür 404 in der Konsole; die Figur baut trotzdem (Fallback `cha/leer`).
 
 **Vorschaubilder je Teil:** `node tools/gen-cha-vorschau.mjs` schreibt zu jedem Katalog-Teil (auch `keine`/`keiner`) ein Bild nach `assets/sprites/cha/vorschau/<platz>/<name>.png`
 (**eingecheckt**, 140 × 124 px transparent = doppelte Bildfläche der Spielkachel 70 × 62; zusammen unter 40 KB). Standardfigur mit genau diesem Teil, Node-Renderer, feste Kamera:
-Kopf-Plätze (Gesicht, Frisur, Bart, Kopfbedeckung) Kopf ¾ von vorn, Oberteil Rumpf, Hose Hüfte bis Knie, Schuhe Unterschenkel, Handschuhe linker Unterarm, Umhang von hinten.
+Kopf-Plätze (Frisur, Kopfbedeckung) Kopf ¾ von vorn, Oberteil Rumpf, Hose Hüfte bis Knie, Schuhe Unterschenkel, Handschuhe linker Unterarm, Umhang von hinten.
 Ausschnitt und Blick je Platz stehen in `FENSTER` (`tools/cha-ansicht.mjs`). `--check` erzeugt im Speicher und vergleicht die Bildpunkte (nicht die Dateibytes) mit den Dateien und meldet veraltete, fehlende
 und überzählige Bilder (Exit 1); `node tools/gen-cha-vorschau.mjs kopf/bordhelm` erneuert nur ein Teil. Das Katalogfeld `vorschau` (Pfad relativ zu `assets/sprites/`) setzt `gen-cha.mjs`.
 **Reihenfolge nach jeder Änderung an Teilen:** `node tools/gen-cha.mjs`, `node tools/gen-cha-vorschau.mjs`, `npm test`. Die Bilder stehen nicht im `manifest.json` (`npm run sprites`, das beschreibt nur Schiffs-Drehsprites).
@@ -432,11 +438,11 @@ und überzählige Bilder (Exit 1); `node tools/gen-cha-vorschau.mjs kopf/bordhel
 unter `cha/` hat `anchor` (ungleich [0,0,0] nur mit passendem `at`); kein `colors`/`palette` am `use`, das `skin`/`skin_shadow`/`hair` setzt;
 `cha/spieler` baut mit Standardwerten und mit jedem Einzelwert; Schichten liegen im Gelenkbereich; der **Katalog** `assets/katalog/charakter.json`
 (vom Generator erzeugt, Format laut Schnittstelle Voxelwerk ↔ Spiel) ist konsistent: jede Katalog-ID hat ein Modell (außer `keine`/`keiner`),
-jede `options`-Ausprägung der Figur steht im Katalog und umgekehrt, Platz, Gruppe, Reihenfolge und Farben (je 4 Hauttöne und Haarfarben,
-Index 0 = Figurfarben) stimmen.
+jede `options`-Ausprägung der Figur steht im Katalog und umgekehrt, Platz, Gruppe, Reihenfolge und Farben (6 Hauttöne, 8 Haarfarben,
+Index 0 = Figurfarben) stimmen; Version 2: kein Platz `gesicht` oder `bart` in Katalog, Teilen und Figur-`params`. Dazu die **Kopfregel** (nackter Kopf 8 breit, 7 hoch, 8 tief, Hals bei y 25).
 
 **Passprobe** (`pruefePassung` in `tools/cha-lib.mjs`, Posen in `tools/cha-pose.mjs`, Abschnitt „Spielerfigur aus Schichten“ in `npm run check`, ca. 3 s):
-baut **jede Teilekombination** (Produkt der `options` aller Plätze, heute 2592) und prüft sie in den Posen stand, walk (Extreme des `cycle`: φ = 0, ¼, ½, ¾),
+baut **jede Teilekombination** (Produkt der `options` aller Plätze, heute 648) und prüft sie in den Posen stand, walk (Extreme des `cycle`: φ = 0, ¼, ½, ¾),
 aim, aim_rifle, aim_heavy, kneel, sit, crouch. Posen werden in Node ohne three.js angewendet (Gelenkhierarchie des Rigs, Euler YXZ, `lift`, Atmen/Blick
 bei t = 0 null); der Test gleicht jede Voxelecke gegen `applyPose` aus `render/voxel-three.js` ab. Die Spielerfigur bringt keine eigenen Posen mit,
 Quelle ist `assets/poses/human.json`; die Ersatzposen des Spiels (`actors.js`, `FALLBACK_POSES`) gelten nur, wenn eine Figur keine hat.
@@ -444,8 +450,8 @@ Geprüft wird je Kombination:
 1. **Bau**: wirft das Bauen oder ist die Figur leer → rot.
 2. **Gelenkbereich** (vor der Pose): kein Voxel eines Gelenks außerhalb von `bereiche` + den Toleranzen der getragenen Teile (Toleranz je Platz und
    Gattung, leere Werte tragen keine). Rechte Gelenke spiegeln die Toleranz in x.
-3. **Haar am Helm**: wird eine Kopfbedeckung getragen, darf kein sichtbares Haarvoxel (Voxel mit freier Seite, Haare in Marker-Grün gebaut, ohne Bart)
-   außerhalb der Gesichtsöffnung (`OEFFNUNG`: x −2..1, y 26..31, z ≥ 2) liegen.
+3. **Haar am Helm**: wird eine Kopfbedeckung getragen, darf kein sichtbares Haarvoxel (Voxel mit freier Seite, Haare in Marker-Grün gebaut)
+   außerhalb der Gesichtsöffnung (`OEFFNUNG`: x −3..2, y 26..30, z ≥ 3) liegen.
 4. **Durchdringung in Pose**: je Posenzustand und Gelenkpaar (55 Paare) zählt die Probe die Voxel beider Gelenke, deren Mitte einem Voxel des anderen
    Gelenks näher als 0,7 Voxel kommt **und die das in der Ruhepose nicht tun** (die Ruhe-Überlappung der Teile prüft `test-cha.mjs`).
    Rot, wenn die Zahl über der **Schwelle des Paares** liegt: dem größten Wert, den dasselbe Paar (links/rechts gespiegelt zusammengefasst)
@@ -453,7 +459,7 @@ Geprüft wird je Kombination:
    das im Bestand nie kollidiert (z. B. Kopf/Oberschenkel), hat die Schwelle 0.
 
 **Treffer lesen:** `✗ <Kombination>: Pose sit, hips/thighL: 52 Voxel durchdringen sich (Schwelle 47, Bestand in dieser Pose 46) [288 Wertekombinationen]`.
-Die Kombination ist der erste Fund (Werte in Platz-Reihenfolge `koerper/gesicht/frisur/bart/kopf/oberteil/hose/schuhe/haende/umhang`), die Klammer
+Die Kombination ist der erste Fund (Werte in Platz-Reihenfolge `koerper/frisur/kopf/oberteil/hose/schuhe/haende/umhang`), die Klammer
 sagt, bei wie vielen Wertekombinationen der am Paar beteiligten Plätze derselbe Befund auftritt. Gelenk und Pose nennen den Ort; die Zahl ist die Zahl der Treffer-Voxel.
 Zum Prüfen das genannte Teil (bei Bereichsfehlern die Schicht des Plätze-Werts am Gelenk, bei Haar die Hutmaske `…/head_maske`, bei Durchdringung die
 Platz-Werte des Paares) allein einsetzen und in der Pose ansehen (`tools/cha-bilder.mjs`). Unter dem Strich zeigt `npm run check` je Pose den größten Messwert mit Schwelle

@@ -23,8 +23,8 @@ const optionen = platzOptionen(lib, idx.models);
 const farbe = (haut = 0, haar = 0) => ({ ...katalog.farben.haut[haut], hair: katalog.farben.haar[haar] });
 const figur = (params = {}, colors = farbe()) => baueFigur(lib, 'cha/spieler', { params, colors }).grid.values();
 
-const KOPF = ['gesicht', 'frisur', 'bart', 'kopf'];
-for (const platz of ['gesicht', 'frisur', 'bart', 'kopf', 'oberteil', 'hose', 'schuhe', 'haende', 'umhang']) {
+const KOPF = ['frisur', 'kopf'];
+for (const platz of ['frisur', 'kopf', 'oberteil', 'hose', 'schuhe', 'haende', 'umhang']) {
   const figs = (optionen[platz] || []).map((w) => figur({ [platz]: w }));
   if (platz === 'kopf') for (const w of optionen.kopf) figs.push(figur({ kopf: w, frisur: 'zoepfe' }));
   reihe(out(`raster-${platz}`), figs, KOPF.includes(platz) ? { px: 15, yaws: [18, 100, 200], crop: [21, 35], pitch: 8 } : { px: 8, yaws: [18, 100] });
@@ -32,18 +32,18 @@ for (const platz of ['gesicht', 'frisur', 'bart', 'kopf', 'oberteil', 'hose', 's
 }
 
 const MISCH = [
-  ['1 ganz germanisch (Haut 1, Haar blond)', { gesicht: 'lerche', frisur: 'zoepfe', bart: 'vollbart', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' }, farbe(1, 2)],
+  ['1 ganz germanisch (Haut 1, Haar blond)', { frisur: 'zoepfe', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' }, farbe(1, 2)],
   ['2 Bordtunika, Bordhelm, Fellumhang (Haut 2, Haar rot)', { kopf: 'bordhelm', umhang: 'fellumhang' }, farbe(2, 3)],
-  ['3 Narbe, Vollbart, Zöpfe, ohne Kopfbedeckung (Haut 3, Haar schwarz)', { gesicht: 'narbe', bart: 'vollbart', frisur: 'zoepfe' }, farbe(3, 1)],
+  ['3 Zöpfe, ohne Kopfbedeckung (Haut 5 sehr dunkel, Haar schwarz)', { frisur: 'zoepfe' }, farbe(5, 1)],
 ];
 MISCH.forEach(([name, params, colors], i) => { reihe(out(`misch-${i + 1}`), [figur(params, colors)], { px: 16, yaws: [18, 100, 200] }); console.log(`misch-${i + 1}: ${name}`); });
 
 // Porträts: Karten im Format der Spiel-Charakterkarte (Pantheon shared/charakter.js), Grund wie figurGrund der Kammer (rom)
 const KARTEN = [
-  { name: 'Standard', karte: { v: 1, koerper: 'standard', gesicht: 'lerche', frisur: 'dutt', bart: 'keiner', haut: 0, haar: 0, outfit: {} } },
-  { name: 'Germanin: Zöpfe, Vollbart, Haut 1, Haar blond', karte: { v: 1, koerper: 'standard', gesicht: 'lerche', frisur: 'zoepfe', bart: 'vollbart', haut: 1, haar: 2, outfit: { oberteil: 'plankenweste', umhang: 'fellumhang' } } },
-  { name: 'Bordhelm mit Zöpfen, Haut 2, Haar rot', karte: { v: 1, koerper: 'standard', gesicht: 'lerche', frisur: 'zoepfe', bart: 'keiner', haut: 2, haar: 3, outfit: { kopf: 'bordhelm' } } },
-  { name: 'Narbe, Kahl, Haut 3', karte: { v: 1, koerper: 'standard', gesicht: 'narbe', frisur: 'keine', bart: 'keiner', haut: 3, haar: 1, outfit: {} } },
+  { name: 'Standard', karte: { v: 2, koerper: 'standard', frisur: 'dutt', haut: 0, haar: 0, outfit: {} } },
+  { name: 'Germanin: Zöpfe, Haut 1, Haar blond', karte: { v: 2, koerper: 'standard', frisur: 'zoepfe', haut: 1, haar: 2, outfit: { oberteil: 'plankenweste', umhang: 'fellumhang' } } },
+  { name: 'Bordhelm mit Zöpfen, Haut 2, Haar rot', karte: { v: 2, koerper: 'standard', frisur: 'zoepfe', haut: 3, haar: 3, outfit: { kopf: 'bordhelm' } } },
+  { name: 'Kahl, Haut 5 (sehr dunkel)', karte: { v: 2, koerper: 'standard', frisur: 'keine', haut: 5, haar: 1, outfit: {} } },
 ];
 KARTEN.forEach(({ name, karte }, i) => {
   const cv = portraet(lib, katalog, karte, { bg: [0, 4, 19, 255] });

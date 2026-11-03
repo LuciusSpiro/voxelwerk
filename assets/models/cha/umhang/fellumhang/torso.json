@@ -33,6 +33,21 @@
       }
     },
     {
+      "name": "Kragen über den Schultern abschneiden (y 25..27): dort sitzt der 8er-Kopf",
+      "op": "box",
+      "at": [
+        -5,
+        25,
+        -5
+      ],
+      "size": [
+        10,
+        3,
+        9
+      ],
+      "mode": "carve"
+    },
+    {
       "name": "Kettenhalter (Kette am Kragen)",
       "op": "box",
       "at": [

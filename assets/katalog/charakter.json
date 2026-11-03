@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "figur": "cha/spieler",
   "koerper": [
     {
@@ -9,22 +9,10 @@
   ],
   "plaetze": [
     {
-      "id": "gesicht",
-      "name": "Gesicht",
-      "gruppe": "charakter",
-      "standard": "lerche"
-    },
-    {
       "id": "frisur",
       "name": "Frisur",
       "gruppe": "charakter",
       "standard": "dutt"
-    },
-    {
-      "id": "bart",
-      "name": "Bart",
-      "gruppe": "charakter",
-      "standard": "keiner"
     },
     {
       "id": "kopf",
@@ -65,22 +53,6 @@
   ],
   "teile": [
     {
-      "id": "gesicht/lerche",
-      "platz": "gesicht",
-      "name": "Lerche",
-      "gruppe": "charakter",
-      "volk": "lerche",
-      "vorschau": "cha/vorschau/gesicht/lerche.png"
-    },
-    {
-      "id": "gesicht/narbe",
-      "platz": "gesicht",
-      "name": "Narbe",
-      "gruppe": "charakter",
-      "volk": "lerche",
-      "vorschau": "cha/vorschau/gesicht/narbe.png"
-    },
-    {
       "id": "frisur/dutt",
       "platz": "frisur",
       "name": "Dutt",
@@ -102,21 +74,6 @@
       "name": "Kahl",
       "gruppe": "charakter",
       "vorschau": "cha/vorschau/frisur/keine.png"
-    },
-    {
-      "id": "bart/keiner",
-      "platz": "bart",
-      "name": "Kein Bart",
-      "gruppe": "charakter",
-      "vorschau": "cha/vorschau/bart/keiner.png"
-    },
-    {
-      "id": "bart/vollbart",
-      "platz": "bart",
-      "name": "Vollbart",
-      "gruppe": "charakter",
-      "volk": "germanen",
-      "vorschau": "cha/vorschau/bart/vollbart.png"
     },
     {
       "id": "kopf/keine",
@@ -255,23 +212,35 @@
         "skin_shadow": "#A06E4E"
       },
       {
-        "skin": "#F0CDAE",
-        "skin_shadow": "#C9A589"
+        "skin": "#F7E0CC",
+        "skin_shadow": "#C6B3A3"
+      },
+      {
+        "skin": "#E8BE98",
+        "skin_shadow": "#BA987A"
       },
       {
         "skin": "#9A6A48",
-        "skin_shadow": "#7A5238"
+        "skin_shadow": "#7B553A"
       },
       {
-        "skin": "#5E3D2B",
-        "skin_shadow": "#472D20"
+        "skin": "#6B4430",
+        "skin_shadow": "#563626"
+      },
+      {
+        "skin": "#3E281D",
+        "skin_shadow": "#322017"
       }
     ],
     "haar": [
       "#3B2416",
       "#17130F",
-      "#D2AE5C",
-      "#A8431E"
+      "#E0BF6A",
+      "#A8431E",
+      "#5C3A22",
+      "#A9A8A3",
+      "#EEE6CF",
+      "#8C7A58"
     ]
   }
 }

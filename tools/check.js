@@ -11,7 +11,7 @@ import { gridToVox } from '../core/vox.js';
 import { resolveScene } from '../core/scene.js';
 import { buildTerrain } from '../core/terrain.js';
 import { pruefeModell, printReport } from './pruefbogen.mjs';
-import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKatalog, platzOptionen, pruefePassung, ladeFigur } from './cha-lib.mjs';
+import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, pruefePassung, ladeFigur } from './cha-lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), exportVox = args.includes('--vox'), pruefbogen = args.includes('--pruefbogen'), filter = args.find((a) => !a.startsWith('--'));
@@ -89,6 +89,7 @@ console.log('\n== Spielerfigur aus Schichten (cha/)');
       melde(`Anker (${chaIds.length} Modelle): jedes Modell und jedes eingesetzte Teil mit anchor, Anbaupunkt-Anker ausgeglichen`, pruefeAnker(idx.models, get));
       melde('Rollen: kein use mit colors/palette, das skin, skin_shadow oder hair setzt', pruefeRollen(idx.models, get));
       melde('Gelenkbereiche (Rig bereiche + toleranzen): alle Schichten innerhalb', pruefeBereiche(idx.models, get, (id) => lib.build(id), rig));
+      melde('Kopf: nackter Kopf 8 breit, 7 hoch, 8 tief, Hals bei y 25', pruefeKopf(lib, 'cha/spieler', idx.models));
       const r = pruefeFigur(lib, 'cha/spieler', idx.models);
       melde(`Figur cha/spieler baut mit Standardwerten und ${r.gebaut - 1} Einzelwerten`, r.fehler);
       const katalog = JSON.parse(await fs.readFile(path.join(root, 'assets', 'katalog', 'charakter.json'), 'utf8'));

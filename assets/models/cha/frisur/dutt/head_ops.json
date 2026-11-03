@@ -13,35 +13,35 @@
     "cha",
     "ops"
   ],
-  "notes": "Ops aus fig/lerche/head, Reihenfolge wie im Bestand.",
+  "notes": "Ops aus eigenen Boxen, Reihenfolge wie im Bestand.",
   "ops": [
     {
-      "name": "0 Haarkranz",
+      "name": "Haarkranz",
       "op": "box",
       "at": [
-        -3,
-        30,
-        -2
+        -4,
+        31,
+        -4
       ],
       "size": [
-        6,
+        8,
         1,
-        5
+        7
       ],
       "color": "hair"
     },
     {
-      "name": "0 Haar oben",
+      "name": "Haar oben",
       "op": "box",
       "at": [
-        -2,
-        31,
-        -2
+        -4,
+        32,
+        -4
       ],
       "size": [
-        4,
+        8,
         1,
-        4
+        8
       ],
       "color": {
         "shade": "hair",
@@ -49,17 +49,17 @@
       }
     },
     {
-      "name": "0 Scheitel",
+      "name": "Scheitel",
       "op": "box",
       "at": [
         0,
-        31,
-        -2
+        32,
+        -4
       ],
       "size": [
         1,
         1,
-        4
+        8
       ],
       "color": {
         "shade": "hair",
@@ -68,44 +68,44 @@
       "mode": "paint"
     },
     {
-      "name": "0 Haar hinten",
+      "name": "Haar hinten",
       "op": "box",
       "at": [
-        -3,
+        -4,
         27,
-        -3
+        -4
       ],
       "size": [
-        6,
+        8,
         4,
         1
       ],
       "color": "hair"
     },
     {
-      "name": "0 Haar Seiten",
+      "name": "Haar Seiten",
       "op": "box",
       "at": [
-        2,
+        3,
         28,
-        -2
+        -3
       ],
       "size": [
         1,
-        2,
-        2
+        3,
+        3
       ],
       "color": "hair",
       "mirror": "x",
       "mirrorAt": 0
     },
     {
-      "name": "0 Strähne",
+      "name": "Strähne",
       "op": "box",
       "at": [
-        -3,
-        29,
-        2
+        -4,
+        30,
+        3
       ],
       "size": [
         2,
@@ -115,12 +115,12 @@
       "color": "hair"
     },
     {
-      "name": "0 Haarband",
+      "name": "Haarband",
       "op": "box",
       "at": [
         -1,
         31,
-        -3
+        -5
       ],
       "size": [
         2,
@@ -130,12 +130,12 @@
       "color": "cloth2"
     },
     {
-      "name": "0 Dutt",
+      "name": "Dutt",
       "op": "box",
       "at": [
         -1,
-        31,
-        -5
+        32,
+        -6
       ],
       "size": [
         2,
@@ -148,12 +148,12 @@
       }
     },
     {
-      "name": "0 Dutt Spitze",
+      "name": "Dutt Spitze",
       "op": "box",
       "at": [
         -1,
-        33,
-        -5
+        34,
+        -6
       ],
       "size": [
         2,

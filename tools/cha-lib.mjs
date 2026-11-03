@@ -12,6 +12,25 @@ export const FIGURFARBEN = ['skin', 'skin_shadow', 'hair'];
  * Der Fellumhang färbt Fellflecken mit hair; ohne Festnageln würde die Haarfarbe des Spielers den Umhang färben.
  */
 export const PINNEN = { umhang: ['hair'] };
+/**
+ * Zusätzliche Toleranzen für den 8er-Kopf (CHA-02 A1): Der Rig bleibt unverändert (Rig und Posen gehören nicht zu A1), seine Kopfbereiche
+ * und Toleranzen stammen vom 4/6 breiten Bestandskopf. Der neue Kopf (Schädel x -4..3, y 26..32, z -4..3, Hals y 25) liegt über dem Bereich head
+ * (y bis 30, z ab -3); die Frisur ragt dazu nach hinten und oben. Gilt zusätzlich zu rig.toleranzen: je Platz, Gattung und Richtung der größere Wert.
+ */
+export const CHA_TOLERANZEN = {
+  koerper: { head: { min: [0, 0, 1], max: [0, 2, 0] } },
+  frisur: { head: { min: [0, 2, 3], max: [0, 4, 0] } },
+};
+/** Toleranzen des Rigs plus CHA_TOLERANZEN (je Wert das Maximum). */
+export function toleranzenVon(rig) {
+  const out = structuredClone(rig.toleranzen || {});
+  for (const [platz, gat] of Object.entries(CHA_TOLERANZEN)) for (const [g, t] of Object.entries(gat)) {
+    const alt = (out[platz] ||= {})[g];
+    out[platz][g] = alt ? { min: alt.min.map((v, i) => Math.max(v, t.min[i])), max: alt.max.map((v, i) => Math.max(v, t.max[i])) } : structuredClone(t);
+  }
+  return out;
+}
+
 /** Gattung → linkes bzw. mittiges Gelenk, an dem der Bereich gemessen wird (rechte Teile sind gespiegelte linke). */
 export const GELENK_LINKS = { hips: 'hips', torso: 'torso', head: 'head', upperArm: 'upperArmL', lowerArm: 'lowerArmL', thigh: 'thighL', shin: 'shinL' };
 
@@ -86,9 +105,9 @@ export function boxOf(built) {
 }
 
 /** Prüfung der Schichten gegen die Gelenkbereiche des Rigs plus Toleranz je Platz und Gattung. Schicht-ID: cha/<platz>/<teil>/<gattung>. */
-export function pruefeBereiche(ids, get, build, rig) {
+export function pruefeBereiche(ids, get, build, rig, tol = toleranzenVon(rig)) {
   const fehler = [];
-  const bereiche = rig.bereiche, tol = rig.toleranzen || {};
+  const bereiche = rig.bereiche;
   if (!bereiche) return [{ id: `rig ${rig.id}`, msg: 'Feld "bereiche" fehlt' }];
   for (const id of ids) {
     const m = id.match(/^cha\/([^/]+)\/([^/]+)\/([^/]+)$/);
@@ -143,6 +162,10 @@ export function baueFigur(lib, figId, opts = {}) {
 
 /** Namen der leeren Werte: kein Modell nötig, Fallback cha/leer. */
 export const LEERE_WERTE = ['keine', 'keiner'];
+/** Plätze der Katalogversion 1, die seit Version 2 entfallen (festes Gesicht, Bart in der Frisur). */
+export const PLATZ_ENTFALLEN = ['gesicht', 'bart'];
+/** Anzahl Hauttöne und Haarfarben im Katalog (Version 2). */
+export const ANZAHL_HAUT = 6, ANZAHL_HAAR = 8;
 const HEX = /^#[0-9A-Fa-f]{6}$/;
 
 /**
@@ -152,12 +175,18 @@ const HEX = /^#[0-9A-Fa-f]{6}$/;
  *    ausgenommen die leeren Werte keine/keiner
  *  - jede options-Ausprägung der Sammelmodelle steht im Katalog und umgekehrt jedes Teil des Katalogs in den options
  *  - vorschau: Pfad des Kachelbilds relativ zu assets/sprites/ (cha/vorschau/<platz>/<name>.png; Dateien prüft tools/test-cha.mjs)
- *  - Farben: je 4 Hauttöne (skin + skin_shadow) und 4 Haarfarben, Index 0 = Farben der Figur
+ *  - Version 2: Plätze gesicht und bart entfallen (Katalog, Teile, Figur-params)
+ *  - Farben: je 6 Hauttöne (skin + skin_shadow) und 8 Haarfarben, Index 0 = Farben der Figur
  * optionen = { platz: [werte] } aus platzOptionen(). Rückgabe: Liste { id, msg }.
  */
 export function pruefeKatalog(katalog, { modelIds, optionen, figur }) {
   const fehler = [], f = (id, msg) => fehler.push({ id, msg });
-  if (katalog.version !== 1) f('katalog', `version ${katalog.version} (erwartet 1)`);
+  if (katalog.version !== 2) f('katalog', `version ${katalog.version} (erwartet 2)`);
+  for (const platz of PLATZ_ENTFALLEN) {
+    if ((katalog.plaetze || []).some((p) => p.id === platz)) f('katalog', `Platz "${platz}" ist seit Version 2 kein Platz mehr (festes Gesicht, Bart steckt in der Frisur)`);
+    if ((katalog.teile || []).some((t) => String(t.id).startsWith(platz + '/'))) f('katalog', `Teile von "${platz}" gibt es seit Version 2 nicht mehr`);
+    if (platz in (figur.params || {})) f('katalog', `Figur-params enthalten den entfallenen Platz "${platz}"`);
+  }
   if (katalog.figur !== figur.id) f('katalog', `figur "${katalog.figur}" ist nicht ${figur.id}`);
   const platzIds = Object.keys(figur.params).filter((k) => k !== 'koerper');
   const ids = (katalog.plaetze || []).map((p) => p.id);
@@ -194,9 +223,9 @@ export function pruefeKatalog(katalog, { modelIds, optionen, figur }) {
   for (const w of optionen.koerper || []) if (!kk.includes(w)) f(`koerper/${w}`, 'options-Ausprägung der Figur fehlt unter koerper');
   for (const w of kk) if (!(optionen.koerper || []).includes(w)) f(`koerper/${w}`, 'Katalog-Körper ist keine options-Ausprägung der Figur');
   const { haut, haar } = katalog.farben || {};
-  if (!Array.isArray(haut) || haut.length !== 4) f('farben', `haut: ${haut?.length} Einträge (erwartet 4)`);
+  if (!Array.isArray(haut) || haut.length !== ANZAHL_HAUT) f('farben', `haut: ${haut?.length} Einträge (erwartet ${ANZAHL_HAUT})`);
   else for (const [i, h] of haut.entries()) if (!HEX.test(h.skin) || !HEX.test(h.skin_shadow)) f('farben', `haut[${i}]: skin und skin_shadow müssen Hexwerte sein`);
-  if (!Array.isArray(haar) || haar.length !== 4) f('farben', `haar: ${haar?.length} Einträge (erwartet 4)`);
+  if (!Array.isArray(haar) || haar.length !== ANZAHL_HAAR) f('farben', `haar: ${haar?.length} Einträge (erwartet ${ANZAHL_HAAR})`);
   else for (const [i, h] of haar.entries()) if (!HEX.test(h)) f('farben', `haar[${i}] ist kein Hexwert`);
   if (Array.isArray(haut) && haut[0] && (haut[0].skin !== figur.colors.skin || haut[0].skin_shadow !== figur.colors.skin_shadow)) f('farben', 'haut[0] ist nicht der Hautton der Figur');
   if (Array.isArray(haar) && haar[0] !== figur.colors.hair) f('farben', 'haar[0] ist nicht die Haarfarbe der Figur');
@@ -211,6 +240,28 @@ export function vergleiche(A, B) {
   for (const v of A.values()) { const w = B.get(v.x, v.y, v.z); if (!w) nurA++; else if (w.c !== v.c || w.e !== v.e) farbe++; else gleichV++; }
   for (const w of B.values()) if (!A.get(w.x, w.y, w.z)) nurB++;
   return { gleich: gleichV, nurA, nurB, farbe, a: A.size, b: B.size };
+}
+
+/** Maße des 8er-Kopfes (CHA-02): Schädel x -4..3, y 26..32, z -4..3, Hals bei y 25. */
+export const KOPF_MASS = { breite: 8, hoehe: 7, tiefe: 8, halsY: 25 };
+/**
+ * Regel (e), Kopf: Der nackte Kopf (Frisur "keine", keine Kopfbedeckung) der Figur ist 8 breit, 7 hoch (ab y 26) und 8 tief, mit Hals bei y 25.
+ * Prüft die Hülle der Kopf-Voxel, damit ein schmalerer Kopf (der alte 6er-Kopf der Lerche) rot wird. Rückgabe Liste { id, msg }.
+ */
+export function pruefeKopf(lib, figId, ids) {
+  const fehler = [], opt = platzOptionen(lib, ids);
+  const leer = (p) => LEERE_WERTE.find((w) => opt[p]?.includes(w));
+  let b;
+  try { b = baueFigur(lib, figId, { params: { frisur: leer('frisur'), kopf: leer('kopf') } }); }
+  catch (e) { return [{ id: figId, msg: `Kopf baut nicht: ${e.message}` }]; }
+  const vs = (b.pro.head || []).filter((v) => v.y >= KOPF_MASS.halsY + 1);
+  if (!vs.length) return [{ id: figId, msg: 'Kopf ohne Schädelvoxel' }];
+  const mn = [Infinity, Infinity, Infinity], mx = [-Infinity, -Infinity, -Infinity];
+  for (const v of vs) for (const [i, w] of [[0, v.x], [1, v.y], [2, v.z]]) { if (w < mn[i]) mn[i] = w; if (w > mx[i]) mx[i] = w; }
+  const mass = { breite: mx[0] - mn[0] + 1, hoehe: mx[1] - mn[1] + 1, tiefe: mx[2] - mn[2] + 1 };
+  for (const k of Object.keys(mass)) if (mass[k] !== KOPF_MASS[k]) fehler.push({ id: figId, msg: `Kopf ${k} ${mass[k]} (erwartet ${KOPF_MASS[k]})` });
+  if (!(b.pro.head || []).some((v) => v.y === KOPF_MASS.halsY)) fehler.push({ id: figId, msg: `Kopf ohne Hals bei y ${KOPF_MASS.halsY} (der Hals gehört zum Kopfteil)` });
+  return fehler;
 }
 
 /** Regel (c): Figur baut mit Standardwerten und mit jedem einzelnen Teil je Platz. Rückgabe { fehler, gebaut }. */
@@ -233,8 +284,8 @@ export function pruefeFigur(lib, figId, ids) {
 /** Marker für Haar: die Passprobe baut mit hair = reines Grün; Haar ist an der Farbe zu erkennen (der Mesher tönt Flächen leicht ab, deshalb Schwellen statt Gleichheit). */
 const HAAR_HEX = '#00FF00';
 const istHaar = (c) => { const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255; return g > 150 && r < 90 && b < 90; };
-/** Gesichtsöffnung des Bordhelms (Figur-Koordinaten, Voxelindizes): nur hier darf Haar der Frisur (Stirnfransen, Brauen) sichtbar bleiben. */
-export const OEFFNUNG = { xMin: -2, xMax: 1, yMin: 26, yMax: 31, zMin: 2 };
+/** Gesichtsöffnung des Bordhelms auf dem 8er-Kopf (Figur-Koordinaten, Voxelindizes): nur hier darf Haar der Frisur (Stirnfransen) sichtbar bleiben. */
+export const OEFFNUNG = { xMin: -3, xMax: 2, yMin: 26, yMax: 30, zMin: 3 };
 /** Radius (Voxel), unter dem zwei Voxelmitten verschiedener Gelenke als durchdrungen gelten (Würfel mit Kantenlänge 1 überlappen dann über die halbe Kante). */
 export const DURCHDRINGUNG_RADIUS = 0.7;
 const KOERPER_GELENKE = ['hips', 'torso', 'head', 'upperArmL', 'upperArmR', 'lowerArmL', 'lowerArmR', 'thighL', 'thighR', 'shinL', 'shinR'];
@@ -280,7 +331,7 @@ const gattungVon = (modell) => modell.split('/').pop();
  * Passprobe: baut jede Teilekombination der Figur (Produkt der options aller Plätze) und prüft
  *  1. Baufehler (Bauen wirft, Figur leer)
  *  2. Bereiche: Voxel je Gelenk außerhalb von Rig-bereiche + Toleranz der getragenen Teile (vor der Pose)
- *  3. Haar durch Kopfbedeckung: sichtbares Haar außerhalb der Gesichtsöffnung, wenn eine Kopfbedeckung getragen wird
+ *  3. Haar durch Kopfbedeckung: sichtbares Haar außerhalb der Gesichtsöffnung, wenn eine Kopfbedeckung getragen wird (Bart steckt seit Katalog 2 in der Frisur)
  *  4. Durchdringung in Pose: je Posenzustand und Gelenkpaar die Zahl der Voxel, die einem Voxel des anderen Gelenks näher als
  *     DURCHDRINGUNG_RADIUS kommen; rot, wenn mehr als die Schwelle (Maximum der Bestandsfiguren für dasselbe Paar über alle Posenzustände + spielraum; die Messung zeigt zusätzlich den Bestandswert je Pose)
  * Rechenzeit: jedes Gelenk wird je Wertekombination seiner Plätze (Schlüssel) nur einmal posiert, jedes Paar je Schlüsselpaar nur einmal gemessen.
@@ -294,7 +345,7 @@ export function pruefePassung(lib, figId, ids, opts = {}) {
   const fig = lib.get('figures', figId);
   if (!fig) return leer('Figur fehlt');
   const rig = lib.get('rigs', fig.rig), posen = lib.get('poses', rig.poses), zustaende = opts.zustaende || PASS_ZUSTAENDE;
-  const tol = rig.toleranzen || {}, bereiche = rig.bereiche;
+  const tol = opts.toleranzen || toleranzenVon(rig), bereiche = rig.bereiche;
   if (!bereiche) return leer('Feld "bereiche" fehlt', `rig ${rig.id}`);
   const optionen = platzOptionen(lib, ids), PLAETZE = Object.keys(fig.params);
   const werte = PLAETZE.map((p) => optionen[p] || [fig.params[p]]);
@@ -430,13 +481,13 @@ export function pruefePassung(lib, figId, ids, opts = {}) {
         melde(`bereich|${e.id}`, kombi, `Gelenk ${jn}: ${aussen} Voxel außerhalb von Bereich + Toleranz (${ueber.join(', ')})`);
       }
     }
-    // 3. Haar durch Kopfbedeckung (Gesicht, Frisur, Kopfbedeckung; ohne Bart, der sitzt legitim am Kinn)
+    // 3. Haar durch Kopfbedeckung (Frisur × Kopfbedeckung)
     if (params.kopf !== undefined && !LEERE_WERTE.includes(params.kopf)) {
-      const hk = `${params.koerper}/${params.gesicht}/${params.frisur}/${params.kopf}`;
+      const hk = `${params.koerper}/${params.frisur}/${params.kopf}`;
       if (!haarGeprueft.has(hk)) {
         haarGeprueft.add(hk);
         let n = 0;
-        try { n = haarAussen(baueFigur(lib, figId, { params: { ...params, bart: LEERE_WERTE.find((w) => optionen.bart?.includes(w)) ?? params.bart }, colors: { hair: HAAR_HEX } }).pro.head).length; } catch { /* Baufehler wird oben gemeldet */ }
+        try { n = haarAussen(baueFigur(lib, figId, { params, colors: { hair: HAAR_HEX } }).pro.head).length; } catch { /* Baufehler wird oben gemeldet */ }
         if (n) melde(`haar|${hk}`, kombi, `Gelenk head: ${n} sichtbare Haarvoxel außerhalb der Gesichtsöffnung (Haar sticht durch ${params.kopf})`);
       }
     }

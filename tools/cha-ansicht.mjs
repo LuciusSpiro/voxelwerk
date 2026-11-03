@@ -17,9 +17,9 @@ export const PORTRAET = { w: 260, h: 260 };
  * Gleicher Ausschnitt für alle Werte eines Platzes, damit die Kacheln einer Reihe vergleichbar sind.
  * yaw 0 = von vorn, 90 = von der linken Seite (+x), 180 = von hinten.
  */
-export const KOPFFENSTER = { x: [-4, 4], y: [24, 33], yaw: 28, pitch: 6, gelenke: ['head'] };
+export const KOPFFENSTER = { x: [-5, 4], y: [24, 35], yaw: 28, pitch: 6, gelenke: ['head'] };   // 8er-Kopf (x -4..3, y 25..32), Frisur bis y 34
 export const FENSTER = {
-  gesicht: KOPFFENSTER, frisur: KOPFFENSTER, bart: KOPFFENSTER, kopf: KOPFFENSTER,
+  frisur: KOPFFENSTER, kopf: KOPFFENSTER,
   oberteil: { x: [-7, 7], y: [11, 26], yaw: 28, pitch: 8, gelenke: ['torso', 'upperArmL', 'upperArmR'] },    // Rumpf mit Oberarmen
   hose: { x: [-5, 5], y: [5, 16], yaw: 28, pitch: 8, gelenke: ['hips', 'thighL', 'thighR'] },         // Hüfte bis Knie
   schuhe: { x: [-5, 4], y: [0, 7], yaw: 28, pitch: 10, gelenke: ['shinL', 'shinR'] },       // Unterschenkel und Füße
@@ -73,5 +73,5 @@ export function kartenOptionen(katalog, karte) {
  */
 export function portraet(lib, katalog, karte, { bg = [0, 0, 0, 0] } = {}) {
   const fig = baueFigur(lib, katalog.figur, kartenOptionen(katalog, karte));
-  return zeichneAusschnitt(fig.grid.values(), { x: [-5, 4], y: [22, 34], yaw: 28, pitch: 6 }, PORTRAET.w, PORTRAET.h, { bg, rand: 8 }).canvas;
+  return zeichneAusschnitt(fig.grid.values(), { x: [-6, 5], y: [22, 36], yaw: 28, pitch: 6 }, PORTRAET.w, PORTRAET.h, { bg, rand: 8 }).canvas;
 }

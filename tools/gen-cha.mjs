@@ -3,7 +3,7 @@
 //   assets/models/cha/**          Schicht-Wrapper (use + colors + carve/paint), Sammelmodelle cha/joint/<gattung>
 //   assets/palettes/cha.json      Platzrollen (Standardfarben aus den Bestandspaletten, je Teil eigene Rollen)
 //   assets/figures/cha/spieler.json
-//   assets/katalog/charakter.json Katalog für das Spiel (Plätze, Teile, Hauttöne, Haarfarben; je Teil das Feld vorschau = Pfad des Kachelbilds,
+//   assets/katalog/charakter.json Katalog (Version 2) für das Spiel (Plätze, Teile, Hauttöne, Haarfarben; je Teil das Feld vorschau = Pfad des Kachelbilds,
 //                                 die Bilder selbst erzeugt tools/gen-cha-vorschau.mjs)
 // Erzeugte Dateien nie von Hand bearbeiten: Teile ergänzt man in TEILE unten (siehe AUTHORING.md, "Spielerfigur aus Schichten").
 //
@@ -31,12 +31,12 @@ const GELENKE = {
   hips: ['hips'], torso: ['torso'], head: ['head'], upperArm: ['upperArmL', 'upperArmR'],
   lowerArm: ['lowerArmL', 'lowerArmR'], thigh: ['thighL', 'thighR'], shin: ['shinL', 'shinR'],
 };
-/** Schichtfolge je Gattung = Reihenfolge der use-Schritte (unten liegt zuerst). Am Kopf: Bart vor Gesicht (Bartschatten malt sonst über die Lippen). */
+/** Schichtfolge je Gattung = Reihenfolge der use-Schritte (unten liegt zuerst). Am Kopf liegt das feste Gesicht im Körper-Kopf (Katalog 2: kein Platz gesicht, kein Platz bart). */
 const FOLGE = {
   koerper_gelenk: ['koerper', 'hose', 'schuhe', 'oberteil', 'haende', 'umhang'],
-  head: ['koerper', 'bart', 'gesicht', 'frisur', 'kopf'],
+  head: ['koerper', 'frisur', 'kopf'],
 };
-const SCHICHT_NAME = { koerper: 'Körper', hose: 'Hose', schuhe: 'Schuhe', oberteil: 'Oberteil', haende: 'Handschuhe', umhang: 'Umhang', bart: 'Bart', gesicht: 'Gesicht', frisur: 'Frisur', kopf: 'Kopfbedeckung' };
+const SCHICHT_NAME = { koerper: 'Körper', hose: 'Hose', schuhe: 'Schuhe', oberteil: 'Oberteil', haende: 'Handschuhe', umhang: 'Umhang', frisur: 'Frisur', kopf: 'Kopfbedeckung' };
 
 /**
  * Plätze in fester Reihenfolge (Schnittstelle Voxelwerk ↔ Spiel).
@@ -44,9 +44,7 @@ const SCHICHT_NAME = { koerper: 'Körper', hose: 'Hose', schuhe: 'Schuhe', obert
  */
 const PLAETZE = [
   { id: 'koerper', name: 'Körper', gruppe: 'koerper', standard: 'standard' },
-  { id: 'gesicht', name: 'Gesicht', gruppe: 'charakter', standard: 'lerche' },   // Pflicht: ein Gesicht gibt es immer
   { id: 'frisur', name: 'Frisur', gruppe: 'charakter', standard: 'dutt', keine: 'keine', keineName: 'Kahl' },
-  { id: 'bart', name: 'Bart', gruppe: 'charakter', standard: 'keiner', keine: 'keiner', keineName: 'Kein Bart' },
   { id: 'kopf', name: 'Kopfbedeckung', gruppe: 'outfit', standard: 'keine', keine: 'keine', keineName: 'Keine' },
   { id: 'oberteil', name: 'Oberteil', gruppe: 'outfit', standard: 'bordtunika', keine: 'keine', keineName: 'Unterzeug' },
   { id: 'hose', name: 'Hose', gruppe: 'outfit', standard: 'bordhose', keine: 'keine', keineName: 'Unterzeug' },
@@ -55,18 +53,24 @@ const PLAETZE = [
   { id: 'umhang', name: 'Umhang', gruppe: 'outfit', standard: 'keiner', keine: 'keiner', keineName: 'Keiner' },
 ];
 
-/** Hautton (Paar skin + skin_shadow, Schatten ca. 0,78 der Hauptfarbe) und Haarfarbe. Index 0 = Standardfarben der Figur. */
+/** Hautton (Paar skin + skin_shadow, Schatten 0,8 der Hauptfarbe) und Haarfarbe. Index 0 = Standardfarben der Figur. Katalog 2: 6 Hauttöne, 8 Haarfarben. */
 const HAUT = [
-  { skin: '#C68E68', skin_shadow: '#A06E4E' },   // 0 mittel (Standard)
-  { skin: '#F0CDAE', skin_shadow: '#C9A589' },   // 1 hell
-  { skin: '#9A6A48', skin_shadow: '#7A5238' },   // 2 braun
-  { skin: '#5E3D2B', skin_shadow: '#472D20' },   // 3 dunkel
+  { skin: '#C68E68', skin_shadow: '#A06E4E' },   // 0 mittel (Standard, Schatten wie im Bestand lerche/crew_0)
+  { skin: '#F7E0CC', skin_shadow: '#C6B3A3' },   // 1 sehr hell
+  { skin: '#E8BE98', skin_shadow: '#BA987A' },   // 2 hell
+  { skin: '#9A6A48', skin_shadow: '#7B553A' },   // 3 braun
+  { skin: '#6B4430', skin_shadow: '#563626' },   // 4 dunkel
+  { skin: '#3E281D', skin_shadow: '#322017' },   // 5 sehr dunkel
 ];
 const HAAR = [
   '#3B2416',   // 0 braun (Standard)
   '#17130F',   // 1 schwarz
-  '#D2AE5C',   // 2 blond
+  '#E0BF6A',   // 2 blond
   '#A8431E',   // 3 rot
+  '#5C3A22',   // 4 kastanie
+  '#A9A8A3',   // 5 silbergrau
+  '#EEE6CF',   // 6 weiß
+  '#8C7A58',   // 7 aschblond
 ];
 
 /** Gelenk- und Hautfarben liegen bei der Figur (colors), nie in einem Teil. */
@@ -76,6 +80,54 @@ const FIGUR_STANDARD_COLORS = { ...HAUT[0], hair: HAAR[0] };
 // Hilfen für die Daten
 const carve = (name, at, size) => ({ name, op: 'box', at, size, mode: 'carve' });
 const SCHABLONE = '#808080';   // Farbe von Schablonenboxen (nur ihre Form zählt, sie schneiden per carve)
+const box = (name, at, size, color, o = {}) => ({ name, op: 'box', at, size, ...(color !== undefined ? { color } : {}), ...o });
+const spiegel = { mirror: 'x', mirrorAt: 0 };
+
+/**
+ * Der 8er-Kopf (Richtung A aus FIG-01, assets/models/entwurf/fig01/a/kopf auf Branch fig01): Schädel 8×7×8 (x -4..3, y 26..32, z -4..3), Hals y 25 (4×4),
+ * festes Gesicht bei z = 3 (Augen 1×2, Mund, Wangen). Haut aus skin/skin_shadow (Figur), Augen fest. Glatte Flächen (jitter false) sparen Dreiecke (FIG-01).
+ */
+const KOPF_8 = [
+  box('Hals', [-2, 25, -2], [4, 1, 4], 'skin_shadow', { jitter: false }),
+  box('Schädel', [-4, 26, -4], [8, 7, 8], 'skin', { jitter: false }),
+  box('Kinnkanten', [3, 26, 3], [1, 1, 1], undefined, { mode: 'carve', ...spiegel }),
+  box('Augen', [1, 28, 3], [1, 2, 1], '#1A120E', { mode: 'paint', jitter: false, ...spiegel }),
+  box('Mund', [-1, 26, 3], [2, 1, 1], { shade: 'skin', f: 0.86 }, { mode: 'paint', jitter: false }),
+  box('Wangen', [2, 27, 3], [1, 1, 1], { shade: 'skin', f: 0.93 }, { mode: 'paint', jitter: false, ...spiegel }),
+];
+/** Haarkappe (Dutt und Zöpfe gemeinsam): liegt auf der Schädelhülle, lässt das Gesicht (z 3, y <= 29) frei. */
+const HAARKAPPE = [
+  box('Haarkranz', [-4, 31, -4], [8, 1, 7], 'hair'),
+  box('Haar oben', [-4, 32, -4], [8, 1, 8], { shade: 'hair', f: 1.12 }),
+  box('Scheitel', [0, 32, -4], [1, 1, 8], { shade: 'hair', f: 0.78 }, { mode: 'paint' }),
+  box('Haar hinten', [-4, 27, -4], [8, 4, 1], 'hair'),
+  box('Haar Seiten', [3, 28, -3], [1, 3, 3], 'hair', spiegel),
+  box('Strähne', [-4, 30, 3], [2, 1, 1], 'hair'),
+];
+const DUTT = [
+  box('Haarband', [-1, 31, -5], [2, 2, 1], 'cloth2'),
+  box('Dutt', [-1, 32, -6], [2, 2, 2], { shade: 'hair', f: 1.06 }),
+  box('Dutt Spitze', [-1, 34, -6], [2, 1, 1], 'hair'),
+];
+const ZOEPFE = [
+  box('Zopf', [1, 23, -5], [1, 7, 1], { stripes: ['hair', { shade: 'hair', f: 0.78 }], axis: 'y', period: 2 }, spiegel),
+  box('Zopf-Band', [1, 29, -5], [1, 1, 1], 'primary', spiegel),
+  box('Zopfringe', [1, 26, -5], [1, 1, 1], 'metal_light', { jitter: false, ...spiegel }),
+];
+/** Bordhelm (aus fig/crew/helm_offen), auf den 8er-Kopf verbreitert: Schale über Hinterkopf und Seiten, Gesichtsrahmen bei z 3. */
+const HELM_BORD = [
+  box('Halsring', [-2, 25, -2], [4, 1, 4], 'metal'),
+  box('Helmschale', [-4, 26, -4], [8, 6, 7], 'secondary', { mode: 'under' }),
+  box('Helmdach', [-4, 32, -4], [8, 1, 8], 'secondary'),
+  box('Gesichtsrahmen oben', [-4, 31, 3], [8, 1, 1], 'metal_light'),
+  box('Gesichtsrahmen Seiten', [3, 26, 3], [1, 5, 1], 'metal_light', spiegel),
+  box('Akzentstreifen', [-1, 32, -4], [2, 1, 8], 'primary'),
+  box('Akzent Seite', [3, 29, -4], [1, 1, 7], 'primary', { mode: 'paint', ...spiegel }),
+  box('Funkmodul', [3, 27, -3], [1, 3, 2], 'metal_dark'),
+  box('Antenne', [3, 30, -3], [1, 3, 1], 'metal_light'),
+  box('Status-LED', [3, 28, 0], [1, 1, 1], { role: 'glow', emit: 1 }, { jitter: false }),
+  box('Stirnlampe', [-4, 30, 3], [1, 1, 1], { role: 'glow', emit: 1.2 }, { jitter: false }),
+];
 
 /**
  * Teile. Je Teil und Gattung ein Eintrag:
@@ -86,7 +138,7 @@ const SCHABLONE = '#808080';   // Farbe von Schablonenboxen (nur ihre Form zähl
  *   schnitte carve-Boxen nach dem use (nur Boxen: Teil von Körper/Kleidung trennen)
  *   danach   weitere Ops nach dem use (Boxen); color "@<Bestandsrolle>" = Platzrolle dieses Teils
  *   at       Versatz am use (Anbaupunkt-Teile wie der Fellumhang: Anker des Bestandsteils)
- *   ops      statt quelle: Ops aus Bestandsteilen herauslösen. Ein Objekt oder eine Liste von
+ *   ops      statt quelle: eigene Ops ({ eigene: [Boxen] }, Rollen wie im Bestand, per farben umgelegt) oder Ops aus Bestandsteilen herauslösen. Ein Objekt oder eine Liste von
  *              { quelle, namen | ohneBedingung | ohneNamen, paintZuAdd: [Namen], breit: [Namen] }
  *              paintZuAdd: paint wirkt nur im eigenen Gitter, ohne Untergrund also unsichtbar → als add
  *              breit: Box von 4 auf 6 Voxel Breite (x -3..2), Kopfmaß der Lerche
@@ -103,50 +155,28 @@ const TEILE = [
     shin: { quelle: 'fig/basis/unterschenkel', params: { bootH: 2 }, farben: { cloth: 'unter', metal_dark: 'skin_shadow', rubber: 'skin_shadow' } },
     upperArm: { quelle: 'fig/basis/oberarm', farben: { cloth: 'unter' } },
     lowerArm: { quelle: 'fig/basis/unterarm', params: { glove: 0 }, farben: { cloth: 'unter', metal_dark: 'skin_shadow' } },
-    head: { ops: { quelle: 'fig/lerche/head', ohneBedingung: true }, palette: 'lerche_rom', farben: { cloth2: 'haarband', trim: 'schmuck' } },
+    head: { ops: { eigene: KOPF_8 }, farben: {} },   // 8er-Kopf mit festem Gesicht (CHA-02, Entwurf FIG-01 Richtung A); Hals gehört zum Kopf
   } },
 
-  // ---- Gesicht
-  { platz: 'gesicht', name: 'lerche', anzeige: 'Lerche', volk: 'lerche', palette: 'lerche_rom', gattungen: {
-    head: { ops: { quelle: 'fig/lerche/head', namen: ['0 Brauen', '0 Ohrring'], paintZuAdd: ['0 Brauen'] }, farben: { cloth2: 'haarband', trim: 'schmuck' } },
-  } },
-  { platz: 'gesicht', name: 'narbe', anzeige: 'Narbe', volk: 'lerche', palette: 'lerche_rom', gattungen: {
-    head: { ops: { quelle: 'fig/lerche/head', namen: ['1 Lippen', '1 Brauen', '1 Brauenwulst', '1 Narbe'], paintZuAdd: ['1 Lippen', '1 Brauen', '1 Narbe'] }, farben: {} },
-  } },
-
-  // ---- Frisur
+  // ---- Frisur: bis Paket B die bisherigen Einträge, an den 8er-Kopf angepasst (Haar liegt auf der Schädelhülle x -4..3, y bis 32, z -4..3)
   { platz: 'frisur', name: 'dutt', anzeige: 'Dutt', volk: 'lerche', palette: 'lerche_rom', gattungen: {
-    head: { ops: { quelle: 'fig/lerche/head', namen: ['0 Haarkranz', '0 Haar oben', '0 Scheitel', '0 Haar hinten', '0 Haar Seiten', '0 Strähne', '0 Haarband', '0 Dutt', '0 Dutt Spitze'] }, farben: { cloth2: 'haarband', trim: 'schmuck' } },
+    head: { ops: { eigene: [...HAARKAPPE, ...DUTT] }, farben: { cloth2: 'haarband' } },
   } },
   { platz: 'frisur', name: 'zoepfe', anzeige: 'Zöpfe', volk: 'germanen', palette: 'nord', gattungen: {
-    head: { ops: [
-      { quelle: 'fig/basis/kopf', namen: ['Haar oben', 'Haar Stirn', 'Haar Krone', 'Haar hinten', 'Haar Seiten', 'Zopf', 'Zopf-Band'], breit: ['Haar oben', 'Haar Stirn', 'Haar Krone', 'Haar hinten'] },
-      { quelle: 'fig/germanen/kopf', namen: ['Zopfringe', 'Schläfenrasur'] },
-    ], farben: { primary: 'haarband', metal_light: 'metall_hell' } },
+    head: { ops: { eigene: [...HAARKAPPE, ...ZOEPFE] }, farben: { primary: 'haarband', metal_light: 'metall_hell' } },
   } },
 
-  // ---- Bart: Deckschicht malt per paint auf die Haut (use mode paint), der Bartzopf ist eine eigene Schicht und hängt am Kinn
-  { platz: 'bart', name: 'vollbart', anzeige: 'Vollbart', volk: 'germanen', palette: 'nord', gattungen: {
-    head: { schichten: [
-      { name: 'deck', modus: 'paint', ops: { quelle: 'fig/basis/kopf', namen: ['Bart', 'Bart Nase frei'], paintZuAdd: ['Bart'], breit: ['Bart'] } },
-      { name: 'zopf', ops: { quelle: 'fig/germanen/kopf', namen: ['Bartzopf', 'Bartperle'] } },
-    ], farben: { metal_light: 'metall_hell' } },
-  } },
-
-  // ---- Kopfbedeckung: Helm ohne eingebauten Kopf als späte Schicht. Maske schneidet das Haar-Gitter (Schale und Haar außerhalb), Ohren werden abgedeckt
+  // ---- Kopfbedeckung: Helm ohne eingebauten Kopf als späte Schicht, an den 8er-Kopf angepasst (Paket C gestaltet die Helme neu). Maske schneidet das Haar-Gitter
   // hut_zier fest: im Bestand ist primary der Spielerakzent des Helms (#56B4E9 = Spielerfarbe S1); die Spielerfigur trägt einen festen Crew-Akzent (Signalrot)
   { platz: 'kopf', name: 'bordhelm', anzeige: 'Bordhelm', volk: 'crew', palette: 'crew', rollen: { hut_zier: '#B3342B' }, gattungen: {
-    head: { ops: { quelle: 'fig/crew/helm_offen', ohneNamen: ['Kopf'] },
+    head: { ops: { eigene: HELM_BORD },
       farben: { secondary: 'hut', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', primary: 'hut_zier', glow: 'licht' },
       zusatz: {
         maske: { name: 'Haarmaske (schneidet das Haar-Gitter)', ops: [
-          { name: 'Schalenvolumen', op: 'box', at: [-3, 26, -4], size: [6, 6, 6], color: SCHABLONE },
-          { name: 'Haar hinter der Schale (Dutt)', op: 'box', at: [-3, 26, -8], size: [6, 10, 4], color: SCHABLONE },
-          { name: 'Haar über der Schale', op: 'box', at: [-3, 32, -4], size: [6, 4, 6], color: SCHABLONE },
-          { name: 'Haar unter der Schale (Zöpfe)', op: 'box', at: [-3, 20, -8], size: [6, 6, 10], color: SCHABLONE },
-        ] },
-        ohren: { name: 'Ohrschablone (schneidet Ohren und Ohrring, die Schale deckt sie ab)', ops: [
-          { name: 'Ohr und Ohrring', op: 'box', at: [3, 26, 0], size: [1, 3, 1], color: SCHABLONE, mirror: 'x', mirrorAt: 0 },
+          { name: 'Schalenvolumen', op: 'box', at: [-4, 26, -4], size: [8, 5, 7], color: SCHABLONE },
+          { name: 'Haar über der Schale', op: 'box', at: [-4, 31, -4], size: [8, 2, 8], color: SCHABLONE },
+          { name: 'Haar hinter der Schale (Dutt)', op: 'box', at: [-4, 26, -6], size: [8, 9, 2], color: SCHABLONE },
+          { name: 'Haar unter der Schale (Zöpfe)', op: 'box', at: [-4, 20, -6], size: [8, 6, 9], color: SCHABLONE },
         ] },
       } },
   } },
@@ -194,6 +224,7 @@ const TEILE = [
   // Die Kette zwischen den Spangen hängt im Bestand an der Halsberge des Germanen-Oberteils: zwei Kettenhalter (Boxen) hängen sie an den Kragen.
   { platz: 'umhang', name: 'fellumhang', anzeige: 'Fellumhang', volk: 'germanen', palette: 'nord', gattungen: {
     torso: { quelle: 'fig/germanen/fellumhang', at: [0, 20, -3], farben: { leather: 'umhang', hair: 'umhang_2', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell' },
+      schnitte: [carve('Kragen über den Schultern abschneiden (y 25..27): dort sitzt der 8er-Kopf', [-5, 25, -5], [10, 3, 9])],
       danach: [{ name: 'Kettenhalter (Kette am Kragen)', op: 'box', at: [3, 24, 3], size: [1, 1, 1], color: '@metal', mirror: 'x', mirrorAt: 0 }] },
   } },
 ];
@@ -238,6 +269,7 @@ const rolle = (ziel, w, von) => {
 
 /** Herausgelöste Ops: eine Auswahl aus einem Bestandsteil (siehe TEILE, ops). */
 const waehle = (id, o) => {
+  if (o.eigene) return clean(o.eigene);
   const src = bestand(o.quelle);
   const finde = (n) => { const x = src.ops.find((y) => y.name === n); if (!x) throw new Error(`${id}: Op "${n}" fehlt in ${o.quelle}`); return x; };
   for (const n of [...(o.paintZuAdd || []), ...(o.breit || []), ...(o.ohneNamen || [])]) finde(n);
@@ -255,7 +287,7 @@ const waehle = (id, o) => {
   });
 };
 const waehleAlle = (id, o) => [].concat(o).flatMap((x) => waehle(id, x));
-const quellenText = (o) => [...new Set([].concat(o).map((x) => x.quelle))].join(', ');
+const quellenText = (o) => [...new Set([].concat(o).map((x) => x.quelle ?? 'eigenen Boxen'))].join(', ');
 
 for (const t of TEILE) {
   const platz = PLAETZE.find((p) => p.id === t.platz);
@@ -330,9 +362,8 @@ for (const gattung of Object.keys(GELENKE)) {
     putModel('cha/frisur_maskiert/head', { name: 'Frisur unter der Kopfbedeckung (Maske schneidet nur das Haar-Gitter)', tags: ['cha', 'schicht'],
       params: { frisur: { default: 'dutt', options: werte(platzOf('frisur')) }, kopf: { default: 'keine', options: werte(platzOf('kopf')) } },
       ops: [leerOp('Frisur', 'cha/frisur/{frisur}/head'), { name: 'Haarmaske (carve)', ...useOp('cha/kopf/{kopf}/head_maske', { fallback: ['cha/leer'], mode: 'carve' }) }] });
-    for (const s of ['koerper', 'bart', 'gesicht']) ops.push(leerOp(SCHICHT_NAME[s], `cha/${s}/{${s}}/head`));
+    ops.push(leerOp(SCHICHT_NAME.koerper, 'cha/koerper/{koerper}/head'));
     ops.push({ name: 'Frisur (unter Hutmaske)', ...useOp('cha/frisur_maskiert/head', { params: { frisur: '{frisur}', kopf: '{kopf}' } }) });
-    ops.push(leerOp('Ohren unter der Kopfbedeckung (carve)', 'cha/kopf/{kopf}/head_ohren', { mode: 'carve' }));
     ops.push(leerOp(SCHICHT_NAME.kopf, 'cha/kopf/{kopf}/head'));
   }
   putModel(`cha/joint/${gattung}`, { name: `Sammelmodell ${gattung} (Schichten)`, tags: ['cha', 'joint'], notes: 'Schichtfolge = Reihenfolge der use-Schritte.', params, ops });
@@ -364,7 +395,7 @@ put('assets/figures/cha/spieler.json', { id: 'cha/spieler', name: 'Spielerfigur 
 // Der Körper steht oben unter "koerper" (die Karte führt ihn als eigenes Feld), plaetze/teile gelten für Charakter und Outfit.
 const katalogPlaetze = PLAETZE.filter((p) => p.id !== 'koerper');
 put('assets/katalog/charakter.json', {
-  version: 1,
+  version: 2,
   figur: 'cha/spieler',
   koerper: werte(platzOf('koerper')).map((n) => ({ id: n, name: TEILE.find((t) => t.platz === 'koerper' && t.name === n).anzeige })),
   plaetze: katalogPlaetze.map((p) => ({ id: p.id, name: p.name, gruppe: p.gruppe, standard: p.standard })),
