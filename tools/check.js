@@ -11,7 +11,7 @@ import { gridToVox } from '../core/vox.js';
 import { resolveScene } from '../core/scene.js';
 import { buildTerrain } from '../core/terrain.js';
 import { pruefeModell, printReport } from './pruefbogen.mjs';
-import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, pruefePassung, ladeFigur, PASS_AUSNAHMEN_D1 } from './cha-lib.mjs';
+import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, pruefePassung, ladeFigur, PASS_AUSNAHMEN_D1, pruefeBudget, BUDGET } from './cha-lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), exportVox = args.includes('--vox'), pruefbogen = args.includes('--pruefbogen'), filter = args.find((a) => !a.startsWith('--'));
@@ -107,6 +107,10 @@ console.log('\n== Spielerfigur aus Schichten (cha/)');
       }
       const ueber = Object.entries(p.messung).flatMap(([pose, l]) => l.filter((x) => x.max > x.bestand).map((x) => `${pose} ${x.paar} ${x.max} (Bestand ${x.bestand})`));
       if (ueber.length) console.log(`      über dem Bestandswert der Pose, unter der Paarschwelle: ${ueber.join('; ')}`);
+      // Budget (CHA-02, Kriterium 9): Dreiecke und Bauzeit je Figur, Spielerfigur im Worst Case plus größte Waffe, Bildsumme
+      const bud = await pruefeBudget(lib, idx);
+      melde(`Budget: Dreiecke je Figur (Spieler im Worst Case + größte Waffe ${bud.daten.waffeMax.id} ${bud.daten.waffeMax.dreiecke} ≤ ${BUDGET.dreieckeSpieler}, Gegner/NSC samt Anbauten ≤ ${BUDGET.dreieckeGegner}), Bauzeit je Figur ≤ ${BUDGET.bauMs} ms, Bildsumme ${bud.daten.bild.figuren} Figuren ≤ ${BUDGET.bildDreiecke} (ungünstigster Fall ${bud.daten.bild.summe})`, bud.fehler);
+      console.log(`      größte Spielerfigur ${bud.daten.bild.spielerMax} Dreiecke, größte Gegnerfigur ${bud.daten.bild.gegnerMax}, längste Bauzeit ${Math.max(...bud.daten.figuren.map((x) => x.bauMs))} ms`);
     } catch (e) { err(`cha/: ${e.message}`); }
   }
 }

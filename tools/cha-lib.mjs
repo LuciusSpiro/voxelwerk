@@ -177,12 +177,24 @@ export function baueGelenk(lib, fig, jn, params, colors) {
 
 /**
  * CHA-02 D1: Ausnahmen der Passprobe (siehe pruefePassung, opts.ausnahmen). Das Teil stammt von einer Bestandsfigur, deren Durchdringungen die Schwelle für Kombinationen mit diesem Teil mitbestimmen.
- *  robe: Ivos Gewand (weiter Rock, breite Stulpen); die Beine der Kombination sind andere als Ivos, deshalb 10 Voxel Spielraum (gemessen: höchstens +10 über der normalen Schwelle, nur Pose crouch).
- *  einsatzanzug: Tornister bei z -4..-6; mit langem Haar und einem Umhang schiebt sich der Kopf in der Pose crouch 4 bis 10 Voxel tiefer hinein (nova selbst trägt einen Helm ohne Haar).
+ * Eine Ausnahme gilt nur für die Gelenkpaare und Posen in `paare` ({ Posenzustand: [normierte Paarnamen] }, Namen wie paarNameVon): Das sind genau die, in denen die Kombinationen mit diesem Oberteil ohne Ausnahme
+ * über der Bestandsschwelle liegen (gemessen, test-cha.mjs prüft Gleichheit mit der Messung ohne Ausnahmen: weder fehlt ein Paar noch steht eines zu viel darin). Jedes andere Paar und jede andere Pose
+ * behält die normale Schwelle, so dass ein Haarteil, das mit der Robe in ein anderes Paar eindringt, rot bleibt.
+ *  robe: Ivos Gewand (weiter Rock, breite Stulpen); die Beine der Kombination sind andere als Ivos, deshalb bis zu 10 Voxel Spielraum über Ivos Höchstwert des Paares (20 Paar-Pose-Einträge in 8 Posen).
+ *  einsatzanzug: Tornister bei z -4..-6; mit langem Haar und einem Umhang schiebt sich der Kopf in der Pose crouch 4 bis 10 Voxel tiefer hinein (nova selbst trägt einen Helm ohne Haar); nur head|torso in crouch.
  */
 export const PASS_AUSNAHMEN_D1 = [
-  { wenn: { oberteil: 'robe' }, bestand: ['lerche/ivo'], spielraum: 10 },
-  { wenn: { oberteil: 'einsatzanzug' }, bestand: ['crew/nova'], spielraum: 10 },
+  { wenn: { oberteil: 'robe' }, bestand: ['lerche/ivo'], spielraum: 10, paare: {
+    aim: ['head|lowerArmL', 'lowerArmL|lowerArmR', 'torso|upperArmL'],
+    aim_heavy: ['hips|lowerArmL', 'lowerArmL|torso'],
+    aim_rifle: ['lowerArmL|torso', 'lowerArmL|upperArmL'],
+    crouch: ['hips|lowerArmL', 'hips|shinL', 'hips|thighL', 'hips|torso', 'lowerArmL|shinL', 'lowerArmL|thighL', 'thighL|torso'],
+    kneel: ['hips|thighL'],
+    sit: ['hips|thighL'],
+    'walk φ¼': ['hips|lowerArmL', 'hips|thighL'],
+    'walk φ¾': ['hips|lowerArmL', 'hips|thighL'],
+  } },
+  { wenn: { oberteil: 'einsatzanzug' }, bestand: ['crew/nova'], spielraum: 10, paare: { crouch: ['head|torso'] } },
 ];
 /** Namen der leeren Werte: kein Modell nötig, Fallback cha/leer. */
 export const LEERE_WERTE = ['keine', 'keiner'];
@@ -314,6 +326,8 @@ export const OEFFNUNG = { xMin: -3, xMax: 2, yMin: 22, yMax: 30, zMin: 3 };   //
 export const DURCHDRINGUNG_RADIUS = 0.7;
 const KOERPER_GELENKE = ['hips', 'torso', 'head', 'upperArmL', 'upperArmR', 'lowerArmL', 'lowerArmR', 'thighL', 'thighR', 'shinL', 'shinR'];
 const SPIEGEL = (n) => (n.endsWith('L') ? n.slice(0, -1) + 'R' : n.endsWith('R') ? n.slice(0, -1) + 'L' : n);
+/** Normierter Name eines Gelenkpaares (links/rechts gespiegelte Paare teilen sich einen Namen), Schlüssel der Paarschwellen und der Ausnahmen. */
+export const paarNameVon = (a, b) => { const k1 = [a, b].sort().join('|'), k2 = [SPIEGEL(a), SPIEGEL(b)].sort().join('|'); return k1 < k2 ? k1 : k2; };
 const NACH6 = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
 
 /** Lädt eine Figur samt aller Modelle (Teile und Anbauten) in die Bibliothek. */
@@ -444,7 +458,7 @@ export function pruefePassung(lib, figId, ids, opts = {}) {
     cz.set(ck, n);
     return n;
   };
-  const paarName = (a, b) => { const k1 = [a, b].sort().join('|'), k2 = [SPIEGEL(a), SPIEGEL(b)].sort().join('|'); return k1 < k2 ? k1 : k2; };
+  const paarName = paarNameVon;
   const paare = [];
   for (let i = 0; i < KOERPER_GELENKE.length; i++) for (let j = i + 1; j < KOERPER_GELENKE.length; j++) paare.push([KOERPER_GELENKE[i], KOERPER_GELENKE[j]]);
 
@@ -478,7 +492,7 @@ export function pruefePassung(lib, figId, ids, opts = {}) {
   });
   const schwelle = (z, pn, params) => {
     let t = paarMax[pn] ?? 0;
-    (opts.ausnahmen || []).forEach((a, i) => { if (params && Object.entries(a.wenn).every(([p, w]) => params[p] === w)) t = Math.max(t, Math.max(paarMax[pn] ?? 0, ausPaarMax[i][pn] ?? 0) + (a.spielraum || 0)); });
+    (opts.ausnahmen || []).forEach((a, i) => { if (params && Object.entries(a.wenn).every(([p, w]) => params[p] === w) && (!a.paare || a.paare[zustaende[z].id]?.includes(pn))) t = Math.max(t, Math.max(paarMax[pn] ?? 0, ausPaarMax[i][pn] ?? 0) + (a.spielraum || 0)); });
     return t + (opts.spielraum || 0);
   };
 
@@ -671,4 +685,98 @@ export function dreieckeVon(lib, figId, opts = {}) {
     voxel += b.grid.size; dreiecke += (m.lit.indices.length + m.emit.indices.length) / 3;
   }
   return { voxel, dreiecke: Math.round(dreiecke) };
+}
+
+// =============================================================================================
+// CHA-02 Nacharbeit (Kriterium 9): feste Budgetprüfung für Dreiecke und Bauzeit je Figur
+// =============================================================================================
+/**
+ * Grenzen aus dem Auftrag CHA-02, Kriterium 9 (Kai, 2026-11-03):
+ *  dreieckeSpieler  Spielerfigur im Worst Case (volle Ausrüstung, Kopfbedeckung, langes Haar) plus größte Waffe
+ *  dreieckeGegner   Gegner und NSC (Figur plus Anbauten, also Waffe, Helm usw.)
+ *  bildDreiecke / bildFiguren  Summe im Bild: höchstens 300 000 Dreiecke und 32 sichtbare Figuren
+ *  bauMs            Bauzeit je Figur (Bau + Vernetzung, kalt). Der Auftrag nennt keine Zahl; gemessen liegen die Figuren bei einem Bruchteil davon,
+ *                   die Grenze (200 ms, gemessen höchstens 11 ms) ist großzügig gegen Messrauschen, fängt aber eine Figur ab, die um Größenordnungen teurer baut.
+ *  bauVoxel         deterministisches Gegenstück zur Bauzeit: Voxel je Figur samt Anbauten (läuft nie flaky)
+ */
+export const BUDGET = { dreieckeSpieler: 10000, dreieckeGegner: 10000, bildDreiecke: 300000, bildFiguren: 32, bauMs: 200, bauVoxel: 4000 };
+
+/** Teile und Anbauten einer Figur bauen und vernetzen. Rückgabe { voxel, dreiecke, voxelAnbau, dreieckeAnbau, bauMs } (bauMs: Median von 3 kalten Läufen, Cache vorher geleert). */
+export function messeFigurBudget(lib, figId, opts = {}) {
+  const fig = lib.get('figures', figId);
+  const params = { ...(fig.params || {}), ...(opts.params || {}) }, colors = { ...(fig.colors || {}), ...(opts.colors || {}) };
+  const lauf = () => {
+    const r = { voxel: 0, dreiecke: 0, voxelAnbau: 0, dreieckeAnbau: 0 };
+    lib.buildCache.clear();
+    const t0 = performance.now();
+    const teil = (part, anbau) => {
+      const b = lib.build(part.model, { params: lib.partParams(part.model, params, part.params), palette: part.palette || fig.palette, colors });
+      const m = meshGrid(b.grid), tri = (m.lit.indices.length + m.emit.indices.length) / 3;
+      if (anbau) { r.voxelAnbau += b.grid.size; r.dreieckeAnbau += tri; } else { r.voxel += b.grid.size; r.dreiecke += tri; }
+    };
+    for (const p of Object.values(fig.parts || {})) teil(p, false);
+    for (const a of Object.values({ ...(fig.attach || {}), ...(opts.attach || {}) })) if (a) teil(a, true);
+    r.bauMs = performance.now() - t0;
+    return r;
+  };
+  const laeufe = [lauf(), lauf(), lauf()].sort((a, b) => a.bauMs - b.bauMs), r = laeufe[1];
+  return { ...r, dreiecke: Math.round(r.dreiecke), dreieckeAnbau: Math.round(r.dreieckeAnbau), bauMs: Math.round(r.bauMs) };
+}
+
+/** Dreiecke eines Modells (Standardwerte), z. B. einer Waffe. */
+export function messeModellDreiecke(lib, modelId) {
+  lib.buildCache.clear();
+  const b = lib.build(modelId), m = meshGrid(b.grid);
+  return { voxel: b.grid.size, dreiecke: Math.round((m.lit.indices.length + m.emit.indices.length) / 3) };
+}
+
+/**
+ * Budgetprüfung über alle Figuren (idx = listAssets). Spielerfigur im Worst Case (je Platz das Teil mit den meisten Dreiecken, danach auch mit Lorica) plus größte Waffe (item/waffe/**),
+ * alle anderen Figuren samt Anbauten, bauZeit und Bauvoxel je Figur, Bildsumme (4 Spieler im Worst Case plus die teuersten Gegner bis 32 Figuren).
+ * grenzen überschreibt BUDGET (Mutationsproben). Rückgabe { fehler: [{id, msg}], daten }
+ */
+export async function pruefeBudget(lib, idx, grenzen = {}) {
+  const G = { ...BUDGET, ...grenzen }, fehler = [], f = (id, msg) => fehler.push({ id, msg });
+  const waffen = idx.models.filter((i) => i.startsWith('item/waffe/'));
+  for (const w of waffen) await lib.load('models', w);
+  const wMess = waffen.map((id) => ({ id, ...messeModellDreiecke(lib, id) })).sort((a, b) => b.dreiecke - a.dreiecke);
+  const groessteWaffe = wMess[0];
+  const daten = { waffeMax: groessteWaffe, figuren: [] };
+  // Spieler: Worst Case je Platz (einzeln gegen die Standardfigur gemessen), dazu die Rüstung
+  for (const id of idx.models.filter((i) => i.startsWith('cha/'))) await lib.load('models', id);
+  await ladeFigur(lib, 'cha/spieler');
+  const optionen = platzOptionen(lib, idx.models), worst = {};
+  for (const [p, ws] of Object.entries(optionen)) {
+    if (p === 'koerper') continue;
+    let best = null;
+    for (const w of ws) { const d = messeFigurBudget(lib, 'cha/spieler', { params: { [p]: w } }).dreiecke; if (!best || d > best.d) best = { w, d }; }
+    worst[p] = best.w;
+  }
+  const varianten = [['Worst Case', worst], ['Worst Case Lorica', { ...worst, oberteil: 'lorica' }]];
+  let spielerMax = 0;
+  for (const [name, params] of varianten) {
+    const m = messeFigurBudget(lib, 'cha/spieler', { params }), summe = m.dreiecke + groessteWaffe.dreiecke;
+    spielerMax = Math.max(spielerMax, summe);
+    daten.figuren.push({ id: `cha/spieler (${name})`, ...m, waffe: groessteWaffe.dreiecke, summe });
+    if (summe > G.dreieckeSpieler) f(`cha/spieler (${name})`, `${m.dreiecke} Dreiecke + größte Waffe ${groessteWaffe.id} ${groessteWaffe.dreiecke} = ${summe} > ${G.dreieckeSpieler}`);
+    if (m.bauMs > G.bauMs) f(`cha/spieler (${name})`, `Bauzeit ${m.bauMs} ms > ${G.bauMs} ms`);
+    if (m.voxel + groessteWaffe.voxel > G.bauVoxel) f(`cha/spieler (${name})`, `${m.voxel + groessteWaffe.voxel} Voxel > ${G.bauVoxel}`);
+  }
+  // alle übrigen Figuren (Gegner, NSC, Crew, Bestand, Testfiguren), Anbauten (Waffe, Helm) zählen mit
+  let gegnerMax = 0;
+  for (const id of idx.figures.filter((i) => !i.startsWith('cha/'))) {
+    await ladeFigur(lib, id);
+    const m = messeFigurBudget(lib, id), summe = m.dreiecke + m.dreieckeAnbau, vox = m.voxel + m.voxelAnbau;
+    gegnerMax = Math.max(gegnerMax, summe);
+    daten.figuren.push({ id, ...m, summe });
+    if (summe > G.dreieckeGegner) f(id, `${summe} Dreiecke (Figur ${m.dreiecke} + Anbau ${m.dreieckeAnbau}) > ${G.dreieckeGegner}`);
+    if (m.bauMs > G.bauMs) f(id, `Bauzeit ${m.bauMs} ms > ${G.bauMs} ms`);
+    if (vox > G.bauVoxel) f(id, `${vox} Voxel > ${G.bauVoxel}`);
+  }
+  // Bildsumme im ungünstigsten Fall: 4 Spieler im Worst Case plus der teuerste Gegner bis zur Figurenzahl
+  const bildFiguren = G.bildFiguren, bildSumme = 4 * spielerMax + (bildFiguren - 4) * gegnerMax;
+  daten.bild = { figuren: bildFiguren, summe: bildSumme, spielerMax, gegnerMax };
+  if (bildFiguren > 32) f('Bild', `${bildFiguren} sichtbare Figuren > 32`);
+  if (bildSumme > G.bildDreiecke) f('Bild', `4 Spieler (je ${spielerMax}) + ${bildFiguren - 4} teuerste Gegner (je ${gegnerMax}) = ${bildSumme} Dreiecke > ${G.bildDreiecke}`);
+  return { fehler, daten };
 }

@@ -15,7 +15,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { nodeLibrary, listAssets } from './fs-io.js';
-import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur, haarAussen, PASS_AUSNAHMEN_D1, baueGelenk, paarweise, dreieckeVon, DURCHDRINGUNG_RADIUS } from './cha-lib.mjs';
+import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur, haarAussen, PASS_AUSNAHMEN_D1, baueGelenk, paarweise, dreieckeVon, DURCHDRINGUNG_RADIUS, pruefeBudget, BUDGET, paarNameVon } from './cha-lib.mjs';
 import { meshGrid } from '../core/mesher.js';
 import { kopfDurchdringung } from './cha-kopfpass.mjs';
 import { poseWerte, gelenkMatrizen, weltPunkt, eulerYXZ, posiere, PASS_ZUSTAENDE } from './cha-pose.mjs';
@@ -944,7 +944,9 @@ const NUR_MUTATION = { frisur: ['kurz', 'bartlang'], kopf: ['keine', 'bordhelm']
   const r = passe(lib);
   eq(r.fehler, [], `Passprobe über alle ${r.kombinationen} Kombinationen × ${Object.keys(r.messung).length} Posenzustände ohne Befund`);
   eq(r.kombinationen, 48600, '48600 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart)');
-  ok(r.sekunden < 20, `Laufzeit ${r.sekunden.toFixed(1)} s (Grenze 20 s)`);
+  // Grobe Grenze gegen Ausreißer, keine Leistungsmessung: der Lauf braucht 4 bis 5 s allein, 27 s sind unter Last (parallele Testläufe, Virenscanner, kalte Platte) gesehen worden; 20 s war flaky.
+  // Gebaut wird je Gelenk und Wertekombination nur einmal (Cache), eine echte Regression (Cache kaputt) kostet Minuten und reißt auch 90 s.
+  ok(r.sekunden < 90, `Laufzeit ${r.sekunden.toFixed(1)} s (grobe Grenze 90 s gegen kaputten Cache, unter Last bis 27 s gesehen)`);
   console.log(`    Laufzeit ${r.sekunden.toFixed(1)} s`);
   const alle = Object.entries(r.messung);
   ok(alle.every(([, l]) => l.every((x) => x.max <= x.schwelle)), 'jede Messung (Prüfsatz-Maximum je Pose und Paar) liegt unter der Bestandsschwelle des Paares');
@@ -1255,15 +1257,42 @@ console.log('\n== CHA-02 D1: Befund (e) Fellumhang-Kragen: kein Durchdringen von
 
 console.log('\n== CHA-02 D1: Passprobe über alle Oberteile × Kopfbedeckungen × Posen, Ausnahmen für Robe und Einsatzanzug');
 {
-  // Jedes Oberteil × jede Kopfbedeckung × jede Frisur × alle Posen läuft in der Passprobe oben mit (volles Produkt, Gelenke je Schlüssel gecacht). Hier die Gegenprobe der Ausnahmen:
-  const nur = { oberteil: ['robe', 'einsatzanzug'], frisur: ['kurz', 'bartlang'], umhang: ['keiner', 'fellumhang', 'sagum'] };
-  const mit = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND, ausnahmen: PASS_AUSNAHMEN_D1, nur });
-  const ohne = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND, nur });
-  eq(mit.fehler, [], `mit den Ausnahmen (robe: Ivo +10, einsatzanzug: nova +10) ohne Befund (${mit.kombinationen} Kombinationen)`);
-  ok(ohne.fehler.length > 0 && ohne.fehler.every((f) => /robe|einsatzanzug/.test(f.id)), `ohne die Ausnahmen melden nur Kombinationen mit Robe oder Einsatzanzug (${ohne.fehler.length} Befunde): die Ausnahmen sind nötig und gelten für nichts anderes`);
-  // nicht schlimmer als nötig: jedes andere Oberteil kommt ohne Ausnahme aus (volles Produkt oben, ohne Robe und Einsatzanzug in den Befunden)
-  const alleOhne = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND });
-  ok(alleOhne.fehler.every((f) => /robe|einsatzanzug/.test(f.id)), 'über alle 16 200 Kombinationen ohne Ausnahmen betreffen alle Befunde nur Robe oder Einsatzanzug (bordtunika, plankenweste, keine bleiben unter den Bestandsschwellen)');
+  // Jedes Oberteil × jede Kopfbedeckung × jede Frisur × alle Posen läuft in der Passprobe oben mit (volles Produkt, Gelenke je Schlüssel gecacht).
+  // Gegenprobe der Ausnahmen: jedes Oberteil einzeln über alle seine Kombinationen OHNE Ausnahmen. Nur die Oberteile mit Ausnahme dürfen Befunde haben, alle anderen müssen ohne auskommen.
+  const ohneAus = {};
+  for (const w of optionen.oberteil) ohneAus[w] = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND, nur: { oberteil: [w] } });
+  const summe = Object.values(ohneAus).reduce((n, r) => n + r.kombinationen, 0);
+  eq(summe, 48600, `die ${optionen.oberteil.length} Oberteile einzeln ohne Ausnahmen decken alle ${summe} Kombinationen ab`);
+  const brauchen = Object.entries(ohneAus).filter(([, r]) => r.fehler.length).map(([w]) => w).sort();
+  eq(brauchen, PASS_AUSNAHMEN_D1.map((x) => x.wenn.oberteil).sort(), `ohne Ausnahmen haben genau die Oberteile mit Ausnahme Befunde (${brauchen.map((w) => `${w} ${ohneAus[w].fehler.length}`).join(', ')}); die übrigen ${optionen.oberteil.length - brauchen.length} Oberteile kommen über alle ihre Kombinationen ohne Ausnahme aus`);
+  // Die Ausnahmen gelten nur für Paare und Posen, die ohne sie tatsächlich rot sind: Befunde ohne Ausnahme = Liste der Ausnahme (weder fehlt etwas noch steht etwas zu viel darin)
+  for (const a of PASS_AUSNAHMEN_D1) {
+    const w = a.wenn.oberteil, gemessen = new Set(), fremd = [];
+    for (const x of ohneAus[w].fehler) {
+      const m = /^Pose (.+?), (\S+)\/(\S+): \d+ Voxel durchdringen sich/.exec(x.msg);
+      if (m) gemessen.add(`${m[1]}|${paarNameVon(m[2], m[3])}`); else fremd.push(x.msg);
+    }
+    const gelistet = new Set(Object.entries(a.paare).flatMap(([pose, ps]) => ps.map((p) => `${pose}|${p}`)));
+    eq(fremd, [], `${w}: ohne Ausnahme gibt es nur Durchdringungsbefunde (kein Bau-, Bereichs- oder Haarfehler)`);
+    eq([...gemessen].sort(), [...gelistet].sort(), `${w}: die Ausnahme nennt genau die ${gemessen.size} gemessenen Paar-Pose-Kombinationen (${Object.keys(a.paare).length} Posen)`);
+    const mit = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND, ausnahmen: PASS_AUSNAHMEN_D1, nur: { oberteil: [w] } });
+    eq(mit.fehler, [], `${w}: mit der auf diese Paare und Posen beschränkten Ausnahme über alle ${mit.kombinationen} Kombinationen ohne Befund`);
+  }
+  // Mutationsprobe: ein Haarteil (Bartlang) reicht mit der Robe in ein Paar, für das es keine Ausnahme gibt (head/lowerArmL in crouch, Schwelle 0). Mit der beschränkten Ausnahme rot,
+  // mit der früheren pauschalen Ausnahme (+10 für alle Paare und Posen, hier ohne paare) bliebe es grün: die Beschränkung ist es, die das fängt.
+  {
+    const l = nodeLibrary(root);
+    for (const id of chaIds) await l.load('models', id);
+    await l.load('figures', 'cha/spieler'); await l.load('rigs', 'human'); await l.load('poses', 'human');
+    for (const f of [...BESTAND, ...PASS_AUSNAHMEN_D1.flatMap((a) => a.bestand)]) await ladeFigur(l, f);
+    const nur = { oberteil: ['robe'], frisur: ['bartlang'], kopf: ['keine'], umhang: ['keiner'] };
+    eq(pruefePassung(l, 'cha/spieler', idx.models, { bestand: BESTAND, ausnahmen: PASS_AUSNAHMEN_D1, nur }).fehler, [], 'Gegenprobe: Robe mit Bartlang ohne Mutation grün');
+    l.get('models', 'cha/frisur/bartlang/head_ops').ops.push({ op: 'box', name: 'Haarsträhne (Mutation)', at: [-2, 20, -1.5], size: [4, 5, 3], color: 'hair' });   l.buildCache.clear();
+    const mit = pruefePassung(l, 'cha/spieler', idx.models, { bestand: BESTAND, ausnahmen: PASS_AUSNAHMEN_D1, nur });
+    const pauschal = pruefePassung(l, 'cha/spieler', idx.models, { bestand: BESTAND, ausnahmen: PASS_AUSNAHMEN_D1.map(({ paare, ...a }) => a), nur });
+    ok(mit.fehler.some((x) => /Pose crouch, head\/lowerArmL/.test(x.msg)), `Mutationsprobe: Haarteil dringt mit Robe in head/lowerArmL ein → rot (${mit.fehler.length} Befunde, z. B. „${(mit.fehler[0] || { msg: '–' }).msg.slice(0, 80)}“)`);
+    eq(pauschal.fehler.length, 0, 'Vergleich: die frühere pauschale Ausnahme (+10 für alle Paare und Posen) hätte den Fehler durchgelassen');
+  }
 }
 
 console.log('\n== CHA-02 D1: Dreiecke (tools/cha-mess.mjs)');
@@ -1280,6 +1309,35 @@ console.log('\n== CHA-02 D1: Dreiecke (tools/cha-mess.mjs)');
   const wc = dreieckeVon(lib, 'cha/spieler', { params: worst });
   console.log(`    Worst Case (${Object.values(worst).join(', ')}): ${wc.voxel} Voxel, ${wc.dreiecke} Dreiecke ohne Waffe (Standard ${std.dreiecke})`);
   ok(wc.dreiecke < 10000, `Worst Case der Spielerfigur ohne Waffe ${wc.dreiecke} < 10 000 Dreiecke (Waffe baut das Spiel an; Grenze mit Waffe 10 000)`);
+}
+
+console.log('\n== CHA-02 Kriterium 9: Budget (Dreiecke und Bauzeit je Figur, Waffe, Bildsumme)');
+{
+  const b = await pruefeBudget(lib, idx);
+  eq(b.fehler, [], `alle ${b.daten.figuren.length} Figuren im Budget: Spielerfigur im Worst Case + größte Waffe (${b.daten.waffeMax.id}, ${b.daten.waffeMax.dreiecke}) ≤ ${BUDGET.dreieckeSpieler}, Gegner/NSC samt Anbauten ≤ ${BUDGET.dreieckeGegner}, Bauzeit ≤ ${BUDGET.bauMs} ms, Bildsumme ≤ ${BUDGET.bildDreiecke}`);
+  console.log(`    größte Spielerfigur ${b.daten.bild.spielerMax} Dreiecke (mit Waffe), größte Gegnerfigur ${b.daten.bild.gegnerMax}, längste Bauzeit ${Math.max(...b.daten.figuren.map((x) => x.bauMs))} ms, Bild im ungünstigsten Fall (4 Spieler + 28 teuerste Gegner) ${b.daten.bild.summe}`);
+  ok(b.daten.figuren.some((x) => x.id.startsWith('cha/spieler') && x.waffe > 0) && b.daten.figuren.some((x) => x.id.startsWith('fig/germanen/') && x.dreieckeAnbau > 0), 'Positivkontrolle: Waffe und Anbauten werden mitgemessen');
+  // Mutationsproben: Schwelle absenken und Teil aufblähen → rot
+  const rotG = async (name, grenzen, re) => { const r = await pruefeBudget(lib, idx, grenzen); ok(r.fehler.some((x) => re.test(x.msg)), `Mutationsprobe ${name}: rot (${r.fehler.length} Befunde, z. B. „${(r.fehler[0] || { msg: '–' }).msg.slice(0, 90)}“)`); };
+  await rotG('Spielergrenze 5000', { dreieckeSpieler: 5000 }, /größte Waffe/);
+  await rotG('Gegnergrenze 6000', { dreieckeGegner: 6000 }, /Anbau/);
+  await rotG('Bauzeit 0 ms', { bauMs: 0 }, /Bauzeit/);
+  await rotG('Bauvoxel 1000', { bauVoxel: 1000 }, /Voxel/);
+  await rotG('Bildsumme 100 000', { bildDreiecke: 100000 }, /Dreiecke > 100000/);
+  await rotG('33 Figuren im Bild', { bildFiguren: 33 }, /sichtbare Figuren/);
+  const bl = async () => { const l = nodeLibrary(root); for (const m of chaIds) await l.load('models', m); await l.load('figures', 'cha/spieler'); await l.load('rigs', 'human'); await l.load('poses', 'human'); return l; };
+  const blaehe = (m, n) => { for (let i = 0; i < n; i++) m.ops.push({ op: 'box', name: 'Aufblähung', at: [(i % 30) * 2 - 30, 40 + Math.floor(i / 30) * 2, 8], size: [1, 1, 1], color: 'trim' }); };
+  const lw = await bl(); for (const w of idx.models.filter((i) => i.startsWith('item/waffe/'))) await lw.load('models', w);
+  blaehe(lw.get('models', 'item/waffe/lanze'), 900);
+  const rw = await pruefeBudget(lw, idx);
+  ok(rw.fehler.some((x) => /größte Waffe/.test(x.msg)), `Mutationsprobe: aufgeblähte Waffe (item/waffe/lanze, 900 Einzelvoxel) → Spielerbudget rot (${rw.daten.waffeMax.dreiecke} Dreiecke)`);
+  const lg = await bl(); await ladeFigur(lg, 'fig/germanen/schuetze');
+  blaehe(lg.get('models', lg.get('figures', 'fig/germanen/schuetze').parts.head.model), 1000);
+  const rg = await pruefeBudget(lg, idx);
+  ok(rg.fehler.some((x) => x.id === 'fig/germanen/schuetze'), `Mutationsprobe: aufgeblähter Gegnerkopf (fig/germanen/schuetze, +1000 Einzelvoxel) → Gegnerbudget rot (${rg.fehler.find((x) => x.id === 'fig/germanen/schuetze')?.msg.slice(0, 70)})`);
+  const lp = await bl(); blaehe(lp.get('models', 'cha/joint/head'), 1000);
+  const rp = await pruefeBudget(lp, idx);
+  ok(rp.fehler.some((x) => x.id.startsWith('cha/spieler')), `Mutationsprobe: aufgeblähter Spielerkopf (+1000 Einzelvoxel) → Spielerbudget rot (${rp.fehler.find((x) => x.id.startsWith('cha/spieler'))?.msg.slice(0, 70)})`);
 }
 
 // CHA-02 D2: Lorica (Richtung A), Schulterpanzer am Rumpf
