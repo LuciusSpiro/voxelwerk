@@ -159,6 +159,24 @@
       "vorschau": "cha/vorschau/oberteil/plankenweste.png"
     },
     {
+      "id": "oberteil/robe",
+      "platz": "oberteil",
+      "name": "Robe",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "lerche",
+      "vorschau": "cha/vorschau/oberteil/robe.png"
+    },
+    {
+      "id": "oberteil/einsatzanzug",
+      "platz": "oberteil",
+      "name": "Einsatzanzug",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "crew",
+      "vorschau": "cha/vorschau/oberteil/einsatzanzug.png"
+    },
+    {
       "id": "oberteil/keine",
       "platz": "oberteil",
       "name": "Unterzeug",
@@ -183,6 +201,15 @@
       "herkunft": "frei",
       "volk": "germanen",
       "vorschau": "cha/vorschau/hose/germanenhose.png"
+    },
+    {
+      "id": "hose/anzughose",
+      "platz": "hose",
+      "name": "Anzughose",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "crew",
+      "vorschau": "cha/vorschau/hose/anzughose.png"
     },
     {
       "id": "hose/keine",
@@ -211,6 +238,24 @@
       "vorschau": "cha/vorschau/schuhe/germanenstiefel.png"
     },
     {
+      "id": "schuhe/einsatzstiefel",
+      "platz": "schuhe",
+      "name": "Einsatzstiefel",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "crew",
+      "vorschau": "cha/vorschau/schuhe/einsatzstiefel.png"
+    },
+    {
+      "id": "schuhe/ocreae",
+      "platz": "schuhe",
+      "name": "Ocreae",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "rom",
+      "vorschau": "cha/vorschau/schuhe/ocreae.png"
+    },
+    {
       "id": "schuhe/keine",
       "platz": "schuhe",
       "name": "Barfuß",
@@ -236,6 +281,15 @@
       "vorschau": "cha/vorschau/haende/armschiene.png"
     },
     {
+      "id": "haende/einsatzhandschuh",
+      "platz": "haende",
+      "name": "Einsatzhandschuh",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "crew",
+      "vorschau": "cha/vorschau/haende/einsatzhandschuh.png"
+    },
+    {
       "id": "umhang/keiner",
       "platz": "umhang",
       "name": "Keiner",
@@ -251,6 +305,15 @@
       "herkunft": "frei",
       "volk": "germanen",
       "vorschau": "cha/vorschau/umhang/fellumhang.png"
+    },
+    {
+      "id": "umhang/sagum",
+      "platz": "umhang",
+      "name": "Sagum",
+      "gruppe": "outfit",
+      "herkunft": "frei",
+      "volk": "rom",
+      "vorschau": "cha/vorschau/umhang/sagum.png"
     }
   ],
   "farben": {

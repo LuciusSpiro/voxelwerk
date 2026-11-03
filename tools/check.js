@@ -11,7 +11,7 @@ import { gridToVox } from '../core/vox.js';
 import { resolveScene } from '../core/scene.js';
 import { buildTerrain } from '../core/terrain.js';
 import { pruefeModell, printReport } from './pruefbogen.mjs';
-import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, pruefePassung, ladeFigur } from './cha-lib.mjs';
+import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, pruefePassung, ladeFigur, PASS_AUSNAHMEN_D1 } from './cha-lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), exportVox = args.includes('--vox'), pruefbogen = args.includes('--pruefbogen'), filter = args.find((a) => !a.startsWith('--'));
@@ -97,9 +97,9 @@ console.log('\n== Spielerfigur aus Schichten (cha/)');
         pruefeKatalog(katalog, { modelIds: idx.models, optionen: platzOptionen(lib, idx.models), figur: lib.get('figures', 'cha/spieler') }));
       // Passprobe: jede Teilekombination × Posen (Baufehler, Bereiche, Haar durch Kopfbedeckung, Durchdringung in Pose gegen den Bestand)
       const BESTAND = ['lerche/crew_0', 'fig/germanen/grundtyp', 'rom/legionaer'];
-      for (const b of BESTAND) await ladeFigur(lib, b);
+      for (const b of [...BESTAND, ...PASS_AUSNAHMEN_D1.flatMap((a) => a.bestand)]) await ladeFigur(lib, b);
       await lib.load('poses', rig.poses);
-      const p = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND });
+      const p = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND, ausnahmen: PASS_AUSNAHMEN_D1 });
       melde(`Passprobe: ${p.kombinationen} Kombinationen × ${Object.keys(p.messung).length} Posenzustände (Bau, Gelenkbereiche, Haar am Helm, Durchdringung gegen Bestand ${BESTAND.join(', ')}) in ${p.sekunden.toFixed(1)} s`, p.fehler);
       for (const [pose, l] of Object.entries(p.messung)) {
         const m = l[0];

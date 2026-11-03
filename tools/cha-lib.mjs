@@ -3,6 +3,7 @@
 // Die Prüfregeln sind reine Funktionen über "get(id)" (Modell-JSON) und die Liste der Modell-IDs, damit Tests sie mit
 // manipulierten Modellen aufrufen können. Rückgabe: Liste { id, msg } (leer = in Ordnung).
 import { VoxelGrid } from '../core/grid.js';
+import { meshGrid } from '../core/mesher.js';
 import { PASS_ZUSTAENDE, poseWerte, gelenkMatrizen, posiere } from './cha-pose.mjs';
 
 /** Rollen, die ausschließlich die Figur (colors) setzt. Kein use in cha/ darf sie umlegen oder per Palette ersetzen. */
@@ -21,10 +22,18 @@ export const CHA_TOLERANZEN = {
   koerper: { head: { min: [0, 0, 1], max: [0, 2, 0] } },
   frisur: { head: { min: [1, 5, 3], max: [1, 4, 1] } },   // B2: Zöpfe vor der Brust (y 20, z 4), Locken und Perle neben dem Kopf (x -5 und 4, oberhalb der Schultern)
 };
-/** Toleranzen des Rigs plus CHA_TOLERANZEN (je Wert das Maximum). */
+/**
+ * CHA-02 D1: zusätzliche Toleranzen für die recycelten Teile (Robe: Rock bis y 8, Taschen hinter der Hüfte, weite Stulpen; Einsatzanzug: Tornister bei z -6, Armgerät bei x 7;
+ * Anzughose: Beintasche bei x 4, Knieschoner bis y 7). Eigene Konstante, damit sie neben CHA_TOLERANZEN stehen kann; beide gelten (je Wert das Maximum).
+ */
+export const CHA_TOLERANZEN_D1 = {
+  hose: { thigh: { min: [1, 0, 0], max: [1, 0, 0] }, shin: { min: [0, 0, 0], max: [0, 1, 0] } },
+  oberteil: { lowerArm: { min: [1, 0, 0], max: [1, 0, 0] }, torso: { min: [0, 0, 4], max: [0, 0, 1] }, hips: { min: [1, 5, 4], max: [1, 0, 2] } },
+};
+/** Toleranzen des Rigs plus CHA_TOLERANZEN und CHA_TOLERANZEN_D1 (je Wert das Maximum). */
 export function toleranzenVon(rig) {
   const out = structuredClone(rig.toleranzen || {});
-  for (const [platz, gat] of Object.entries(CHA_TOLERANZEN)) for (const [g, t] of Object.entries(gat)) {
+  for (const [platz, gat] of [...Object.entries(CHA_TOLERANZEN), ...Object.entries(CHA_TOLERANZEN_D1)]) for (const [g, t] of Object.entries(gat)) {
     const alt = (out[platz] ||= {})[g];
     out[platz][g] = alt ? { min: alt.min.map((v, i) => Math.max(v, t.min[i])), max: alt.max.map((v, i) => Math.max(v, t.max[i])) } : structuredClone(t);
   }
@@ -148,18 +157,30 @@ export function baueFigur(lib, figId, opts = {}) {
   const fig = lib.get('figures', figId);
   const params = { ...(fig.params || {}), ...(opts.params || {}) }, colors = { ...(fig.colors || {}), ...(opts.colors || {}) };
   const grid = new VoxelGrid(), pro = {};
-  for (const [jn, part] of Object.entries(fig.parts || {})) {
-    const b = lib.build(part.model, { params: lib.partParams(part.model, params, part.params), palette: part.palette || fig.palette, colors });
-    const a = b.anchor; pro[jn] = [];
-    for (const v of b.grid.values()) {
-      const x = part.mirror ? -(v.x - a[0]) - 1 : v.x - a[0], y = v.y - a[1], z = v.z - a[2];
-      pro[jn].push({ x, y, z, c: v.c, e: v.e });
-      grid.set(x, y, z, v.c, v.e);
-    }
+  for (const jn of Object.keys(fig.parts || {})) {
+    pro[jn] = baueGelenk(lib, fig, jn, params, colors);
+    for (const v of pro[jn]) grid.set(v.x, v.y, v.z, v.c, v.e);
   }
   return { grid, pro };
 }
+/** Voxel eines Gelenks der Figur (Figur-Koordinaten, Spiegelteile gespiegelt): [{ x, y, z, c, e }]. params und colors sind die fertig gemischten Werte der Figur. */
+export function baueGelenk(lib, fig, jn, params, colors) {
+  const part = fig.parts[jn];
+  const b = lib.build(part.model, { params: lib.partParams(part.model, params, part.params), palette: part.palette || fig.palette, colors });
+  const a = b.anchor, out = [];
+  for (const v of b.grid.values()) out.push({ x: part.mirror ? -(v.x - a[0]) - 1 : v.x - a[0], y: v.y - a[1], z: v.z - a[2], c: v.c, e: v.e });
+  return out;
+}
 
+/**
+ * CHA-02 D1: Ausnahmen der Passprobe (siehe pruefePassung, opts.ausnahmen). Das Teil stammt von einer Bestandsfigur, deren Durchdringungen die Schwelle für Kombinationen mit diesem Teil mitbestimmen.
+ *  robe: Ivos Gewand (weiter Rock, breite Stulpen); die Beine der Kombination sind andere als Ivos, deshalb 10 Voxel Spielraum (gemessen: höchstens +10 über der normalen Schwelle, nur Pose crouch).
+ *  einsatzanzug: Tornister bei z -4..-6; mit langem Haar und einem Umhang schiebt sich der Kopf in der Pose crouch 4 bis 10 Voxel tiefer hinein (nova selbst trägt einen Helm ohne Haar).
+ */
+export const PASS_AUSNAHMEN_D1 = [
+  { wenn: { oberteil: 'robe' }, bestand: ['lerche/ivo'], spielraum: 10 },
+  { wenn: { oberteil: 'einsatzanzug' }, bestand: ['crew/nova'], spielraum: 10 },
+];
 /** Namen der leeren Werte: kein Modell nötig, Fallback cha/leer. */
 export const LEERE_WERTE = ['keine', 'keiner'];
 /** Plätze der Katalogversion 1, die seit Version 2 entfallen (festes Gesicht, Bart in der Frisur). */
@@ -335,7 +356,11 @@ const gattungVon = (modell) => modell.split('/').pop();
  *  4. Durchdringung in Pose: je Posenzustand und Gelenkpaar die Zahl der Voxel, die einem Voxel des anderen Gelenks näher als
  *     DURCHDRINGUNG_RADIUS kommen; rot, wenn mehr als die Schwelle (Maximum der Bestandsfiguren für dasselbe Paar über alle Posenzustände + spielraum; die Messung zeigt zusätzlich den Bestandswert je Pose)
  * Rechenzeit: jedes Gelenk wird je Wertekombination seiner Plätze (Schlüssel) nur einmal posiert, jedes Paar je Schlüsselpaar nur einmal gemessen.
- * opts: { zustaende (Standard PASS_ZUSTAENDE), bestand: [Figur-IDs], spielraum: 0 }
+ * opts: { zustaende (Standard PASS_ZUSTAENDE), bestand: [Figur-IDs], spielraum: 0, ausnahmen: [{ wenn: { platz: wert }, bestand: [Figur-IDs], spielraum: 0 }] }
+ *   ausnahmen (CHA-02 D1): Für Kombinationen mit dem Teil (alle Einträge von wenn treffen zu) gilt als Schwelle das Maximum aus der normalen Schwelle und den Bestandsfiguren der Ausnahme, plus ihr Spielraum.
+ *   Beispiel: die Robe stammt von lerche/ivo; ihr weiter Rock und die Stulpen durchdringen in Posen mehr als jede andere Ausrüstung, so wie am Bestand Ivo.
+ * opts.nur: { platz: [werte] } beschränkt die Kombinationen auf diese Werte (Mutationsproben, schnelle Läufe).
+ * Jedes Gelenk wird je Schlüssel (Werte seiner Plätze) nur einmal gebaut, die Kombinationen kosten danach nur die gecachten Paarmessungen (16 200 Kombinationen in rund 15 s).
  * Rückgabe { fehler: [{id, msg}], kombinationen, messung: { zustand: [{ paar, max, kombi, bestand, schwelle }] }, sekunden }
  */
 export function pruefePassung(lib, figId, ids, opts = {}) {
@@ -348,7 +373,7 @@ export function pruefePassung(lib, figId, ids, opts = {}) {
   const tol = opts.toleranzen || toleranzenVon(rig), bereiche = rig.bereiche;
   if (!bereiche) return leer('Feld "bereiche" fehlt', `rig ${rig.id}`);
   const optionen = platzOptionen(lib, ids), PLAETZE = Object.keys(fig.params);
-  const werte = PLAETZE.map((p) => optionen[p] || [fig.params[p]]);
+  const werte = PLAETZE.map((p) => (opts.nur?.[p] ? (optionen[p] || [fig.params[p]]).filter((w) => opts.nur[p].includes(w)) : optionen[p] || [fig.params[p]]));
   // Schlüssel eines Gelenks = Werte der Plätze seines Sammelmodells (nur diese bestimmen seine Voxel)
   const slots = {};
   for (const jn of KOERPER_GELENKE) {
@@ -436,27 +461,55 @@ export function pruefePassung(lib, figId, ids, opts = {}) {
   // Schwelle je Paar: das Schlimmste, was dasselbe Paar heute in irgendeiner Pose zeigt (plus spielraum). Je Pose steht der Bestandswert nur als Vergleich in der Messung.
   const paarMax = {};
   for (const b of bestand) for (const [pn, v] of Object.entries(b)) paarMax[pn] = Math.max(paarMax[pn] ?? 0, v.max);
-  const schwelle = (z, pn) => (paarMax[pn] ?? 0) + (opts.spielraum || 0);
+  // Ausnahmen (CHA-02 D1): Bestand je Teil
+  const ausPaarMax = (opts.ausnahmen || []).map((a) => {
+    const pm = {};
+    for (const bid of a.bestand || []) {
+      let b;
+      try { b = baueBestandFigur(lib, bid, rig); } catch (e) { f(bid, `Bestandsfigur baut nicht: ${e.message}`); continue; }
+      const E = {};
+      for (const jn of KOERPER_GELENKE) if (b.pro[jn]) E[jn] = holeEintrag(jn, `bestand:${bid}`, b.pro[jn]);
+      for (let z = 0; z < zustaende.length; z++) for (const [x, c] of paare) { if (E[x] && E[c]) { const pn = paarName(x, c); pm[pn] = Math.max(pm[pn] ?? 0, durchdringung(E[x], E[c], z)); } }
+    }
+    return pm;
+  });
+  const schwelle = (z, pn, params) => {
+    let t = paarMax[pn] ?? 0;
+    (opts.ausnahmen || []).forEach((a, i) => { if (params && Object.entries(a.wenn).every(([p, w]) => params[p] === w)) t = Math.max(t, Math.max(paarMax[pn] ?? 0, ausPaarMax[i][pn] ?? 0) + (a.spielraum || 0)); });
+    return t + (opts.spielraum || 0);
+  };
 
   // Kombinationen
   const messung = zustaende.map(() => ({}));
   const gemeldet = new Map();
   const melde = (k, id, msg) => { const g = gemeldet.get(k); if (g) g.n++; else gemeldet.set(k, { id, msg, n: 1 }); };
-  const haarGeprueft = new Set(), bereichGeprueft = new Set();
+  const haarGeprueft = new Set(), bereichGeprueft = new Set(), paarGesehen = new Set();
   const wahl = new Array(PLAETZE.length).fill(0), gesamt = werte.reduce((n, w) => n * w.length, 1);
   for (let ci = 0; ci < gesamt; ci++) {
     let rest = ci;
     for (let i = PLAETZE.length - 1; i >= 0; i--) { wahl[i] = rest % werte[i].length; rest = Math.floor(rest / werte[i].length); }
     const params = {}; PLAETZE.forEach((p, i) => { params[p] = werte[i][wahl[i]]; });
     const kombi = PLAETZE.map((p) => params[p]).join('/');
-    let b;
-    try { b = baueFigur(lib, figId, { params, colors: { hair: HAAR_HEX } }); }
-    catch (e) { melde('bau|' + e.message, kombi, `Baufehler: ${e.message}`); continue; }
-    if (!b.grid.size) { melde('leer|' + kombi, kombi, 'Figur ist leer'); continue; }
     const E = {};
+    let kaputt = false;
+    const farben = { ...(fig.colors || {}), hair: HAAR_HEX };
     for (const jn of KOERPER_GELENKE) {
-      if (!b.pro[jn]) continue;
-      const e = E[jn] = holeEintrag(jn, slots[jn].map((s) => params[s]).join('/'), b.pro[jn]);
+      if (!fig.parts?.[jn]) continue;
+      const key = slots[jn].map((s) => params[s]).join('/');
+      let e = eintraege.get(jn + '|' + key);
+      if (!e) {
+        let vox;
+        try { vox = baueGelenk(lib, fig, jn, params, farben); }
+        catch (err) { melde('bau|' + err.message, kombi, `Baufehler: ${err.message}`); kaputt = true; break; }
+        e = holeEintrag(jn, key, vox);
+      }
+      E[jn] = e;
+    }
+    if (kaputt) continue;
+    if (!Object.values(E).some((e) => e.vox.length)) { melde('leer|' + kombi, kombi, 'Figur ist leer'); continue; }
+    for (const jn of KOERPER_GELENKE) {
+      const e = E[jn];
+      if (!e) continue;
       if (bereichGeprueft.has(e.id)) continue;   // 2. Bereich, einmal je Gelenk und Schlüssel
       bereichGeprueft.add(e.id);
       const box = boxVon(e.vox), gat = gattungVon(fig.parts[jn].model), bl = bereiche[jn];
@@ -487,22 +540,30 @@ export function pruefePassung(lib, figId, ids, opts = {}) {
       if (!haarGeprueft.has(hk)) {
         haarGeprueft.add(hk);
         let n = 0;
-        try { n = haarAussen(baueFigur(lib, figId, { params, colors: { hair: HAAR_HEX } }).pro.head).length; } catch { /* Baufehler wird oben gemeldet */ }
+        n = haarAussen(E.head.vox).length;
         if (n) melde(`haar|${hk}`, kombi, `Gelenk head: ${n} sichtbare Haarvoxel außerhalb der Gesichtsöffnung (Haar sticht durch ${params.kopf})`);
       }
     }
-    // 4. Durchdringung in Pose
-    for (let z = 0; z < zustaende.length; z++) for (const [a, c] of paare) {
+    // 4. Durchdringung in Pose (je Eintragspaar und Ausnahme-Zugehörigkeit nur einmal: das Ergebnis hängt nur davon ab)
+    const sig = (opts.ausnahmen || []).reduce((m, a, i) => m | (Object.entries(a.wenn).every(([p, w]) => params[p] === w) ? 1 << i : 0), 0);
+    for (let pi = 0; pi < paare.length; pi++) {
+      const [a, c] = paare[pi];
       if (!E[a] || !E[c]) continue;
+      const sk = ((sig * 64 + pi) * 1e5 + E[a].id) * 1e5 + E[c].id;
+      if (paarGesehen.has(sk)) continue;
+      paarGesehen.add(sk);
+      for (let z = 0; z < zustaende.length; z++) {
       const n = durchdringung(E[a], E[c], z), pn = paarName(a, c), m = messung[z][pn];
-      if (!m || n > m.max) messung[z][pn] = { max: n, kombi };
-      if (n > schwelle(z, pn)) melde(`dd|${z}|${E[a].id}|${E[c].id}`, kombi, `Pose ${zustaende[z].id}, ${a}/${c}: ${n} Voxel durchdringen sich (Schwelle ${schwelle(z, pn)}, Bestand in dieser Pose ${bestand[z][pn]?.max ?? 0})`);
+      const sw = n > 0 ? schwelle(z, pn, params) : 0;
+      if (!m || n > m.max) messung[z][pn] = { max: n, kombi, schwelle: sw };
+      if (n > sw) melde(`dd|${z}|${E[a].id}|${E[c].id}`, kombi, `Pose ${zustaende[z].id}, ${a}/${c}: ${n} Voxel durchdringen sich (Schwelle ${sw}, Bestand in dieser Pose ${bestand[z][pn]?.max ?? 0})`);
+      }
     }
   }
   for (const { id, msg, n } of gemeldet.values()) f(id, n > 1 ? `${msg} [${n} Wertekombinationen]` : msg);
   const ausgabe = {};
   zustaende.forEach((zs, z) => {
-    ausgabe[zs.id] = Object.entries(messung[z]).map(([paar, m]) => ({ paar, max: m.max, kombi: m.kombi, bestand: bestand[z][paar]?.max ?? 0, schwelle: schwelle(z, paar) })).sort((x, y) => y.max - x.max);
+    ausgabe[zs.id] = Object.entries(messung[z]).map(([paar, m]) => ({ paar, max: m.max, kombi: m.kombi, bestand: bestand[z][paar]?.max ?? 0, schwelle: Math.max(m.schwelle, schwelle(z, paar)) })).sort((x, y) => y.max - x.max);
   });
   return { fehler, kombinationen: gesamt, messung: ausgabe, sekunden: (Date.now() - t0) / 1000 };
 }
@@ -560,4 +621,51 @@ export function pruefeFigurKopf(lib, figId, ids) {
   const hals = new Set((b.pro.head || []).filter((v) => v.y === KOPF_MASS.halsY).map((v) => `${v.x},${v.z}`));
   for (const x of [-2, -1, 0, 1]) for (const z of [-2, -1, 0, 1]) if (!hals.has(`${x},${z}`)) { fehler.push({ id: figId, msg: `Hals bei y ${KOPF_MASS.halsY} unvollständig (4 × 4 fehlt bei x ${x}, z ${z})` }); return fehler; }
   return fehler;
+}
+
+// =============================================================================================
+// CHA-02 D1: paarweise Abdeckung, Dreiecke
+// =============================================================================================
+/**
+ * Paarweise (all-pairs) Abdeckung: werte = Liste von Wertelisten (je Faktor, z. B. je Platz der Figur). Rückgabe: Liste von Kombinationen (je ein Wert je Faktor), in denen
+ * jedes Wertepaar zweier verschiedener Faktoren mindestens einmal vorkommt. Gierig und deterministisch (erstes offenes Paar, dann je Faktor der Wert mit den meisten neu gedeckten Paaren).
+ * Für Tests, deren volles Produkt zu teuer ist (ab 16 000 Kombinationen kostet das Bauen jeder Figur Minuten); die Passprobe selbst läuft über das volle Produkt.
+ */
+export function paarweise(werte) {
+  const n = werte.length, offen = new Map(), key = (i, a, j, b) => `${i}\u0000${a}\u0000${j}\u0000${b}`;
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) for (const a of werte[i]) for (const b of werte[j]) offen.set(key(i, a, j, b), [i, a, j, b]);
+  const out = [];
+  while (offen.size) {
+    const [i0, a0, j0, b0] = offen.values().next().value, wahl = new Array(n).fill(undefined);
+    wahl[i0] = a0; wahl[j0] = b0;
+    for (let k = 0; k < n; k++) {
+      if (wahl[k] !== undefined) continue;
+      let best = werte[k][0], bestN = -1;
+      for (const v of werte[k]) {
+        let c = 0;
+        for (let f = 0; f < n; f++) { if (f === k || wahl[f] === undefined) continue; if (offen.has(f < k ? key(f, wahl[f], k, v) : key(k, v, f, wahl[f]))) c++; }
+        if (c > bestN) { bestN = c; best = v; }
+      }
+      wahl[k] = best;
+    }
+    for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) offen.delete(key(i, wahl[i], j, wahl[j]));
+    out.push(wahl);
+  }
+  return out;
+}
+
+/**
+ * Voxel und Dreiecke einer Figur (Gelenke einzeln gebaut und vernetzt wie in tools/cha-mess.mjs: core/mesher.js mit AO und Greedy; Dreiecke = Indizes / 3 der beleuchteten und leuchtenden Netze;
+ * Spiegelteile zählen einzeln). Ohne Anbauten (die Waffe baut das Spiel an). opts { params, colors } wie baueFigur.
+ */
+export function dreieckeVon(lib, figId, opts = {}) {
+  const fig = lib.get('figures', figId);
+  const params = { ...(fig.params || {}), ...(opts.params || {}) }, colors = { ...(fig.colors || {}), ...(opts.colors || {}) };
+  let voxel = 0, dreiecke = 0;
+  for (const part of Object.values(fig.parts || {})) {
+    const b = lib.build(part.model, { params: lib.partParams(part.model, params, part.params), palette: part.palette || fig.palette, colors });
+    const m = meshGrid(b.grid);
+    voxel += b.grid.size; dreiecke += (m.lit.indices.length + m.emit.indices.length) / 3;
+  }
+  return { voxel, dreiecke: Math.round(dreiecke) };
 }

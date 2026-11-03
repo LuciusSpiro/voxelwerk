@@ -15,10 +15,10 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { nodeLibrary, listAssets } from './fs-io.js';
-import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur, haarAussen } from './cha-lib.mjs';
+import { pruefeFigurKopf, pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, baueFigur, vergleiche, FIGURFARBEN, GELENK_LINKS, LEERE_WERTE, PLATZ_ENTFALLEN, KOPF_MASS, CHA_TOLERANZEN, toleranzenVon, OEFFNUNG, pruefePassung, ladeFigur, haarAussen, PASS_AUSNAHMEN_D1, baueGelenk, paarweise, dreieckeVon, DURCHDRINGUNG_RADIUS } from './cha-lib.mjs';
 import { meshGrid } from '../core/mesher.js';
 import { kopfDurchdringung } from './cha-kopfpass.mjs';
-import { poseWerte, gelenkMatrizen, weltPunkt, eulerYXZ } from './cha-pose.mjs';
+import { poseWerte, gelenkMatrizen, weltPunkt, eulerYXZ, posiere, PASS_ZUSTAENDE } from './cha-pose.mjs';
 import { decodePng, encodePng } from './cha-render.mjs';
 import { KACHEL, PORTRAET, FENSTER, vorschauBild, portraet, kartenOptionen } from './cha-ansicht.mjs';
 
@@ -27,11 +27,15 @@ let pass = 0, fail = 0;
 const ok = (cond, msg) => { if (cond) { pass++; console.log('  ✓ ' + msg); } else { fail++; console.log('  ✗ ' + msg); } };
 const eq = (a, b, msg) => ok(JSON.stringify(a) === JSON.stringify(b), `${msg}${JSON.stringify(a) === JSON.stringify(b) ? '' : `  (ist ${JSON.stringify(a)}, soll ${JSON.stringify(b)})`}`);
 
+/** Wie eq, aber unabhängig von der Schlüsselreihenfolge (Objekte nach Schlüsseln sortiert). */
+const sortiert = (o) => Object.fromEntries(Object.entries(o).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
+const eqS = (a, b, msg) => eq(sortiert(a), sortiert(b), msg);
 const lib = nodeLibrary(root), idx = await listAssets(root);
 const chaIds = idx.models.filter((i) => i.startsWith('cha/'));
 for (const id of chaIds) await lib.load('models', id);
 await lib.load('figures', 'cha/spieler');
 await lib.load('figures', 'lerche/crew_0');
+for (const f of ['lerche/ivo', 'crew/nova', 'crew/juno', 'crew/tami', 'lerche/crew_1', 'lerche/crew_2']) await ladeFigur(lib, f);   // CHA-02 D1: Ivo (Robe), die sechs Uniformen
 for (const jn of Object.values(lib.get('figures', 'lerche/crew_0').parts)) await lib.load('models', jn.model);
 const rig = lib.get('rigs', 'human') || (await lib.load('rigs', 'human'));
 const get = (id) => lib.get('models', id);
@@ -257,17 +261,34 @@ const katalog = JSON.parse(fs.readFileSync(path.join(root, 'assets', 'katalog', 
 console.log('\n== Teile je Platz (Schnittstelle Voxelwerk ↔ Spiel)');
 eq(Object.fromEntries(PLAETZE.map((p) => [p, optionen[p]])), {
   koerper: ['standard'], frisur: ['kurz', 'stirnband', 'welle', 'offen', 'bartkurz', 'bartlang', 'zopfband', 'wild', 'keine'], kopf: ['keine', 'bordhelm'],
-  oberteil: ['bordtunika', 'plankenweste', 'keine'], hose: ['bordhose', 'germanenhose', 'keine'], schuhe: ['bordstiefel', 'germanenstiefel', 'keine'],
-  haende: ['keine', 'armschiene'], umhang: ['keiner', 'fellumhang'],
+  oberteil: ['bordtunika', 'plankenweste', 'robe', 'einsatzanzug', 'keine'], hose: ['bordhose', 'germanenhose', 'anzughose', 'keine'], schuhe: ['bordstiefel', 'germanenstiefel', 'einsatzstiefel', 'ocreae', 'keine'],   // CHA-02 D1: robe, einsatzanzug, anzughose, einsatzstiefel, ocreae, einsatzhandschuh, sagum
+  haende: ['keine', 'armschiene', 'einsatzhandschuh'], umhang: ['keiner', 'fellumhang', 'sagum'],
 }, 'options der Sammelmodelle: Teilenamen exakt wie in der Schnittstelle, Standard zuerst, leerer Wert zuletzt');
 ok(PLATZ_ENTFALLEN.every((p) => !(p in optionen)), 'Plätze gesicht und bart gibt es in den Sammelmodellen nicht mehr (festes Gesicht, Bart steckt in der Frisur)');
 
+/**
+ * CHA-02 D1: Das volle Produkt aller Plätze (16 200) zu bauen kostet je Test eine halbe Minute. Bis MAX_VOLL Kombinationen wird alles gebaut, darüber paarweise: jedes Wertepaar zweier Plätze kommt
+ * mindestens einmal vor (cha-lib paarweise, Prüfung unten). Die Passprobe läuft immer über das volle Produkt (Gelenke gecacht je Schlüssel).
+ */
+const MAX_VOLL = 5000;
+const wertelisten = PLAETZE.map((p) => optionen[p]);
+const produkt = () => wertelisten.reduce((acc, ws) => acc.flatMap((c) => ws.map((w) => [...c, w])), [[]]);
+const vollAnzahl = wertelisten.reduce((n, l) => n * l.length, 1);
+const kombis = () => (vollAnzahl <= MAX_VOLL ? produkt() : paarweise(wertelisten));
 console.log('\n== Alle Kombinationen');
 {
-  const alle = PLAETZE.map((p) => optionen[p]).reduce((acc, ws) => acc.flatMap((c) => ws.map((w) => [...c, w])), [[]]);
+  const alle = kombis();
   const params = (c) => Object.fromEntries(PLAETZE.map((p, i) => [p, c[i]]));
-  const erwartet = PLAETZE.reduce((n, p) => n * optionen[p].length, 1);
-  eq(alle.length, erwartet, `${erwartet} Kombinationen der Teile`);
+  const erwartet = vollAnzahl;
+  if (vollAnzahl <= MAX_VOLL) eq(alle.length, erwartet, `${erwartet} Kombinationen der Teile`);
+  else {
+    const fehlen = [];
+    for (let i = 0; i < PLAETZE.length; i++) for (let j = i + 1; j < PLAETZE.length; j++) for (const a of wertelisten[i]) for (const b of wertelisten[j]) if (!alle.some((c) => c[i] === a && c[j] === b)) fehlen.push(`${PLAETZE[i]}=${a} ${PLAETZE[j]}=${b}`);
+    eq(fehlen, [], `paarweise Abdeckung: ${alle.length} von ${erwartet} Kombinationen decken jedes Wertepaar zweier Plätze ab (volles Produkt über MAX_VOLL ${MAX_VOLL}; die Passprobe läuft über alle ${erwartet})`);
+    ok(alle.length < 400, `die Abdeckung ist klein (${alle.length} < 400 Kombinationen)`);
+    const leer = paarweise([['a'], ['x', 'y'], ['1', '2', '3']]);
+    eq(leer.length, 6, 'paarweise (Selbsttest): ein Faktor mit 1 Wert, einer mit 2 und einer mit 3 braucht 6 Kombinationen (2 × 3)');
+  }
   const fehler = []; let leer = 0, zuKlein = 0;
   for (const c of alle) {
     try { const r = baueFigur(lib, 'cha/spieler', { params: params(c) }); if (!r.grid.size) leer++; else if (r.grid.size < 1000) zuKlein++; }
@@ -633,7 +654,7 @@ console.log('\n== Schweben');
   eq(lose({}), [], 'Standardfigur: nichts schwebt');
   const schwebend = [];
   for (const [p, ws] of Object.entries(optionen)) for (const w of ws) { const l = lose(kombi(p, w)); if (l.length) schwebend.push(`${p}=${w}: ${l.join(' ')}`); }
-  eq(schwebend, ['oberteil=plankenweste: -4,13,-4 -4,14,-4'], 'Einzelteile: nur die Werkzeugöse der Plankenweste schwebt (2 Voxel, Bestand fig/germanen/huefte, unverändert gelassen)');
+  eq(schwebend, [], 'Einzelteile: nichts schwebt (CHA-02 D1: der Halter hängt die Werkzeugöse der Plankenweste an das Becken)');
   eq(['kurz', 'stirnband', 'welle', 'offen'].map((frisur) => lose({ frisur })), [[], [], [], []], 'alle vier Frisuren (Zopf, langes Haar, Strähnen, Ohrring) hängen am Kopf');
   const fell = [];
   for (const o of ['bordtunika', 'keine']) for (const h of ['bordhose', 'germanenhose']) { const l = lose({ umhang: 'fellumhang', oberteil: o, hose: h }); if (l.length) fell.push(`${o}/${h}: ${l.join(' ')}`); }
@@ -666,12 +687,17 @@ console.log('\n== Schichtfolge');
   }
   // Tunika-Saum und Hose liegen in verschiedenen Gelenken (Hüfte, Oberschenkel): die Überlappung der Gelenke bleibt im Rahmen des Bestands
   const ueber = (A, B) => { const s = new Set(A.map(schluessel)); return B.filter((v) => s.has(schluessel(v))).length; };
-  let maxHT = 0, maxHL = 0, maxTU = 0;
+  let maxHT = 0, maxHL = 0, maxTU = 0, rHT = 0, rHL = 0;   // CHA-02 D1: die Robe (Ivos Gewand mit weitem Rock und Stulpen) getrennt, ihr Bestand ist Ivo (Hüfte/Oberschenkel 24, Hüfte/Unterarm 70)
   for (const o of optionen.oberteil) for (const h of optionen.hose) for (const u of optionen.umhang) {
     const r = baueFigur(lib, 'cha/spieler', { params: { oberteil: o, hose: h, umhang: u } });
-    maxHT = Math.max(maxHT, ueber(r.pro.hips, [...r.pro.thighL, ...r.pro.thighR])); maxHL = Math.max(maxHL, ueber(r.pro.hips, [...r.pro.lowerArmL, ...r.pro.lowerArmR])); maxTU = Math.max(maxTU, ueber(r.pro.torso, [...r.pro.upperArmL, ...r.pro.upperArmR]));
+    const ht = ueber(r.pro.hips, [...r.pro.thighL, ...r.pro.thighR]), hl = ueber(r.pro.hips, [...r.pro.lowerArmL, ...r.pro.lowerArmR]);
+    if (o === 'robe') { rHT = Math.max(rHT, ht); rHL = Math.max(rHL, hl); } else { maxHT = Math.max(maxHT, ht); maxHL = Math.max(maxHL, hl); }
+    maxTU = Math.max(maxTU, ueber(r.pro.torso, [...r.pro.upperArmL, ...r.pro.upperArmR]));
   }
-  ok(maxHT <= 28 && maxHL <= 24 && maxTU === 0, `Querüberlappung der Gelenke über alle Oberteil/Hose/Umhang-Kombinationen: Hüfte/Oberschenkel höchstens ${maxHT} (Bestand 24, Erkundung 28), Hüfte/Unterarm ${maxHL} (Bestand 24), Rumpf/Oberarm ${maxTU}`);
+  ok(maxHT <= 28 && maxHL <= 24 && maxTU === 0, `Querüberlappung der Gelenke über alle Oberteil/Hose/Umhang-Kombinationen (ohne Robe): Hüfte/Oberschenkel höchstens ${maxHT} (Bestand 24, Erkundung 28), Hüfte/Unterarm ${maxHL} (Bestand 24), Rumpf/Oberarm ${maxTU}`);
+  const ivoR = baueFigur(lib, 'lerche/ivo');
+  eq([ueber(ivoR.pro.hips, [...ivoR.pro.thighL, ...ivoR.pro.thighR]), ueber(ivoR.pro.hips, [...ivoR.pro.lowerArmL, ...ivoR.pro.lowerArmR])], [24, 70], 'Bestand lerche/ivo: Hüfte/Oberschenkel 24, Hüfte/Unterarm 70 (Maßstab der Robe)');
+  ok(rHT <= 36 && rHL <= 70, `Robe über alle Hosen und Umhänge: Hüfte/Oberschenkel höchstens ${rHT} (36: die Beintasche der Anzughose liegt im Rock, sonst 24), Hüfte/Unterarm ${rHL} (Ivo 70)`);
 }
 
 console.log('\n== Katalog');
@@ -687,16 +713,18 @@ const katalogPruefen = (k, o = optionen, f = fig) => pruefeKatalog(k, { modelIds
   eq(katalog.teile.filter((t) => LEERE_WERTE.includes(t.id.split('/')[1])).map((t) => t.id), ['frisur/keine', 'kopf/keine', 'oberteil/keine', 'hose/keine', 'schuhe/keine', 'haende/keine', 'umhang/keiner'], 'keine/keiner je Platz im Katalog');
   ok(katalog.teile.filter((t) => t.gruppe === 'outfit').every((t) => t.herkunft === 'frei'), 'alle Outfit-Teile haben herkunft "frei"');
   ok(katalog.teile.every((t) => t.vorschau === `cha/vorschau/${t.platz}/${t.id.split('/')[1]}.png`), 'jedes Teil hat vorschau = cha/vorschau/<platz>/<name>.png (relativ zu assets/sprites/), auch die leeren Werte');
-  eq(Object.fromEntries(katalog.teile.filter((t) => t.volk).map((t) => [t.id, t.volk])), {
+  eqS(Object.fromEntries(katalog.teile.filter((t) => t.volk).map((t) => [t.id, t.volk])), {
     'frisur/kurz': 'rom', 'frisur/stirnband': 'rom', 'frisur/welle': 'rom', 'frisur/offen': 'rom', 'frisur/bartkurz': 'germanen', 'frisur/bartlang': 'germanen', 'frisur/zopfband': 'germanen', 'frisur/wild': 'germanen', 'kopf/bordhelm': 'crew',
     'oberteil/bordtunika': 'crew', 'oberteil/plankenweste': 'germanen', 'hose/bordhose': 'crew', 'hose/germanenhose': 'germanen', 'schuhe/bordstiefel': 'crew',
     'schuhe/germanenstiefel': 'germanen', 'haende/armschiene': 'rom', 'umhang/fellumhang': 'germanen',
+    'oberteil/robe': 'lerche', 'oberteil/einsatzanzug': 'crew', 'hose/anzughose': 'crew', 'schuhe/einsatzstiefel': 'crew', 'schuhe/ocreae': 'rom', 'haende/einsatzhandschuh': 'crew', 'umhang/sagum': 'rom',   // CHA-02 D1
   }, 'volk je Teil (lerche, crew, germanen, rom)');
-  eq(Object.fromEntries(katalog.teile.map((t) => [t.id, t.name])), {
+  eqS(Object.fromEntries(katalog.teile.map((t) => [t.id, t.name])), {
     'frisur/kurz': 'Kurzschnitt', 'frisur/stirnband': 'Stirnband mit Zopf', 'frisur/welle': 'Welle', 'frisur/offen': 'Offenes Haar', 'frisur/bartkurz': 'Kurzhaar mit Bart', 'frisur/bartlang': 'Langhaar mit Vollbart', 'frisur/zopfband': 'Zöpfe mit Stirnband', 'frisur/wild': 'Wildes Haar', 'frisur/keine': 'Kahl',
     'kopf/keine': 'Keine', 'kopf/bordhelm': 'Bordhelm', 'oberteil/bordtunika': 'Bordtunika', 'oberteil/plankenweste': 'Plankenweste', 'oberteil/keine': 'Unterzeug',
     'hose/bordhose': 'Bordhose', 'hose/germanenhose': 'Germanenhose', 'hose/keine': 'Unterzeug', 'schuhe/bordstiefel': 'Bordstiefel', 'schuhe/germanenstiefel': 'Germanenstiefel', 'schuhe/keine': 'Barfuß',
     'haende/keine': 'Keine', 'haende/armschiene': 'Armschiene', 'umhang/keiner': 'Keiner', 'umhang/fellumhang': 'Fellumhang',
+    'oberteil/robe': 'Robe', 'oberteil/einsatzanzug': 'Einsatzanzug', 'hose/anzughose': 'Anzughose', 'schuhe/einsatzstiefel': 'Einsatzstiefel', 'schuhe/ocreae': 'Ocreae', 'haende/einsatzhandschuh': 'Einsatzhandschuh', 'umhang/sagum': 'Sagum',   // CHA-02 D1
   }, 'Anzeigenamen deutsch und kurz (leere Werte: Unterzeug bei Oberteil und Hose, Barfuß bei Schuhen)');
 }
 
@@ -810,11 +838,14 @@ const posen = lib.get('poses', 'human') || (await lib.load('poses', 'human'));
 console.log('\n== Passprobe (alle Kombinationen × Posen)');
 for (const f of ['fig/germanen/grundtyp', 'rom/legionaer']) await ladeFigur(lib, f);
 const BESTAND = ['lerche/crew_0', 'fig/germanen/grundtyp', 'rom/legionaer'];
-const passe = (l) => pruefePassung(l, 'cha/spieler', idx.models, { bestand: BESTAND });
+for (const a of PASS_AUSNAHMEN_D1) for (const f of a.bestand) await ladeFigur(lib, f);   // CHA-02 D1: Bestand je Teil (robe: Ivo, einsatzanzug: nova)
+const passe = (l, nur) => pruefePassung(l, 'cha/spieler', idx.models, { bestand: BESTAND, ausnahmen: PASS_AUSNAHMEN_D1, ...(nur ? { nur } : {}) });
+/** Mutationsproben laufen auf einer kleinen Auswahl (die manipulierten Teile sind darin), nicht auf allen Kombinationen. */
+const NUR_MUTATION = { frisur: ['kurz', 'bartlang'], kopf: ['keine', 'bordhelm'], oberteil: ['bordtunika', 'plankenweste'], hose: ['bordhose', 'germanenhose'], schuhe: ['bordstiefel'], haende: ['keine', 'armschiene'], umhang: ['keiner', 'fellumhang'] };
 {
   const r = passe(lib);
   eq(r.fehler, [], `Passprobe über alle ${r.kombinationen} Kombinationen × ${Object.keys(r.messung).length} Posenzustände ohne Befund`);
-  eq(r.kombinationen, 1944, '1944 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart)');
+  eq(r.kombinationen, 16200, '16200 Kombinationen (Produkt der options aller Plätze, ohne gesicht und bart)');
   ok(r.sekunden < 20, `Laufzeit ${r.sekunden.toFixed(1)} s (Grenze 20 s)`);
   console.log(`    Laufzeit ${r.sekunden.toFixed(1)} s`);
   const alle = Object.entries(r.messung);
@@ -830,16 +861,16 @@ console.log('\n== Mutationsprobe Passprobe (manipulierte Modelle im Speicher)');
     const l = nodeLibrary(root);
     for (const id of chaIds) await l.load('models', id);
     await l.load('figures', 'cha/spieler'); await l.load('rigs', 'human'); await l.load('poses', 'human');
-    for (const f of BESTAND) await ladeFigur(l, f);
+    for (const f of [...BESTAND, ...PASS_AUSNAHMEN_D1.flatMap((a) => a.bestand)]) await ladeFigur(l, f);
     return l;
   };
   const rot = async (name, aendere, re, nurDiese) => {
     const l = await frisch(); aendere(l);
-    const r = passe(l);
+    const r = passe(l, NUR_MUTATION);
     ok(r.fehler.length > 0 && r.fehler.some((f) => re.test(f.msg)), `${name}: Passprobe rot (${r.fehler.length} Befunde, z. B. „${(r.fehler.find((f) => re.test(f.msg)) || r.fehler[0] || { msg: '–' }).msg.slice(0, 110)}“)`);
     if (nurDiese) ok(r.fehler.every((f) => nurDiese.test(f.msg)), `${name}: alle Befunde sind von dieser Art (die anderen Prüfungen bleiben grün)`);
   };
-  eq(passe(await frisch()).fehler, [], 'Gegenprobe: unveränderte Modelle in frischer Bibliothek bleiben grün');
+  eq(passe(await frisch(), NUR_MUTATION).fehler, [], 'Gegenprobe: unveränderte Modelle in frischer Bibliothek bleiben grün');
   await rot('(a) Hose-Oberschenkel mit einem Voxel bei x 10 (außerhalb des Gelenks)', (l) => l.get('models', 'cha/hose/bordhose/thigh').ops.push({ op: 'box', name: 'Ausreißer', at: [10, 7, 0], size: [1, 1, 1], color: '#ff0000' }), /Gelenk thighL: 1 Voxel außerhalb von Bereich/, /außerhalb von Bereich/);
   await rot('(b) Bordhelm ohne Haarmaske: Haar sticht durch den Helm', (l) => { l.get('models', 'cha/kopf/bordhelm/head_maske').ops = []; }, /Haar sticht durch bordhelm/, /Haar sticht durch/);
   await rot('(c) Armschiene als Block im erlaubten Bereich (3×7×5): ragt in Posen in Nachbargelenke', (l) => l.get('models', 'cha/haende/armschiene/lowerArm').ops.push({ op: 'box', name: 'Block', at: [4, 10, -2], size: [3, 7, 5], color: '#ff0000' }), /Pose \S+.*durchdringen sich/, /durchdringen sich/);
@@ -854,7 +885,7 @@ console.log('\n== Spielerfarbe nie in der Kleidung');
   const hex2 = (h) => rgb(parseInt(h.slice(1), 16));
   const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
   const farben = new Map();   // Farbwert → erste Kombination
-  const alle = PLAETZE.map((p) => optionen[p]).reduce((acc, ws) => acc.flatMap((c) => ws.map((w) => [...c, w])), [[]]);
+  const alle = kombis();   // D1: paarweise statt 16 200 Figuren (jedes Teil kommt in mindestens einer Kombination vor, Farben hängen nur am Teil)
   for (const c of alle) {
     const r = baueFigur(lib, 'cha/spieler', { params: Object.fromEntries(PLAETZE.map((p, i) => [p, c[i]])) });
     for (const v of r.grid.values()) if (!farben.has(v.c)) farben.set(v.c, c.join('/'));
@@ -933,6 +964,224 @@ console.log('\n== Generator und Rig');
   ok(Object.values(rig.toleranzen).every((g) => Object.entries(g).every(([gat, t]) => GELENK_LINKS[gat] && [...t.min, ...t.max].every((v) => v >= 0))), 'Toleranzen: bekannte Gattungen, nur nichtnegative Werte');
   const spiegel = (b) => [-b.max[0] - 1, -b.min[0] - 1];
   for (const [l, r] of [['upperArmL', 'upperArmR'], ['lowerArmL', 'lowerArmR'], ['thighL', 'thighR'], ['shinL', 'shinR']]) eq(spiegel(rig.bereiche[l]), [rig.bereiche[r].min[0], rig.bereiche[r].max[0]], `Bereich ${r} ist ${l} an x = 0 gespiegelt`);
+}
+
+// =============================================================================================
+// CHA-02 D1: Recycling der Bestandsausrüstung, alte Uniformen zurück, Befunde aus CHA-01 (a, b, c, d, e), Dreiecke
+// =============================================================================================
+console.log('\n== CHA-02 D1: neue Teile (Robe, Einsatzanzug, Anzughose, Einsatzstiefel, Ocreae, Einsatzhandschuh, Sagum)');
+{
+  const NEU = { oberteil: ['robe', 'einsatzanzug'], hose: ['anzughose'], schuhe: ['einsatzstiefel', 'ocreae'], haende: ['einsatzhandschuh'], umhang: ['sagum'] };
+  eq(Object.fromEntries(Object.entries(NEU).map(([p, ws]) => [p, ws.filter((w) => optionen[p].includes(w))])), NEU, 'alle sieben neuen Teile sind options der Sammelmodelle');
+  eq(katalog.teile.filter((t) => Object.entries(NEU).some(([p, ws]) => t.platz === p && ws.includes(t.id.split('/')[1]))).map((t) => `${t.id}:${t.herkunft}`).sort(), Object.entries(NEU).flatMap(([p, ws]) => ws.map((w) => `${p}/${w}:frei`)).sort(), 'alle sieben stehen im Katalog mit herkunft frei');
+  const pal = lib.get('palettes', 'cha').roles;
+  const akzente = Object.keys(pal).filter((r) => r.startsWith('akzent_'));
+  eq(akzente.sort(), ['akzent_anzughose', 'akzent_einsatzanzug'], 'Rollen-Akzent der Einsatzuniform: je Teil eine feste Rolle (Crew-Signalrot, keine Spielerfarbe)');
+  ok(akzente.every((r) => pal[r] === '#B3342B'), 'beide Akzentrollen sind fest #B3342B (wie der Bordhelm)');
+  for (const [p, ws] of Object.entries(NEU)) for (const w of ws) {
+    const gattungen = idx.models.filter((m) => new RegExp(`^cha/${p}/${w}/[a-zA-Z]+$`).test(m));
+    ok(gattungen.length > 0 && gattungen.every((m) => (get(m).tags || []).includes('schicht') && JSON.stringify(get(m).anchor) === '[0,0,0]'), `${p}/${w}: ${gattungen.length} Schichten (${gattungen.map((m) => m.split('/').pop()).join(', ')}) mit anchor [0,0,0]`);
+  }
+  // keine colors am use für Figurrollen und kein Teil trägt jitter-Rauschen in Platten: Rollenregeln der Bestandsprüfung bleiben ohne Befund
+  eq(pruefeRollen(idx.models, get), [], 'Rollenregel (kein skin, skin_shadow, hair am use außer Fellumhang) ohne Befund');
+  eq(pruefeAnker(idx.models, get), [], 'Ankerregel ohne Befund');
+  eq(pruefeBereiche(idx.models, get, (id) => lib.build(id), rig), [], 'alle Schichten liegen in Gelenkbereich + Toleranz (cha-lib CHA_TOLERANZEN_D1 für Robe, Einsatzanzug und Anzughose)');
+}
+
+console.log('\n== CHA-02 D1: alte Uniformen aus Katalogteilen (voxelidentisch außer dem Kopf)');
+const UNI_BORD = { oberteil: 'bordtunika', hose: 'bordhose', schuhe: 'bordstiefel', haende: 'keine', umhang: 'keiner' };
+const UNI_EINSATZ = { oberteil: 'einsatzanzug', hose: 'anzughose', schuhe: 'einsatzstiefel', haende: 'einsatzhandschuh', umhang: 'keiner' };
+const UNIFORMEN = [['lerche/crew_0', UNI_BORD], ['lerche/crew_1', UNI_BORD], ['lerche/crew_2', UNI_BORD], ['crew/nova', UNI_EINSATZ], ['crew/juno', UNI_EINSATZ], ['crew/tami', UNI_EINSATZ]];
+/** Farben der Katalogfigur für eine Uniform: Haut und Haar der Bestandsfigur; bei den Einsatzuniformen setzt der Bestand primary = Spielerfarbe, die Katalogteile tragen fest Crew-Rot: die Akzentrollen werden auf die Bestandsfarbe gesetzt (nur im Test). */
+const uniformFarben = (l, id, mitAkzent = true) => {
+  const f = l.get('figures', id), c = {};
+  if (f.colors.skin) { c.skin = f.colors.skin; c.skin_shadow = f.colors.skin_shadow; }
+  c.hair = f.colors.hair;
+  if (mitAkzent && f.colors.primary) for (const r of Object.keys(l.get('palettes', 'cha').roles).filter((x) => x.startsWith('akzent_'))) c[r] = f.colors.primary;
+  return c;
+};
+/** Vergleich je Gelenk außer head: Position und Farbe (Bestandsfigur ohne Anbauten gegen cha/spieler mit den Uniformteilen). */
+const vergleicheUniform = (l, id, params, farbenOpt) => {
+  const ref = baueFigur(l, id), cha = baueFigur(l, 'cha/spieler', { params, colors: farbenOpt ?? uniformFarben(l, id) });
+  let n = 0, nurBestand = 0, nurKatalog = 0, farbe = 0, gesamt = 0;
+  for (const jn of Object.keys(ref.pro)) {
+    if (jn === 'head') continue;
+    const A = new Map(ref.pro[jn].map((v) => [`${v.x},${v.y},${v.z}`, v])), B = new Map(cha.pro[jn].map((v) => [`${v.x},${v.y},${v.z}`, v]));
+    gesamt += A.size;
+    for (const [k, v] of A) { const w = B.get(k); if (!w) nurBestand++; else if (w.c !== v.c || w.e !== v.e) farbe++; else n++; }
+    for (const k of B.keys()) if (!A.has(k)) nurKatalog++;
+  }
+  return { gleich: n, nurBestand, nurKatalog, farbe, gesamt };
+};
+{
+  for (const [id, params] of UNIFORMEN) {
+    const r = vergleicheUniform(lib, id, params);
+    console.log(`    ${id}: ${r.gleich} von ${r.gesamt} Voxeln gleich (nur Bestand ${r.nurBestand}, nur Katalog ${r.nurKatalog}, andere Farbe ${r.farbe}) ohne Kopf`);
+    ok(r.gleich === r.gesamt && r.nurKatalog === 0, `${id}: ${r.gleich} von ${r.gesamt} Voxeln voxelidentisch (Position und Farbe, alle Gelenke außer head)`);
+  }
+  // Abweichung dokumentiert: Der Bestand färbt den Rollen-Akzent mit der Spielerfarbe, die Katalogteile fest Crew-Rot. Ohne Angleichen der Akzentrollen weichen nur die Akzentvoxel in der Farbe ab, nie in der Position.
+  for (const [id, params] of UNIFORMEN.filter(([i]) => i.startsWith('crew/'))) {
+    const r = vergleicheUniform(lib, id, params, uniformFarben(lib, id, false));
+    ok(r.farbe > 0 && r.nurBestand === 0 && r.nurKatalog === 0, `${id}: ohne Angleichen der Akzentrollen weichen ${r.farbe} Akzentvoxel in der Farbe ab (Spielerfarbe im Bestand, Crew-Rot im Katalog), Positionen bleiben gleich`);
+  }
+  // lerche/crew_*: cloth2 ist im Bestand die Spielerfarbe (Spiel setzt colors.cloth2), neutral Kaiserpurpur; der Katalog legt Kaiserpurpur fest, der Vergleich nutzt den neutralen Wert
+  eq(lib.get('palettes', 'lerche_rom').roles.cloth2, '#5B2A5E', 'lerche/crew_*: der neutrale Wert von cloth2 (Spielerfarbe im Bestand) ist Kaiserpurpur #5B2A5E, so steht er fest im Katalogteil');
+  // Gelenke des Bestands: alle elf (ohne head zehn); Waffen und Anbauten des Bestands zählen nicht
+  eq(Object.keys(baueFigur(lib, 'crew/nova').pro).filter((j) => j !== 'head').length, 10, 'verglichen werden zehn Gelenke (alle außer head)');
+  // Positivkontrolle: falsche Teile (Einsatzanzug an den Bordmonturen, Bordtunika an der Einsatzuniform) sind nicht identisch
+  const falsch = vergleicheUniform(lib, 'lerche/crew_0', UNI_EINSATZ), falsch2 = vergleicheUniform(lib, 'crew/nova', UNI_BORD);
+  ok(falsch.gleich < falsch.gesamt && falsch2.gleich < falsch2.gesamt, `Positivkontrolle: falsche Teile ergeben Abweichungen (crew_0 mit Einsatzteilen ${falsch.gleich}/${falsch.gesamt}, nova mit Bordteilen ${falsch2.gleich}/${falsch2.gesamt})`);
+  // Mutationsprobe: ein fehlendes Detail im Katalogteil (Knieschoner weg, Tornister-Lüfter weg, Faust des Handschuhs ohne Knöchel) wird erkannt
+  const frischD1 = async () => { const l = nodeLibrary(root); for (const id of chaIds) await l.load('models', id); await l.load('figures', 'cha/spieler'); await l.load('palettes', 'cha'); await ladeFigur(l, 'crew/nova'); await ladeFigur(l, 'lerche/crew_0'); return l; };
+  {
+    const l = await frischD1();
+    const kn = l.get('models', 'cha/hose/anzughose/shin_ops');
+    kn.ops = kn.ops.filter((o) => !/Knieschoner/.test(o.name));
+    const r = vergleicheUniform(l, 'crew/nova', UNI_EINSATZ);
+    ok(r.nurBestand > 0, `Mutationsprobe: Anzughose ohne Knieschoner → Vergleich rot (${r.nurBestand} Voxel nur im Bestand)`);
+    const l2 = await frischD1();
+    const t = l2.get('models', 'cha/oberteil/einsatzanzug/torso_ops'); t.ops = t.ops.filter((o) => o.name !== 'Tornister Lüfter');
+    const r2 = vergleicheUniform(l2, 'crew/nova', UNI_EINSATZ);
+    ok(r2.farbe + r2.nurBestand > 0, `Mutationsprobe: Einsatzanzug ohne Tornister-Lüfter → Vergleich rot (${r2.farbe + r2.nurBestand} Voxel)`);
+    const l3 = await frischD1();
+    const bt = l3.get('models', 'cha/oberteil/bordtunika/torso'); bt.ops[0].colors = { ...bt.ops[0].colors, trim: 'top_bordtunika' };
+    const r3 = vergleicheUniform(l3, 'lerche/crew_0', UNI_BORD);
+    ok(r3.farbe > 0, `Mutationsprobe: Bordtunika mit vertauschter Zierfarbe → Vergleich rot (${r3.farbe} Voxel in anderer Farbe)`);
+  }
+}
+
+console.log('\n== CHA-02 D1: Befunde aus CHA-01 (a) Germanenstiefel mit Bordhose');
+{
+  // (a) Der Unterschenkel (x 1..3, z -1..1, y 3..6) darf mit Bordhose und Germanenstiefel nirgends die Farbe des Unterzeugs (Körperschicht) haben
+  const unterzeug = (l, params) => {
+    // y 6 nur dort, wo die Hose eine andere Farbe als das Unterzeug hat (die Anzughose hat dieselbe)
+    const k = baueGelenk(l, l.get('figures', 'cha/spieler'), 'shinL', { ...l.get('figures', 'cha/spieler').params, ...params, hose: 'keine', schuhe: 'keine' }, l.get('figures', 'cha/spieler').colors);
+    const m = new Map(k.map((v) => [`${v.x},${v.y},${v.z}`, v.c]));
+    const w = baueGelenk(l, l.get('figures', 'cha/spieler'), 'shinL', { ...l.get('figures', 'cha/spieler').params, ...params }, l.get('figures', 'cha/spieler').colors);
+    let stehen = 0, gesamt = 0;
+    for (const v of w) if (v.x >= 1 && v.x <= 3 && v.z >= -1 && v.z <= 1 && v.y >= 3 && v.y <= (['bordhose', 'germanenhose'].includes(params.hose) ? 6 : 5)) { gesamt++; if (m.get(`${v.x},${v.y},${v.z}`) === v.c) stehen++; }
+    return { stehen, gesamt };
+  };
+  for (const hose of ['bordhose', 'germanenhose', 'anzughose', 'keine']) {
+    const r = unterzeug(lib, { hose, schuhe: 'germanenstiefel' });
+    eq(r.stehen, 0, `Germanenstiefel mit ${hose}: kein Voxel des Unterschenkels steht im Unterzeug (${r.gesamt} Voxel geprüft, y 3..5 und bei Bord- und Germanenhose bis y 6)`);
+  }
+  {
+    // Mutationsprobe: der alte Schnitt (Gamasche und Planken abgeschnitten, y 3..7) lässt wieder Unterzeug stehen
+    const l = nodeLibrary(root); for (const id of chaIds) await l.load('models', id); await l.load('figures', 'cha/spieler');
+    const st = l.get('models', 'cha/schuhe/germanenstiefel/shin');
+    st.ops.find((o) => o.op === 'box').at = [1, 3, -2]; st.ops.find((o) => o.op === 'box').size = [3, 5, 6];
+    ok(unterzeug(l, { hose: 'bordhose', schuhe: 'germanenstiefel' }).stehen > 0, 'Mutationsprobe: der alte Schnitt (y 3..7) lässt den Unterschenkel wieder im Unterzeug stehen → Prüfung rot');
+  }
+  // mit der Germanenhose liegen Gamasche der Hose und des Stiefels deckungsgleich: dieselben Voxel wie vorher
+  {
+    const a = baueFigur(lib, 'cha/spieler', { params: { hose: 'germanenhose', schuhe: 'germanenstiefel' } }).pro.shinL.length, b = baueFigur(lib, 'cha/spieler', { params: { hose: 'germanenhose', schuhe: 'keine' } }).pro.shinL.length;
+    ok(a >= b, `Germanenhose mit Germanenstiefel: ${a} Voxel am Unterschenkel (ohne Stiefel ${b})`);
+  }
+}
+
+console.log('\n== CHA-02 D1: Befunde (b) Werkzeugöse, (c) Plankenweste, (d) Ocreae');
+{
+  // (b) Die Werkzeugöse (x -4, y 13..14, z -4) hängt über den Halter (z -3) am Becken: kein loses Voxel in der Hüfte der Plankenweste
+  const komp = (vox) => {
+    const m = new Map(vox.map((v) => [schluessel(v), v])), gesehen = new Set(); let n = 0;
+    for (const v of vox) { if (gesehen.has(schluessel(v))) continue; n++; const st = [v]; gesehen.add(schluessel(v)); while (st.length) { const a = st.pop(); for (const [dx, dy, dz] of [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]]) { const k = schluessel({ x: a.x + dx, y: a.y + dy, z: a.z + dz }); if (m.has(k) && !gesehen.has(k)) { gesehen.add(k); st.push(m.get(k)); } } } }
+    return n;
+  };
+  const huefte = (l) => baueFigur(l, 'cha/spieler', { params: { oberteil: 'plankenweste', hose: 'keine' } }).pro.hips;
+  const h = huefte(lib);
+  ok(h.some((v) => v.x === -4 && v.y === 13 && v.z === -4) && h.some((v) => v.x === -4 && v.y === 13 && v.z === -3), 'Werkzeugöse (x -4, y 13, z -4) und Halter (z -3) sind in der Hüfte der Plankenweste');
+  eq(komp(h), 1, 'Hüfte der Plankenweste ist ein zusammenhängendes Teil (die Öse schwebt nicht mehr)');
+  {
+    const l = nodeLibrary(root); for (const id of chaIds) await l.load('models', id); await l.load('figures', 'cha/spieler');
+    const w = l.get('models', 'cha/oberteil/plankenweste/hips'); w.ops = w.ops.filter((o) => !/Halter/.test(o.name || ''));
+    ok(komp(huefte(l)) > 1, 'Mutationsprobe: ohne Halter schwebt die Öse wieder (2 Voxel losgelöst) → Prüfung rot');
+  }
+  // (c) Plankenweste heißt Plankenweste; „Fellwams“ steht nirgends (Katalog, Modelle, Generator, Konzeptnamen)
+  {
+    const texte = [fs.readFileSync(path.join(root, 'assets', 'katalog', 'charakter.json'), 'utf8'), fs.readFileSync(path.join(root, 'tools', 'gen-cha.mjs'), 'utf8'), fs.readFileSync(path.join(root, 'assets', 'palettes', 'cha.json'), 'utf8'), ...chaIds.map((i) => JSON.stringify(get(i)))];
+    ok(texte.every((t) => !/fellwams/i.test(t)), 'Fellwams steht weder im Katalog noch in den Modellen, der Palette oder dem Generator');
+    eq(katalog.teile.find((t) => t.id === 'oberteil/plankenweste').name, 'Plankenweste', 'Katalogname „Plankenweste“');
+  }
+  // (d) Ocreae: Schuh-Wahl mit Fußteil und Beinschiene, über jeder Hose ohne doppeltes Schienbein
+  {
+    for (const hose of ['bordhose', 'germanenhose', 'anzughose', 'keine']) {
+      const s = baueFigur(lib, 'cha/spieler', { params: { hose, schuhe: 'ocreae' } }).pro.shinL;
+      const platte = s.filter((v) => v.z === 2 && v.y >= 3 && v.y <= 5 && v.x >= 1 && v.x <= 3).length;
+      const dahinter = s.filter((v) => v.z === 3 && v.y >= 1 && v.y <= 5).length;
+      eq([platte, dahinter], [9, 0], `Ocreae über ${hose}: die Schienbeinplatte ist genau eine Lage (3 × 3 Voxel bei z 2), keine zweite davor oder dahinter (z 3 zwischen y 1 und 5 leer)`);
+      // Schienbeinstoff der Hose bei y 6 bleibt sichtbar (Ocreae schneidet ihn bei y 6 ab)
+      const y6 = s.filter((v) => v.y === 6 && v.z === 0 && v.x === 2)[0], hoseNur = baueFigur(lib, 'cha/spieler', { params: { hose, schuhe: 'keine' } }).pro.shinL.find((v) => v.y === 6 && v.z === 0 && v.x === 2);
+      ok(y6 && hoseNur && y6.c === hoseNur.c, `Ocreae über ${hose}: y 6 bei z 0 zeigt die Hose, nicht den Stiefelstoff`);
+    }
+    const o = baueFigur(lib, 'cha/spieler', { params: { hose: 'keine', schuhe: 'ocreae' } }).pro.shinL;
+    ok(o.some((v) => v.y === 0 && v.z === 3) && o.some((v) => v.y === 0 && v.z === -1), 'Ocreae bringt das Fußteil mit (Fuß y 0, Stiefelkappe bei z 3)');
+    const kat = katalog.teile.find((t) => t.id === 'schuhe/ocreae');
+    ok(kat && kat.volk === 'rom' && kat.herkunft === 'frei', 'Ocreae steht als Schuh-Wahl im Katalog (volk rom, herkunft frei)');
+  }
+}
+
+console.log('\n== CHA-02 D1: Befund (e) Fellumhang-Kragen: kein Durchdringen von Kopf und Kragen');
+{
+  // Der Kragen (Schicht cha/umhang/fellumhang/torso) liegt neben dem 8er-Kopf; gemessen wie die Passprobe (Voxel näher als DURCHDRINGUNG_RADIUS, nur in der Pose neu gegenüber der Ruhepose)
+  const rigE = lib.get('rigs', 'human'), posenE = lib.get('poses', 'human');
+  const R2 = DURCHDRINGUNG_RADIUS ** 2;
+  const zus = [...PASS_ZUSTAENDE, { id: 'ruhe', pose: null }];
+  const kragen = (l, umhang, frisur) => {
+    const head = baueFigur(l, 'cha/spieler', { params: { frisur, kopf: 'keine' } }).pro.head;
+    const b = l.build(`cha/umhang/${umhang}/torso`), a = b.anchor, torso = [...b.grid.values()].map((v) => ({ x: v.x - a[0], y: v.y - a[1], z: v.z - a[2] }));
+    const welt = zus.map((z) => posiere(rigE, { head, torso }, z.pose ? poseWerte(posenE, z.pose, z.phi) : { joints: {}, lift: 0 }));
+    const treffer = (w) => { const s = new Set(); for (let i = 0; i < w.head.length; i += 3) for (let j = 0; j < w.torso.length; j += 3) { const dx = w.head[i] - w.torso[j], dy = w.head[i + 1] - w.torso[j + 1], dz = w.head[i + 2] - w.torso[j + 2]; if (dx * dx + dy * dy + dz * dz < R2) { s.add('h' + i); s.add('t' + j); } } return s; };
+    const ruhe = treffer(welt[welt.length - 1]), out = {};
+    zus.forEach((z, k) => { let n = 0; for (const x of treffer(welt[k])) if (!ruhe.has(x)) n++; out[z.id] = n; });
+    return { ...out, ruhe: ruhe.size };
+  };
+  const maxPose = (r) => Math.max(...Object.entries(r).filter(([k]) => k !== 'ruhe').map(([, v]) => v));
+  for (const frisur of ['keine', 'kurz']) {
+    const r = kragen(lib, 'fellumhang', frisur);
+    eq([maxPose(r), r.ruhe], [0, 0], `Fellumhang mit Frisur ${frisur}: der Kopf berührt den Kragen in keiner der 11 Posen (stehen, laufen, aim, aim_rifle, aim_heavy, kneel, sit, crouch), auch nicht in Ruhe`);
+  }
+  // andere Frisuren: Haar streift die Fellwülste in aim und kneel (weiches Haar auf weichem Fell); gemessener Höchstwert, Obergrenze 28
+  const alleFr = ['stirnband', 'welle', 'offen', 'bartkurz', 'bartlang', 'zopfband', 'wild'].map((f) => [f, maxPose(kragen(lib, 'fellumhang', f))]);
+  console.log(`    Haar am Kragen (höchstens Voxel je Pose): ${alleFr.map(([f, n]) => `${f} ${n}`).join(', ')}`);
+  ok(alleFr.every(([, n]) => n <= 28), 'langes Haar und Zöpfe: höchstens 28 Voxel Berührung mit den Fellwülsten (Passprobe-Schwellen bleiben ohnehin für alle Kombinationen)');
+  // Vorher: der Bestand-Kragen (Anbau fig/germanen/fellumhang, bis y 26) durchdringt den 8er-Kopf; der A1-Schnitt ließ crouch bei 16 Voxeln: Mutationsprobe mit dem alten Schnitt
+  {
+    const l = nodeLibrary(root); for (const id of chaIds) await l.load('models', id); await l.load('figures', 'cha/spieler'); await l.load('rigs', 'human'); await l.load('poses', 'human');
+    const u = l.get('models', 'cha/umhang/fellumhang/torso');
+    u.ops = u.ops.filter((o) => !(o.op === 'box' && o.mode === 'carve')); u.ops.push({ op: 'box', name: 'alter A1-Schnitt', at: [-5, 25, -5], size: [10, 3, 9], mode: 'carve' });
+    ok(maxPose(kragen(l, 'fellumhang', 'keine')) > 0, `Mutationsprobe: mit dem alten A1-Schnitt (nur y 25..27 abgeschnitten) durchdringt der Kragen den Kopf in der Pose crouch (${maxPose(kragen(l, 'fellumhang', 'keine'))} Voxel) → Prüfung rot`);
+  }
+  eq(maxPose(kragen(lib, 'sagum', 'keine')) <= 16 ? 'ok' : 'zu viel', 'ok', `Sagum: Kopf ohne Haar am Umhang höchstens 16 Voxel (gemessen ${maxPose(kragen(lib, 'sagum', 'keine'))}, nur Pose crouch; die Bahn hängt bis y 24 am Körper)`);
+}
+
+console.log('\n== CHA-02 D1: Passprobe über alle Oberteile × Kopfbedeckungen × Posen, Ausnahmen für Robe und Einsatzanzug');
+{
+  // Jedes Oberteil × jede Kopfbedeckung × jede Frisur × alle Posen läuft in der Passprobe oben mit (volles Produkt, Gelenke je Schlüssel gecacht). Hier die Gegenprobe der Ausnahmen:
+  const nur = { oberteil: ['robe', 'einsatzanzug'], frisur: ['kurz', 'bartlang'], umhang: ['keiner', 'fellumhang', 'sagum'] };
+  const mit = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND, ausnahmen: PASS_AUSNAHMEN_D1, nur });
+  const ohne = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND, nur });
+  eq(mit.fehler, [], `mit den Ausnahmen (robe: Ivo +10, einsatzanzug: nova +10) ohne Befund (${mit.kombinationen} Kombinationen)`);
+  ok(ohne.fehler.length > 0 && ohne.fehler.every((f) => /robe|einsatzanzug/.test(f.id)), `ohne die Ausnahmen melden nur Kombinationen mit Robe oder Einsatzanzug (${ohne.fehler.length} Befunde): die Ausnahmen sind nötig und gelten für nichts anderes`);
+  // nicht schlimmer als nötig: jedes andere Oberteil kommt ohne Ausnahme aus (volles Produkt oben, ohne Robe und Einsatzanzug in den Befunden)
+  const alleOhne = pruefePassung(lib, 'cha/spieler', idx.models, { bestand: BESTAND });
+  ok(alleOhne.fehler.every((f) => /robe|einsatzanzug/.test(f.id)), 'über alle 16 200 Kombinationen ohne Ausnahmen betreffen alle Befunde nur Robe oder Einsatzanzug (bordtunika, plankenweste, keine bleiben unter den Bestandsschwellen)');
+}
+
+console.log('\n== CHA-02 D1: Dreiecke (tools/cha-mess.mjs)');
+{
+  const leereWerte = (p) => optionen[p].find((w) => LEERE_WERTE.includes(w));
+  const std = dreieckeVon(lib, 'cha/spieler');
+  const basis = dreieckeVon(lib, 'cha/spieler', { params: { oberteil: leereWerte('oberteil') } }).dreiecke;
+  const delta = optionen.oberteil.filter((w) => !LEERE_WERTE.includes(w)).map((w) => [w, dreieckeVon(lib, 'cha/spieler', { params: { oberteil: w } }).dreiecke - basis]);
+  console.log(`    Oberteil gegenüber keine (${basis}): ${delta.map(([w, d]) => `${w} +${d}`).join(', ')}`);
+  ok(delta.every(([, d]) => d <= 1500), `jedes Oberteil höchstens +1500 Dreiecke gegenüber keine (größter Wert ${Math.max(...delta.map((d) => d[1]))})`);
+  // Worst Case: je Platz das Teil mit den meisten Dreiecken (einzeln gegen die Standardfigur gemessen), zusammen gebaut
+  const worst = {};
+  for (const p of PLAETZE.filter((x) => x !== 'koerper')) worst[p] = optionen[p].map((w) => [w, dreieckeVon(lib, 'cha/spieler', { params: { [p]: w } }).dreiecke]).sort((a, b) => b[1] - a[1])[0][0];
+  const wc = dreieckeVon(lib, 'cha/spieler', { params: worst });
+  console.log(`    Worst Case (${Object.values(worst).join(', ')}): ${wc.voxel} Voxel, ${wc.dreiecke} Dreiecke ohne Waffe (Standard ${std.dreiecke})`);
+  ok(wc.dreiecke < 10000, `Worst Case der Spielerfigur ohne Waffe ${wc.dreiecke} < 10 000 Dreiecke (Waffe baut das Spiel an; Grenze mit Waffe 10 000)`);
 }
 
 console.log(`\n${fail ? '✗' : '✓'} ${pass} bestanden, ${fail} fehlgeschlagen`);

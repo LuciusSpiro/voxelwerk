@@ -4,17 +4,18 @@
 //
 // Aufruf: node tools/cha-mess.mjs [--json] [Filter]
 //   Filter   nur Figuren, deren ID den Text enthält (z. B. cha/, germanen)
-// Zusätzlich: Spielerfigur im Worst Case (alle schwersten Teile) neben dem Standard; Baukasten-Gegner stehen in assets/figures/fig/*.
+// Zusätzlich: Spielerfigur im Worst Case (je Platz das Teil mit den meisten Dreiecken, CHA-02 D1) neben dem Standard; Baukasten-Gegner stehen in assets/figures/fig/*.
+//   --teile   je Platz und Teil die Dreiecke und der Unterschied zum leeren Wert (keine/keiner), Grenze je Oberteil +1500 (CHA-02 D)
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { nodeLibrary, listAssets } from './fs-io.js';
 import { meshGrid } from '../core/mesher.js';
+import { platzOptionen, LEERE_WERTE } from './cha-lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2), json = args.includes('--json'), filter = args.find((a) => !a.startsWith('--'));
 const lib = nodeLibrary(root), idx = await listAssets(root);
 
-const WORST = { kopf: 'bordhelm', frisur: 'bartlang', oberteil: 'plankenweste', hose: 'germanenhose', schuhe: 'germanenstiefel', haende: 'armschiene', umhang: 'fellumhang' };
 
 async function ladeFigur(figId) {
   const f = await lib.load('figures', figId);
@@ -53,9 +54,17 @@ for (const id of idx.figures.filter((i) => !filter || i.includes(filter))) {
   try { await ladeFigur(id); zeilen.push({ id, ...messe(id) }); } catch (e) { zeilen.push({ id, fehler: e.message }); }
 }
 if (lib.get('figures', 'cha/spieler') && (!filter || 'cha/spieler'.includes(filter) || filter.startsWith('cha'))) {
-  // Worst Case: die schwersten Teile je Platz, soweit es sie gibt (Plätze und Werte stehen als options in den Sammelmodellen)
-  const hat = (p, w) => ['head', 'torso', 'hips', 'upperArm', 'lowerArm', 'thigh', 'shin'].some((g) => lib.get('models', `cha/joint/${g}`)?.params?.[p]?.options?.includes(w));
-  const params = Object.fromEntries(Object.entries(WORST).filter(([p, w]) => hat(p, w)));
+  // Worst Case: je Platz das Teil mit den meisten Dreiecken (einzeln gegen die Standardfigur gemessen); Plätze und Werte stehen als options in den Sammelmodellen
+  for (const id of idx.models.filter((i) => i.startsWith('cha/'))) await lib.load('models', id);
+  const optionen = platzOptionen(lib, idx.models), params = {}, tabelle = [];
+  for (const [p, ws] of Object.entries(optionen)) {
+    if (p === 'koerper') continue;
+    const leer = ws.find((w) => LEERE_WERTE.includes(w)), basis = leer ? messe('cha/spieler', { params: { [p]: leer } }).dreiecke : null;
+    let best = null;
+    for (const w of ws) { const d = messe('cha/spieler', { params: { [p]: w } }).dreiecke; tabelle.push({ platz: p, teil: w, dreiecke: d, gegenLeer: basis === null ? null : d - basis }); if (!best || d > best.d) best = { w, d }; }
+    params[p] = best.w;
+  }
+  if (args.includes('--teile')) { console.log('Teil'.padEnd(28) + 'Dreiecke'.padStart(9) + '  gegen leer'); for (const t of tabelle) console.log(`${t.platz}/${t.teil}`.padEnd(28) + String(t.dreiecke).padStart(9) + (t.gegenLeer === null ? '' : `  ${t.gegenLeer >= 0 ? '+' : ''}${t.gegenLeer}`)); console.log(''); }
   try { zeilen.push({ id: 'cha/spieler (Worst Case: ' + Object.values(params).join(', ') + ')', ...messe('cha/spieler', { params }) }); } catch (e) { zeilen.push({ id: 'cha/spieler Worst Case', fehler: e.message }); }
 }
 

@@ -27,6 +27,8 @@
       "options": [
         "bordtunika",
         "plankenweste",
+        "robe",
+        "einsatzanzug",
         "keine"
       ],
       "label": "Oberteil"
@@ -35,7 +37,8 @@
       "default": "keine",
       "options": [
         "keine",
-        "armschiene"
+        "armschiene",
+        "einsatzhandschuh"
       ],
       "label": "Handschuhe"
     }

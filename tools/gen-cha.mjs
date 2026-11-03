@@ -340,7 +340,9 @@ const TEILE = [
   } },
   { platz: 'oberteil', name: 'plankenweste', anzeige: 'Plankenweste', volk: 'germanen', palette: 'nord', gattungen: {
     torso: { quelle: 'fig/germanen/rumpf', farben: { cloth: 'unter', primary: 'top', trim: 'top_zier', leather: 'top_leder', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', glow: 'licht' } },
-    hips: { quelle: 'fig/germanen/huefte', farben: { cloth: 'unter', leather: 'top_leder', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', primary: 'top', secondary: 'top_unter' } },
+    // CHA-02 D1 (Befund b): die Werkzeugöse (x -4, y 13..14, z -4) hing 2 Voxel vor dem Becken in der Luft; der Halter (z -3) verbindet sie mit dem Becken (z -2) und dem Plattengurt
+    hips: { quelle: 'fig/germanen/huefte', farben: { cloth: 'unter', leather: 'top_leder', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', primary: 'top', secondary: 'top_unter' },
+      danach: [{ name: 'Öse Halter (hängt die Werkzeugöse an das Becken)', op: 'box', at: [-4, 13, -3], size: [1, 2, 1], color: '@metal' }] },
     upperArm: { quelle: 'fig/germanen/oberarm', farben: { leather: 'top_leder', metal_light: 'metall_hell', primary: 'top', trim: 'top_zier' } },
     lowerArm: { quelle: 'fig/germanen/unterarm', params: { glove: 0 }, farben: { leather: 'top_leder', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell', primary: 'top' } },
   } },
@@ -361,8 +363,9 @@ const TEILE = [
       schnitte: [carve('Hosenrest abschneiden (y 6..7)', [1, 6, -1], [3, 2, 3])] },
   } },
   { platz: 'schuhe', name: 'germanenstiefel', anzeige: 'Germanenstiefel', volk: 'germanen', palette: 'nord', gattungen: {
-    shin: { quelle: 'fig/germanen/unterschenkel', farben: { metal_dark: 'schuh', metal: 'metall', metal_light: 'metall_hell', rubber: 'gummi' },
-      schnitte: [carve('Gamasche und Schienbeinplanken abschneiden (y 3..7)', [1, 3, -2], [3, 5, 6])] },
+    shin: { quelle: 'fig/germanen/unterschenkel', farben: { metal_dark: 'schuh', metal: 'metall', metal_light: 'metall_hell', rubber: 'gummi', leather: 'gamasche', primary: 'planke' },
+      // CHA-02 D1 (Befund a): der Stiefel bringt die eigene Wickelgamasche und die Schienbeinplanken mit (y 3..5), nur der Hosenteil ab y 6 fällt weg. So steht der Unterschenkel mit der Bordhose nicht mehr im Unteranzug; mit der Germanenhose liegen die Voxel deckungsgleich.
+      schnitte: [carve('Hosenanteil abschneiden (y 6..7: Gamasche und Kniekachel gehören zur Hose)', [1, 6, -2], [3, 2, 6])] },
   } },
 
   // ---- Hände
@@ -374,9 +377,57 @@ const TEILE = [
   // Die Kette zwischen den Spangen hängt im Bestand an der Halsberge des Germanen-Oberteils: zwei Kettenhalter (Boxen) hängen sie an den Kragen.
   { platz: 'umhang', name: 'fellumhang', anzeige: 'Fellumhang', volk: 'germanen', palette: 'nord', gattungen: {
     torso: { quelle: 'fig/germanen/fellumhang', at: [0, 20, -3], farben: { leather: 'umhang', hair: 'umhang_2', metal: 'metall', metal_dark: 'metall_dunkel', metal_light: 'metall_hell' },
-      schnitte: [carve('Kragen über den Schultern abschneiden (y 25..27): dort sitzt der 8er-Kopf', [-5, 25, -5], [10, 3, 9])],
-      danach: [{ name: 'Kettenhalter (Kette am Kragen)', op: 'box', at: [3, 24, 3], size: [1, 1, 1], color: '@metal', mirror: 'x', mirrorAt: 0 }] },
+      // CHA-02 D1 (Befund e): Der Kragen ist nicht mehr oben abgeschnitten, sondern neu aufgeteilt: Er liegt neben dem breiten Kopf (x 4..5 und -6..-5, y 24..25, z -4..2: zwei Fellwülste auf den Schultern),
+      // unter dem Kopf (x -4..3) bleibt nichts stehen (die Kette hängt davor bei z 3). Der Schädel (x -4..3, y 26..32) kommt in keiner Pose an den Kragen (Test "CHA-02 D1": 0 Voxel für den Kopf ohne Haar und mit dem Kurzschnitt; langes Haar streift die Wülste in aim/kneel, siehe Test).
+      schnitte: [carve('Kragen unter dem Kopf abschneiden, Spangen eingeschlossen (x -4..3, y 25..27, z -5..2)', [-4, 25, -5], [8, 3, 8]), carve('Kragen unter dem Kopf abschneiden (x -4..3, y 24, z -5..1; z 2 trägt den Kettenhalter)', [-4, 24, -5], [8, 1, 7]), carve('Kragen oben abschneiden (y 26..27, die Wülste enden bei y 25)', [-7, 26, -5], [14, 2, 9]),
+        { name: 'Wulst vorn kürzen (y 25, z 2 bleibt für Seitensträhne und Perle der Frisuren frei)', op: 'box', at: [4, 25, 2], size: [2, 1, 1], mode: 'carve', mirror: 'x', mirrorAt: 0 }],
+      // Die Pelzbahn hing im Bestand am Kragen (y 24, z -4); ohne den Kragen unter dem Kopf hängt sie über zwei Fellstege (x 4..5, y 23, z -4..-3, hinter der Schulterplatte der Ärmel) an den Wülsten. Die Kette hängt über Halter (x 3, z 2..3) an den Wülsten.
+      danach: [{ name: 'Kettenhalter (Kette an den Wülsten)', op: 'box', at: [3, 24, 2], size: [1, 1, 2], color: '@metal', mirror: 'x', mirrorAt: 0 },
+        { name: 'Fellsteg hinten (Pelzbahn an den Wulst)', op: 'box', at: [4, 23, -4], size: [2, 1, 2], color: { noise: ['umhang_fellumhang', { shade: 'umhang_fellumhang', f: 0.72 }, { shade: 'umhang_2_fellumhang', f: 1.5 }], weights: [3, 3, 2], cell: 1 }, mirror: 'x', mirrorAt: 0 }] },
   } },
+
+  // ---- CHA-02 D1: Recycling der Bestandsausrüstung (Robe, Einsatzanzug, Anzughose, Einsatzstiefel, Ocreae, Einsatzhandschuh, Sagum) ---------------------------------------------
+  // Die Einsatzuniform (crew/nova|juno|tami) und die Bordmonturen (lerche/crew_*) sind aus diesen Teilen voxelidentisch zusammenstellbar (tools/test-cha.mjs, Abschnitt "CHA-02 D1").
+  // Der Rollen-Akzent der Einsatzuniform (Bestand: primary = Spielerfarbe) ist hier fest Crew-Signalrot (keine Spielerfarbe in Kleidung).
+  { platz: 'oberteil', name: 'robe', anzeige: 'Robe', volk: 'lerche', palette: 'lerche_rom', gattungen: {
+    torso: { quelle: 'fig/lerche/robe_torso', farben: { sand: 'top', wood_dark: 'top_saum', cloth: 'top_schal', trim: 'top_zier', leather: 'top_leder' } },
+    hips: { quelle: 'fig/lerche/robe_hips', farben: { sand: 'top', wood_dark: 'top_saum', cloth: 'top_schal', trim: 'top_zier', leather: 'top_leder' } },
+    upperArm: { quelle: 'fig/lerche/robe_upperarm', farben: { sand: 'top', cloth: 'top_schal' } },
+    lowerArm: { quelle: 'fig/lerche/robe_lowerarm', farben: { sand: 'top', wood_dark: 'top_saum', trim: 'top_zier' } },
+  } },
+  { platz: 'oberteil', name: 'einsatzanzug', anzeige: 'Einsatzanzug', volk: 'crew', palette: 'crew', rollen: { akzent: '#B3342B' }, gattungen: {
+    torso: { ops: { quelle: 'fig/crew/anzug_rumpf', ohneNamen: ['Unteranzug'] }, farben: { secondary: 'top', primary: 'akzent', metal: 'metall', metal_dark: 'metall_dunkel', glow: 'licht', glow2: 'licht_2' } },
+    hips: { ops: { quelle: 'fig/crew/anzug_huefte', ohneNamen: ['Unteranzug'] }, farben: { metal_dark: 'metall_dunkel', primary: 'akzent', leather: 'leder', metal: 'metall' } },
+    upperArm: { ops: { quelle: 'fig/crew/anzug_oberarm', ohneNamen: ['Unteranzug'] }, farben: { primary: 'akzent', secondary: 'top' } },
+    lowerArm: { ops: { quelle: 'fig/crew/anzug_unterarm', namen: ['Manschette', 'Armgerät', 'Armgerät Anzeige'], paintZuAdd: ['Manschette'] }, farben: { secondary: 'top', metal_dark: 'metall_dunkel', glow: 'licht' } },
+  } },
+  // Anzughose: Oberschenkel mit Beintasche, Unterschenkel mit Knieschonern; das Schienbein reicht wie bei der Bordhose bis y 5 und unter die Stiefel (y 0..4 abgeschnitten)
+  { platz: 'hose', name: 'anzughose', anzeige: 'Anzughose', volk: 'crew', palette: 'crew', rollen: { akzent: '#B3342B' }, gattungen: {
+    thigh: { ops: { quelle: 'fig/crew/anzug_oberschenkel', ohneNamen: ['Unteranzug'], paintZuAdd: ['Schenkelplatte'] }, farben: { secondary: 'platte', leather: 'leder', metal: 'metall' } },
+    shin: { ops: [{ quelle: 'fig/basis/unterschenkel', namen: ['Schienbein'] }, { eigene: [carve('Stiefelbereich abschneiden (y 0..4)', [1, 0, -1], [3, 5, 3])] }, { quelle: 'fig/crew/anzug_unterschenkel', namen: ['Knieschoner', 'Knieschoner Kern'] }],
+      farben: { cloth: 'hose', primary: 'akzent' } },
+  } },
+  // Einsatzstiefel: Bein + Stiefel aus fig/basis/unterschenkel mit Stiefelschaft 4 (wie im Einsatzanzug), weißer Stiefel und Rand als paint; das Schienbein (y 5..6) bleibt der Hose
+  { platz: 'schuhe', name: 'einsatzstiefel', anzeige: 'Einsatzstiefel', volk: 'crew', palette: 'crew', gattungen: {
+    shin: { quelle: 'fig/basis/unterschenkel', params: { bootH: 4 }, farben: { cloth: 'stoff', metal_dark: 'schuh', rubber: 'gummi', secondary: 'weiss', metal: 'rand' },
+      schnitte: [carve('Schienbein abschneiden (y 5..6, gehört zur Hose)', [1, 5, -1], [3, 2, 3])],
+      danach: [{ name: 'Stiefel weiß', op: 'box', at: [1, 1, -1], size: [3, 3, 3], color: '@secondary', mode: 'paint' }, { name: 'Stiefelrand', op: 'box', at: [1, 4, -1], size: [3, 1, 3], color: '@metal', mode: 'paint' }] },
+  } },
+  // Ocreae: Legionärsstiefel mit Beinschiene. Der Teil über dem Knie (Schienbeinstoff y 6 samt Schienenseiten) fällt weg, er gehört zur Hose; Schiene (y 3..5), Knieschutz und Kniescheibe sitzen davor.
+  { platz: 'schuhe', name: 'ocreae', anzeige: 'Ocreae', volk: 'rom', palette: 'rom', gattungen: {
+    shin: { quelle: 'fig/rom/ocrea', farben: { cloth: 'stoff', metal_dark: 'schuh', rubber: 'gummi', secondary: 'platte', trim: 'zier', metal: 'metall', metal_light: 'metall_hell' },
+      schnitte: [carve('Schienbeinstoff über dem Stiefel abschneiden (y 6, gehört zur Hose)', [1, 6, -1], [3, 1, 3])] },
+  } },
+  // Einsatzhandschuh: nur die Faust des Anzugs (Handschuh, Knöchel); der Ärmel kommt vom Oberteil
+  { platz: 'haende', name: 'einsatzhandschuh', anzeige: 'Einsatzhandschuh', volk: 'crew', palette: 'crew', gattungen: {
+    lowerArm: { quelle: 'fig/basis/unterarm', farben: { cloth: 'stoff', metal_dark: 'handschuh' },
+      schnitte: [carve('Unterarm abschneiden (y 13..16, der Ärmel gehört zum Oberteil)', [4, 13, -1], [3, 4, 3])] },
+  } },
+  // Sagum: Bahn und Fibeln aus fig/rom/umhang (Anbau am Rücken-Gelenk, Anker [0,20,-3])
+  { platz: 'umhang', name: 'sagum', anzeige: 'Sagum', volk: 'rom', palette: 'rom', gattungen: {
+    torso: { quelle: 'fig/rom/umhang', at: [0, 20, -3], farben: { cloth: 'umhang', trim: 'zier' } },
+  } },
+  // ---- CHA-02 D1 (Ende) ---------------------------------------------------------------------------------------------------------------------------------------------------------
 ];
 
 /** Platzrollen ohne Bestandsquelle. `spieler` ist für die Namensmarke reserviert: kein Teil benutzt sie. */

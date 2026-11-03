@@ -442,7 +442,7 @@ jede `options`-Ausprägung der Figur steht im Katalog und umgekehrt, Platz, Grup
 Index 0 = Figurfarben) stimmen; Version 2: kein Platz `gesicht` oder `bart` in Katalog, Teilen und Figur-`params`. Dazu die **Kopfregel** (nackter Kopf 8 breit, 7 hoch, 8 tief, Hals bei y 25).
 
 **Passprobe** (`pruefePassung` in `tools/cha-lib.mjs`, Posen in `tools/cha-pose.mjs`, Abschnitt „Spielerfigur aus Schichten“ in `npm run check`, ca. 3 s):
-baut **jede Teilekombination** (Produkt der `options` aller Plätze, heute 648) und prüft sie in den Posen stand, walk (Extreme des `cycle`: φ = 0, ¼, ½, ¾),
+baut **jede Teilekombination** (Produkt der `options` aller Plätze, heute 16 200) und prüft sie in den Posen stand, walk (Extreme des `cycle`: φ = 0, ¼, ½, ¾),
 aim, aim_rifle, aim_heavy, kneel, sit, crouch. Posen werden in Node ohne three.js angewendet (Gelenkhierarchie des Rigs, Euler YXZ, `lift`, Atmen/Blick
 bei t = 0 null); der Test gleicht jede Voxelecke gegen `applyPose` aus `render/voxel-three.js` ab. Die Spielerfigur bringt keine eigenen Posen mit,
 Quelle ist `assets/poses/human.json`; die Ersatzposen des Spiels (`actors.js`, `FALLBACK_POSES`) gelten nur, wenn eine Figur keine hat.
@@ -465,6 +465,13 @@ Zum Prüfen das genannte Teil (bei Bereichsfehlern die Schicht des Plätze-Werts
 Platz-Werte des Paares) allein einsetzen und in der Pose ansehen (`tools/cha-bilder.mjs`). Unter dem Strich zeigt `npm run check` je Pose den größten Messwert mit Schwelle
 und Bestandswert dieser Pose; Werte über dem Bestandswert der Pose, aber unter der Paarschwelle, stehen als Hinweis darunter (heute: Fellumhang über der Bordtunika, Hüfte/Rumpf in aim-Posen).
 Grenzen: Die Schwelle ist eine Obergrenze („nichts Schlimmeres als heute“), kein Schönheitsurteil; Haar prüft nur den Helm; Gegenstände in der Hand und Atmen/Blick fließen nicht ein.
+
+**CHA-02 D1 (Recycling, alte Uniformen):** Robe, Einsatzanzug, Anzughose, Einsatzstiefel, Ocreae, Einsatzhandschuh und Sagum sind aus Bestandsteilen herausgelöst (`ops` mit `ohneNamen`/`namen`/`paintZuAdd`, siehe `tools/gen-cha.mjs`).
+Die sechs alten Uniformen (`lerche/crew_0` bis `_2`, `crew/nova|juno|tami`) sind aus Katalogteilen voxelidentisch zusammenstellbar (alle Gelenke außer `head`, Test „CHA-02 D1“; Bestand und Katalog Voxel für Voxel in Position und Farbe).
+Einzige Abweichung: Der Rollen-Akzent der Einsatzuniform (Bestand: `primary` = Spielerfarbe) steht im Katalog fest auf Crew-Rot `#B3342B` (Rollen `akzent_einsatzanzug`, `akzent_anzughose`); der Test setzt sie auf die Bestandsfarbe.
+Aufteilung am Unterschenkel: **Schuhe reichen bis y 5, Hosen beginnen bei y 6** (Bordstiefel, Germanenstiefel mit eigener Gamasche, Einsatzstiefel, Ocreae); die Anzughose schneidet ihr Schienbein bei y 0..4 ab.
+Die Passprobe baut jedes Gelenk je Schlüssel (Werte der Plätze seines Sammelmodells) nur einmal (16 200 Kombinationen in unter 3 s) und kennt `ausnahmen` (`PASS_AUSNAHMEN_D1`): Für Kombinationen mit Robe (Ivos Gewand) und Einsatzanzug (Tornister) gilt die Bestandsschwelle der Herkunftsfigur plus 10 Voxel; `nur` beschränkt die Kombinationen (Mutationsproben).
+`node tools/cha-mess.mjs cha/ --teile` zeigt die Dreiecke je Teil gegenüber dem leeren Wert (Grenze je Oberteil +1500) und den Worst Case der Spielerfigur ohne Waffe (Grenze 10 000, Waffe baut das Spiel an).
 
 ## Stimmungen (`assets/moods`)
 
