@@ -19,8 +19,8 @@
     "plant": "#6A6C48",
     "plant_dark": "#56583C",
     "plant_light": "#7C7E58",
-    "flower": "#E6B04A",
-    "flower2": "#C8C0B0",
+    "flower": "#9C93B8",
+    "flower2": "#C9C7CC",
     "fluid": { "color": "#FF6A1E", "emit": 1.2 },
     "fluid_v": "#B04418"
   }
