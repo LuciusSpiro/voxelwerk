@@ -534,7 +534,7 @@ Ein Prop darf die Kachel nie überragen (kein Voxel außerhalb ±0,5 m). Die **S
 | `biom/wiese/farn` | biom_wiesenwald | `seed` (Höhe, Länge, Auslassung der Wedel) | 0,8 bis 0,9 m, Sichtschleier ohne Kollision | 552 (600) |
 | `biom/wiese/findling` | biom_wiesenwald | `hoch` 0/1, `seed` (Form = seed % 3) | halb 0,75 m, voll 2,06 m; Kollision ganze Kachel | halb 364 (500), voll 602 (900) |
 | `biom/gemein/bewuchs` | **palettenunabhängig** | `form` 0 Gras, 1 Blumen, 2 Kiesel, 3 Flechte; `seed` | höchstens 0,19 m, über die ganze Kachel gestreut | 268 (300) |
-| `biom/gemein/fluid` | **palettenunabhängig** | `art` 0 Wasser, 1 Lava, 2 Treibsand; `conn` 0–15; `seed` | Becken im Modell, Oberfläche 25 cm unter der Lauffläche | 376 (400) |
+| `biom/gemein/fluid` | **palettenunabhängig** | `art` 0 Wasser, 1 Lava, 2 Treibsand; `conn` 0–15; `diag` 0–15 (Standard 0); `seed` | Becken im Modell, Oberfläche 25 cm unter der Lauffläche | 376 (400) |
 
 **Auflösung:** Dreieckbudgets (Strauch 800, Farn 600, Findling halb 500 / voll 900) verlangen grobe Blöcke. Das Netz zeichnet Flächen mit Eckverdunklung einzeln;
 jede Stufe und jeder Knick kostet etwa 4 Dreiecke je Voxel Kantenlänge. Glatte Ellipsoide in 6 cm Auflösung kosten über 2000 Dreiecke je Strauch. Deshalb:
@@ -551,12 +551,26 @@ Lava ist `art 1` mit `biom_vulkan` (dort leuchtet `fluid`), Wasser `art 0` mit W
 
 **Fluid-Kachel:** Anker = Lauffläche (y 0). Das Becken liegt im Modell: Körper von −1 m bis −0,25 m (Wasser, Lava), an Seiten **ohne** Nachbar gleicher Klasse eine Uferkante in zwei Stufen
 (2 Voxel breit, Oberkante −6 cm und −19 cm; Wasser Gras- und Bodenton, Lava Boden und Boden dunkel), an Seiten **mit** Nachbar nahtlos (`conn` N1 O2 S4 W8 wie bei den Kit-Teilen).
-Treibsand: 12,5 cm eingesunken, Ringe aus Boden-, Sand- und Teppichton, kein Ufer, `conn` ohne Wirkung.
+Treibsand: 12,5 cm eingesunken, schräge Streifen (2 Voxel breit, Periode 8 Voxel diagonal, Boden- und Grasdunkelton), kein Ufer, `conn`, `diag` und `seed` ohne Wirkung; das Muster setzt sich über Kachelränder nahtlos fort (kein Ring um die Kachelmitte).
+`diag` (optional, Bit je Ecke NO1 SO2 SW4 NW8: dort ist kein Fluid) schließt eine Innenecke, wo beide Nachbarn der Ecke Fluid sind und nur die Diagonale nicht: Außenpfosten und innerer Winkel der Uferstufen. Ohne `diag` ist die Kachel byteweise wie in Paket 2.
 **Das Terrain unter der Kachel muss mindestens 1 m tiefer liegen** (Zelle `h − 1` oder tiefer), sonst verdeckt der Terrainwürfel das Becken; im Prüfbild steht die Zelle mit `h: 0` und das Modell bei `y: 1`.
 
 **Prüfung:** `node tools/test-biom-props.mjs` (Teil von `npm test`, Regeln in `tools/biom-props-lib.mjs`): Footprint, Höhe und Dreiecke je Fall (alle Seeds, Varianten, Anschlüsse), Gestalten und Determinismus über `seed`,
 Rollen und Bau mit allen drei Biom-Paletten, Fluid-Anschlüsse, Voxelhelligkeit der Steine gegen den Boden (kein Voxel heller als der hellste Boden plus 3 L*, keine helle Kappe, kein heller Sockel), Mutationsproben.
 Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080 --gray "scene=biom-wiesenwald-props&cam=spiel"` (Spielkamera 57°, FOV 30°, Abstand 15,75 m; `--gray` schreibt zusätzlich `…_grau.png`).
+
+### Wüste (VOX-02 Paket 3)
+
+Rezepte unter `assets/models/biom/wueste/`, Palette `biom_wueste`, alle aus achsparallelen Quadern (schräge Linien kosten Dreiecke, ein freistehender Quader nur 12). Prüfung: `node tools/test-biom-props-wueste.mjs` (Teil von `npm test`), Prüfbilder `biom-wueste-props` und `biom-wueste-fluid`.
+
+| ID | Parameter | Maß | Spielregel | Dreiecke (gemessen, Budget) |
+|---|---|---|---|---|
+| `biom/wueste/dornbusch` | `seed` (Gestalt = seed % 3: 0 Besen, 1 Gestrüpp aus gekreuzten Balken, 2 Zickzack-Akazie) | 1,1 bis 1,4 m | Sichtschleier, ohne Kollision, Teppich darunter | 662 (800) |
+| `biom/wueste/kaktus` | `seed` (0 zwei Arme, 1 dicker Stamm mit einem Arm, 2 schlanker Kandelaber) | 2,06 bis 2,19 m | fest und hoch (wie Baum): Kollision, Deckung, sperrt Sicht | 526 (700) |
+| `biom/wueste/schichtstein` | `hoch` 0/1, `seed` (0 Schichtturm, 1 Pilzfels, 2 schiefer Stapel) | halb 0,75 m, voll 2,06 m | Kollision ganze Kachel, Deckung halb/voll | halb 496 (500), voll 850 (900) |
+
+Farbe: Der Dornbusch nutzt nur `soil_dark` und `rock` (eine Stufe dunkler als der Boden, kein Grün). Der Kaktus nutzt `plant`/`plant_dark` (Rippen), nichts heller als der Boden, dunkler als jeder Stein (kein `flower`, keine Blüte). Der Schichtstein trägt Bänder aus `stone_dark` (unten), `stone` und `stone_light` (nur in der Mitte), die oberste Platte nie hell (keine helle Kappe, kein heller Sockel).
+Der Treibsand ist ruhig: schräge Streifen mit 3 L* Unterschied zum Sand, im Feld eine Fläche; die Oase ist Wasser (`art 0`) mit `biom_wueste`, Uferkanten in Sand- und Bodenton, `diag` an Innenecken. Palmen entfallen.
 
 ## Szenen (`assets/scenes`)
 
