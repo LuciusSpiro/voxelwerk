@@ -558,6 +558,22 @@ Treibsand: 12,5 cm eingesunken, Ringe aus Boden-, Sand- und Teppichton, kein Ufe
 Rollen und Bau mit allen drei Biom-Paletten, Fluid-Anschlüsse, Voxelhelligkeit der Steine gegen den Boden (kein Voxel heller als der hellste Boden plus 3 L*, keine helle Kappe, kein heller Sockel), Mutationsproben.
 Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080 --gray "scene=biom-wiesenwald-props&cam=spiel"` (Spielkamera 57°, FOV 30°, Abstand 15,75 m; `--gray` schreibt zusätzlich `…_grau.png`).
 
+### Vulkan (VOX-02 Paket 4)
+
+Ordner `assets/models/biom/vulkan/`, Palette `biom_vulkan` (Asche grau, Fels fast schwarz, Lava als einzige Glut). Spielregeln legt das Spiel fest (Kai):
+
+| ID | Parameter | Maß | Regeln (Spiel) | Dreiecke (gemessen, Budget) |
+|---|---|---|---|---|
+| `biom/vulkan/aschefarn` | `seed` (Höhe, Verschiebung bis 1 Voxel, ausgelassene Blätter) | 0,8 bis 1,0 m | Sichtschleier: keine Kollision, sperrt die Sicht, keine Deckung | 506 (600) |
+| `biom/vulkan/basalt` | `hoch` 0/1, `seed` (Form = seed % 3: 0 neun Säulen mit hoher Mitte, 1 Treppe aus Platten, 2 zwei Säulen mit Stümpfen; Höhen je Seed) | halb 0,75 m, voll 2,06 m | Kollision ganze Kachel, Deckung | halb 416 (500), voll 642 (900) |
+| `biom/vulkan/schlot` | `seed` (Form = seed % 3: 0 Kegel, 1 Terrassen, 2 versetzt mit Nebenkegel; Höhe, Versatz) | 1,63 bis 1,94 m, unter 1 × 1 m | fest, Deckung, sperrt die Sicht | 776 (800) |
+
+- **Glut nur in der Lava** (Rolle `fluid`): Aschefarn, Basalt und Bewuchs leuchten nie (keine Glutflechten, keine Glutspitzen). Der Schlot leuchtet nur in seiner kleinen Mündung (höchstens 20 Voxel ganz oben, Farbe `fluid`), der Fels (`rock`, `rock_dark`) nie.
+- **Wertleiter:** Der Schlot ist die dunkelste Stufe (jedes Fels-Voxel mindestens 6 L* dunkler als Teppich und Stein), Basalt (`stone*`) ist am Boden angeglichen ohne helle Kappe und ohne hellen Sockel, der Aschefarn bleibt grau (Buntheit höchstens 0,08, nie heller als der Boden plus 3 L*). Kein Rauch, Staub oder Dampf als Modell (kommt als Partikel).
+- **Auflösung:** Das Netz fasst gleichfarbige ebene Flächen zusammen; teuer sind Stufen, Knicke und Rauschfarben je Voxel. Der Schlot besteht deshalb aus drei bis vier Quader-Schichten mit je einer Farbe (unten achteckig aus zwei gekreuzten Quadern, oben quadratisch), der Basalt aus Quadern mit einer Zufallsfarbe je Säule (`cell: 1000`), nicht aus Zylindern mit `noise` (2000 Dreiecke und mehr).
+- **Lava prüfen:** `biom/gemein/fluid` mit `art: 1` und `palette: "biom_vulkan"` (Szene `biom-vulkan-fluid`: See mit Ufern, Einzelkachel); Terrain darunter `h: 0` bei `y: 1`.
+- **Prüfung:** `node tools/test-biom-props-vulkan.mjs` (Teil von `npm test`, nutzt `tools/biom-props-lib.mjs`): Footprint, Höhe und Budget je Fall (64 Seeds, beide Höhen), Gestalten und Determinismus, Helligkeit und Grauwert, Leuchten nur in `fluid`, Mutationsproben. Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080 --gray "scene=biom-vulkan-props&cam=spiel"` und `scene=biom-vulkan-fluid`.
+
 ## Szenen (`assets/scenes`)
 
 ```json
