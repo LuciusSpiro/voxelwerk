@@ -560,11 +560,11 @@ Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080
 
 ### Vulkan (VOX-02 Paket 4)
 
-Ordner `assets/models/biom/vulkan/`, Palette `biom_vulkan` (Asche grau, Fels fast schwarz, Lava als einzige Glut). Spielregeln legt das Spiel fest (Kai):
+Ordner `assets/models/biom/vulkan/`, Palette `biom_vulkan` (Asche grau, Fels fast schwarz, Lava als einzige Glut). Die Blumen (`flower`, `flower2`) der Vulkanpalette sind kühl und blass (Violett, Grau-Weiß), nie rot bis gelb: Glut gibt es nur in der Lava. Spielregeln legt das Spiel fest (Kai):
 
 | ID | Parameter | Maß | Regeln (Spiel) | Dreiecke (gemessen, Budget) |
 |---|---|---|---|---|
-| `biom/vulkan/aschefarn` | `seed` (Höhe, Verschiebung bis 1 Voxel, ausgelassene Blätter) | 0,8 bis 1,0 m | Sichtschleier: keine Kollision, sperrt die Sicht, keine Deckung | 506 (600) |
+| `biom/vulkan/aschefarn` | `seed` (Höhen, Fiedern, Wedellängen, Verschiebung bis 1 Voxel) | 0,8 bis 1,0 m | Sichtschleier: keine Kollision, sperrt die Sicht, keine Deckung. Liest sich als Pflanze: acht dünne, eckige Wedel mit Fiedern in `plant*` (graustichiges Olivgrün), Lücken dazwischen; nie in Stein-/Felsrollen | 440 bis 564 je Seed (350 bis 600) |
 | `biom/vulkan/basalt` | `hoch` 0/1, `seed` (Form = seed % 3: 0 neun Säulen mit hoher Mitte, 1 Treppe aus Platten, 2 zwei Säulen mit Stümpfen; Höhen je Seed) | halb 0,75 m, voll 2,06 m | Kollision ganze Kachel, Deckung | halb 416 (500), voll 642 (900) |
 | `biom/vulkan/schlot` | `seed` (Form = seed % 3: 0 Kegel, 1 Terrassen, 2 versetzt mit Nebenkegel; Höhe, Versatz) | 1,63 bis 1,94 m, unter 1 × 1 m | fest, Deckung, sperrt die Sicht | 776 (800) |
 

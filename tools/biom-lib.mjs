@@ -42,6 +42,13 @@ export const BIOM_PFLICHT = ['grass', 'grass_dark', 'grass_light', 'sand', 'soil
 export const BODEN_ROLLEN = ['grass', 'grass_dark', 'grass_light', 'sand', 'soil'];
 
 const f1 = (x) => x.toFixed(1);
+/** Farbton (0 bis 360) und HSV-Sättigung (0 bis 1) einer Farbe als Zahl 0xRRGGBB. */
+function hueSat(c) {
+  const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+  if (!d) return [0, 0];
+  const h = mx === r ? ((g - b) / d + 6) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [h * 60, d / mx];
+}
 
 /**
  * Prüft eine Biom-Palette. `roh` = Palettendatei (extends, adjust, roles), `aufgeloest` = lib.palette(id).roles.
@@ -61,6 +68,11 @@ export function pruefeBiomPalette(roh, aufgeloest) {
   for (const r of eigen) if (aufgeloest[r].e > 0 && !/^fluid(_v)?$/.test(r)) m.push(`${id}: Rolle "${r}" leuchtet (emit ${aufgeloest[r].e}); Leuchten ist nur bei fluid erlaubt`);
   if (id === 'biom_vulkan' && !(aufgeloest.fluid.e > 0)) m.push(`${id}: fluid (Lava) muss leuchten (emit > 0)`);
   if (id !== 'biom_vulkan' && aufgeloest.fluid.e > 0) m.push(`${id}: fluid (Wasser) darf nicht leuchten`);
+  // Vulkan: Blumen dürfen nicht wie Glut lesen (Glut ist nur Lava): Farbton nicht Rot bis Gelb bei hoher Sättigung
+  if (id === 'biom_vulkan') for (const r of ['flower', 'flower2']) {
+    const [h, sat] = hueSat(aufgeloest[r].c);
+    if (sat > 0.35 && (h >= 345 || h <= 70)) m.push(`${id}: ${r} (Farbton ${Math.round(h)}°, Sättigung ${sat.toFixed(2)}) liest sich als Glutpunkt; Glut gibt es nur in der Lava (kühle, blasse Blumen)`);
+  }
   // Boden: Band und Ruhe
   const boden = BODEN_ROLLEN.map((r) => [r, L(r)]);
   const bMin = Math.min(...boden.map((x) => x[1])), bMax = Math.max(...boden.map((x) => x[1])), bMitte = boden.reduce((a, x) => a + x[1], 0) / boden.length;

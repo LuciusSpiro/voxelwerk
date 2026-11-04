@@ -51,6 +51,8 @@ rot('Teppich fast schwarz (liest sich als Fels)', 'biom_wueste', (p) => { p.role
 rot('Leuchtrolle ohne fluid (flower leuchtet)', 'biom_wueste', (p) => { p.roles.flower = { color: '#E9C04E', emit: 1 }; }, /flower.*leuchtet/);
 rot('Leuchtrolle ohne fluid (grass leuchtet)', 'biom_wiesenwald', (p) => { p.roles.grass = { color: '#82A24C', emit: 0.5 }; }, /grass.*leuchtet/);
 rot('Wasser leuchtet', 'biom_wiesenwald', (p) => { p.roles.fluid = { color: '#3B7EA2', emit: 1 }; }, /Wasser/);
+rot('orange Blume in der Vulkanpalette (liest sich als Glut)', 'biom_vulkan', (p) => { p.roles.flower = '#E6B04A'; }, /flower.*Glutpunkt/);
+rot('gelbe Blume2 in der Vulkanpalette (liest sich als Glut)', 'biom_vulkan', (p) => { p.roles.flower2 = '#E8D040'; }, /flower2.*Glutpunkt/);
 rot('Lava leuchtet nicht', 'biom_vulkan', (p) => { p.roles.fluid = '#FF6A1E'; }, /Lava/);
 rot('Glutrolle für Pflanzen (plant leuchtet)', 'biom_vulkan', (p) => { p.roles.plant = { color: '#6A6C48', emit: 1.3 }; }, /plant.*leuchtet/);
 rot('helle Kappe auf Stein (Entwurf)', 'biom_vulkan', (p) => { p.roles.stone_light = '#C4BCB0'; }, /stone_light/);

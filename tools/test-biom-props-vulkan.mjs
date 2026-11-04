@@ -20,6 +20,7 @@ const FARN = 'biom/vulkan/aschefarn', BASALT = 'biom/vulkan/basalt', SCHLOT = 'b
 const BEWUCHS = 'biom/gemein/bewuchs', FLUID = 'biom/gemein/fluid';
 const PAL = 'biom_vulkan';
 const VULKAN = [FARN, BASALT, SCHLOT];
+const MIN_FARN = 350;
 for (const id of [...VULKAN, BEWUCHS, FLUID]) await lib.load('models', id);
 const modell = (id) => lib.get('models', id);
 const seeds = (n) => Array.from({ length: n }, (_, i) => i);
@@ -79,14 +80,14 @@ function pruefeSchlotDunkel(id, params) {
   return f;
 }
 
-/** Keine Voxel heller als der hellste Boden plus `steinKappe` und Asche bleibt grau (Buntheit der Voxelfarbe höchstens 0,08), ausgenommen Lava. */
-function pruefeAsche(id, params) {
+/** Keine Voxel heller als der hellste Boden plus `steinKappe` und Asche bleibt grau (Buntheit der Voxelfarbe höchstens 0,08), ausgenommen Lava und (mit `farbig`) Pflanzen. */
+function pruefeAsche(id, params, farbig = false) {
   const f = [], l = `${id} ${JSON.stringify(params)}`;
   const m = messe(lib, id, params, PAL);
   const vs = [...m.grid.values()].filter((v) => !lava(v));
   const zuHell = vs.filter((v) => lstar(v.c) > bMax + SCHWELLEN.steinKappe + 0.5);
   if (zuHell.length) f.push(`${l}: ${zuHell.length} Voxel heller als der Boden plus ${SCHWELLEN.steinKappe}`);
-  const bunt = vs.filter((v) => chroma(v.c) > 0.08);
+  const bunt = farbig ? [] : vs.filter((v) => chroma(v.c) > 0.08);   // Pflanzen (Aschefarn) dürfen graustichig grün sein, Boden und Steine nicht
   if (bunt.length) f.push(`${l}: ${bunt.length} Voxel nicht grau (Buntheit über 0,08, die Asche würde braun oder grün)`);
   return f;
 }
@@ -97,6 +98,16 @@ for (const id of VULKAN) {
   const r = pruefeRezept(lib, id, REGELN[id], PAL);
   tabelle[id] = r.maxTris;
   ok(r.fehler.length === 0, `${id}: ${REGELN[id].faelle().length} Fälle (Footprint 1×1, Höhe, Budget), höchste Dreiecke ${Object.entries(r.maxTris).map(([g, t]) => `${g}: ${t}`).join(', ')}${r.fehler.length ? ' – ' + meldungen(r.fehler) : ''}`);
+}
+
+console.log('\n== Aschefarn: Sichtblock (mindestens ' + MIN_FARN + ' Dreiecke je Seed) und Pflanzenfarbe');
+{
+  const tris = seeds(64).map((seed) => messe(lib, FARN, { seed }, PAL).tris);
+  ok(Math.min(...tris) >= MIN_FARN && Math.max(...tris) <= 600, `Aschefarn 64 Seeds: ${Math.min(...tris)} bis ${Math.max(...tris)} Dreiecke (mindestens ${MIN_FARN}, höchstens 600; dünne Seeds lesen sich nicht als Sichtblock)`);
+  const fr = [...rollenVon(modell(FARN))];
+  ok(fr.length > 0 && fr.every((r) => /^plant(_dark|_light)?$/.test(r)), `Aschefarn nur aus Pflanzenrollen plant* (nicht aus Stein-/Felsrollen): ${fr.sort().join(', ')}`);
+  const vox = seeds(8).flatMap((seed) => [...messe(lib, FARN, { seed }, PAL).grid.values()]);
+  ok(vox.every((v) => chroma(v.c) > 0.08 && lstar(v.c) <= bMax + SCHWELLEN.steinKappe + 0.5), `Aschefarn: alle Voxel getönt (Buntheit über 0,08, graustichig grün, nicht grau wie Stein) und nicht heller als der Boden plus ${SCHWELLEN.steinKappe} L*`);
 }
 
 console.log('\n== Rezeptkopf');
@@ -123,8 +134,8 @@ console.log('\n== Spielregeln der Maße');
 console.log('\n== Seeds: verschiedene Gestalten, deterministisch');
 {
   const g = (id, fn, seedsL, min) => pruefeGestalten(lib, id, fn, seedsL, min);
-  let f = g(FARN, (seed) => ({ seed }), [0, 1, 2, 3, 4], 0.1);
-  ok(f.length === 0, `Aschefarn seed 0 bis 4: verschiedene Blätter${f.length ? ' – ' + meldungen(f) : ''}`);
+  let f = g(FARN, (seed) => ({ seed }), [0, 1, 2, 3, 4, 5, 6, 7], 0.15);
+  ok(f.length === 0, `Aschefarn seed 0 bis 7: paarweise mindestens 15 % verschiedene Wedelgestalten${f.length ? ' – ' + meldungen(f) : ''}`);
   for (const hoch of [0, 1]) {
     f = g(BASALT, (seed) => ({ seed, hoch }), [0, 1, 2], 0.25);
     ok(f.length === 0, `Basalt hoch ${hoch}, seed 0, 1, 2: drei deutlich verschiedene Gestalten (Bündel, Treppe, Gruppe)${f.length ? ' – ' + meldungen(f) : ''}`);
@@ -145,8 +156,8 @@ console.log('\n== Helligkeit und Farbe (Wertleiter): Schlot am dunkelsten, kein 
   f = [];
   for (const hoch of [0, 1]) for (const seed of [0, 1, 2, 3, 4, 5]) f.push(...pruefeSteinHelligkeit(lib, BASALT, { hoch, seed }, PAL));
   ok(f.length === 0, `Basalt: 2 Höhen × 6 Seeds, kein Voxel heller als der Boden plus 3 L*, Kappe und Sockel nicht heller als der Körper${f.length ? ' – ' + meldungen(f) : ''}`);
-  f = [...seeds(12).map((seed) => pruefeAsche(FARN, { seed })), ...[0, 1].flatMap((hoch) => seeds(6).map((seed) => pruefeAsche(BASALT, { hoch, seed }))), ...seeds(6).map((seed) => pruefeAsche(SCHLOT, { seed }))].flat();
-  ok(f.length === 0, `Aschefarn, Basalt, Schlot: kein Voxel heller als der hellste Boden plus 3 L*, alle grau (Buntheit höchstens 0,08)${f.length ? ' – ' + meldungen(f) : ''}`);
+  f = [...seeds(12).map((seed) => pruefeAsche(FARN, { seed }, true)), ...[0, 1].flatMap((hoch) => seeds(6).map((seed) => pruefeAsche(BASALT, { hoch, seed }))), ...seeds(6).map((seed) => pruefeAsche(SCHLOT, { seed }))].flat();
+  ok(f.length === 0, `Aschefarn, Basalt, Schlot: kein Voxel heller als der hellste Boden plus 3 L*, Basalt und Schlot grau (Buntheit höchstens 0,08), der Aschefarn als Pflanze ausgenommen${f.length ? ' – ' + meldungen(f) : ''}`);
   const ar = new Set([...rollenVon(modell(FARN)), ...rollenVon(modell(BASALT))]);
   ok(![...ar].some((r) => /^fluid/.test(r)) && [...rollenVon(modell(BASALT))].every((r) => /^stone(_dark|_light)?$/.test(r)), `Basalt nennt nur stone*, Aschefarn keine Fluid-Rolle (${[...rollenVon(modell(FARN))].sort().join(', ')} | ${[...rollenVon(modell(BASALT))].sort().join(', ')})`);
   const sr = rollenVon(modell(SCHLOT));
@@ -196,8 +207,17 @@ console.log('\n== Mutationsproben (absichtlich verletzte Rezepte müssen rot wer
   rot('Basalt: hoch 1 liefert die halbe Höhe', pruefeRezept(lib, mid, REGELN[BASALT], PAL).fehler, /Oberkante/);
   mid = await mutant(BASALT, (m) => m.ops.push({ op: 'box', name: 'Sockel hell', mode: 'paint', at: [-8, 0, -8], size: [16, 2, 16], color: '#F2F4EA' }));
   rot('Basalt mit hellem Sockel', pruefeSteinHelligkeit(lib, mid, { hoch: 1, seed: 0 }, PAL), /heller als der Boden|heller Sockel/);
-  mid = await mutant(FARN, (m) => m.ops.push({ op: 'box', name: 'Braun', mode: 'paint', at: [-8, 0, -8], size: [16, 4, 16], color: '#8A6A4A' }));
-  rot('Aschefarn mit braunem Ton (Asche wird braun)', pruefeAsche(mid, { seed: 0 }), /nicht grau/);
+  mid = await mutant(BASALT, (m) => m.ops.push({ op: 'box', name: 'Braun', mode: 'paint', at: [-8, 0, -8], size: [16, 4, 16], color: '#8A6A4A' }));
+  rot('Basalt mit braunem Ton (Asche wird braun)', pruefeAsche(mid, { hoch: 1, seed: 0 }), /nicht grau/);
+  // 7. Aschefarn aus Steinrollen (liest sich als Stein) und zu dünn
+  const alsStein = (ops) => ops.forEach((o) => { if (typeof o.color === 'string' && /^plant/.test(o.color)) o.color = 'stone_dark'; if (o.ops) alsStein(o.ops); });
+  const farnRollen = (id) => { const fr = [...rollenVon(modell(id))]; return fr.length && fr.every((r) => /^plant(_dark|_light)?$/.test(r)) ? [] : ['Aschefarn nutzt Stein-/Felsrollen: ' + fr.join(', ')]; };
+  const farnFarbe = (id) => { const vs = [...messe(lib, id, { seed: 0 }, PAL).grid.values()]; return vs.every((v) => chroma(v.c) > 0.08) ? [] : ['Aschefarn nicht getönt: Voxel grau wie Stein']; };
+  mid = await mutant(FARN, (m) => alsStein(m.ops));
+  rot('Aschefarn in stone_dark (Stein statt Pflanze), Rollenprüfung', farnRollen(mid), /Stein-\/Felsrollen/);
+  rot('Aschefarn in stone_dark (Stein statt Pflanze), Farbprüfung', farnFarbe(mid), /nicht getönt/);
+  mid = await mutant(FARN, (m) => { m.ops[0].ops = m.ops[0].ops.slice(0, 3); });
+  rot('Aschefarn zu dünn (Wedel fehlen)', (() => { const tr = seeds(64).map((seed) => messe(lib, mid, { seed }, PAL).tris); return Math.min(...tr) >= MIN_FARN ? [] : ['Dreiecke ' + Math.min(...tr) + ' unter ' + MIN_FARN]; })(), /unter 350/);
   mid = await mutant(SCHLOT, (m) => { m.let.typ = '0'; m.let.ox = '0'; m.let.oz = '0'; m.let.nl = '3'; m.let.H = '28'; });
   rot('Schlot: seed ohne Wirkung', pruefeGestalten(lib, mid, (seed) => ({ seed }), [0, 1, 2], 0.25), /gleiche Gestalt/);
 }
