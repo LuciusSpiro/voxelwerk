@@ -11,6 +11,7 @@ import { gridToVox } from '../core/vox.js';
 import { resolveScene } from '../core/scene.js';
 import { buildTerrain } from '../core/terrain.js';
 import { pruefeModell, printReport } from './pruefbogen.mjs';
+import { BIOME, pruefeBiomPalette, pruefeBiomStimmung, lstar, BODEN_ROLLEN } from './biom-lib.mjs';
 import { pruefeAnker, pruefeRollen, pruefeBereiche, pruefeFigur, pruefeKopf, pruefeKatalog, platzOptionen, pruefePassung, ladeFigur, PASS_AUSNAHMEN_D1, pruefeBudget, BUDGET } from './cha-lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -28,6 +29,23 @@ console.log('\n== Paletten');
 for (const id of idx.palettes) {
   try { await lib.load('palettes', id); const p = lib.palette(id); console.log(`  ✓ ${id} (${Object.keys(p.roles).length} Rollen)`); }
   catch (e) { err(`${id}: ${e.message}`); }
+}
+
+console.log('\n== Biome (Wertleiter)');
+{
+  // Regeln siehe tools/biom-lib.mjs und AUTHORING.md ("Biom-Paletten")
+  for (const id of BIOME) {
+    try {
+      if (!idx.palettes.includes(id)) { err(`${id}: Biom-Palette fehlt`); continue; }
+      const roh = await lib.load('palettes', id), roles = lib.palette(id).roles;
+      const fehler = pruefeBiomPalette(roh, roles);
+      for (const f of fehler) err(f);
+      if (!idx.moods.includes(id)) err(`${id}: Biom-Stimmung assets/moods/${id}.json fehlt`);
+      else for (const f of pruefeBiomStimmung(await lib.load('moods', id))) err(f);
+      const L = (r) => lstar(roles[r].c).toFixed(0);
+      if (!fehler.length) console.log(`  ✓ ${id}: L* Boden ${BODEN_ROLLEN.map(L).join('/')}, Teppich ${L('teppich')}, Stein ${L('stone_dark')}-${L('stone_light')}, Fels ${L('rock')}/${L('rock_dark')}, Abgrund ${L('abgrund')}; Stimmung geprüft`);
+    } catch (e) { err(`${id}: ${e.message}`); }
+  }
 }
 
 console.log('\n== Modelle');

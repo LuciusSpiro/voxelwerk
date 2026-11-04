@@ -124,6 +124,9 @@ Palette = Rollen. Modelle verwenden **Rollen**, keine festen Farben (feste Hexwe
 cloth2 leather skin skin_shadow hair glow glow2 warning glass dark rubber white black wood wood_dark plant
 plant_dark plant_light flower flower2 soil soil_dark sand rock rock_dark grass grass_dark grass_light water`
 
+Rollennamen sind frei (`base` definiert die Standardrollen, jede Palette darf eigene ergänzen, z. B. `nadel`,
+`soil_graben`). Neu mit den Biomen: `teppich`, `fluid`, `fluid_v`, `abgrund` (nur in `biom_*`, siehe „Biom-Paletten“).
+
 Bedeutung in `rom`: primary = Purpurrot (Rüstung, Paneele), secondary = Marmorweiß (Keramikplatten),
 trim = Gold, metal* = Gunmetal, stone* = Travertin/Marmor, cloth = rotes Tuch, cloth2 = Kaiserpurpur,
 glow = kaltweißes Energielicht (leuchtet), glow2 = warmes Amber (leuchtet).
@@ -480,6 +483,45 @@ Die Passprobe baut jedes Gelenk je Schlüssel (Werte der Plätze seines Sammelmo
 
 `planet_day`, `planet_dusk`, `ship_interior`, `precursor_neon`. Felder: `background`, `fog` {color, near, far (× Szenenradius)},
 `hemi` {sky, ground, intensity}, `sun` {color, intensity, dir}, `points` [{at, color, intensity, distance}], `exposure`, `bloom`.
+
+## Biom-Paletten (`biom_*`, VOX-02)
+
+Ein **Biom** ist eine zweite Achse neben der Kultur: `biom_wueste`, `biom_wiesenwald`, `biom_vulkan` (Paletten in
+`assets/palettes`, Stimmungen gleichen Namens in `assets/moods`, Mittagslicht). Sie beschreiben nur das **Gelände**.
+
+**Regel: Ein Biom setzt nur Geländerollen.** Es erbt von **`base`** (nie von `rom`, `sommer_wald` oder einem Volk), hat kein
+`adjust` und setzt nur: `grass*`, `soil*`, `sand`, `plant*`, `flower*`, `rock*`, `stone*`, `wood*` (Natur), `teppich`, `fluid`,
+`fluid_v`, `abgrund`. Sonst färbte die Wüste römische Mauern oder Figuren um. Kultur-Paletten bleiben unberührt (Gegenprobe
+in `tools/test-biom.mjs`: Hash der aufgelösten Rollen aller anderen Paletten).
+
+| Rolle | Bedeutung |
+|---|---|
+| `grass*`, `sand`, `soil` | Boden (die Fläche, auf der gespielt wird; `soil_dark` ist Füllung unter der Oberfläche) |
+| `teppich` | Bodenton unter Sichtschleier-Kacheln (eine Stufe dunkler als der Boden) |
+| `stone`, `stone_dark`, `stone_light` | Deckungssteine der Natur (halb/hoch), am Boden angeglichen |
+| `rock`, `rock_dark` | Fels, Schlot, Baumstamm-Klasse: fest und hoch, die dunkelste Stufe |
+| `plant*`, `flower*` | Bewuchs und Streublumen (nie heller als der Boden, kein Leuchten) |
+| `fluid`, `fluid_v` | Wasser bzw. Lava und ihre Variation; **einzige** Rollen, die leuchten dürfen (Lava `emit`, Wasser nicht) |
+| `abgrund` | Tiefe (unpassierbar, dunkler als Fels) |
+
+**Wertleiter (Richtung A):** Biom = Farbton, Spielregel = Helligkeit. Gemessen wird die Helligkeit **L\*** (CIE, aus der
+Relativ-Luminanz; Begründung im Kopf von `tools/biom-lib.mjs`), Schwellen in `SCHWELLEN` ebendort:
+
+1. Boden mittelhell (L\* 42 bis 74), ruhig (Bodenrollen höchstens 12 auseinander).
+2. Teppich 4 bis 14 dunkler als der dunkelste Boden.
+3. Stein am Boden angeglichen (höchstens 10 vom mittleren Boden), **keine helle Kappe und kein heller Sockel**
+   (`stone_light` höchstens 3 über dem hellsten Boden, `stone_light` minus `stone_dark` höchstens 14).
+4. Fels und `rock_dark` mindestens 6 dunkler als Teppich und Stein (fest und hoch = dunkelste Stufe), `abgrund` noch dunkler.
+5. Bewuchs nie heller als der dunkelste Boden plus 2.
+6. Leuchten nur bei `fluid`: Lava leuchtet, Wasser nicht. Keine Glutrollen für Pflanzen.
+
+Die Prüfung steht in `npm run check` (Abschnitt „Biome (Wertleiter)“), die Mutationsproben (absichtlich verletzte Paletten müssen
+rot werden) in `tools/test-biom.mjs` (Teil von `npm test`). Neues Biom: Palette und Stimmung anlegen, `BIOME` in `tools/biom-lib.mjs`
+ergänzen.
+
+**Stimmungen der Biome:** Mittagslicht als Basis (Morgen und Abend kommen später), keine Nachtstimmung. Grenzen in `STIMMUNG`
+(`tools/biom-lib.mjs`): Nebel nicht dichter als `planet_day` (kein milchiger Dunst), Sonnenfarbe fast neutral (HSV-Sättigung höchstens 0,22,
+sonst wird die Asche braun), `exposure` 0,9 bis 1,1, Sonne 2,5 bis 3,6, `bloom.strength` höchstens 0,35.
 
 ## Szenen (`assets/scenes`)
 
