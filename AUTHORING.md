@@ -523,6 +523,41 @@ ergänzen.
 (`tools/biom-lib.mjs`): Nebel nicht dichter als `planet_day` (kein milchiger Dunst), Sonnenfarbe fast neutral (HSV-Sättigung höchstens 0,22,
 sonst wird die Asche braun), `exposure` 0,9 bis 1,1, Sonne 2,5 bis 3,6, `bloom.strength` höchstens 0,35.
 
+## Biom-Props (`biom/…`, VOX-02 Paket 2)
+
+Wildnis-Props und die gemeinsamen Rezepte unter `assets/models/biom/`. Alle Stufe `detail`, Footprint 1 × 1 m um den Pivot (Mitte unten), Tags beginnen mit `biom`.
+Ein Prop darf die Kachel nie überragen (kein Voxel außerhalb ±0,5 m). Die **Spielregeln** (Kollision, Sicht, Deckung) legt das Spiel fest, das Rezept liefert nur Form und Maß.
+
+| ID | Palette | Parameter | Maß | Dreiecke (gemessen, Budget) |
+|---|---|---|---|---|
+| `biom/wiese/strauch` | biom_wiesenwald | `seed` (Gestalt = seed % 3: Kuppel 1,25 m, hoch und schmal 1,5 m, zwei Hügel 1,25 m; höhere Seeds verschieben) | Sichtschleier ohne Kollision | 696 (800) |
+| `biom/wiese/farn` | biom_wiesenwald | `seed` (Höhe, Länge, Auslassung der Wedel) | 0,8 bis 0,9 m, Sichtschleier ohne Kollision | 552 (600) |
+| `biom/wiese/findling` | biom_wiesenwald | `hoch` 0/1, `seed` (Form = seed % 3) | halb 0,75 m, voll 2,06 m; Kollision ganze Kachel | halb 364 (500), voll 602 (900) |
+| `biom/gemein/bewuchs` | **palettenunabhängig** | `form` 0 Gras, 1 Blumen, 2 Kiesel, 3 Flechte; `seed` | höchstens 0,19 m, über die ganze Kachel gestreut | 268 (300) |
+| `biom/gemein/fluid` | **palettenunabhängig** | `art` 0 Wasser, 1 Lava, 2 Treibsand; `conn` 0–15; `seed` | Becken im Modell, Oberfläche 25 cm unter der Lauffläche | 376 (400) |
+
+**Auflösung:** Dreieckbudgets (Strauch 800, Farn 600, Findling halb 500 / voll 900) verlangen grobe Blöcke. Das Netz zeichnet Flächen mit Eckverdunklung einzeln;
+jede Stufe und jeder Knick kostet etwa 4 Dreiecke je Voxel Kantenlänge. Glatte Ellipsoide in 6 cm Auflösung kosten über 2000 Dreiecke je Strauch. Deshalb:
+Strauch aus 25-cm-Blöcken (wie die Bäume, Block-Gitter mit `repeat` und der Vereinigung mehrerer Ellipsoide als `if`), Findling aus gestapelten Quadern, Farn aus Quadern.
+Farbe je Block: `noise` mit `cell: 1000` und `seed` aus den Gittervariablen ergibt genau eine Zufallsfarbe je Block (die Blöcke liegen nie über Null).
+Hinweis zu `if` und `let`: Bei einem Schritt mit `repeat` wird `if` **vor** dem `let` des Schritts ausgewertet. Variablen für `if` gehören in eine umgebende `group` (siehe Strauch).
+
+**Biom-Palette an einem palettenunabhängigen Modell (der Weg für das Spiel):** Das Modell nennt nur Rollen, die jede `biom_*`-Palette selbst setzt
+(`bewuchs`: plant*, flower*, grass_dark, stone, stone_dark, rock; `fluid`: fluid, fluid_v, sand, soil, soil_dark, grass_dark, teppich). Welche Palette gilt, bestimmt der Aufrufer, nicht das Rezept:
+- **Szene:** `place[].palette` (sonst `palette` der Szene), z. B. `{ "model": "biom/gemein/bewuchs", "palette": "biom_wueste", "params": { "form": 1 } }` (`core/scene.js`, `addPlacement`).
+- **Bibliothek:** `lib.build("biom/gemein/fluid", { params: { art: 1, conn: 5 }, palette: "biom_vulkan" })` (`core/library.js`; die Standardpalette im Rezept, `biom_wiesenwald`, gilt nur ohne Angabe).
+- **Teilmodell:** `use` mit `"palette": "biom_vulkan"`. Einzelne Rollen lassen sich über `colors` umlegen (z. B. Baumkronen eine Stufe dunkler als Sträucher: `{ "plant_light": "plant", "plant": "plant_dark" }`, Reihenfolge beachten).
+Lava ist `art 1` mit `biom_vulkan` (dort leuchtet `fluid`), Wasser `art 0` mit Wiesenwald oder Wüste, Treibsand `art 2` (Wüste). Die Art ändert nur die Uferrollen und die Form; die Farbe kommt aus der Palette.
+
+**Fluid-Kachel:** Anker = Lauffläche (y 0). Das Becken liegt im Modell: Körper von −1 m bis −0,25 m (Wasser, Lava), an Seiten **ohne** Nachbar gleicher Klasse eine Uferkante in zwei Stufen
+(2 Voxel breit, Oberkante −6 cm und −19 cm; Wasser Gras- und Bodenton, Lava Boden und Boden dunkel), an Seiten **mit** Nachbar nahtlos (`conn` N1 O2 S4 W8 wie bei den Kit-Teilen).
+Treibsand: 12,5 cm eingesunken, Ringe aus Boden-, Sand- und Teppichton, kein Ufer, `conn` ohne Wirkung.
+**Das Terrain unter der Kachel muss mindestens 1 m tiefer liegen** (Zelle `h − 1` oder tiefer), sonst verdeckt der Terrainwürfel das Becken; im Prüfbild steht die Zelle mit `h: 0` und das Modell bei `y: 1`.
+
+**Prüfung:** `node tools/test-biom-props.mjs` (Teil von `npm test`, Regeln in `tools/biom-props-lib.mjs`): Footprint, Höhe und Dreiecke je Fall (alle Seeds, Varianten, Anschlüsse), Gestalten und Determinismus über `seed`,
+Rollen und Bau mit allen drei Biom-Paletten, Fluid-Anschlüsse, Voxelhelligkeit der Steine gegen den Boden (kein Voxel heller als der hellste Boden plus 3 L*, keine helle Kappe, kein heller Sockel), Mutationsproben.
+Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080 --gray "scene=biom-wiesenwald-props&cam=spiel"` (Spielkamera 57°, FOV 30°, Abstand 15,75 m; `--gray` schreibt zusätzlich `…_grau.png`).
+
 ## Szenen (`assets/scenes`)
 
 ```json
