@@ -24,12 +24,14 @@ export function lstar(c) {
  */
 export const SCHWELLEN = {
   bodenMin: 42, bodenMax: 74,        // Boden mittelhell: weder zu dunkel noch zu hell
-  bodenSpreizung: 12,                // größter Unterschied zwischen Bodenrollen (ruhig, Flecken nur leicht)
-  teppichMin: 4, teppichMax: 14,     // Teppich eine Stufe dunkler als der dunkelste Boden: sichtbar, aber nicht so dunkel wie Fest
+  bodenSpreizung: 5,                 // größter Unterschied zwischen Bodenrollen (kein Schachbrett aus Bodenvarianten: gemessen 6–7 L* je Kachel fiel auf)
+  teppichMin: 8, teppichMax: 14,     // Teppich eine Stufe dunkler als der dunkelste Boden: deutlich sichtbar (mind. 8), aber nicht so dunkel wie Fest
   steinAbweichung: 10,               // Stein am Boden angeglichen (Betrag zur mittleren Bodenhelligkeit)
   steinKappe: 3,                     // stone_light höchstens so viel heller als der hellste Boden (keine helle Kappe)
   steinBand: 14,                     // stone_light minus stone_dark höchstens (kein Sockel-/Kappen-Kontrast im Stein)
   festAbstand: 6,                    // Fels dunkler als Teppich und stone_dark um mindestens so viel
+  felsUeberAbgrund: 20,              // rock mindestens so viel heller als abgrund (in Graustufen kein schwarzer Block)
+  wasserUnterBoden: 8,               // Wasser (fluid ohne Leuchten) mindestens so viel dunkler als der dunkelste Boden (Treibsand, Sand)
   bewuchsUeber: 2,                   // Bewuchs (plant*) nie heller als der dunkelste Boden plus so viel
 };
 
@@ -77,7 +79,7 @@ export function pruefeBiomPalette(roh, aufgeloest) {
   const boden = BODEN_ROLLEN.map((r) => [r, L(r)]);
   const bMin = Math.min(...boden.map((x) => x[1])), bMax = Math.max(...boden.map((x) => x[1])), bMitte = boden.reduce((a, x) => a + x[1], 0) / boden.length;
   for (const [r, l] of boden) if (l < S.bodenMin || l > S.bodenMax) m.push(`${id}: Boden ${r} L* ${f1(l)} liegt außerhalb ${S.bodenMin} bis ${S.bodenMax} (mittelhell)`);
-  if (bMax - bMin > S.bodenSpreizung) m.push(`${id}: Bodenrollen streuen um ${f1(bMax - bMin)} L* (höchstens ${S.bodenSpreizung}, Boden soll ruhig sein)`);
+  if (bMax - bMin > S.bodenSpreizung) m.push(`${id}: Bodenrollen streuen um ${f1(bMax - bMin)} L* (höchstens ${S.bodenSpreizung}, sonst Schachbrett aus Bodenvarianten)`);
   // Teppich: eine Stufe dunkler als der dunkelste Boden
   const tL = L('teppich'), stufe = bMin - tL;
   if (stufe < S.teppichMin) m.push(`${id}: Teppich L* ${f1(tL)} ist ${stufe <= 0 ? `nicht dunkler, sondern ${f1(-stufe)} heller` : `nur ${f1(stufe)} dunkler`} als der dunkelste Boden (${f1(bMin)}); verlangt mindestens ${S.teppichMin} dunkler`);
@@ -94,6 +96,10 @@ export function pruefeBiomPalette(roh, aufgeloest) {
   if (fest > drueber - S.festAbstand) m.push(`${id}: Fels (höchstens ${f1(fest)} L*) ist nicht ${S.festAbstand} dunkler als Teppich/Stein (${f1(drueber)}); Fest-und-hoch muss die dunkelste Stufe sein`);
   if (L('rock_dark') > L('rock')) m.push(`${id}: rock_dark ist heller als rock`);
   if (L('abgrund') > L('rock_dark')) m.push(`${id}: abgrund L* ${f1(L('abgrund'))} ist heller als rock_dark (${f1(L('rock_dark'))}); die Tiefe ist das Dunkelste`);
+  // Fels gegen Abgrund: in Graustufen muss die Felsoberseite vom Abgrund abgesetzt sein
+  if (L('rock') - L('abgrund') < S.felsUeberAbgrund) m.push(`${id}: rock L* ${f1(L('rock'))} liegt nur ${f1(L('rock') - L('abgrund'))} über abgrund (${f1(L('abgrund'))}); verlangt mindestens ${S.felsUeberAbgrund} (sonst ein schwarzer Block)`);
+  // Wasser (nicht leuchtend) dunkler als aller Boden einschließlich Treibsand
+  if (!(aufgeloest.fluid.e > 0) && bMin - L('fluid') < S.wasserUnterBoden) m.push(`${id}: Wasser (fluid) L* ${f1(L('fluid'))} ist nur ${f1(bMin - L('fluid'))} dunkler als der dunkelste Boden (${f1(bMin)}); verlangt mindestens ${S.wasserUnterBoden} (Wasser ist in Graustufen nicht von Sand/Treibsand zu unterscheiden)`);
   // Bewuchs hebt sich nie hell vom Boden ab
   for (const r of ['plant', 'plant_dark', 'plant_light']) if (L(r) > bMin + S.bewuchsUeber) m.push(`${id}: ${r} L* ${f1(L(r))} ist heller als der dunkelste Boden (${f1(bMin)}) plus ${S.bewuchsUeber}`);
   return m;

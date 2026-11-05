@@ -64,6 +64,11 @@ rot('Abgrund heller als Fels', 'biom_wueste', (p) => { p.roles.abgrund = '#B0926
 rot('Boden zu hell', 'biom_wueste', (p) => { for (const r of ['sand', 'grass', 'grass_dark', 'grass_light', 'soil']) p.roles[r] = '#F0E4C6'; p.roles.teppich = '#D8C8A0'; }, /Boden .*außerhalb/);
 rot('Boden zu dunkel', 'biom_vulkan', (p) => { for (const r of ['sand', 'grass', 'grass_dark', 'grass_light', 'soil']) p.roles[r] = '#2A2624'; }, /Boden .*außerhalb/);
 rot('Boden unruhig (ein Fleck viel heller)', 'biom_wiesenwald', (p) => { p.roles.sand = '#D6C8A0'; }, /streuen/);
+rot('Boden-Spreizung 8 L* (Schachbrett)', 'biom_vulkan', (p) => { p.roles.grass_dark = '#777472'; }, /streuen/);
+rot('Teppich nur 5 L* unter dem dunkelsten Boden', 'biom_wiesenwald', (p) => { p.roles.teppich = '#6C913D'; }, /Teppich.*nur/);
+rot('Fels nur wenig über dem Abgrund (schwarzer Block)', 'biom_vulkan', (p) => { p.roles.rock = '#1E1B19'; p.roles.rock_dark = '#1A1816'; p.roles.abgrund = '#0F0D0D'; }, /über abgrund/);
+rot('helles Wasser (wie Sand)', 'biom_wueste', (p) => { p.roles.fluid = '#47A1BC'; }, /Wasser .*dunkler/);
+rot('helles Wasser im Wiesenwald', 'biom_wiesenwald', (p) => { p.roles.fluid = '#5A9CB8'; }, /Wasser .*dunkler/);
 rot('Bewuchs heller als Boden', 'biom_wiesenwald', (p) => { p.roles.plant_light = '#B4D070'; }, /plant_light/);
 rot('erbt von rom statt base', 'biom_wueste', (p) => { p.extends = 'rom'; }, /muss von "base" erben/);
 rot('erbt von sommer_wald', 'biom_wiesenwald', (p) => { p.extends = 'sommer_wald'; }, /muss von "base" erben/);
