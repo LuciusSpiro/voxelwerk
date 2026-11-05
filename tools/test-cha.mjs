@@ -109,7 +109,7 @@ console.log('\n== Kopf 8 × 7 × 8 mit festem Gesicht (CHA-02 A1)');
 
 console.log('\n== Kopf aller Figuren (CHA-02 A2)');
 {
-  const figIds = idx.figures;   // alle Dateien in assets/figures, keine feste Liste: künftige Figuren werden automatisch erfasst
+  const figIds = idx.figures.filter((f) => !f.startsWith('station/'));   // alle Figuren mit Rig human (Kopfregel): keine feste Liste; station/* (Rig schottbrecher, MON-02) hat keinen Kopf
   for (const f of figIds) await ladeFigur(lib, f);
   const fehler = figIds.flatMap((f) => pruefeFigurKopf(lib, f, idx.models));
   eq(fehler, [], `alle ${figIds.length} Figuren in assets/figures: Kopfteil mit 8er-Schädel (use-Baum), Hülle >= ${KOPF_MASS.breite} × ${KOPF_MASS.hoehe} × ${KOPF_MASS.tiefe}, Hals 4 × 4 bei y ${KOPF_MASS.halsY} (keine Ausnahmen)`);

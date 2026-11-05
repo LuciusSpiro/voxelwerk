@@ -17,7 +17,7 @@ for (const id of BIOME) await lib.load('moods', id);
 // Gegenprobe: Hash über die aufgelösten Rollen aller Paletten außer den Biomen, ermittelt vor VOX-02 (Stand main 89d789e, 47 Paletten).
 const KULTUR_HASH = '6ec7e323:47';
 // Neue Paletten ausserhalb der Kulturen (Kreaturen, MON-02) gehoeren nicht zur Gegenprobe.
-const KULTUR_IDS = idx.palettes.filter((id) => !/^kreatur/.test(id));
+const KULTUR_IDS = idx.palettes.filter((id) => !/^kreatur/.test(id) && id !== 'schottbrecher');   // neue Paletten MON-02 (Rudeltier, Station-Monster) liegen nach der Messung des Hashes: nicht Teil der Kultur-Gegenprobe
 
 /** Prüft eine (veränderte) Kopie der Biom-Palette; liefert die Meldungen. */
 const palette = (id, aendere) => {

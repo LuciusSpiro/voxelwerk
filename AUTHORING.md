@@ -715,3 +715,57 @@ Steckplatz selbst über `zustand` (z. B. `{ "shade": "stone", "f": "1 - zustand 
 `kit/test/<kind>`): gleiche Parameter ohne `bauweise`, ein `use` auf `kit/geruest/<kind>` mit `"bauweise": "<bw>"`,
 gleiche `footprint`/`anchor`. Prüfen: `node tools/pruefbogen.mjs kit/<bw>/<kind>` bzw.
 `node tools/pruefbogen.mjs kit/geruest/<kind> --params bauweise=<bw>,art=<art>`.
+
+## Zweites Rig: schottbrecher (Station-Monster, MON-02)
+
+**Rig** `schottbrecher` (`assets/rigs/schottbrecher.json`): schwere Notfall-Bergungsmaschine der Forschungsstation Helix, 24 Voxel hoch (1,5 m), Blick nach **+z**,
+links = **+x**, Fußabdruck 2×2 Kacheln (32 Voxel), Mitte bei x = 0, z = 0, Boden bei y = 0. Gedrungener Vierbeiner ohne Schwanz, Sensor statt Kopf.
+Gelenke wie bei `human` mit **absoluten** Koordinaten; Teile werden in Figur-Koordinaten modelliert (`"anchor": [0,0,0]`), rechte Seite per `"mirror": true`.
+`human` bleibt unverändert (Hash-Probe in `tools/test-schottbrecher.mjs`).
+
+| Gelenk | Position | Teil / Bedeutung |
+|---|---|---|
+| root | (0,0,0) | Wurzel, kein Teil |
+| hull | (0,11,0) | Wanne y 12–17 (16 Voxel breit, x −8..7, z −10..4; mit Gegengewicht, Streben und Kolbenführungen z −14..7), Deckplatte y 18 (x −7..6) mit 1 Voxel dunklem Rand |
+| sensor | (0,19,2) | Sensorkopf y 19–23, schwenkt (ry) |
+| lampe | (0,21,5) | Lichtschlitz (4×2 leuchtende Voxel an der Front) **und Lichtfeld** (2×1 leuchtende Voxel bündig im Dach des Sensorkopfes, x −1..0, y 23, z 2; aus 57° rundum sichtbar), Kind von sensor; **Lichtquelle**, siehe unten |
+| horchL / horchR | (±8,19.5,0) | Horchplatte, liegt flach; rz = ∓82° klappt sie hoch (links −, rechts +) |
+| schild | (0,11,5) | Rammschild y 5–18 in **Pflugform** (Mitte 10 Voxel breit, je drei nach hinten abgewinkelte Seitenflügel bis x ±12, Spitzen 1 Voxel dick) mit Kolbenstangen (Boxen 2×2); `shift` z fährt ihn aus, `shift` y senkt ihn |
+| hipVL, hipVR, hipHL, hipHR | (±9,15.5,±3.5) | Hüfte: Lager und Oberschenkel; dreht das ganze Bein (rx vor/zurück, rz seitlich abspreizen). Beine stehen breit (Fußmitte x ±12,5) und eng in z (±3,5), damit die Kreisregel Schritte zulässt |
+| kneeXX | (±12.5,21.5,±3.5) | Knie hoch über der Wanne und Unterschenkelhülse (y 11–20); rz beugt den Unterschenkel seitlich |
+| footXX | (±12.5,11,±3.5) | Teleskopstange mit Fußplatte; `shift` y zieht sie in die Hülse ein (positiv; bis 9, Stangenspitze bleibt unter der Kniekappe), negativ fährt sie aus (bis −1,5) |
+
+V = vorn (+z), H = hinten, L = links (+x), R = rechts. Rechte Winkel: `ry` und `rz` mit umgekehrtem Vorzeichen, `rx` gleich. Teile: `station/schottbrecher/{hull,sensor,lampe,horch,schild,hip,knee,foot}`
+(Beinteile mit Parameter `zc` = Bein-Mitte in z), Figur `station/schottbrecher`, Palette `schottbrecher` (Rollen `panzer` (72,76,82), `panzer_dark`, `panzer_light`, `hydraulik` (34,36,40),
+`schild` (148,150,148), `kolben`, `niete`, `licht` (250,248,238, leuchtet); nur unbunte Grautöne, **kein** Rot, Violett, Mint, Eisblau, Bernstein). Große Flächen mit `"jitter": false`:
+die Helligkeitsstreuung würde das Greedy-Meshing verhindern (mit Streuung gut dreimal so viele Dreiecke wie ohne). Nieten sind `paint`-Voxel (kein Relief, kein AO). Jede Stufe, Aussparung und Farbgrenze kostet wegen der AO-Zerlegung viele Dreiecke (eine Schildstufe über 14 Voxel Höhe etwa 120): Zylinder (Kolbenstangen) und eine ausgehöhlte Wanne wurden deshalb durch Boxen und eine massive, 6 Voxel hohe Wanne ersetzt.
+
+**Posen** (`assets/poses/schottbrecher.json`, Zustände aus `away.mo`: `z` p = patrouille, l und s = laerm, j = jagd; `r` = rammen; `h` = pause). Winkel wie bei `human`
+(Grad `[x, y, z]`, x negativ = nach vorn). **Neu: `shift`** `{ gelenk: [x, y, z] }` verschiebt ein Gelenk gegenüber seinem Elterngelenk (Voxel, im Raum des Elterngelenks, also
+mit dessen Drehung); `human` nutzt weiter `lift`. `cycle` hat zusätzlich `shift` (`{ gelenk: { c, a, p, k? } }`, wie `joints`, aber Verschiebung statt Winkel). Im Voxelwerk gibt es dafür
+`applyPose` (three.js, wendet `shift` an, wertet Zyklen nicht aus) und `poseWerte` / `gelenkMatrizen` in `tools/cha-pose.mjs` (Node, wertet `cycle` und `cycle.shift` aus).
+**Zyklen wertet der Client (ACTORS) aus**, Phase φ = Zeit·hz oder Laufweg/stride.
+
+| Zustand | Pose |
+|---|---|
+| patrouille | Wanne oben (`hull` 0), Zyklus 1,2 Hz, stride 0,4, Hüftausschlag ±11°, Teleskop hebt den Fuß um 3 Voxel, Sensor schwenkt ±28° (k 0,5: Periode 2 Zyklen) |
+| laerm | steht, Horchplatten hoch (rz ∓82°), kein Zyklus |
+| jagd | Wanne **5** Voxel tiefer (Höhe 19 Voxel = 1,19 m), Teleskope 5 Voxel eingezogen (Zyklus 5 bis 9, Fuß hebt 4), Zyklus 2,6 Hz, stride 0,69, Hüftausschlag **±16°** (kein Scherenkreuz; Tempo über die Teleskop-Amplitude) |
+| rammen | **gestemmt**: Wanne nach vorn gekippt (`hull` rx **+9°**, Bug tiefer; für die Wanne bedeutet positives rx nach vorn kippen, bei Gliedmaßen negatives rx nach vorn), Vorderbeine −9° (stehen senkrecht), Hinterbeine 0° (netto 9° zurückgestemmt), Teleskope vorn 0,6 aus-, hinten 0,5 ausgefahren, Schild `shift` [0, −2, 3] (2 Voxel abgesenkt, Unterkante 1 Voxel über dem Boden, 3 vorn bis an den Kreis), kein Zyklus |
+| pause | Wanne 6 Voxel tiefer (fast am Boden), Hüften spreizen 10°, Knie 9,1°, Teleskope 6,7 eingezogen (Beine eingeknickt), Schild 2 hoch, Sensor 20° nach unten, `lampe` `shift` [0, −2, −2] (Schlitz und Lichtfeld verschwinden im Kopf, Licht aus; im Dach bleibt die leere Fassung als 1 Voxel tiefe Mulde) |
+
+Zyklen: diagonale Beinpaare (VL+HR gegen VR+HL) um 180° versetzt; negatives rx (nach vorn) beim Vorschwingen, dabei hebt das Teleskop den Fuß.
+Die Standposen halten die Sohlen über das Teleskop am Boden (Wert je Pose in der Datei, vom Test geprüft: tiefster Punkt ≥ −0,5 Voxel). Posenwechsel sind reine Winkel- und Verschiebungsunterschiede,
+keine Neuaufbauten (unter 0,2 s möglich, das Interpolieren macht der Client).
+
+**Kreisregel:** alle Voxelmitten höchstens `16 − 0,707 = 15,29` Voxel von der Fußabdruck-Mitte (dann liegt auch jede Voxelecke im Kreis von 1 m Radius, das Modell bleibt bei jeder Drehung in der
+2×2-Box). Der Schild ist deshalb gebogen (Pflug: Mitte 10 Voxel, Flügelbänder 3/2/2 Voxel breit, Spitzen 1 Voxel dick; ausgefahren folgt die Front dem Kreis; Modellparameter `ausfahrt`, Standard 4). **Die breite Beinstellung (Fußmitte x ±12,5, Außenkante ±14, Silhouette 28 Voxel = 1,75 m) lässt in z nur etwa ±2,7 Voxel Schritt zu** (x 13,5 und z 7,18 liegen auf dem Kreis): deshalb stehen die Beine eng (z ±3,5), die Patrouille schwingt ±11° und die Jagd ±16° (Hüfte weit oben, Hebel nur 10,5 in der tiefen Jagd). Wer die Hüftausschläge vergrößert, bekommt vom Test einen Ausreißer (Mutationsproben). `tools/test-schottbrecher.mjs` misst mit der
+Posenanwendung Ruhelage, alle fünf Zustände und 16 Zyklusphasen (Ergebnis: größter Wert 15,23 Voxel, Patrouille φ 0,25 Fuß vorn links; Rammen 14,89 am Schild; Pause 15,19; Jagd 15,06).
+**Budget:** 3 670 Voxel (≤ 4 000, `BUDGET.bauVoxel`), 3 424 Dreiecke (Untergrenze 1 200, Ziel unter 3 500), unabhängig von der Pose.
+
+**Lichtquelle** (Rig-Feld `lichtquelle`, der Lichtkegel selbst ist ein **Client-Effekt**, kein Teil des Modells): Gelenk `lampe` (Ursprung des Kegels, Mitte des Lichtschlitzes), Achse `[0, -0.3, 0.954]`
+im lokalen Raum des Gelenks (nach vorn, 17° nach unten; dreht mit dem Sensorkopf mit). Der Lichtschlitz ist ein eigenes Teil am Gelenk `lampe`: der Client kann ihn für „Licht aus“ ausblenden,
+die Pose `pause` versenkt ihn zusätzlich per `shift`. **Client:** für „Licht aus“ das **ganze Teil am Gelenk `lampe` ausblenden** (`fo.joints.lampe` nicht rendern): das blendet Lichtschlitz (Front) und Lichtfeld (Dach des Sensorkopfes, aus 57° rundum sichtbar) gemeinsam aus; im Dach bleibt dann eine 1 Voxel tiefe Mulde. Die Pose `pause` versenkt beide zusätzlich per `shift` [0, −2, −2]. Länge und Öffnungswinkel je Zustand legt der Client fest (Designer-Notiz MON-02: mittel, lang und schmal, kurz und breit, gestaucht, aus).
+
+**Bilder und Test:** `node tools/schottbrecher-bilder.mjs <Ordner>` (Node-Renderer, 8 Blickrichtungen, fünf Posen, Zyklus-Frames, Spielgröße 32 px je Kachel in Farbe und Graustufen auf dunklem und
+hellem Stationsboden neben der 2,4-m-Spielfigur); `node tools/test-schottbrecher.mjs` (in `npm test`).
