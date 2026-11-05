@@ -595,6 +595,22 @@ Ordner `assets/models/biom/vulkan/`, Palette `biom_vulkan` (Asche grau, Fels fas
 - **Lava prüfen:** `biom/gemein/fluid` mit `art: 1` und `palette: "biom_vulkan"` (Szene `biom-vulkan-fluid`: See mit Ufern, Einzelkachel); Terrain darunter `h: 0` bei `y: 1`.
 - **Prüfung:** `node tools/test-biom-props-vulkan.mjs` (Teil von `npm test`, nutzt `tools/biom-props-lib.mjs`): Footprint, Höhe und Budget je Fall (64 Seeds, beide Höhen), Gestalten und Determinismus, Helligkeit und Grauwert, Leuchten nur in `fluid`, Mutationsproben. Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080 --gray "scene=biom-vulkan-props&cam=spiel"` und `scene=biom-vulkan-fluid`.
 
+## Kreaturen (`kreatur/…`, MON-02 Rudeltier)
+
+Ordner `assets/models/kreatur/`, Palette `kreatur`, Stufe `detail`, Footprint 1 × 1 m um den Anker (0,0,0 = Mitte unten), Blick **+z**, `jitter` 0 (flache Farben, sonst verdoppeln sich die Dreiecke). Starre Modelle **ohne Rig**: Bewegung (Wippen, Zittern, Staubspur, Sterne) macht der Client. Die Spielregeln (Kollisionsbox, Treffer) legt das Spiel fest, das Rezept liefert nur Form und Maß.
+
+| ID | Palette | Parameter | Maß | Voxel / Dreiecke (gemessen, Budget) |
+|---|---|---|---|---|
+| `kreatur/rudeltier` | kreatur | `pose` 0 steh, 1 aufladen, 2 pause (Helm im Boden, Rumpf tiefer), 3 rammen (gesenkt, Beine gestreckt); `fell` 0–5; `beinphase` 0/1 (zwei Beinphasen im Wechsel) | 0,625 × 1,0 m, Höhe 0,81 / 0,75 / 0,69 / 0,75 m | 485–494 Voxel, 994–1018 Dreiecke (2300) |
+| `kreatur/rudeltier_marken` | kreatur | `ladung` 0–3, `pose` (wie am Körper, die Marken liegen auf der Rückenlinie der Pose) | 3 Marken 2 × 2 × 1 Voxel, 2 Voxel Abstand, auf der Kruppe | 12 Voxel, 36 Dreiecke (300) |
+| `kreatur/rudeltier_koerper` | kreatur | `pose`, `beinphase` | Teilmodell mit der Rolle `fell`; nicht direkt verwenden | wie `rudeltier` |
+
+- **Marken sind ein eigenes Teilmodell** mit gleichem Anker: beide Modelle mit denselben `at`/`rot` und derselben `pose` platzieren, dann wechselt der Client `ladung` ohne Neuaufbau des Körpers. **Immer mitzeichnen:** der Körper lässt die drei Plätze frei, `ladung` 0 zeigt drei dunkle Platten (`marke_aus`), die ersten `ladung` Marken von hinten leuchten (`marke_an`, `(255,186,156)`, `emit` 1,4; Rot kommt vom Bloom).
+- **Fell:** `fell` wählt eine der Rollen `fell_0` bis `fell_5` (gleiche Helligkeit, höchstens 8 % Luminanzabweichung; Kai: Fellfarb-Varianten im Rudel). Dazu ruft `kreatur/rudeltier` das Körper-Teilmodell mit `colors: { fell: "fell_<k>" }` auf (sechs `use`-Schritte mit `if`). Rollen sonst: `knochen`, `knochen_dunkel` (Schädelhelm und Kragen als ein heller Block), `kralle`, `nase`, `maehne`.
+- **Spielregel lesbar:** vorn hell (Knochenblock), Rumpf hinten einfarbig dunkel, keine Flecken. **Kreisregel:** jede Voxelmitte höchstens 0,5 m vom Anker (damit das Modell bei 45° Drehung nicht über die 1 × 1-Box ragt); die tatsächliche Länge (1,0 m) ist größer als die Kollisionsbox (20 px = 0,625 m).
+- **Palette:** `kreatur` erbt von `base`, kein Mint, Eisblau, Bernstein oder reines Rot (Funktionsfarben des Spiels). Sie gehört nicht zu den Kulturpaletten der Gegenprobe in `tools/test-biom.mjs`.
+- **Prüfung:** `node tools/test-kreatur.mjs` (Teil von `npm test`): Footprint, Kreisregel bei acht Drehungen, Blick, Budget, Graustufen-Kontrast (Block gegen Rumpf mindestens Faktor 2), Fellvarianten, Marken (Zahl, Abstand, Ladung zählt genau), Posen unterscheidbar, Determinismus, Funktionsfarben, 17 Mutationsproben. Prüfbilder: Szenen `kreatur-rudeltier-blatt` (8 Blickrichtungen, 4 Posen, 4 Ladungen, 6 Fellfarben), `-rudel-wueste`, `-rudel-wiese`, `-rudel-vulkan` (Rudel von 6 neben der Spielfigur), `-einzel`, `-posen`; Spielgröße 32 px je Kachel: Fenster 480 × 270 mit `cam=spiel`.
+
 ## Szenen (`assets/scenes`)
 
 ```json
