@@ -55,7 +55,7 @@
    "name": "Marke an",
    "at": [
     -1,
-    "round(7.5 + t * (2 + duck) + 2.2 + t * 0.6)",
+    "13 + duck",
     "4 * i - 8"
    ],
    "size": [
@@ -73,17 +73,14 @@
     ],
     "var": "i"
    },
-   "if": "i < ladung",
-   "let": {
-    "t": "max(0, (4 * i - 2) / 7.5)"
-   }
+   "if": "i < ladung"
   },
   {
    "op": "box",
    "name": "Marke aus",
    "at": [
     -1,
-    "round(7.5 + t * (2 + duck) + 2.2 + t * 0.6)",
+    "13 + duck",
     "4 * i - 8"
    ],
    "size": [
@@ -101,10 +98,7 @@
     ],
     "var": "i"
    },
-   "if": "i >= ladung",
-   "let": {
-    "t": "max(0, (4 * i - 2) / 7.5)"
-   }
+   "if": "i >= ladung"
   }
  ],
  "anchor": [

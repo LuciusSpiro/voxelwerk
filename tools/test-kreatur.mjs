@@ -188,6 +188,40 @@ function pruefeMarken(ids) {
   });
   return f.slice(0, 20);
 }
+/** Sichtbarkeit von vorn: Marken muessen sich zaehlen lassen, wenn man dem Tier entgegensieht (der gefaehrliche Fall: es laeuft auf den Spieler zu).
+ *  Strahlen vom Marken-Voxel nach +z (zum Betrachter), je Blickhoehe steigend um tan(Winkel) Voxel je Voxel Abstand; verdeckt, wenn eine Zelle von Koerper
+ *  oder einer anderen Marke getroffen wird. Waagerecht (0 Grad) muss die vorderste Marke frei stehen (ueber dem Kragen); ab 20 Grad Blickhoehe (das Spiel schaut
+ *  mit 57 Grad) muss jede Marke ganz frei sein. Dann sind bei Ladung 1, 2, 3 genau 4, 8, 12 leuchtende Voxel von vorn zu sehen. */
+const SICHT = { flach: 20 };
+function sichtbar(koerperKeys, marken, grad) {
+  const t = Math.tan(grad * Math.PI / 180), platz = (v) => Math.floor((v.z + 8) / 4);   // welche der drei Marken (z -8..-7, -4..-3, 0..1)
+  return marken.filter((v) => {
+    for (let dz = 1; dz < 24; dz++) {
+      const y = Math.floor(v.y + 0.5 + t * dz);
+      if (koerperKeys.has(`${v.x},${y},${v.z + dz}`)) return false;
+      if (marken.some((m) => m.x === v.x && m.y === y && m.z === v.z + dz && platz(m) !== platz(v))) return false;
+    }
+    return true;
+  });
+}
+function pruefeSicht(ids) {
+  const f = [], zahlen = {};
+  for (const pose of POSEN) {
+    const k = baue(ids.rudel, { pose }, ids.palette).keys;
+    for (const ladung of LADUNG) {
+      const m = baue(ids.marken, { pose, ladung }, ids.palette).vox, an = m.filter((v) => v.e > 0), l = `Pose ${pose} Ladung ${ladung}`;
+      const flach = sichtbar(k, m, SICHT.flach).filter((v) => v.e > 0).length;
+      zahlen[`${pose}/${ladung}`] = flach;
+      if (flach !== an.length) f.push(`${l}: von vorn (${SICHT.flach} Grad) nur ${flach} von ${an.length} leuchtenden Marken-Voxeln frei`);
+      const waag = sichtbar(k, m, 0), vorn = m.filter((v) => v.z >= 0);
+      if (vorn.some((v) => !waag.includes(v))) f.push(`${l}: vorderste Marke waagerecht vom Kragen verdeckt`);
+    }
+    // Unterscheidbar: Ladung 1, 2, 3 ergeben von vorn verschiedene, wachsende Zahlen
+    const z = [1, 2, 3].map((l) => zahlen[`${pose}/${l}`]);
+    if (!(z[0] < z[1] && z[1] < z[2])) f.push(`Pose ${pose}: Ladung 1, 2, 3 von vorn nicht unterscheidbar (${z.join(', ')} Voxel)`);
+  }
+  return { fehler: f.slice(0, 20), zahlen };
+}
 /** Posen: Formhash je Pose verschieden, Beinphasen verschieden, Kopf in Pause am tiefsten, Rumpf in Pause/Aufladen tiefer, Rammen mit gestreckten Beinen (mehr z-Ausdehnung der Beine). Marken folgen der Pose. */
 function pruefePosen(ids) {
   const f = [], kn = knochenFarben(ids), h = {};
@@ -265,6 +299,7 @@ const bu = pruefeBudget(IDS); ok(leer(bu), `Budget: hoechstens ${bu.maxV} Voxel 
 const ko = pruefeKontrast(IDS); ok(leer(ko), `Graustufen-Kontrast Block vorn gegen Rumpf hinten: kleinster Faktor ${ko.minFaktor.toFixed(2)} (verlangt 2), dunkelstes Knochenvoxel gegen hellstes Fell ${ko.minEinzel.toFixed(2)} (alle 48 Kombinationen)${ko.fehler.length ? ': ' + kurz(ko.fehler) : ''}`);
 const fe = pruefeFell(IDS); ok(leer(fe), `Fellvarianten: 6 Toene, Luminanz hoechstens ${(fe.abw * 100).toFixed(1)} % und Graustufen ${(fe.abwLuma * 100).toFixed(1)} % vom Mittel (erlaubt 8 %), gleiche Form${fe.fehler.length ? ': ' + kurz(fe.fehler) : ''}`);
 const ma = pruefeMarken(IDS); ok(leer(ma), `Marken: 3 Marken 2 x 2 mit 2 Voxeln Abstand, Ladung 0 bis 3 zaehlt genau (4 leuchtende Voxel je Stufe, Leuchtfarbe 255,186,156), sitzen auf dem Ruecken, nichts darueber (16 Faelle)${ma.length ? ': ' + kurz(ma) : ''}`);
+const si = pruefeSicht(IDS); ok(leer(si.fehler), `Marken von vorn sichtbar: ab ${SICHT.flach} Grad Blickhoehe jede Marke frei, waagerecht die vorderste frei; leuchtende Voxel von vorn bei Ladung 1, 2, 3 = ${[1, 2, 3].map((l) => si.zahlen['0/' + l]).join(', ')} (Pose steh), in allen Posen wachsend${si.fehler.length ? ': ' + kurz(si.fehler) : ''}`);
 const po = pruefePosen(IDS); ok(leer(po), `Posen unterscheidbar: vier Formhashes (${Object.values(po.h).join(', ')}), Kopf und Ruecken sinken, Rammen gestreckt, zwei Beinphasen, Marken folgen${po.fehler.length ? ': ' + kurz(po.fehler) : ''}`);
 const de = await pruefeDeterminismus(IDS); ok(leer(de), `Determinismus: gleiche Parameter gleiche Voxel (auch frisch geladen), Seed ohne Wirkung${de.length ? ': ' + kurz(de) : ''}`);
 const fa = pruefeFarben(IDS); ok(leer(fa), `Keine Funktionsfarben (Mint, Eisblau, Bernstein, Rot; Abstand mindestens ${FARB_ABSTAND}) in ${fa.farben} verwendeten Farben, nur die Marken leuchten${fa.fehler.length ? ': ' + kurz(fa.fehler) : ''}`);
@@ -314,6 +349,9 @@ await rot('Rauschen im Fell (Fleckenmuster)', pruefeAufbau, (s) => { finde(s.koe
 await rot('Marken mit 1 Voxel Abstand (verschmelzen)', pruefeMarken, (s) => { for (const o of s.marken.ops) o.at[2] = '3 * i - 8'; });
 await rot('Marken 3 Voxel tief statt 2', pruefeMarken, (s) => { for (const o of s.marken.ops) o.size = [2, 1, 3]; });
 await rot('Ladung zaehlt falsch (i <= ladung)', pruefeMarken, (s) => { finde(s.marken, 'Marke an').if = 'i <= ladung'; finde(s.marken, 'Marke aus').if = 'i > ladung'; });
+await rot('Marken im Rueckenfell versunken (alte Hoehe, vom Kragen verdeckt)', pruefeSicht, (s) => { for (const o of s.marken.ops) o.at[1] = '10 + duck'; });
+await rot('Kragen ragt hoch (verdeckt die vorderen Marken)', pruefeSicht, (s) => { finde(s.koerper, 'Knochenkragen (heller Block)').at[1] = 'cy + 3'; });
+await rot('Maehne auf Markenhoehe (verdeckt die hinteren Marken im flachen Blick)', pruefeSicht, (s) => { finde(s.koerper, 'Maehne zwischen den Marken').at[1] = '13 + duck'; finde(s.koerper, 'Maehne zwischen den Marken').size = [2, 3, 1]; });
 await rot('Pose ohne Wirkung am Koerper', pruefePosen, (s) => { s.koerper.let.duck = '0'; s.koerper.let.kopf = '0'; });
 await rot('Beinphase ohne Wirkung', pruefePosen, (s) => { for (const o of s.koerper.ops) if (o.op === 'group') o.let.dz = '1'; });
 await rot('Leuchtfarbe falsch (Bernstein)', pruefeMarken, (s) => { s.palette.roles.marke_an = { color: '#FFC66B', emit: 1.4 }; });

@@ -35,7 +35,8 @@
   "kopf": "pose == 1 ? -2 : (pose == 2 ? -4 : (pose == 3 ? -2 : 0))",
   "hf": "8 + duck",
   "cy": "10 + duck",
-  "h0": "9 + duck + kopf"
+  "h0": "9 + duck + kopf",
+  "kamm": "13 + duck"
  },
  "ops": [
   {
@@ -392,34 +393,6 @@
    "color": "fell"
   },
   {
-   "op": "box",
-   "name": "Maehne zwischen den Marken",
-   "at": [
-    -1,
-    "round(7.5 + t * (2 + duck) + 2.2 + t * 0.6)",
-    "i - 8"
-   ],
-   "size": [
-    2,
-    1,
-    1
-   ],
-   "color": "maehne",
-   "repeat": {
-    "count": 10,
-    "step": [
-     0,
-     0,
-     0
-    ],
-    "var": "i"
-   },
-   "if": "i % 4 >= 2",
-   "let": {
-    "t": "max(0, (i - 3) / 7.5)"
-   }
-  },
-  {
    "op": "line",
    "name": "Schwanz",
    "from": [
@@ -437,21 +410,20 @@
   },
   {
    "op": "box",
-   "name": "Sockel unter den Marken (Kruppe)",
+   "name": "Rueckenkamm als Sockel der Marken (Fell, steigt nach hinten an)",
    "at": [
     -1,
     "round(7.5 + t * (2 + duck) + 2.2 + t * 0.6) - 1",
-    "4 * i - 8"
+    "i - 8"
    ],
    "size": [
     2,
-    1,
-    2
+    "max(1, 13 + duck - (round(7.5 + t * (2 + duck) + 2.2 + t * 0.6) - 1))",
+    1
    ],
    "color": "fell",
-   "mode": "under",
    "repeat": {
-    "count": 3,
+    "count": 10,
     "step": [
      0,
      0,
@@ -460,15 +432,40 @@
     "var": "i"
    },
    "let": {
-    "t": "max(0, (4 * i - 2) / 7.5)"
+    "t": "max(0, (i - 3) / 7.5)"
    }
+  },
+  {
+   "op": "box",
+   "name": "Maehne zwischen den Marken",
+   "at": [
+    -1,
+    "13 + duck - 1",
+    "i - 8"
+   ],
+   "size": [
+    2,
+    1,
+    1
+   ],
+   "color": "maehne",
+   "repeat": {
+    "count": 10,
+    "step": [
+     0,
+     0,
+     0
+    ],
+    "var": "i"
+   },
+   "if": "i % 4 >= 2"
   },
   {
    "op": "box",
    "name": "Platz der Marken frei",
    "at": [
     -1,
-    "round(7.5 + t * (2 + duck) + 2.2 + t * 0.6)",
+    "13 + duck",
     "4 * i - 8"
    ],
    "size": [
@@ -486,9 +483,6 @@
      0
     ],
     "var": "i"
-   },
-   "let": {
-    "t": "max(0, (4 * i - 2) / 7.5)"
    }
   }
  ],
