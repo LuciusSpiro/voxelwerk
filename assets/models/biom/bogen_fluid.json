@@ -1,0 +1,13 @@
+{
+  "id": "biom/bogen_fluid",
+  "name": "Prüfbogen-Teil (VOX-02): Wasser-/Lavaspiegel 2 x 7 m, nur für die Sichtprobe der Biom-Paletten (Terrain-Voxel mit emit werden nicht gezeichnet)",
+  "tier": "detail",
+  "palette": "biom_wueste",
+  "tags": ["biom", "pruefbogen"],
+  "footprint": [2, 7],
+  "ops": [
+    { "name": "Spiegel", "op": "box", "at": [0, 0, 0], "size": [32, 4, 112], "color": "fluid", "jitter": false },
+    { "name": "Variation", "op": "box", "at": [4, 3, 8], "size": [8, 1, 8], "color": "fluid_v", "jitter": false },
+    { "name": "Variation 2", "op": "box", "at": [16, 3, 56], "size": [10, 1, 12], "color": "fluid_v", "jitter": false }
+  ]
+}

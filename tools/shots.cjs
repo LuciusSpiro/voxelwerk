@@ -1,6 +1,7 @@
 // Screenshots über den Editor (Server muss laufen: npm start bzw. PORT=… node server.js).
 // Aufruf: node tools/shots.cjs [--port 3412] [--out shots/<team>] [--size 1600x900] <ziel> [<ziel> …]
 //   ziel = "model=rom/kiste" | "figure=rom/legionaer&pose=guard" | "scene=rom-aussenposten&mood=planet_dusk"
+//   --gray  zusätzlich Graustufenbild (<Name>_grau.png, CSS-Filter grayscale = Luminanz nach Rec.709) – Wertprobe der Biom-Szenen
 //   Modellparameter über "p.<name>=<wert>", z. B. "model=fig/basis/torso&p.fell=1&elev=57&az=0" (der Editor liest p.*)
 // Playwright liegt außerhalb des Projekts : PLAYWRIGHT_CORE=<pfad zu playwright-core>, sonst C:\tmp\pwtest bzw. C:\tmp\pw-test.
 // Rendert per SwiftShader (CPU) → FPS hier nicht aussagekräftig.
@@ -17,6 +18,7 @@ const opt = (name, def) => { const i = argv.indexOf('--' + name); if (i < 0) ret
 const port = opt('port', process.env.PORT || '3412');
 const out = path.resolve(__dirname, '..', opt('out', 'shots'));
 const [W, H] = opt('size', '1600x900').split('x').map(Number);
+const gray = argv.includes('--gray'); if (gray) argv.splice(argv.indexOf('--gray'), 1);
 const targets = argv;
 if (!targets.length) { console.log('Ziel fehlt, z. B. model=rom/kiste'); process.exit(1); }
 const EXE = path.join(process.env.LOCALAPPDATA, 'ms-playwright/chromium-1234/chrome-win64/chrome.exe');
@@ -41,6 +43,11 @@ const EXE = path.join(process.env.LOCALAPPDATA, 'ms-playwright/chromium-1234/chr
     const stats = await page.evaluate(() => window.__stats);
     const file = path.join(out, t.replace(/^(model|figure|scene)=/, '$1-').replace(/[^a-z0-9\-_=]+/gi, '_') + '.png');
     await page.screenshot({ path: file });
+    if (gray) {
+      await page.addStyleTag({ content: 'canvas { filter: grayscale(1) !important; }' });
+      await page.waitForTimeout(300);
+      await page.screenshot({ path: file.replace(/.png$/, '_grau.png') });
+    }
     console.log(`✓ ${t}  ${stats?.hud || ''}  (${((Date.now() - t0) / 1000).toFixed(1)} s) → ${path.relative(process.cwd(), file)}`);
   }
   await browser.close();

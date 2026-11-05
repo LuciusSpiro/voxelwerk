@@ -124,6 +124,9 @@ Palette = Rollen. Modelle verwenden **Rollen**, keine festen Farben (feste Hexwe
 cloth2 leather skin skin_shadow hair glow glow2 warning glass dark rubber white black wood wood_dark plant
 plant_dark plant_light flower flower2 soil soil_dark sand rock rock_dark grass grass_dark grass_light water`
 
+Rollennamen sind frei (`base` definiert die Standardrollen, jede Palette darf eigene ergänzen, z. B. `nadel`,
+`soil_graben`). Neu mit den Biomen: `teppich`, `fluid`, `fluid_v`, `abgrund` (nur in `biom_*`, siehe „Biom-Paletten“).
+
 Bedeutung in `rom`: primary = Purpurrot (Rüstung, Paneele), secondary = Marmorweiß (Keramikplatten),
 trim = Gold, metal* = Gunmetal, stone* = Travertin/Marmor, cloth = rotes Tuch, cloth2 = Kaiserpurpur,
 glow = kaltweißes Energielicht (leuchtet), glow2 = warmes Amber (leuchtet).
@@ -480,6 +483,117 @@ Die Passprobe baut jedes Gelenk je Schlüssel (Werte der Plätze seines Sammelmo
 
 `planet_day`, `planet_dusk`, `ship_interior`, `precursor_neon`. Felder: `background`, `fog` {color, near, far (× Szenenradius)},
 `hemi` {sky, ground, intensity}, `sun` {color, intensity, dir}, `points` [{at, color, intensity, distance}], `exposure`, `bloom`.
+
+## Biom-Paletten (`biom_*`, VOX-02)
+
+Ein **Biom** ist eine zweite Achse neben der Kultur: `biom_wueste`, `biom_wiesenwald`, `biom_vulkan` (Paletten in
+`assets/palettes`, Stimmungen gleichen Namens in `assets/moods`, Mittagslicht). Sie beschreiben nur das **Gelände**.
+
+**Regel: Ein Biom setzt nur Geländerollen.** Es erbt von **`base`** (nie von `rom`, `sommer_wald` oder einem Volk), hat kein
+`adjust` und setzt nur: `grass*`, `soil*`, `sand`, `plant*`, `flower*`, `rock*`, `stone*`, `wood*` (Natur), `teppich`, `fluid`,
+`fluid_v`, `abgrund`. Sonst färbte die Wüste römische Mauern oder Figuren um. Kultur-Paletten bleiben unberührt (Gegenprobe
+in `tools/test-biom.mjs`: Hash der aufgelösten Rollen aller anderen Paletten).
+
+| Rolle | Bedeutung |
+|---|---|
+| `grass*`, `sand`, `soil` | Boden (die Fläche, auf der gespielt wird; `soil_dark` ist Füllung unter der Oberfläche) |
+| `teppich` | Bodenton unter Sichtschleier-Kacheln (eine Stufe dunkler als der Boden) |
+| `stone`, `stone_dark`, `stone_light` | Deckungssteine der Natur (halb/hoch), am Boden angeglichen |
+| `rock`, `rock_dark` | Fels, Schlot, Baumstamm-Klasse: fest und hoch, die dunkelste Stufe |
+| `plant*`, `flower*` | Bewuchs und Streublumen (`plant*` nie heller als der Boden, kein Leuchten; `flower*` sind Akzente und von der Helligkeitsregel ausgenommen, sie dürfen heller sein) |
+| `fluid`, `fluid_v` | Wasser bzw. Lava und ihre Variation; **einzige** Rollen, die leuchten dürfen (Lava `emit`, Wasser nicht) |
+| `abgrund` | Tiefe (unpassierbar, dunkler als Fels) |
+
+**Wertleiter (Richtung A):** Biom = Farbton, Spielregel = Helligkeit. Gemessen wird die Helligkeit **L\*** (CIE, aus der
+Relativ-Luminanz; Begründung im Kopf von `tools/biom-lib.mjs`), Schwellen in `SCHWELLEN` ebendort:
+
+1. Boden mittelhell (L\* 42 bis 74), ruhig: die Bodenrollen (`grass`, `grass_dark`, `grass_light`, `sand`, `soil`) liegen höchstens **5** L\* auseinander (sonst Schachbrett aus Bodenvarianten).
+2. Teppich **8** bis 14 dunkler als der dunkelste Boden.
+3. Stein am Boden angeglichen (höchstens 10 vom mittleren Boden), **keine helle Kappe und kein heller Sockel**
+   (`stone_light` höchstens 3 über dem hellsten Boden, `stone_light` minus `stone_dark` höchstens 14).
+4. Fels und `rock_dark` mindestens 6 dunkler als Teppich und Stein (fest und hoch = dunkelste Stufe), `abgrund` noch dunkler, und `rock` mindestens **20** L\* über `abgrund` (in Graustufen sonst ein schwarzer Block).
+5. Bewuchs (`plant*`, nicht `flower*`) nie heller als der dunkelste Boden plus 2.
+6. Leuchten nur bei `fluid`: Lava leuchtet, Wasser nicht. Keine Glutrollen für Pflanzen.
+7. Wasser (`fluid` ohne Leuchten) mindestens **8** L\* dunkler als der dunkelste Boden, damit es sich in Graustufen von Sand und Treibsand abhebt (gilt für Wüste und Wiesenwald; Lava ist ausgenommen).
+
+Die Prüfung steht in `npm run check` (Abschnitt „Biome (Wertleiter)“), die Mutationsproben (absichtlich verletzte Paletten müssen
+rot werden) in `tools/test-biom.mjs` (Teil von `npm test`). Neues Biom: Palette und Stimmung anlegen, `BIOME` in `tools/biom-lib.mjs`
+ergänzen.
+
+**Stimmungen der Biome:** Mittagslicht als Basis (Morgen und Abend kommen später), keine Nachtstimmung. Grenzen in `STIMMUNG`
+(`tools/biom-lib.mjs`): Nebel nicht dichter als `planet_day` (kein milchiger Dunst), Sonnenfarbe fast neutral (HSV-Sättigung höchstens 0,22,
+sonst wird die Asche braun), `exposure` 0,9 bis 1,1, Sonne 2,5 bis 3,6, `bloom.strength` höchstens 0,35.
+
+## Biom-Props (`biom/…`, VOX-02 Paket 2)
+
+Wildnis-Props und die gemeinsamen Rezepte unter `assets/models/biom/`. Alle Stufe `detail`, Footprint 1 × 1 m um den Pivot (Mitte unten), Tags beginnen mit `biom`.
+Ein Prop darf die Kachel nie überragen (kein Voxel außerhalb ±0,5 m). Die **Spielregeln** (Kollision, Sicht, Deckung) legt das Spiel fest, das Rezept liefert nur Form und Maß.
+
+| ID | Palette | Parameter | Maß | Dreiecke (gemessen, Budget) |
+|---|---|---|---|---|
+| `biom/wiese/strauch` | biom_wiesenwald | `seed` (Gestalt = seed % 3: Kuppel 1,25 m, hoch und schmal 1,5 m, zwei Hügel 1,25 m; höhere Seeds verschieben) | Sichtschleier ohne Kollision | 696 (800) |
+| `biom/wiese/farn` | biom_wiesenwald | `seed` (Gestalt = seed % 3: 0 Vase, steil und schmal; 1 Spreizer, niedrig und weit; 2 gemischt, kürzere Wedel; dazu Höhe, Länge, Fiederbreite, Lage der Diagonal-Wedel) | 0,81 bis 1,0 m, Sichtschleier ohne Kollision. Dünne Wedel aus 1-Voxel-`box`-Balken (Stiel, überhängender Bogen, Spitze `plant_light`, quer liegende Fiedern) in `plant`/`plant_dark`/`plant_light` sternförmig um ein kleines Herz: vier Wedel über die Achsen, bis zu vier kürzere über die Diagonalen, in der Mitte ein aufrechter Austrieb mit Haken (er legt die Höhe fest). Nur 95 bis 110 Voxel, also ein Zehntel des Strauchs (Block): keine Blattplatten | 418 bis 548 (600) |
+| `biom/wiese/findling` | biom_wiesenwald | `hoch` 0/1, `seed` (Form = seed % 3) | halb 0,75 m, voll 2,06 m; Kollision ganze Kachel | halb 364 (500), voll 602 (900) |
+| `biom/gemein/bewuchs` | **palettenunabhängig** | `form` 0 Gras, 1 Blumen, 2 Kiesel, 3 Flechte; `seed` | höchstens 0,19 m, über die ganze Kachel gestreut | 268 (300) |
+| `biom/gemein/fluid` | **palettenunabhängig** | `art` 0 Wasser, 1 Lava, 2 Treibsand; `conn` 0–15; `diag` 0–15 (Standard 0); `seed` | Becken im Modell, Oberfläche 25 cm unter der Lauffläche | 376 (400) |
+
+**Auflösung:** Dreieckbudgets (Strauch 800, Farn 600, Findling halb 500 / voll 900) verlangen grobe Blöcke. Das Netz zeichnet Flächen mit Eckverdunklung einzeln;
+jede Stufe und jeder Knick kostet etwa 4 Dreiecke je Voxel Kantenlänge. Glatte Ellipsoide in 6 cm Auflösung kosten über 2000 Dreiecke je Strauch. Deshalb:
+Strauch aus 25-cm-Blöcken (wie die Bäume, Block-Gitter mit `repeat` und der Vereinigung mehrerer Ellipsoide als `if`), Findling aus gestapelten Quadern, Farn aus 1-Voxel-Balken (je Balken etwa 8 Dreiecke je Voxel Länge, deshalb wenige, kurze Wedel; Fiedern schmal halten).
+Farbe je Block: `noise` mit `cell: 1000` und `seed` aus den Gittervariablen ergibt genau eine Zufallsfarbe je Block (die Blöcke liegen nie über Null).
+Hinweis zu `if` und `let`: Bei einem Schritt mit `repeat` wird `if` **vor** dem `let` des Schritts ausgewertet. Variablen für `if` gehören in eine umgebende `group` (siehe Strauch).
+
+**Biom-Palette an einem palettenunabhängigen Modell (der Weg für das Spiel):** Das Modell nennt nur Rollen, die jede `biom_*`-Palette selbst setzt
+(`bewuchs`: plant*, flower*, grass_dark, stone, stone_dark, rock; `fluid`: fluid, fluid_v, grass_dark, soil, soil_dark). Welche Palette gilt, bestimmt der Aufrufer, nicht das Rezept:
+- **Szene:** `place[].palette` (sonst `palette` der Szene), z. B. `{ "model": "biom/gemein/bewuchs", "palette": "biom_wueste", "params": { "form": 1 } }` (`core/scene.js`, `addPlacement`).
+- **Bibliothek:** `lib.build("biom/gemein/fluid", { params: { art: 1, conn: 5 }, palette: "biom_vulkan" })` (`core/library.js`; die Standardpalette im Rezept, `biom_wiesenwald`, gilt nur ohne Angabe).
+- **Teilmodell:** `use` mit `"palette": "biom_vulkan"`. Einzelne Rollen lassen sich über `colors` umlegen (z. B. Baumkronen eine Stufe dunkler als Sträucher: `{ "plant_light": "plant", "plant": "plant_dark" }`, Reihenfolge beachten).
+Lava ist `art 1` mit `biom_vulkan` (dort leuchtet `fluid`), Wasser `art 0` mit Wiesenwald oder Wüste, Treibsand `art 2` (Wüste). Die Art ändert nur die Uferrollen und die Form; die Farbe kommt aus der Palette.
+
+**Fluid-Kachel:** Anker = Lauffläche (y 0). Das Becken liegt im Modell: Körper von −1 m bis −0,25 m (Wasser, Lava), an Seiten **ohne** Nachbar gleicher Klasse eine Uferkante in zwei Stufen
+(2 Voxel breit, Oberkante −6 cm und −19 cm; Wasser Gras- und Bodenton, Lava Boden und Boden dunkel), an Seiten **mit** Nachbar nahtlos (`conn` N1 O2 S4 W8 wie bei den Kit-Teilen).
+Treibsand: 12,5 cm eingesunken, schräge Streifen (2 Voxel breit, Periode 8 Voxel in x und z, Boden- und Grasdunkelton), kein Ufer, `conn`, `diag` und `seed` ohne Wirkung; das Muster setzt sich über Kachelränder nahtlos fort (kein Ring um die Kachelmitte).
+`diag` (optional, Bit je Ecke NO1 SO2 SW4 NW8: dort ist kein Fluid) schließt eine Innenecke, wo beide Nachbarn der Ecke Fluid sind und nur die Diagonale nicht: Außenpfosten und innerer Winkel der Uferstufen. Ohne `diag` ist die Kachel byteweise wie in Paket 2.
+**Das Terrain unter der Kachel muss mindestens 1 m tiefer liegen** (Zelle `h − 1` oder tiefer), sonst verdeckt der Terrainwürfel das Becken; im Prüfbild steht die Zelle mit `h: 0` und das Modell bei `y: 1`.
+
+**Prüfung:** `node tools/test-biom-props.mjs` (Teil von `npm test`, Regeln in `tools/biom-props-lib.mjs`): Footprint, Höhe und Dreiecke je Fall (alle Seeds, Varianten, Anschlüsse), Gestalten und Determinismus über `seed`,
+Rollen und Bau mit allen drei Biom-Paletten, Fluid-Anschlüsse, Voxelhelligkeit der Steine gegen den Boden (kein Voxel heller als der hellste Boden plus 3 L*, keine helle Kappe, kein heller Sockel), Mutationsproben.
+Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080 --gray "scene=biom-wiesenwald-props&cam=spiel"` (Spielkamera 57°, FOV 30°, Abstand 15,75 m; `--gray` schreibt zusätzlich `…_grau.png`).
+
+### Wüste (VOX-02 Paket 3)
+
+Rezepte unter `assets/models/biom/wueste/`, Palette `biom_wueste`, alle aus achsparallelen Quadern (schräge Linien kosten Dreiecke, ein freistehender Quader nur 12). Prüfung: `node tools/test-biom-props-wueste.mjs` (Teil von `npm test`), Prüfbilder `biom-wueste-props` und `biom-wueste-fluid`.
+
+| ID | Parameter | Maß | Spielregel | Dreiecke (gemessen, Budget) |
+|---|---|---|---|---|
+| `biom/wueste/dornbusch` | `seed` (Gestalt = seed % 3: 0 Besen mit Kandelaberarmen, 1 Gestrüpp aus Zickzackarmen, 2 Schirm-Akazie; Längen und Höhe je Seed) | 1,06 bis 1,31 m | Sichtschleier: ohne Kollision, sperrt die Sicht, keine Deckung, Teppich darunter | 556 bis 786 je Seed (350 bis 800) |
+| `biom/wueste/kaktus` | `seed` (0 zwei Arme, 1 dicker Stamm mit einem Arm, 2 schlanker Kandelaber) | 2,06 bis 2,19 m | fest und hoch (wie Baum): Kollision, Deckung, sperrt Sicht | 526 (700) |
+| `biom/wueste/schichtstein` | `hoch` 0/1, `seed` (0 Schichtturm, 1 Pilzfels, 2 schiefer Stapel) | halb 0,75 m, voll 2,06 m | Kollision ganze Kachel, Deckung halb/voll | halb 496 (500), voll 850 (900) |
+
+Dornbusch (Sichtschleier, liest nie als Festes): Stämme und Äste nur 1 Voxel stark (kein Klotz über 2 × 2), über 90 % Luft in der Hüllbox (Vorgabe mindestens 60 %), die Silhouette geht nach oben auf; Äste in `soil_dark` (heller als der Kaktus, dunkler als der Boden), dazu einzelne 1-Voxel-Dornen und Triebspitzen in `plant_dark` (trockenes Olivgrün), damit er als Pflanze liest. Keine `rock*`-Rolle (das ist die Stufe „fest und hoch“). Mindestens 350 Dreiecke je Seed, damit auch jeder Seed als Sichtblock lesbar bleibt.
+Farbe: Wertleiter fest und hoch (Kaktus, Stein) am dunkelsten, der Dornbusch heller als das Feste und dunkler als der Boden (`soil_dark`, kein Fels). Der Kaktus nutzt `plant`/`plant_dark` (Rippen), nichts heller als der Boden, dunkler als jeder Stein (kein `flower`, keine Blüte). Der Schichtstein trägt Bänder aus `stone_dark` (unten), `stone` und `stone_light` (nur in der Mitte), die oberste Platte nie hell (keine helle Kappe, kein heller Sockel).
+Der Treibsand ist ruhig: schräge Streifen (2 Voxel breit, Periode 8 Voxel in x und z: Streifen, wo (X + Z) mod 8 < 2), 3 L* Unterschied zum Sand, im Feld eine Fläche; die Oase ist Wasser (`art 0`) mit `biom_wueste`, Uferkanten in Sand- und Bodenton, `diag` an Innenecken. Palmen entfallen.
+
+Fallen für die Spielseite (GEL-01):
+- `deko.js` streut mit Versatz bis ±0,25 m, Bewuchs ist bis 0,94 m breit.
+- `away.js` `floorOffset` senkt Assets unter 0,6 m Höhe mit `opts.floor` um ihre Höhe ab (Bewuchs mit 0,19 m würde im Boden verschwinden).
+- Unter einer Fluid-Kachel darf keine Geländezelle auf Laufhöhe liegen.
+
+### Vulkan (VOX-02 Paket 4)
+
+Ordner `assets/models/biom/vulkan/`, Palette `biom_vulkan` (Asche grau, Fels fast schwarz, Lava als einzige Glut). Die Blumen (`flower`, `flower2`) der Vulkanpalette sind kühl und blass (Violett, Grau-Weiß), nie rot bis gelb: Glut gibt es nur in der Lava. Spielregeln legt das Spiel fest (Kai):
+
+| ID | Parameter | Maß | Regeln (Spiel) | Dreiecke (gemessen, Budget) |
+|---|---|---|---|---|
+| `biom/vulkan/aschefarn` | `seed` (Gestalt = seed % 3: 0 alle Wedel zweistufig seitlich versetzt, 1 einstufig und hoch, 2 gemischt je Wedel; dazu Stufenhöhen, seitlicher Versatz, Fiedern, Wedellängen, Verschiebung der Pflanze bis 1 Voxel) | 0,81 bis 0,94 m | Sichtschleier: keine Kollision, sperrt die Sicht, keine Deckung. Liest sich als Pflanze: vier Wedel über die Achsen aus 1-Voxel-Balken (Fuß, Riser, Spitze, einseitige Fiedern, oben kürzer), je einstufig oder zweistufig versetzt, dazu Eck-Wedel und ein dünner Mittelspross mit Krone, Lücken dazwischen; `plant*` (graustichiges Olivgrün), nie in Stein-/Felsrollen | 398 bis 598 je Seed (350 bis 600) |
+| `biom/vulkan/basalt` | `hoch` 0/1, `seed` (Form = seed % 3: 0 Bündel aus neun Säulen mit hoher Mitte, 1 Hang aus sechs Säulen, die zur einen Seite abfallen, 2 dicke Säule mit Nachbarn und Stümpfen; Säulenhöhen, Kopfneigung und Schutt je Seed) | halb 0,75 m, voll 2,06 m | Kollision ganze Kachel, Deckung. Quader-Säulen verschiedener Breite und Höhe (die höchste immer volle Höhe), jeder Kopf in einer (halb) bzw. zwei Stufen (voll) zu einer Seite um je 1 Voxel abgetreppt, am Fuß ein bis zwei liegende Säulenstücke als Schuttkranz in den Randstreifen. Eine Zufallsfarbe je Säule aus `stone`/`stone_dark`/`stone_light` (`noise`, `cell: 1000`), keine helle Kappe, kein heller Sockel; bei halb entfallen die niedrigsten Säulen des Bündels (Budget) | halb 302 bis 486 (500), voll 430 bis 840 (900) |
+| `biom/vulkan/schlot` | `seed` (Form = seed % 3: 0 Kegel, 1 Terrassen mit Versatz, 2 versetzt mit Nebenkegel; Höhe, Versatz, Schichtbreiten, Eckenschnitt, Kerben) | 1,63 bis 1,88 m, unter 1 × 1 m | fest, Deckung, sperrt die Sicht. Drei Schichten `rock`/`rock_dark` abwechselnd, jede mit eigener Breite und Tiefe und seitlich versetzt; die beiden unteren (bis etwa zur Mitte) sind Achtecke aus zwei gekreuzten Quadern mit verschieden großen Eckenschnitten, die obere ein Rechteck. Oben ein unregelmäßiger Krater (zwei gekreuzte Aussparungen, zwei Kerben im Rand); Lava (`fluid`) nur auf dem Kraterboden, 4 bis 12 leuchtende Voxel | 562 bis 764 (800) |
+
+- **Glut nur in der Lava** (Rolle `fluid`): Aschefarn, Basalt und Bewuchs leuchten nie (keine Glutflechten, keine Glutspitzen). Der Schlot leuchtet nur in seiner kleinen Mündung (höchstens 16 Voxel ganz oben, Farbe `fluid`), der Fels (`rock`, `rock_dark`) nie.
+- **Wertleiter:** Der Schlot ist die dunkelste Stufe (jedes Fels-Voxel mindestens 6 L* dunkler als Teppich und Stein), Basalt (`stone*`) ist am Boden angeglichen ohne helle Kappe und ohne hellen Sockel, der Aschefarn liest sich als Pflanze (Buntheit **über** 0,08, graustichiges Olivgrün; von der Grauregel ausgenommen) und ist nie heller als der Boden plus 3 L*. Kein Rauch, Staub oder Dampf als Modell (kommt als Partikel).
+- **Auflösung:** Das Netz fasst gleichfarbige ebene Flächen zusammen; teuer sind Stufen, Knicke und Rauschfarben je Voxel. Der Schlot besteht deshalb aus drei Quader-Schichten mit je einer Farbe (unten und in der Mitte achteckig aus zwei gekreuzten Quadern mit ungleichen Eckenschnitten, oben rechteckig; Krater aus drei Aussparungen), der Basalt aus Quadern (Körper plus ein bis zwei Kopfstufen) mit einer Zufallsfarbe je Säule (`cell: 1000`), nicht aus Zylindern mit `noise` (2000 Dreiecke und mehr). Versätze und Stufen kosten Dreiecke: wer den Schlot verfeinert, muss anderswo vereinfachen.
+- **Lava prüfen:** `biom/gemein/fluid` mit `art: 1` und `palette: "biom_vulkan"` (Szene `biom-vulkan-fluid`: See mit Ufern, Einzelkachel); Terrain darunter `h: 0` bei `y: 1`.
+- **Prüfung:** `node tools/test-biom-props-vulkan.mjs` (Teil von `npm test`, nutzt `tools/biom-props-lib.mjs`): Footprint, Höhe und Budget je Fall (64 Seeds, beide Höhen), Gestalten und Determinismus, Helligkeit und Grauwert, Leuchten nur in `fluid`, Mutationsproben. Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080 --gray "scene=biom-vulkan-props&cam=spiel"` und `scene=biom-vulkan-fluid`.
 
 ## Szenen (`assets/scenes`)
 
