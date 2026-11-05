@@ -1,0 +1,33 @@
+{
+  "id": "lerche/console/wand_sensor",
+  "name": "Wandpult Sensor: Radarscheibe mit Sweep (Lerche)",
+  "tier": "detail",
+  "palette": "lerche_rom",
+  "tags": ["lerche", "konsole", "bruecke", "sensor"],
+  "footprint": [1, 1],
+  "params": {
+    "occupied": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "besetzt (Leuchtrand)" }
+  },
+  "variants": {
+    "besetzt": { "occupied": 1 }
+  },
+  "ops": [
+    { "op": "use", "name": "Besetzt-Rand", "model": "lerche/station/parts_c/rim", "at": [0, 0, 0], "params": { "w": 16, "d": 8, "on": "occupied" } },
+
+    { "op": "box", "name": "Wandplatte (Marmor)", "at": [-7, 2, -7], "size": [14, 18, 2], "color": "secondary" },
+    { "op": "box", "name": "Rahmen Gold", "at": [-7, 1, -7], "size": [14, 20, 1], "color": { "frame": "trim", "fill": "metal_dark", "axes": "xy", "width": 1 } },
+
+    { "op": "box", "name": "Anzeigefeld dunkel", "at": [-6, 3, -5], "size": [12, 2, 1], "color": "dark", "jitter": false },
+    { "op": "box", "name": "Anzeigebalken", "repeat": { "count": 6, "step": [2, 0, 0], "var": "k" }, "at": [-5, 3, -4], "size": [1, "1 + (k % 3)", 1], "color": { "role": "glow2", "emit": 0.9 }, "jitter": false },
+
+    { "op": "cyl", "name": "Radarsehne", "at": [0, 13, -5], "r": 6, "h": 1, "axis": "z", "color": "metal_dark" },
+    { "op": "cyl", "name": "Radarring", "at": [0, 13, -4], "r": 6, "r2": 5, "h": 1, "axis": "z", "color": "trim" },
+    { "op": "cyl", "name": "Radarglas", "at": [0, 13, -4], "r": 5, "h": 1, "axis": "z", "color": "dark", "jitter": false },
+    { "op": "cyl", "name": "Ringe", "at": [0, 13, -3], "r": 4, "hollow": 1, "h": 1, "axis": "z", "color": { "shade": "glow", "f": 0.5 }, "jitter": false },
+    { "op": "cyl", "name": "Nabendelle", "at": [0, 13, -3], "r": 1, "h": 1, "axis": "z", "color": { "shade": "glow", "f": 0.45 }, "jitter": false },
+    { "op": "box", "name": "Sweep-Strich", "at": [0, 13, -3], "size": [1, 5, 1], "mode": "paint", "color": { "role": "glow", "emit": 1.1 }, "jitter": false },
+    { "op": "box", "name": "Sweep quer", "at": [0, 9, -3], "size": [1, 4, 1], "mode": "paint", "color": "primary", "jitter": false },
+    { "op": "box", "name": "Kontaktpunkte", "repeat": { "count": 3, "step": [2, 2, 0], "var": "k" }, "at": [-3, 11, -3], "size": [1, 1, 1], "mode": "paint", "color": "primary", "jitter": false }
+  ],
+  "anchor": [0, 0, 0]
+}
