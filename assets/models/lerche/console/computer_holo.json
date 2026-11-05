@@ -1,0 +1,43 @@
+{
+  "id": "lerche/console/computer_holo",
+  "name": "Holo-Terminal: Sockel mit Lichtring und schwebendem Datenwürfel (Lerche)",
+  "tier": "detail",
+  "palette": "lerche_rom",
+  "tags": ["lerche", "konsole", "terminal", "holo"],
+  "footprint": [1, 1],
+  "params": {
+    "occupied": { "default": 0, "min": 0, "max": 1, "step": 1, "label": "besetzt (Leuchtrand)" },
+    "datenstand": { "default": 1, "min": 0, "max": 2, "step": 1, "label": "Datenstand (Holo hoch/mittel/tief)" }
+  },
+  "variants": {
+    "besetzt": { "occupied": 1 },
+    "hoch": { "datenstand": 0 },
+    "tief": { "datenstand": 2 }
+  },
+  "ops": [
+    { "op": "use", "name": "Besetzt-Rand", "model": "lerche/station/parts_c/rim", "at": [0, 0, 0], "params": { "w": 16, "d": 16, "on": "occupied" } },
+    { "op": "use", "name": "Sockel", "model": "lerche/station/parts_c/plinth", "at": [0, 0, -1], "params": { "w": 14, "d": 10, "h": 2 } },
+
+    { "op": "box", "name": "Tischwange (Marmor)", "at": [-6, 2, -5], "size": [2, 9, 8], "color": "secondary", "mirror": "x", "mirrorAt": 0 },
+    { "op": "box", "name": "Wangenvolute", "at": [-6, 9, 3], "size": [2, 2, 1], "color": "trim", "mirror": "x", "mirrorAt": 0 },
+    { "op": "box", "name": "Wangenfuß", "at": [-6, 2, 3], "size": [2, 2, 1], "color": "trim", "mirror": "x", "mirrorAt": 0 },
+    { "op": "box", "name": "Mittelsteg", "at": [-4, 4, -2], "size": [8, 3, 2], "color": "metal" },
+    { "op": "box", "name": "Mittelsteg Rotfeld", "at": [-3, 5, 0], "size": [6, 1, 1], "color": "primary" },
+
+    { "op": "box", "name": "Tischplatte", "at": [-7, 11, -6], "size": [14, 2, 12], "color": "metal_dark" },
+    { "op": "box", "name": "Tischrahmen Gold", "at": [-7, 12, -6], "size": [14, 1, 12], "color": { "frame": "trim", "fill": "metal", "axes": "xz", "width": 1 } },
+    { "op": "box", "name": "Pultfläche", "at": [-6, 12, -5], "size": [12, 1, 10], "color": "dark", "jitter": false },
+    { "op": "box", "name": "Griffleiste vorn", "at": [-5, 11, 6], "size": [10, 1, 1], "color": "metal_light" },
+
+    { "op": "cyl", "name": "Lichtring", "at": [0, 13, 0], "r": 4.5, "hollow": 1.5, "h": 1, "color": { "role": "glow", "emit": 0.9 }, "jitter": false },
+    { "op": "box", "name": "Lichtring-Nuten", "repeat": { "count": 3, "step": [3, 0, 0], "var": "k" }, "at": [-4, 13, -4], "size": [1, 1, 8], "mode": "paint", "color": { "shade": "glow", "f": 0.5 }, "jitter": false },
+    { "op": "cyl", "name": "Projektorbrunnen", "at": [0, 13, 0], "r": 2, "h": 1, "color": "trim", "jitter": false },
+    { "op": "box", "name": "Projektorfeld", "at": [-1, 13, -1], "size": [2, 1, 2], "mode": "paint", "color": { "shade": "glow", "f": 0.5 }, "jitter": false },
+
+    { "op": "cyl", "name": "Holo-Säule", "at": [0, 14, 0], "r": 1, "h": "3 - datenstand", "color": { "role": "glow", "emit": 0.5 }, "jitter": false },
+    { "op": "box", "name": "Holo-Würfel", "at": [-1, "14 + (3 - datenstand)", -1], "size": [2, 2, 2], "color": { "role": "glow", "emit": 1.6 }, "jitter": false },
+    { "op": "box", "name": "Datenadern waagerecht", "repeat": { "count": 2, "step": [0, 1, 0], "var": "k" }, "at": [-1, "14 + (3 - datenstand)", -1], "size": [2, 1, 1], "mode": "paint", "color": { "shade": "glow", "f": 0.5 }, "jitter": false },
+    { "op": "box", "name": "Datenadern senkrecht", "repeat": { "count": 2, "step": [0, 0, 1], "var": "k" }, "at": [-1, "14 + (3 - datenstand)", -1], "size": [1, 1, 2], "mode": "paint", "color": { "shade": "glow", "f": 0.5 }, "jitter": false }
+  ],
+  "anchor": [0, 0, 0]
+}
