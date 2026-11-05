@@ -24,8 +24,9 @@ const I3 = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 export function poseWerte(posen, name, phi) {
   const tabelle = posen.poses || posen, p = tabelle[name];
   if (!p) throw new Error(`Pose "${name}" gibt es nicht`);
-  const joints = {};
+  const joints = {}, shift = {};
   for (const [j, r] of Object.entries(p.joints || {})) joints[j] = [r[0], r[1], r[2]];
+  for (const [j, r] of Object.entries(p.shift || {})) shift[j] = [r[0], r[1], r[2]];   // Verschiebung des Gelenks gegenüber dem Elterngelenk (Voxel), z. B. Schild ausfahren
   let lift = p.lift || 0;
   if (phi !== undefined && p.cycle?.joints) {
     for (const [j, c] of Object.entries(p.cycle.joints)) {
@@ -34,7 +35,13 @@ export function poseWerte(posen, name, phi) {
     }
     lift += (p.cycle.bob || 0) * (0.5 - Math.abs(Math.sin(2 * Math.PI * phi)));
   }
-  return { joints, lift };
+  if (phi !== undefined && p.cycle?.shift) {   // cycle.shift: wie cycle.joints, aber Verschiebung statt Winkel (Teleskopbeine)
+    for (const [j, c] of Object.entries(p.cycle.shift)) {
+      const s = Math.sin(2 * Math.PI * phi * (c.k || 1) + (c.p || 0) * D2R), C = c.c || [0, 0, 0], A = c.a || [0, 0, 0];
+      shift[j] = [C[0] + A[0] * s, C[1] + A[1] * s, C[2] + A[2] * s];
+    }
+  }
+  return { joints, lift, shift };
 }
 
 /** Weltmatrix je Gelenk { R, t }: bildet Gelenk-lokale Punkte (Figur-Koordinate minus Gelenkposition) in den Raum der Pose ab. */
@@ -45,7 +52,8 @@ export function gelenkMatrizen(rig, werte) {
     const j = rig.joints[name], at = j.at;
     if (!j.parent) return (W[name] = { R: I3, t: [at[0], at[1], at[2]] });
     const P = bau(j.parent), pa = rig.joints[j.parent].at;
-    const lokal = [at[0] - pa[0], at[1] - pa[1] + (name === 'hips' ? werte.lift || 0 : 0), at[2] - pa[2]];
+    const sh = werte.shift?.[name] || [0, 0, 0];
+    const lokal = [at[0] - pa[0] + sh[0], at[1] - pa[1] + sh[1] + (name === 'hips' ? werte.lift || 0 : 0), at[2] - pa[2] + sh[2]];
     const Rl = werte.joints[name] ? eulerYXZ(werte.joints[name]) : I3;
     const o = apply(P.R, lokal);
     return (W[name] = { R: mul(P.R, Rl), t: [o[0] + P.t[0], o[1] + P.t[1], o[2] + P.t[2]] });

@@ -35,6 +35,6 @@ export function kopfDurchdringung(lib, figId) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const lib = nodeLibrary(root), idx = await listAssets(root);
   const alle = {};
-  for (const id of idx.figures.filter((i) => !i.startsWith('cha/'))) { await ladeFigur(lib, id); alle[id] = kopfDurchdringung(lib, id); }
+  for (const id of idx.figures.filter((i) => !i.startsWith('cha/') && !i.startsWith('station/'))) { await ladeFigur(lib, id); alle[id] = kopfDurchdringung(lib, id); }
   console.log(JSON.stringify(alle, null, 1));
 }

@@ -100,7 +100,7 @@ rotM('Feld fehlt', 'biom_wueste', (m) => { delete m.fog; }, /"fog" fehlt/);
 
 console.log('\n== Gegenprobe Kulturpaletten (Rollen unverändert)');
 {
-  const h = kulturHashes(lib, idx.palettes);
+  const h = kulturHashes(lib, idx.palettes.filter((p) => p !== 'schottbrecher'));   // neue Palette MON-02 (Station-Monster) liegt nach der Messung des Hashes: nicht Teil der Kultur-Gegenprobe
   const g = gesamtHash(h);
   ok(g === KULTUR_HASH, `Hash der aufgelösten Rollen aller ${Object.keys(h).length} Paletten außer den Biomen = ${KULTUR_HASH}${g === KULTUR_HASH ? '' : ` (ist ${g})`}`);
   ok(!Object.keys(h).some((id) => BIOME.includes(id)), 'Biom-Paletten sind aus der Gegenprobe ausgenommen');
@@ -108,7 +108,7 @@ console.log('\n== Gegenprobe Kulturpaletten (Rollen unverändert)');
   const rom = structuredClone(lib.get('palettes', 'rom'));
   rom.roles.primary = '#000001';
   const lib2 = { palette: (id) => resolvePalette(id, (p) => (p === 'rom' ? rom : lib.get('palettes', p))) };
-  ok(gesamtHash(kulturHashes(lib2, idx.palettes)) !== KULTUR_HASH, 'Mutation: geänderte Rolle in rom → Hash weicht ab (und erbende Paletten ebenso)');
+  ok(gesamtHash(kulturHashes(lib2, idx.palettes.filter((p) => p !== 'schottbrecher'))) !== KULTUR_HASH, 'Mutation: geänderte Rolle in rom → Hash weicht ab (und erbende Paletten ebenso)');
   // Auch die Basis selbst darf sich nicht verändern (alle Biome erben von ihr)
   ok(h.base === '95f132a4', 'base unverändert (Hash 95f132a4)');
 }
