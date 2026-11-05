@@ -500,20 +500,21 @@ in `tools/test-biom.mjs`: Hash der aufgelösten Rollen aller anderen Paletten).
 | `teppich` | Bodenton unter Sichtschleier-Kacheln (eine Stufe dunkler als der Boden) |
 | `stone`, `stone_dark`, `stone_light` | Deckungssteine der Natur (halb/hoch), am Boden angeglichen |
 | `rock`, `rock_dark` | Fels, Schlot, Baumstamm-Klasse: fest und hoch, die dunkelste Stufe |
-| `plant*`, `flower*` | Bewuchs und Streublumen (nie heller als der Boden, kein Leuchten) |
+| `plant*`, `flower*` | Bewuchs und Streublumen (`plant*` nie heller als der Boden, kein Leuchten; `flower*` sind Akzente und von der Helligkeitsregel ausgenommen, sie dürfen heller sein) |
 | `fluid`, `fluid_v` | Wasser bzw. Lava und ihre Variation; **einzige** Rollen, die leuchten dürfen (Lava `emit`, Wasser nicht) |
 | `abgrund` | Tiefe (unpassierbar, dunkler als Fels) |
 
 **Wertleiter (Richtung A):** Biom = Farbton, Spielregel = Helligkeit. Gemessen wird die Helligkeit **L\*** (CIE, aus der
 Relativ-Luminanz; Begründung im Kopf von `tools/biom-lib.mjs`), Schwellen in `SCHWELLEN` ebendort:
 
-1. Boden mittelhell (L\* 42 bis 74), ruhig (Bodenrollen höchstens 12 auseinander).
-2. Teppich 4 bis 14 dunkler als der dunkelste Boden.
+1. Boden mittelhell (L\* 42 bis 74), ruhig: die Bodenrollen (`grass`, `grass_dark`, `grass_light`, `sand`, `soil`) liegen höchstens **5** L\* auseinander (sonst Schachbrett aus Bodenvarianten).
+2. Teppich **8** bis 14 dunkler als der dunkelste Boden.
 3. Stein am Boden angeglichen (höchstens 10 vom mittleren Boden), **keine helle Kappe und kein heller Sockel**
    (`stone_light` höchstens 3 über dem hellsten Boden, `stone_light` minus `stone_dark` höchstens 14).
-4. Fels und `rock_dark` mindestens 6 dunkler als Teppich und Stein (fest und hoch = dunkelste Stufe), `abgrund` noch dunkler.
-5. Bewuchs nie heller als der dunkelste Boden plus 2.
+4. Fels und `rock_dark` mindestens 6 dunkler als Teppich und Stein (fest und hoch = dunkelste Stufe), `abgrund` noch dunkler, und `rock` mindestens **20** L\* über `abgrund` (in Graustufen sonst ein schwarzer Block).
+5. Bewuchs (`plant*`, nicht `flower*`) nie heller als der dunkelste Boden plus 2.
 6. Leuchten nur bei `fluid`: Lava leuchtet, Wasser nicht. Keine Glutrollen für Pflanzen.
+7. Wasser (`fluid` ohne Leuchten) mindestens **8** L\* dunkler als der dunkelste Boden, damit es sich in Graustufen von Sand und Treibsand abhebt (gilt für Wüste und Wiesenwald; Lava ist ausgenommen).
 
 Die Prüfung steht in `npm run check` (Abschnitt „Biome (Wertleiter)“), die Mutationsproben (absichtlich verletzte Paletten müssen
 rot werden) in `tools/test-biom.mjs` (Teil von `npm test`). Neues Biom: Palette und Stimmung anlegen, `BIOME` in `tools/biom-lib.mjs`
@@ -543,7 +544,7 @@ Farbe je Block: `noise` mit `cell: 1000` und `seed` aus den Gittervariablen ergi
 Hinweis zu `if` und `let`: Bei einem Schritt mit `repeat` wird `if` **vor** dem `let` des Schritts ausgewertet. Variablen für `if` gehören in eine umgebende `group` (siehe Strauch).
 
 **Biom-Palette an einem palettenunabhängigen Modell (der Weg für das Spiel):** Das Modell nennt nur Rollen, die jede `biom_*`-Palette selbst setzt
-(`bewuchs`: plant*, flower*, grass_dark, stone, stone_dark, rock; `fluid`: fluid, fluid_v, sand, soil, soil_dark, grass_dark, teppich). Welche Palette gilt, bestimmt der Aufrufer, nicht das Rezept:
+(`bewuchs`: plant*, flower*, grass_dark, stone, stone_dark, rock; `fluid`: fluid, fluid_v, grass_dark, soil, soil_dark). Welche Palette gilt, bestimmt der Aufrufer, nicht das Rezept:
 - **Szene:** `place[].palette` (sonst `palette` der Szene), z. B. `{ "model": "biom/gemein/bewuchs", "palette": "biom_wueste", "params": { "form": 1 } }` (`core/scene.js`, `addPlacement`).
 - **Bibliothek:** `lib.build("biom/gemein/fluid", { params: { art: 1, conn: 5 }, palette: "biom_vulkan" })` (`core/library.js`; die Standardpalette im Rezept, `biom_wiesenwald`, gilt nur ohne Angabe).
 - **Teilmodell:** `use` mit `"palette": "biom_vulkan"`. Einzelne Rollen lassen sich über `colors` umlegen (z. B. Baumkronen eine Stufe dunkler als Sträucher: `{ "plant_light": "plant", "plant": "plant_dark" }`, Reihenfolge beachten).
@@ -583,7 +584,7 @@ Ordner `assets/models/biom/vulkan/`, Palette `biom_vulkan` (Asche grau, Fels fas
 | `biom/vulkan/schlot` | `seed` (Form = seed % 3: 0 Kegel, 1 Terrassen, 2 versetzt mit Nebenkegel; Höhe, Versatz) | 1,63 bis 1,94 m, unter 1 × 1 m | fest, Deckung, sperrt die Sicht | 776 (800) |
 
 - **Glut nur in der Lava** (Rolle `fluid`): Aschefarn, Basalt und Bewuchs leuchten nie (keine Glutflechten, keine Glutspitzen). Der Schlot leuchtet nur in seiner kleinen Mündung (höchstens 20 Voxel ganz oben, Farbe `fluid`), der Fels (`rock`, `rock_dark`) nie.
-- **Wertleiter:** Der Schlot ist die dunkelste Stufe (jedes Fels-Voxel mindestens 6 L* dunkler als Teppich und Stein), Basalt (`stone*`) ist am Boden angeglichen ohne helle Kappe und ohne hellen Sockel, der Aschefarn bleibt grau (Buntheit höchstens 0,08, nie heller als der Boden plus 3 L*). Kein Rauch, Staub oder Dampf als Modell (kommt als Partikel).
+- **Wertleiter:** Der Schlot ist die dunkelste Stufe (jedes Fels-Voxel mindestens 6 L* dunkler als Teppich und Stein), Basalt (`stone*`) ist am Boden angeglichen ohne helle Kappe und ohne hellen Sockel, der Aschefarn liest sich als Pflanze (Buntheit **über** 0,08, graustichiges Olivgrün; von der Grauregel ausgenommen) und ist nie heller als der Boden plus 3 L*. Kein Rauch, Staub oder Dampf als Modell (kommt als Partikel).
 - **Auflösung:** Das Netz fasst gleichfarbige ebene Flächen zusammen; teuer sind Stufen, Knicke und Rauschfarben je Voxel. Der Schlot besteht deshalb aus drei bis vier Quader-Schichten mit je einer Farbe (unten achteckig aus zwei gekreuzten Quadern, oben quadratisch), der Basalt aus Quadern mit einer Zufallsfarbe je Säule (`cell: 1000`), nicht aus Zylindern mit `noise` (2000 Dreiecke und mehr).
 - **Lava prüfen:** `biom/gemein/fluid` mit `art: 1` und `palette: "biom_vulkan"` (Szene `biom-vulkan-fluid`: See mit Ufern, Einzelkachel); Terrain darunter `h: 0` bei `y: 1`.
 - **Prüfung:** `node tools/test-biom-props-vulkan.mjs` (Teil von `npm test`, nutzt `tools/biom-props-lib.mjs`): Footprint, Höhe und Budget je Fall (64 Seeds, beide Höhen), Gestalten und Determinismus, Helligkeit und Grauwert, Leuchten nur in `fluid`, Mutationsproben. Prüfbilder: `node tools/shots.cjs --port <p> --out shots/vox02 --size 1920x1080 --gray "scene=biom-vulkan-props&cam=spiel"` und `scene=biom-vulkan-fluid`.
