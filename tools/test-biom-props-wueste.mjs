@@ -20,9 +20,61 @@ for (const id of [...NEU, FLUID]) await lib.load('models', id);
 const modell = (id) => lib.get('models', id);
 const seeds = (n) => Array.from({ length: n }, (_, i) => i);
 
+/** Mittleres L* aller Voxel eines gebauten Modells (biom_wueste), gemittelt über die Seeds. */
+function mittelL(id, seedListe) {
+  const pal = 'biom_wueste', ms = seedListe.map((seed) => { const vs = [...messe(lib, id, { seed }, pal).grid.values()]; return vs.reduce((a, v) => a + lstar(v.c), 0) / vs.length; });
+  return ms.reduce((a, b) => a + b, 0) / ms.length;
+}
+/** Wertleiter: fest und hoch (Kaktus) ist die dunkelste Stufe, der Sichtschleier ist heller als das Feste und dunkler als der dunkelste Boden. Keine festen Zahlen aus der Palette. */
+function wertleiter(id) {
+  const pal = lib.palette('biom_wueste').roles, bMin = Math.min(...BODEN_ROLLEN.map((r) => lstar(pal[r].c)));
+  const sl = seeds(12), mk = mittelL(KAKTUS, sl), md = mittelL(id, sl), fehler = [];
+  if (!(md >= mk + 1)) fehler.push(`${id}: mittleres L* ${md.toFixed(1)} nicht mindestens 1 über dem Kaktus (${mk.toFixed(1)}): der Sichtschleier muss heller sein als das feste Prop`);
+  if (!(md <= bMin - 3)) fehler.push(`${id}: mittleres L* ${md.toFixed(1)} nicht mindestens 3 unter dem dunkelsten Boden (${bMin.toFixed(1)}): Sichtschleier muss dunkler sein als der Boden`);
+  return { fehler, mk, md, bMin };
+}
+/** Gibt es irgendwo ein volles 3 × 3-Quadrat aus Voxeln (in einer der drei Ebenen)? Dann ist es ein Klotz, kein dünner Ast. */
+function hatKlotz(keys) {
+  for (const k of keys) {
+    const [x, y, z] = k.split(',').map(Number);
+    for (const [a, b] of [[0, 1], [0, 2], [1, 2]]) {
+      let alle = true;
+      for (let i = 0; i < 3 && alle; i++) for (let j = 0; j < 3; j++) { const q = [x, y, z]; q[a] += i; q[b] += j; if (!keys.has(q.join(','))) { alle = false; break; } }
+      if (alle) return true;
+    }
+  }
+  return false;
+}
+/**
+ * Dornbusch als Sichtschleier: keine rock*-Rolle (das ist die Stufe "fest und hoch"), Äste dünn (kein 3 × 3-Klotz), mindestens 60 % Luft in der Hüllbox,
+ * mindestens 350 Dreiecke (jeder Seed bleibt als Sichtblock lesbar), Silhouette geht nach oben auf (oberes Drittel breiter als das untere), einzelne plant_dark-Dornen.
+ * Liefert { fehler, stat } (Dreiecke, Luft, Höhe je Seed für den Bericht).
+ */
+function pruefeDornbusch(id) {
+  const f = [], stat = { tris: [], luft: [], hoehe: [] }, pal = lib.palette('biom_wueste').roles;
+  const rollen = [...rollenVon(modell(id))].filter((r) => /^rock/.test(r));
+  if (rollen.length) f.push(`${id}: nutzt die Rolle ${rollen.join(', ')} (Stufe "fest und hoch", kein Sichtschleier)`);
+  const rockC = new Set(['rock', 'rock_dark'].map((r) => pal[r].c)), dorn = pal.plant_dark.c;
+  for (const seed of seeds(64)) {
+    const m = messe(lib, id, { seed }, 'biom_wueste'), l = `${id} seed ${seed}`;
+    const bb = m.grid.bounds(), hull = (bb.max[0] - bb.min[0] + 1) * (bb.max[1] - bb.min[1] + 1) * (bb.max[2] - bb.min[2] + 1), luft = 1 - m.voxels / hull;
+    stat.tris.push(m.tris); stat.luft.push(luft); stat.hoehe.push(m.max[1]);
+    if (m.tris < 350) f.push(`${l}: nur ${m.tris} Dreiecke (unter 350): als Sichtblock zu dünn`);
+    if (luft < 0.6) f.push(`${l}: Luftanteil ${(luft * 100).toFixed(0)} % in der Hüllbox (mindestens 60 %): zu massiv`);
+    if (hatKlotz(m.keys)) f.push(`${l}: Klotz (volles 3 × 3-Quadrat): Äste dürfen nur 1 Voxel stark sein, höchstens 2 × 2`);
+    const vs = [...m.grid.values()], ys = vs.map((v) => v.y), y0 = Math.min(...ys), y1 = Math.max(...ys), dr = (a) => Math.max(...a.map((v) => Math.max(Math.abs(v.x + 0.5), Math.abs(v.z + 0.5))));
+    const drittel = (y1 - y0 + 1) / 3, unten = vs.filter((v) => v.y < y0 + drittel), oben = vs.filter((v) => v.y >= y1 - drittel + 1);
+    if (!(dr(oben) >= dr(unten) + 1)) f.push(`${l}: Silhouette geht nicht nach oben auf (Breite oben ${dr(oben)} Voxel, unten ${dr(unten)})`);
+    if (vs.some((v) => rockC.has(v.c))) f.push(`${l}: Voxel in Felsfarbe`);
+    if (seed < 12 && vs.filter((v) => v.c === dorn).length < 5) f.push(`${l}: weniger als 5 Dornen-Voxel in plant_dark: liest nicht als Pflanze`);
+    lib.buildCache.clear();
+  }
+  return { fehler: f, stat };
+}
+
 /** Regeln der Wüsten-Props (Höhenbänder in Metern, Oberkante über dem Anker). */
 const REGELN = {
-  [DORN]: { faelle: () => seeds(64).map((seed) => ({ params: { seed }, budget: 800, hoehe: [1.0, 1.45], label: `seed ${seed}` })) },
+  [DORN]: { faelle: () => seeds(64).map((seed) => ({ params: { seed }, budget: 800, hoehe: [1.0, 1.4], label: `seed ${seed}` })) },
   [KAKTUS]: { faelle: () => seeds(64).map((seed) => ({ params: { seed }, budget: 700, hoehe: [2.0, 2.2], label: `seed ${seed}` })) },
   [STEIN]: {
     faelle: () => [0, 1].flatMap((hoch) => seeds(64).map((seed) => ({
@@ -73,7 +125,7 @@ console.log('\n== Spielregeln der Maße');
   const halb = seeds(3).map((seed) => h(STEIN, { hoch: 0, seed })), voll = seeds(3).map((seed) => h(STEIN, { hoch: 1, seed }));
   ok(halb.every((x) => Math.abs(x - 0.75) <= 0.03) && voll.every((x) => Math.abs(x - 2.06) <= 0.1), `Schichtstein hoch 0 = ${halb.map((x) => x.toFixed(2)).join('/')} m (halbe Deckung 0,75 m), hoch 1 = ${voll.map((x) => x.toFixed(2)).join('/')} m (volle Deckung ca. 2,1 m)`);
   const d = seeds(3).map((seed) => h(DORN, { seed })), k = seeds(3).map((seed) => h(KAKTUS, { seed }));
-  ok(d.every((x) => x >= 1.0 && x <= 1.45), `Dornbusch 1,0 bis 1,45 m (Sichtschleier): ${d.map((x) => x.toFixed(2)).join(' / ')} m`);
+  ok(d.every((x) => x >= 1.0 && x <= 1.4), `Dornbusch 1,0 bis 1,4 m (Sichtschleier): ${d.map((x) => x.toFixed(2)).join(' / ')} m`);
   ok(k.every((x) => x >= 2.0 && x <= 2.2) && Math.min(...k) > Math.max(...d), `Kaktus 2,0 bis 2,2 m (fest und hoch), höher als jeder Dornbusch: ${k.map((x) => x.toFixed(2)).join(' / ')} m`);
   // Stein füllt die Kachel (Kollisionsbox = ganze Kachel): Ausdehnung in x und z mindestens 0,6 m
   const breit = [0, 1].flatMap((hoch) => seeds(6).map((seed) => { const m = messe(lib, STEIN, { hoch, seed }); return Math.min(m.max[0] - m.min[0], m.max[2] - m.min[2]); }));
@@ -103,10 +155,20 @@ console.log('\n== Helligkeit gegen den Boden (Wertleiter): Stein ohne Kappe und 
   ok(f.length === 0, `Kaktus: 12 Seeds, kein Voxel heller als der Boden plus 3 L*, Kopf und Fuß nicht heller als der Stamm${f.length ? ' – ' + meldungen(f) : ''}`);
   const pal = lib.palette('biom_wueste').roles, bMin = Math.min(...BODEN_ROLLEN.map((r) => lstar(pal[r].c)));
   const mittel = (id, params) => { const vs = [...messe(lib, id, params, 'biom_wueste').grid.values()]; return vs.reduce((s, v) => s + lstar(v.c), 0) / vs.length; };
-  const mk = mittel(KAKTUS, { seed: 0 }), md = mittel(DORN, { seed: 0 });
-  ok(mk < bMin - 6 && md < bMin, `Kaktus (Mittel L* ${mk.toFixed(1)}) liegt mindestens 6 unter dem dunkelsten Boden (${bMin.toFixed(1)}), Dornbusch (${md.toFixed(1)}) darunter (Sichtschleier eine Stufe dunkler)`);
+  const wl = wertleiter(DORN);
+  ok(wl.fehler.length === 0, `Wertleiter: Kaktus (Mittel L* ${wl.mk.toFixed(1)}) dunkler als Dornbusch (${wl.md.toFixed(1)}) dunkler als der dunkelste Boden (${wl.bMin.toFixed(1)}); Sichtschleier heller als das Feste, dunkler als der Boden${wl.fehler.length ? ' – ' + meldungen(wl.fehler) : ''}`);
+  const kk = mittel(KAKTUS, { seed: 0 });
+  ok(kk < bMin - 6, `Kaktus (Mittel L* ${kk.toFixed(1)}) liegt mindestens 6 unter dem dunkelsten Boden (${bMin.toFixed(1)})`);
   const emit = [DORN, KAKTUS, STEIN].reduce((s, id) => s + messe(lib, id, { seed: 1 }).emit, 0);
   ok(emit === 0, 'kein Prop leuchtet (Leuchtfarbe nur in fluid)');
+}
+
+console.log('');
+console.log('== Dornbusch: Sichtschleier (dünn, luftig, Pflanze statt Brocken)');
+const dornStat = pruefeDornbusch(DORN);
+{
+  const { fehler, stat } = dornStat, mn = (a) => Math.min(...a), mx = (a) => Math.max(...a);
+  ok(fehler.length === 0, `Dornbusch, 64 Seeds: keine rock*-Rolle, kein 3 × 3-Klotz, Luftanteil mindestens ${(mn(stat.luft) * 100).toFixed(0)} % (Vorgabe 60 %), ${mn(stat.tris)} bis ${mx(stat.tris)} Dreiecke (Vorgabe 350 bis 800), Silhouette oben breiter als unten, Dornen in plant_dark${fehler.length ? ' – ' + meldungen(fehler) : ''}`);
 }
 
 // ---------- Fluid
@@ -165,6 +227,56 @@ console.log('\n== Treibsand: nahtlos über Kachelränder, ruhig');
   for (const [k, v] of t) { const x = Math.floor((k + 500) / 1000), z = k - x * 1000; const nb = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([a, b]) => t.get((x + a) * 1000 + z + b)?.c === v.c).length; if (nb === 0) einzel++; }
   ok(einzel === 0, `Treibsand: keine Einzelvoxel (${einzel})`);
   void pal;
+}
+
+/** Welt aus 2 × 2 gleichen Kacheln: Spalte/Reihe X, Z (Voxel) liegt in der Kachel an wrap16(X), wrap16(Z). */
+const wrap16 = (a) => ((((a + 8) % 16) + 16) % 16) - 8;
+/**
+ * Direkte Nahtprobe: Der Treibsand ist ein Muster aus schrägen Streifen (2 Voxel breit), Periode 8 Voxel in x und z: Streifen, wo ((X + Z) mod 8) < 2.
+ * Verglichen wird eine 2 × 2-Kachelszene (X und Z von −8 bis 23, die Naht liegt bei 7 | 8) mit dem periodisch fortgesetzten Referenzmuster;
+ * jede Abweichung (andere Periode, Versatz an der Naht, leere Reihen) ist ein Fehler. Liefert { fehler, falsch, anNaht }.
+ */
+function nahtDirekt(lib2, id, params, palette) {
+  const t = oberflaeche(messe(lib2, id, params, palette).grid), c = (x, z) => t.get(x * 1000 + z)?.c, f = [];
+  const zahl = new Map();
+  for (const v of t.values()) zahl.set(v.c, (zahl.get(v.c) ?? 0) + 1);
+  if (t.size !== 256) f.push('Oberfläche hat ' + t.size + ' statt 256 Spalten');
+  if (zahl.size !== 2) return { fehler: [...f, zahl.size + ' Farben statt 2 (Sand und Streifen)'], falsch: -1, anNaht: -1 };
+  const streifen = [...zahl.entries()].sort((a, b) => a[1] - b[1])[0][0];
+  let falsch = 0, anNaht = 0;
+  for (let X = -8; X < 24; X++) for (let Z = -8; Z < 24; Z++) {
+    const ist = c(wrap16(X), wrap16(Z)) === streifen, soll = ((((X + Z) % 8) + 8) % 8) < 2;
+    if (ist !== soll) { falsch++; if (X === 7 || X === 8 || Z === 7 || Z === 8) anNaht++; }
+  }
+  if (falsch) f.push(falsch + ' von 1024 Voxeln der 2 × 2-Kachelszene weichen vom periodisch fortgesetzten Muster ab (Periode 8 in x und z), davon ' + anNaht + ' an der Naht: das Muster setzt sich nicht über die Kachelgrenze fort');
+  return { fehler: f, falsch, anNaht };
+}
+{
+  for (const pal of BIOM_PALETTEN) {
+    const r = nahtDirekt(lib, FLUID, { art: 2 }, pal);
+    ok(r.fehler.length === 0, 'Treibsand mit ' + pal + ': 2 × 2-Kachelszene gleich dem periodisch fortgesetzten Muster (Streifen 2 Voxel, Periode 8 in x und z, Spalte 7 geht diagonal in Spalte −8 über)' + (r.fehler.length ? ' – ' + r.fehler.join(' | ') : ''));
+  }
+}
+
+console.log('');
+console.log('== Fluid: benannte Varianten wirken');
+/** Jede benannte Variante liefert eine eigene Kachel; wo diag gesetzt ist, unterscheidet sie sich von der Variante ohne diag und von jedem anderen conn ohne diag. */
+function pruefeVarianten(lib2, id, vs) {
+  const f = [], h = (q) => messe(lib2, id, q).hash, alle = Object.entries(vs);
+  for (const [n, v] of alle) {
+    if (!v.diag) continue;
+    const ohne = { ...v }; delete ohne.diag;
+    if (h(v) === h(ohne)) f.push('Variante ' + n + ': diag ' + v.diag + ' wirkt nicht (gleiche Kachel wie ohne diag)');
+    for (let conn = 0; conn < 16; conn++) if (h(v) === h({ ...ohne, conn })) f.push('Variante ' + n + ': gleiche Kachel wie conn ' + conn + ' ohne diag (diag wirkt nicht)');
+  }
+  for (let i = 0; i < alle.length; i++) for (let j = i + 1; j < alle.length; j++) if (h(alle[i][1]) === h(alle[j][1])) f.push('Varianten ' + alle[i][0] + ' und ' + alle[j][0] + ' liefern dieselbe Kachel');
+  return f;
+}
+{
+  const vs = modell(FLUID).variants, f = pruefeVarianten(lib, FLUID, vs);
+  ok(f.length === 0, 'alle ' + Object.keys(vs).length + ' benannten Varianten (' + Object.keys(vs).join(', ') + ') liefern eigene Kacheln, jede Variante mit diag unterscheidet sich von der ohne diag und von allen conn ohne diag' + (f.length ? ' – ' + meldungen(f) : ''));
+  const v = vs.wasser_innenecke;
+  ok(v.art === 0 && v.conn === 15 && v.diag === 1, 'wasser_innenecke: art 0, conn 15, diag 1 (beide Nachbarn der Ecke NO vorhanden, nur die Diagonale fehlt) = ' + JSON.stringify(v));
 }
 
 console.log('\n== Fluid: Diagonalecken (diag) und Gleichheit ohne diag');
@@ -236,7 +348,7 @@ console.log('\n== Mutationsproben (absichtlich verletzte Rezepte müssen rot wer
   mid = await mutant(DORN, (m) => m.ops.push({ op: 'box', name: 'Zu hoch', at: [-1, 0, -1], size: [2, 40, 2], color: 'soil_dark' }));
   rot('Dornbusch zu hoch (2,5 m, kein Sichtschleier mehr)', pruefeRezept(lib, mid, REGELN[DORN]).fehler, /Oberkante/);
   // 4. Seeds ohne Wirkung / hoch ohne Wirkung
-  mid = await mutant(DORN, (m) => { m.let.typ = '0'; m.let.hh = '0'; for (const o of m.ops) for (const k of Object.keys(m.let)) if (/^[rty]\d$/.test(k)) m.let[k] = k[0] === 'r' ? '4' : k[0] === 'y' ? '6' : '16'; });
+  mid = await mutant(DORN, (m) => { Object.assign(m, JSON.parse(JSON.stringify(m).split('hash(seed').join('hash(0'))); m.let.typ = '0'; });
   rot('Dornbusch: seed ohne Wirkung', pruefeGestalten(lib, mid, (seed) => ({ seed }), [0, 1, 2], 0.25), /gleiche Gestalt/);
   mid = await mutant(KAKTUS, (m) => { m.let.typ = '0'; m.let.hh = '0'; m.let.ya = '9'; m.let.yb = '15'; });
   rot('Kaktus: seed ohne Wirkung', pruefeGestalten(lib, mid, (seed) => ({ seed }), [0, 1, 2], 0.25), /gleiche Gestalt/);
@@ -262,11 +374,59 @@ console.log('\n== Mutationsproben (absichtlich verletzte Rezepte müssen rot wer
   rot('Treibsand mit einem Fleck in der Mitte', nahtFehler(naht(lib, mid, { art: 2 }, 'biom_wueste')), /Muster endet an der Kachel/);
   mid = await mutant(FLUID, (m) => { const i = m.ops.findIndex((o) => o.name === 'Treibsand'); m.ops[i].ops[1].ops[0].color = 'soil'; m.ops[i].ops[1].ops[0].size = [1, 1, 1]; });
   ok(nahtFehler(naht(lib, mid, { art: 2 }, 'biom_wueste')).length === 0 && messe(lib, mid, { art: 2 }).hash !== messe(lib, FLUID, { art: 2 }).hash, 'Gegenprobe: Treibsand ganz ohne Muster (eine Farbe) ist auch nahtlos, die Probe schlägt nicht blind an');
-  // 7. diag ohne Wirkung, diag schließt zu viel
-  mid = await mutant(FLUID, (m) => { for (const o of m.ops) if (o.if) o.if = o.if.replace(/\([^()]*diag[^()]*\) == 1/, '0 == 1'); });
-  rot('diag ohne Wirkung (Bits werden ignoriert)', pruefeDiag(lib, mid, 0), /Lücke bleibt offen/);
-  mid = await mutant(FLUID, (m) => { for (const o of m.ops) if (o.if) o.if = o.if.replace(/\([^()]*diag[^()]*\) == 1/, '1 == 1'); });
-  rot('diag immer gesetzt (Ecken ohne Bit geschlossen)', pruefeDiag(lib, mid, 0), /altes Verhalten|fremde diag-Bits/);
+  // 7. diag ohne Wirkung / diag immer gesetzt: alle vier Ecken, je Ecke einzeln; Belegzahl der ersetzten Stellen
+  const EXPR = { NO: 'diag % 2', SO: 'floor(diag / 2) % 2', SW: 'floor(diag / 4) % 2', NW: 'floor(diag / 8) % 2' };
+  const mutiereDiag = (m, ersatz, ecken) => {
+    let n = 0;
+    const walk = (ops) => { for (const o of ops) { if (o.if) for (const e of ecken) { const teile = o.if.split('(' + EXPR[e] + ') == 1'); n += teile.length - 1; o.if = teile.join(ersatz); } if (o.ops) walk(o.ops); } };
+    walk(m.ops);
+    return n;
+  };
+  for (const [ersatz, name, re] of [['0 == 1', 'diag ohne Wirkung (Bits werden ignoriert)', 'mit diag'], ['1 == 1', 'diag immer gesetzt (Ecke ohne Bit geschlossen)', 'ohne diag: Höhe']]) {
+    let n = 0;
+    mid = await mutant(FLUID, (m) => { n = mutiereDiag(m, ersatz, Object.keys(EXPR)); });
+    ok(n === 24, 'Mutation ' + name + ': alle vier Ecken ersetzt (' + n + ' Stellen, erwartet 24 = 4 Ecken × 2 Arten × 3 Quader)');
+    rot(name + ', alle Ecken, Wasser', pruefeDiag(lib, mid, 0), new RegExp(re));
+    rot(name + ', alle Ecken, Lava', pruefeDiag(lib, mid, 1), new RegExp(re));
+    for (const e of Object.keys(EXPR)) {
+      let ne = 0;
+      mid = await mutant(FLUID, (m) => { ne = mutiereDiag(m, ersatz, [e]); });
+      ok(ne === 6, 'Mutation ' + name + ' nur an Ecke ' + e + ': ' + ne + ' Stellen (erwartet 6)');
+      rot(name + ' nur an Ecke ' + e, pruefeDiag(lib, mid, 0), new RegExp('Ecke ' + e + ' ' + re));
+    }
+  }
+  // 8. Treibsand mit Periode 7 statt 8 (Versatz an der Naht): die alte Dichteprobe bleibt grün, die direkte Probe wird rot
+  {
+    let geaendert = false;
+    mid = await mutant(FLUID, (m) => {
+      const i2 = m.ops.findIndex((o) => o.name === 'Treibsand');
+      const alt = JSON.stringify(m.ops[i2]), neu = alt.split('% 8').join('% 7').split('+ 8)').join('+ 7)').split('8 * floor').join('7 * floor');
+      geaendert = alt !== neu; m.ops[i2] = JSON.parse(neu);
+    });
+    const r = nahtDirekt(lib, mid, { art: 2 }, 'biom_wueste');
+    ok(geaendert, 'Mutation Treibsand Periode 7: Rezept geändert');
+    rot('Treibsand mit Periode 7 statt 8 (Versatz an der Naht, leere Reihen)', r.fehler, /setzt sich nicht über die Kachelgrenze fort/);
+    ok(r.anNaht > 0, 'Periode-7-Mutant: ' + r.falsch + ' abweichende Voxel, davon ' + r.anNaht + ' an der Naht (Spalte 7|8 oder Reihe 7|8)');
+    console.log('    (Hinweis: die alte Dichteprobe nahtFehler meldet beim Periode-7-Mutanten ' + nahtFehler(naht(lib, mid, { art: 2 }, 'biom_wueste')).length + ' Fehler, daher die direkte Probe)');
+  }
+  // 9. benannte Variante ohne Wirkung (der Fehler aus Paket 3: conn 3 mit diag 2 hat nur die Ecke SO, die S und O braucht)
+  mid = await mutant(FLUID, (m) => { m.variants.wasser_innenecke = { art: 0, conn: 3, diag: 2 }; });
+  rot('Variante wasser_innenecke mit conn 3, diag 2 (diag wirkt nicht)', pruefeVarianten(lib, mid, lib.get('models', mid).variants), /wirkt nicht/);
+  // 10. Dornbusch als Sichtschleier
+  mid = await mutant(DORN, (m) => m.ops.push({ op: 'box', name: 'Fels', at: [-1, 0, -1], size: [1, 3, 1], color: 'rock' }));
+  rot('Dornbusch mit rock-Rolle (Stufe fest und hoch)', pruefeDornbusch(mid).fehler, /Rolle rock/);
+  mid = await mutant(DORN, (m) => m.ops.push({ op: 'box', name: 'Klotz 3x3', at: [-1, 0, -1], size: [3, 6, 3], color: 'soil_dark' }));
+  rot('Dornbusch mit massivem 3 × 3-Klotz', pruefeDornbusch(mid).fehler, /Klotz/);
+  mid = await mutant(DORN, (m) => m.ops.push({ op: 'box', name: 'Block', at: [-7, 0, -7], size: [14, 12, 14], color: 'soil_dark' }));
+  rot('Dornbusch als massiver Block (Luftanteil unter 60 %)', pruefeDornbusch(mid).fehler, /Luftanteil/);
+  mid = await mutant(DORN, (m) => { Object.assign(m, JSON.parse(JSON.stringify(m).split('"soil_dark"').join('"plant_dark"'))); });
+  rot('Dornbusch dunkler als der Kaktus (mittleres L* unter dem des Kaktus)', wertleiter(mid).fehler, /heller sein als das feste Prop/);
+  mid = await mutant(DORN, (m) => { const weg = (ops) => { for (let k = ops.length - 1; k >= 0; k--) { if (/^Arme/.test(ops[k].name)) ops.splice(k, 1); else if (ops[k].ops) weg(ops[k].ops); } }; weg(m.ops); });
+  rot('Dornbusch unter 350 Dreiecken (nur Stämme)', pruefeDornbusch(mid).fehler, /unter 350/);
+  mid = await mutant(DORN, (m) => { const weg = (ops) => { for (let k = ops.length - 1; k >= 0; k--) { if (/Dorn|Spitze/.test(ops[k].name)) ops.splice(k, 1); else if (ops[k].ops) weg(ops[k].ops); } }; weg(m.ops); });
+  rot('Dornbusch ohne Dornen (liest nicht als Pflanze)', pruefeDornbusch(mid).fehler, /Dornen-Voxel/);
+  mid = await mutant(DORN, (m) => m.ops.push({ op: 'box', name: 'Fuß x', at: [-7, 0, 0], size: [15, 1, 1], color: 'soil_dark' }, { op: 'box', name: 'Fuß z', at: [0, 0, -7], size: [1, 1, 15], color: 'soil_dark' }));
+  rot('Dornbusch mit breitem Fuß statt aufgehender Silhouette', pruefeDornbusch(mid).fehler, /Silhouette/);
 }
 
 console.log('\n== Dreiecke je Rezept (gemessen, höchster Wert über alle Fälle)');
