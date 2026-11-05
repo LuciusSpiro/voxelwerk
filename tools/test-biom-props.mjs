@@ -68,8 +68,10 @@ console.log('\n== Seeds: verschiedene Gestalten, deterministisch');
   ok(f.length === 0, `Strauch seed 0, 1, 2: drei deutlich verschiedene Gestalten (mindestens 25 % Unterschied)${f.length ? ' – ' + meldungen(f) : ''}`);
   f = g('biom/wiese/strauch', (seed) => ({ seed }), [0, 3, 6], 0.04);
   ok(f.length === 0, `Strauch seed 0, 3, 6 (gleiche Gestalt): trotzdem andere Voxel durch Versatz${f.length ? ' – ' + meldungen(f) : ''}`);
-  f = g('biom/wiese/farn', (seed) => ({ seed }), [0, 1, 2, 3, 4], 0.1);
-  ok(f.length === 0, `Farn seed 0 bis 4: verschiedene Wedel${f.length ? ' – ' + meldungen(f) : ''}`);
+  f = g('biom/wiese/farn', (seed) => ({ seed }), [0, 1, 2], 0.4);
+  ok(f.length === 0, `Farn seed 0, 1, 2: drei deutlich verschiedene Gestalten (Vase, Spreizer, gemischt; mindestens 40 % Unterschied)${f.length ? ' – ' + meldungen(f) : ''}`);
+  f = g('biom/wiese/farn', (seed) => ({ seed }), [0, 1, 2, 3, 4, 5], 0.15);
+  ok(f.length === 0, `Farn seed 0 bis 5: paarweise mindestens 15 % verschiedene Wedel${f.length ? ' – ' + meldungen(f) : ''}`);
   for (const hoch of [0, 1]) {
     f = g('biom/wiese/findling', (seed) => ({ seed, hoch }), [0, 1, 2], 0.25);
     ok(f.length === 0, `Findling hoch ${hoch}, seed 0, 1, 2: drei verschiedene Steine${f.length ? ' – ' + meldungen(f) : ''}`);
@@ -138,6 +140,23 @@ console.log('\n== Fluid-Anschlüsse (conn N1 O2 S4 W8)');
   ok(messe(lib, 'biom/gemein/fluid', { art: 2 }).max[1] < -0.08, 'Treibsand ist begehbar eingesunken (Oberfläche unter der Lauffläche, kein Rand darüber)');
 }
 
+console.log('\n== Farn: dünne Wedel (Pflanze), klar anders als der Strauch (dichter Block)');
+const FARN_MIN = 350, FARN_VOX_ANTEIL = 0.15;   // mindestens 350 Dreiecke je Seed; höchstens 15 % der Voxel des kleinsten Strauchs
+const farnDuenn = (id) => {
+  const f = [], tr = Array.from({ length: 64 }, (_, seed) => messe(lib, id, { seed }).tris);
+  if (Math.min(...tr) < FARN_MIN) f.push(`Farn: ${Math.min(...tr)} Dreiecke unter ${FARN_MIN} (zu dünn, liest sich nicht als Pflanze)`);
+  const fv = Array.from({ length: 16 }, (_, seed) => messe(lib, id, { seed }).voxels), sv = Array.from({ length: 16 }, (_, seed) => messe(lib, 'biom/wiese/strauch', { seed }).voxels);
+  if (Math.max(...fv) > FARN_VOX_ANTEIL * Math.min(...sv)) f.push(`Farn: bis zu ${Math.max(...fv)} Voxel, mehr als ${FARN_VOX_ANTEIL * 100} % des kleinsten Strauchs (${Math.min(...sv)}): ein Block statt dünner Wedel`);
+  const fr = [...rollenVon(modell(id))];
+  if (!fr.every((r) => /^plant(_dark|_light)?$/.test(r))) f.push(`Farn nutzt andere Rollen als plant*: ${fr.join(', ')}`);
+  lib.buildCache.clear();
+  return f;
+};
+{
+  const f = farnDuenn('biom/wiese/farn');
+  ok(f.length === 0, `Farn: 64 Seeds mindestens ${FARN_MIN} Dreiecke, höchstens ${FARN_VOX_ANTEIL * 100} % der Strauch-Voxel (dünne Wedel statt Block), nur Rollen plant*${f.length ? ' – ' + meldungen(f) : ''}`);
+}
+
 console.log('\n== Stein gegen den Boden: keine helle Kappe, kein heller Sockel (Voxelhelligkeit, alle Biom-Paletten)');
 {
   let f = [];
@@ -161,6 +180,15 @@ console.log('\n== Mutationsproben (absichtlich verletzte Rezepte müssen rot wer
   // 2b. Farn mit zu vielen Teilen
   mid = await bau('biom/wiese/farn', (m) => m.ops.push({ op: 'ellipsoid', name: 'Ballast', at: [0, 5, 0], r: [7, 5, 7], color: { noise: ['plant', 'plant_dark'], cell: 1 } }));
   rot('Farn über dem Dreiecksbudget (zusätzliche glatte Kuppel)', pruefeRezept(lib, mid, REGELN['biom/wiese/farn']).fehler, /Dreiecke über dem Budget/);
+  // 2c. Farn als Block (Salat/Seerosenblätter statt Wedel), zu dünn, aus Steinrollen, seed ohne Wirkung
+  mid = await bau('biom/wiese/farn', (m) => m.ops.push({ op: 'box', name: 'Blattplatte', at: [-6, 6, -6], size: [12, 3, 12], color: 'plant' }));
+  rot('Farn mit Blattplatte (Block statt dünner Wedel)', farnDuenn(mid), /ein Block statt dünner Wedel/);
+  mid = await bau('biom/wiese/farn', (m) => { m.ops = m.ops.slice(0, 3); });
+  rot('Farn ohne Wedel (zu dünn)', farnDuenn(mid), /zu dünn/);
+  mid = await bau('biom/wiese/farn', (m) => { const grau = (ops) => ops.forEach((o) => { if (typeof o.color === 'string') o.color = 'stone_dark'; if (o.ops) grau(o.ops); }); grau(m.ops); });
+  rot('Farn aus Steinrollen', farnDuenn(mid), /andere Rollen/);
+  mid = await bau('biom/wiese/farn', (m) => { m.let = { ...m.let, typ: '0', p: '0', H0: '14' }; m.ops = JSON.parse(JSON.stringify(m.ops).replace(/hash\(seed,/g, 'hash(0,')); });
+  rot('Farn: seed ohne Wirkung', pruefeGestalten(lib, mid, (seed) => ({ seed }), [0, 1, 2], 0.4), /gleiche Gestalt/);
   // 3. Seeds ohne Wirkung
   mid = await bau('biom/wiese/strauch', (m) => { m.let.typ = '0'; m.let.ox = '0'; m.let.oz = '0'; m.let.a = '0'; });
   rot('Strauch: seed ohne Wirkung', pruefeGestalten(lib, mid, (seed) => ({ seed }), [0, 1, 2], 0.25), /gleiche Gestalt/);
