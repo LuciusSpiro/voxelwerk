@@ -66,7 +66,7 @@ function pruefeLeuchten(id, params, muendung) {
   if (fremd) f.push(`${l}: ${fremd} leuchtende Voxel sind nicht in der Rolle fluid (Fels leuchtet)`);
   const ausserhalb = hell.filter((v) => Math.abs((v.x + 0.5 - a[0]) / 16) > 0.22 || Math.abs((v.z + 0.5 - a[2]) / 16) > 0.22 || (v.y - a[1]) / 16 < m.max[1] - 0.13).length;
   if (ausserhalb) f.push(`${l}: ${ausserhalb} leuchtende Voxel außerhalb der Mündung (oben, höchstens ±0,22 m um die Mitte)`);
-  if (hell.length > 20) f.push(`${l}: ${hell.length} leuchtende Voxel, die Mündung soll klein bleiben (höchstens 20)`);
+  if (hell.length > 16) f.push(`${l}: ${hell.length} leuchtende Voxel, die Mündung soll klein bleiben (höchstens 16)`);
   return f;
 }
 
@@ -89,6 +89,40 @@ function pruefeAsche(id, params, farbig = false) {
   if (zuHell.length) f.push(`${l}: ${zuHell.length} Voxel heller als der Boden plus ${SCHWELLEN.steinKappe}`);
   const bunt = farbig ? [] : vs.filter((v) => chroma(v.c) > 0.08);   // Pflanzen (Aschefarn) dürfen graustichig grün sein, Boden und Steine nicht
   if (bunt.length) f.push(`${l}: ${bunt.length} Voxel nicht grau (Buntheit über 0,08, die Asche würde braun oder grün)`);
+  return f;
+}
+
+/** Form (Design-Review): Säulenhöhen je Zelle (x, z), Stufen, Scheiben. */
+const spalten = (m) => { const t = new Map(); for (const v of m.grid.values()) { const k = v.x + ',' + v.z; t.set(k, Math.max(t.get(k) ?? -1, v.y + 1)); } return t; };
+const stufenPaare = (t) => { let n = 0; for (const [k, h] of t) { const [x, z] = k.split(',').map(Number); for (const [dx, dz] of [[1, 0], [0, 1]]) { const h2 = t.get((x + dx) + ',' + (z + dz)); if (h2 !== undefined && Math.abs(h - h2) >= 1 && Math.abs(h - h2) <= 2) n++; } } return n; };
+const scheibe = (m, y) => { const c = [...m.grid.values()].filter((v) => v.y === y); if (!c.length) return { n: 0, breite: 0, tiefe: 0, fuell: 1 }; const xs = c.map((v) => v.x), zs = c.map((v) => v.z); const b = Math.max(...xs) - Math.min(...xs) + 1, d = Math.max(...zs) - Math.min(...zs) + 1; return { n: c.length, breite: b, tiefe: d, fuell: c.length / (b * d) }; };
+
+/** Basalt liest sich als Säulenbündel mit Schutt: Köpfe abgetreppt (Stufen zwischen Nachbarzellen), Höhen gestaffelt, niedrige Schuttzellen am Fuß. */
+function pruefeBasaltForm(id, params) {
+  const f = [], l = `${id} ${JSON.stringify(params)}`;
+  const m = messe(lib, id, params, PAL), t = spalten(m), h = [...t.values()], mx = Math.max(...h), med = [...h].sort((a, b) => a - b)[Math.floor(h.length / 2)];
+  if (stufenPaare(t) < 20) f.push(`${l}: nur ${stufenPaare(t)} Stufen zwischen Nachbarzellen (mindestens 20): Köpfe nicht abgetreppt`);
+  if (med > 0.75 * mx) f.push(`${l}: mittlere Säulenhöhe ${med} von ${mx} Voxel (höchstens 75 %): zu gleichmäßig, liest sich als Skyline`);
+  if (new Set(h).size < 5) f.push(`${l}: nur ${new Set(h).size} verschiedene Höhen (mindestens 5)`);
+  const schutt = h.filter((x) => x <= 2).length;
+  if (schutt < 6) f.push(`${l}: nur ${schutt} Zellen mit höchstens 2 Voxel Höhe (mindestens 6): der Schuttkranz fehlt`);
+  return f;
+}
+
+/** Schlot liest sich als Fels, nicht als Schornstein: Basis breit, unten und bis etwa zur Mitte ein abgeschrägtes Achteck, unregelmäßiger Krater. */
+function pruefeSchlotForm(id, params) {
+  const f = [], l = `${id} ${JSON.stringify(params)}`;
+  const m = messe(lib, id, params, PAL), vs = [...m.grid.values()], top = Math.max(...vs.map((v) => v.y));
+  const b = scheibe(m, 2), mitte = scheibe(m, Math.round(top * 0.45)), oben = scheibe(m, top - 4);
+  if (b.breite < 12 || b.tiefe < 12) f.push(`${l}: Basis nur ${b.breite} × ${b.tiefe} Voxel (mindestens 12 × 12): zu schmal`);
+  if (b.breite < 1.35 * oben.breite) f.push(`${l}: Basis ${b.breite} Voxel breit, oben ${oben.breite}: zu wenig Kegel (Basis mindestens 1,35-fach)`);
+  if (b.fuell > 0.95) f.push(`${l}: Basis füllt ${(b.fuell * 100).toFixed(0)} % ihres Rechtecks (höchstens 95 %): kein abgeschrägtes Achteck`);
+  if (mitte.fuell > 0.99) f.push(`${l}: Querschnitt in der Mitte füllt ${(mitte.fuell * 100).toFixed(0)} % seines Rechtecks: Achteck nicht bis zur Mitte`);
+  const unten = new Set(vs.filter((v) => v.y === top - 1).map((v) => v.x + ',' + v.z)), rand = new Set(vs.filter((v) => v.y === top).map((v) => v.x + ',' + v.z));
+  const krater = [...unten].filter((k) => !rand.has(k)), xs = krater.map((k) => +k.split(',')[0]), zs = krater.map((k) => +k.split(',')[1]);
+  const kb = krater.length ? (Math.max(...xs) - Math.min(...xs) + 1) * (Math.max(...zs) - Math.min(...zs) + 1) : 0;
+  if (!krater.length) f.push(`${l}: kein Krater (Mündung ohne Vertiefung)`);
+  else if (krater.length === kb) f.push(`${l}: Krater ist ein Rechteck (${krater.length} Zellen): quadratische Mündung statt unregelmäßigem Krater`);
   return f;
 }
 
@@ -136,6 +170,8 @@ console.log('\n== Seeds: verschiedene Gestalten, deterministisch');
   const g = (id, fn, seedsL, min) => pruefeGestalten(lib, id, fn, seedsL, min);
   let f = g(FARN, (seed) => ({ seed }), [0, 1, 2, 3, 4, 5, 6, 7], 0.15);
   ok(f.length === 0, `Aschefarn seed 0 bis 7: paarweise mindestens 15 % verschiedene Wedelgestalten${f.length ? ' – ' + meldungen(f) : ''}`);
+  f = g(FARN, (seed) => ({ seed }), [0, 1, 2], 0.25);
+  ok(f.length === 0, `Aschefarn seed 0, 1, 2: mindestens 25 % verschiedene Gestalten (zweistufig, einstufig hoch, gemischt)${f.length ? ' – ' + meldungen(f) : ''}`);
   for (const hoch of [0, 1]) {
     f = g(BASALT, (seed) => ({ seed, hoch }), [0, 1, 2], 0.25);
     ok(f.length === 0, `Basalt hoch ${hoch}, seed 0, 1, 2: drei deutlich verschiedene Gestalten (Bündel, Treppe, Gruppe)${f.length ? ' – ' + meldungen(f) : ''}`);
@@ -146,6 +182,14 @@ console.log('\n== Seeds: verschiedene Gestalten, deterministisch');
   ok(f.length === 0, `Schlot seed 0, 1, 2 (mindestens 15 % Unterschied): drei deutlich verschiedene Gestalten (Kegel, Terrassen, versetzt mit Nebenkegel)${f.length ? ' – ' + meldungen(f) : ''}`);
   f = g(SCHLOT, (seed) => ({ seed }), [0, 3, 6], 0.03);
   ok(f.length === 0, `Schlot seed 0, 3, 6 (gleiche Gestalt): trotzdem andere Höhe${f.length ? ' – ' + meldungen(f) : ''}`);
+}
+
+console.log('\n== Form: Basalt (Säulenbündel mit abgetreppten Köpfen und Schutt), Schlot (Fels mit Achteck-Basis und unregelmäßigem Krater)');
+{
+  let f = [0, 1].flatMap((hoch) => seeds(64).flatMap((seed) => pruefeBasaltForm(BASALT, { hoch, seed })));
+  ok(f.length === 0, `Basalt: 2 Höhen × 64 Seeds mindestens 20 Stufen zwischen Nachbarzellen, Höhen gestaffelt (mittlere Säule höchstens 75 % der höchsten), mindestens 6 Schuttzellen${f.length ? ' – ' + meldungen(f) : ''}`);
+  f = seeds(64).flatMap((seed) => pruefeSchlotForm(SCHLOT, { seed }));
+  ok(f.length === 0, `Schlot: 64 Seeds Basis mindestens 12 × 12 Voxel und 1,35-fach so breit wie oben, abgeschrägtes Achteck unten und in der Mitte, unregelmäßiger Krater${f.length ? ' – ' + meldungen(f) : ''}`);
 }
 
 console.log('\n== Helligkeit und Farbe (Wertleiter): Schlot am dunkelsten, kein heller Stein, Asche bleibt grau');
@@ -194,7 +238,7 @@ console.log('\n== Mutationsproben (absichtlich verletzte Rezepte müssen rot wer
   rot('Schlot ohne Lava (Mündung dunkel)', pruefeLeuchten(mid, { seed: 0 }, true), /Mündung leuchtet nicht/);
   // 3c. Schlot mit großer Lavafläche
   mid = await mutant(SCHLOT, (m) => m.ops.push({ op: 'box', name: 'Lavasee oben', at: [-6, 24, -6], size: [12, 1, 12], color: 'fluid' }));
-  rot('Schlot mit großer Lavafläche statt kleiner Mündung', pruefeLeuchten(mid, { seed: 0 }, true), /außerhalb der Mündung|höchstens 20/);
+  rot('Schlot mit großer Lavafläche statt kleiner Mündung', pruefeLeuchten(mid, { seed: 0 }, true), /außerhalb der Mündung|höchstens 16/);
   // 4. Schlot heller als Stein
   const hell = (ops) => ops.forEach((o) => { if (o.color === 'rock' || o.color === 'rock_dark') o.color = 'stone_light'; if (o.ops) hell(o.ops); });
   mid = await mutant(SCHLOT, (m) => hell(m.ops));
@@ -218,8 +262,23 @@ console.log('\n== Mutationsproben (absichtlich verletzte Rezepte müssen rot wer
   rot('Aschefarn in stone_dark (Stein statt Pflanze), Farbprüfung', farnFarbe(mid), /nicht getönt/);
   mid = await mutant(FARN, (m) => { m.ops[0].ops = m.ops[0].ops.slice(0, 3); });
   rot('Aschefarn zu dünn (Wedel fehlen)', (() => { const tr = seeds(64).map((seed) => messe(lib, mid, { seed }, PAL).tris); return Math.min(...tr) >= MIN_FARN ? [] : ['Dreiecke ' + Math.min(...tr) + ' unter ' + MIN_FARN]; })(), /unter 350/);
-  mid = await mutant(SCHLOT, (m) => { m.let.typ = '0'; m.let.ox = '0'; m.let.oz = '0'; m.let.nl = '3'; m.let.H = '28'; });
+  mid = await mutant(SCHLOT, (m) => { m.let = { ...m.let, typ: '0', ox: '0', oz: '0', cx: '0', cz: '0', H: '28' }; m.ops = JSON.parse(JSON.stringify(m.ops).replace(/hash\(seed,/g, 'hash(0,')); });
   rot('Schlot: seed ohne Wirkung', pruefeGestalten(lib, mid, (seed) => ({ seed }), [0, 1, 2], 0.25), /gleiche Gestalt/);
+  // 8. Form: Basalt ohne abgetreppte Köpfe, ohne Schutt, gleichmäßig; Schlot ohne Achteck, mit quadratischer Mündung, als schmaler Turm
+  const ohne = (re) => (m) => { const strip = (ops) => ops.forEach((o) => { if (o.ops) { o.ops = o.ops.filter((x) => !re.test(x.name)); strip(o.ops); } }); strip(m.ops); m.ops = m.ops.filter((x) => !re.test(x.name)); };
+  const basaltForm = (id) => [0, 1].flatMap((hoch) => seeds(8).flatMap((seed) => pruefeBasaltForm(id, { hoch, seed })));
+  mid = await mutant(BASALT, ohne(/Kopf/));
+  rot('Basalt ohne abgetreppte Köpfe', basaltForm(mid), /Köpfe nicht abgetreppt/);
+  mid = await mutant(BASALT, ohne(/Schutt/));
+  rot('Basalt ohne Schuttkranz', basaltForm(mid), /Schuttkranz fehlt/);
+  mid = await mutant(BASALT, (m) => { for (const o of m.ops) if (o.let?.h) o.let.h = 'H'; });
+  rot('Basalt als gleichmäßige Reihe gleich hoher Säulen', basaltForm(mid), /zu gleichmäßig|verschiedene Höhen/);
+  mid = await mutant(SCHLOT, (m) => { m.ops[0].let.ca = '0'; m.ops[0].let.cb = '0'; });
+  rot('Schlot ohne abgeschrägtes Achteck (Quader-Stufen)', seeds(8).flatMap((seed) => pruefeSchlotForm(mid, { seed })), /kein abgeschrägtes Achteck|Achteck nicht bis zur Mitte/);
+  mid = await mutant(SCHLOT, (m) => { m.ops = m.ops.filter((o) => !/Krater/.test(o.name)); m.ops.push({ op: 'box', name: 'Mündung quadratisch', mode: 'carve', at: ['cx - 2', 'H - 1', 'cz - 2'], size: [4, 1, 4] }); });
+  rot('Schlot mit quadratischer Mündung', seeds(8).flatMap((seed) => pruefeSchlotForm(mid, { seed })), /Rechteck/);
+  mid = await mutant(SCHLOT, (m) => { m.ops[0].let.hx = '3'; m.ops[0].let.hz = '3'; });
+  rot('Schlot als schmaler Schornstein', seeds(8).flatMap((seed) => pruefeSchlotForm(mid, { seed })), /zu schmal|zu wenig Kegel/);
 }
 
 console.log('\n== Dreiecke je Rezept (gemessen, höchster Wert über alle Fälle)');
