@@ -1,0 +1,257 @@
+{
+  "id": "station/schottbrecher/schild",
+  "name": "Schottbrecher: Rammschild (gebogen; ausgefahren folgt die Front dem Kreis von 1 m Radius) mit Kolbenstangen",
+  "tier": "detail",
+  "palette": "schottbrecher",
+  "tags": [
+    "station",
+    "monster",
+    "schottbrecher"
+  ],
+  "params": {
+    "ausfahrt": {
+      "default": 4,
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "label": "Ausfahrweg bis zum Kreis (Voxel)"
+    }
+  },
+  "let": {
+    "r2": "15.29 * 15.29"
+  },
+  "ops": [
+    {
+      "jitter": false,
+      "name": "Schildband x -5..4",
+      "op": "box",
+      "at": [
+        -5,
+        5,
+        "ausfahrt * -1 + 13"
+      ],
+      "size": [
+        10,
+        14,
+        2
+      ],
+      "color": "schild"
+    },
+    {
+      "jitter": false,
+      "name": "Schildband x 5..7",
+      "op": "box",
+      "at": [
+        5,
+        5,
+        "ausfahrt * -1 + 11"
+      ],
+      "size": [
+        3,
+        14,
+        2
+      ],
+      "color": "schild"
+    },
+    {
+      "jitter": false,
+      "name": "Schildband x -8..-6",
+      "op": "box",
+      "at": [
+        -8,
+        5,
+        "ausfahrt * -1 + 11"
+      ],
+      "size": [
+        3,
+        14,
+        2
+      ],
+      "color": "schild"
+    },
+    {
+      "jitter": false,
+      "name": "Schildband x 8..9",
+      "op": "box",
+      "at": [
+        8,
+        5,
+        "ausfahrt * -1 + 10"
+      ],
+      "size": [
+        2,
+        14,
+        2
+      ],
+      "color": "schild"
+    },
+    {
+      "jitter": false,
+      "name": "Schildband x -10..-9",
+      "op": "box",
+      "at": [
+        -10,
+        5,
+        "ausfahrt * -1 + 10"
+      ],
+      "size": [
+        2,
+        14,
+        2
+      ],
+      "color": "schild"
+    },
+    {
+      "jitter": false,
+      "name": "Schneide unten",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -10,
+        5,
+        "ausfahrt * -1 + 10"
+      ],
+      "size": [
+        20,
+        1,
+        5
+      ],
+      "color": "panzer_dark"
+    },
+    {
+      "jitter": false,
+      "name": "Niete x -4",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -4,
+        16,
+        "ausfahrt * -1 + 14"
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
+    },
+    {
+      "jitter": false,
+      "name": "Niete x -1",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -1,
+        16,
+        "ausfahrt * -1 + 14"
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
+    },
+    {
+      "jitter": false,
+      "name": "Niete x 0",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        0,
+        16,
+        "ausfahrt * -1 + 14"
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
+    },
+    {
+      "jitter": false,
+      "name": "Niete x 3",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        3,
+        16,
+        "ausfahrt * -1 + 14"
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
+    },
+    {
+      "jitter": false,
+      "name": "Niete x -7",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -7,
+        16,
+        "ausfahrt * -1 + 12"
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
+    },
+    {
+      "jitter": false,
+      "name": "Niete x 6",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        6,
+        16,
+        "ausfahrt * -1 + 12"
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
+    },
+    {
+      "jitter": false,
+      "name": "Kolbenstange links",
+      "op": "cyl",
+      "axis": "z",
+      "at": [
+        3.5,
+        13.5,
+        3
+      ],
+      "r": 1.1,
+      "h": 7,
+      "color": "kolben"
+    },
+    {
+      "jitter": false,
+      "name": "Kolbenstange rechts",
+      "op": "cyl",
+      "axis": "z",
+      "at": [
+        -3.5,
+        13.5,
+        3
+      ],
+      "r": 1.1,
+      "h": 7,
+      "color": "kolben"
+    }
+  ],
+  "anchor": [
+    0,
+    0,
+    0
+  ]
+}

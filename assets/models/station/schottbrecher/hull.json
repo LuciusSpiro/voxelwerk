@@ -1,0 +1,324 @@
+{
+  "id": "station/schottbrecher/hull",
+  "name": "Schottbrecher: Wanne (Panzerstahl, massiv, flache Farben für das Dreiecksbudget)",
+  "tier": "detail",
+  "palette": "schottbrecher",
+  "tags": [
+    "station",
+    "monster",
+    "schottbrecher"
+  ],
+  "ops": [
+    {
+      "jitter": false,
+      "name": "Wanne",
+      "op": "box",
+      "at": [
+        -6,
+        11,
+        -12
+      ],
+      "size": [
+        12,
+        7,
+        17
+      ],
+      "color": "panzer"
+    },
+    {
+      "jitter": false,
+      "name": "Abschrägung unten links",
+      "op": "box",
+      "mode": "carve",
+      "at": [
+        5,
+        11,
+        -12
+      ],
+      "size": [
+        1,
+        1,
+        17
+      ]
+    },
+    {
+      "jitter": false,
+      "name": "Abschrägung unten rechts",
+      "op": "box",
+      "mode": "carve",
+      "at": [
+        -6,
+        11,
+        -12
+      ],
+      "size": [
+        1,
+        1,
+        17
+      ]
+    },
+    {
+      "jitter": false,
+      "name": "Abschrägung vorn",
+      "op": "box",
+      "mode": "carve",
+      "at": [
+        -6,
+        11,
+        4
+      ],
+      "size": [
+        12,
+        1,
+        1
+      ]
+    },
+    {
+      "jitter": false,
+      "name": "Deckplatte",
+      "op": "box",
+      "at": [
+        -5,
+        18,
+        -11
+      ],
+      "size": [
+        10,
+        1,
+        16
+      ],
+      "color": "panzer_light"
+    },
+    {
+      "jitter": false,
+      "name": "Nieten Deckplatte links",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -4,
+        18,
+        -10
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete",
+      "repeat": {
+        "count": 2,
+        "step": [
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "jitter": false,
+      "name": "Nieten Deckplatte rechts",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        0,
+        18,
+        -10
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete",
+      "repeat": {
+        "count": 2,
+        "step": [
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "jitter": false,
+      "name": "Nieten Deckplatte 2 links",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -4,
+        18,
+        -6
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete",
+      "repeat": {
+        "count": 2,
+        "step": [
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "jitter": false,
+      "name": "Nieten Deckplatte 2 rechts",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        0,
+        18,
+        -6
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete",
+      "repeat": {
+        "count": 2,
+        "step": [
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "jitter": false,
+      "name": "Gegengewicht hinten",
+      "op": "box",
+      "at": [
+        -5,
+        12,
+        -13
+      ],
+      "size": [
+        10,
+        5,
+        1
+      ],
+      "color": "panzer_dark"
+    },
+    {
+      "jitter": false,
+      "name": "Hydraulikstreben hinten links",
+      "op": "box",
+      "at": [
+        -4,
+        12,
+        -14
+      ],
+      "size": [
+        1,
+        5,
+        1
+      ],
+      "color": "hydraulik",
+      "repeat": {
+        "count": 2,
+        "step": [
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "jitter": false,
+      "name": "Hydraulikstreben hinten rechts",
+      "op": "box",
+      "at": [
+        0,
+        12,
+        -14
+      ],
+      "size": [
+        1,
+        5,
+        1
+      ],
+      "color": "hydraulik",
+      "repeat": {
+        "count": 2,
+        "step": [
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "jitter": false,
+      "name": "Seitenfuge links",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        5,
+        14,
+        -10
+      ],
+      "size": [
+        1,
+        1,
+        14
+      ],
+      "color": "panzer_dark"
+    },
+    {
+      "jitter": false,
+      "name": "Seitenfuge rechts",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -6,
+        14,
+        -10
+      ],
+      "size": [
+        1,
+        1,
+        14
+      ],
+      "color": "panzer_dark"
+    },
+    {
+      "jitter": false,
+      "name": "Kolbenführung links",
+      "op": "cyl",
+      "axis": "z",
+      "at": [
+        3.5,
+        13.5,
+        5
+      ],
+      "r": 1.7,
+      "h": 3,
+      "color": "hydraulik"
+    },
+    {
+      "jitter": false,
+      "name": "Kolbenführung rechts",
+      "op": "cyl",
+      "axis": "z",
+      "at": [
+        -3.5,
+        13.5,
+        5
+      ],
+      "r": 1.7,
+      "h": 3,
+      "color": "hydraulik"
+    }
+  ],
+  "anchor": [
+    0,
+    0,
+    0
+  ]
+}
