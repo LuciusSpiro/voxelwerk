@@ -61,10 +61,14 @@ console.log('\n== Lichtquelle (Marker lampe)');
   ok(Math.abs(Math.hypot(...a) - 1) < 0.01, `Kegelachse ist ein Einheitsvektor (${a})`);
   ok(a[2] > 0.8 && a[1] < 0 && a[1] > -0.6, 'Kegelachse zeigt nach vorn und leicht nach unten');
   ok(rig.joints.lampe.at[2] >= 5 && rig.joints.lampe.at[0] === 0, 'Lampe sitzt mittig an der Front des Sensorkopfes');
-  const v = pro.lampe;
-  ok(v.length === 8 && v.every((x) => x.e > 0), 'Teil lampe: 8 Voxel, alle leuchtend (emit)');
-  const c = v.reduce((s, x) => [s[0] + x.x + 0.5, s[1] + x.y + 0.5, s[2] + x.z + 0.5], [0, 0, 0]).map((x) => x / v.length);
-  ok(Math.abs(c[0] - rig.joints.lampe.at[0]) < 0.6 && Math.abs(c[1] - rig.joints.lampe.at[1]) < 0.6, `Schlitz-Mitte (${c.map((x) => x.toFixed(1))}) liegt am Gelenk lampe`);
+  const v = pro.lampe, schlitz = v.filter((x) => x.y < 23), feld = v.filter((x) => x.y >= 23);
+  ok(v.length === 10 && v.every((x) => x.e > 0), 'Teil lampe: 10 Voxel (Schlitz 4×2 und Lichtfeld 2×1), alle leuchtend (emit)');
+  const c = schlitz.reduce((s, x) => [s[0] + x.x + 0.5, s[1] + x.y + 0.5, s[2] + x.z + 0.5], [0, 0, 0]).map((x) => x / schlitz.length);
+  ok(schlitz.length === 8 && Math.abs(c[0] - rig.joints.lampe.at[0]) < 0.6 && Math.abs(c[1] - rig.joints.lampe.at[1]) < 0.6, `Schlitz-Mitte (${c.map((x) => x.toFixed(1))}) liegt am Gelenk lampe`);
+  // Lichtfeld oben auf dem Sensorkopf: 2×1 Voxel, bündig im Dach (höchste Voxelebene des Kopfes), also aus 57° von allen Seiten sichtbar
+  const kopfMaxY = Math.max(...pro.sensor.map((x) => x.y), ...feld.map((x) => x.y));
+  ok(feld.length === 2 && feld.every((x) => x.y === kopfMaxY) && new Set(feld.map((x) => x.z)).size === 1 && Math.abs(feld[0].x - feld[1].x) === 1, 'Lichtfeld: 2×1 Voxel in der obersten Ebene des Sensorkopfes (Dach), Teil des Gelenks lampe');
+  ok(pro.sensor.every((x) => !feld.some((f) => f.x === x.x && f.y === x.y && f.z === x.z)), 'Dach des Sensorkopfes ist an den Feldzellen ausgespart (keine überlagerten Voxel, kein Z-Fighting)');
   ok(Object.entries(pro).filter(([j]) => j !== 'lampe').every(([, vs]) => vs.every((x) => !(x.e > 0))), 'nur der Lichtschlitz leuchtet');
 }
 
@@ -82,17 +86,21 @@ console.log('\n== Posen: Gültigkeit');
     for (const b of ['VL', 'VR', 'HL', 'HR']) { const y = (w.shift['foot' + b] || [0, 0, 0])[1]; fMin = Math.min(fMin, y); fMax = Math.max(fMax, y); }
     const s = (w.shift.schild || [0, 0, 0])[2]; sMin = Math.min(sMin, s); sMax = Math.max(sMax, s);
   }
-  ok(fMin >= 0 && fMax <= 8, `Teleskop-Einzug foot*.shift y in [0, 8] (Stange bleibt in der Hülse): ${fMin.toFixed(2)} bis ${fMax.toFixed(2)}`);
+  ok(fMin >= -1.5 && fMax <= 9, `Teleskop foot*.shift y in [-1,5 .. 9] (Stange bleibt in der Hülse und unter der Kniekappe; negativ = ausgefahren): ${fMin.toFixed(2)} bis ${fMax.toFixed(2)}`);
   ok(sMin >= 0 && sMax <= 4, `Schild ausfahren schild.shift z in [0, 4] (4 = Kreisrand): ${sMin} bis ${sMax}`);
   // Inhalt der Zustände
   const hullY = (z) => (P[z].shift?.hull || [0, 0, 0])[1];
-  ok(hullY('patrouille') === 0 && hullY('jagd') < hullY('patrouille') && hullY('pause') < hullY('jagd'), `Wanne: patrouille ${hullY('patrouille')}, jagd ${hullY('jagd')}, pause ${hullY('pause')} (Jagd tiefer, Pause fast am Boden)`);
+  ok(hullY('patrouille') === 0 && hullY('jagd') <= -5 && hullY('pause') < hullY('jagd'), `Wanne: patrouille ${hullY('patrouille')}, jagd ${hullY('jagd')} (mindestens 5 tiefer), pause ${hullY('pause')} (Pause fast am Boden)`);
+  ok(['VL', 'VR', 'HL', 'HR'].every((b) => P.jagd.shift['foot' + b][1] === -hullY('jagd') && P.jagd.cycle.shift['foot' + b].c[1] - P.jagd.cycle.shift['foot' + b].a[1] === -hullY('jagd')), 'Jagd: Teleskope ziehen so weit ein, wie die Wanne sinkt (Sohle berührt den Boden im Zyklustiefpunkt)');
   ok(P.laerm.joints.horchL[2] < -60 && P.laerm.joints.horchR[2] > 60 && !P.patrouille.joints?.horchL, 'Lärm: Horchplatten hoch (links z < -60, rechts z > 60), sonst flach');
-  ok((P.rammen.shift.schild || [])[2] === 4 && !P.patrouille.shift?.schild, 'Rammen: Schild 4 Voxel ausgefahren, sonst eingefahren');
-  ok(P.pause.shift.lampe?.[2] === -2 && !P.jagd.shift?.lampe, 'Pause: Lichtschlitz 2 Voxel versenkt (Licht aus), sonst vorn');
+  const rs = P.rammen.shift.schild || [0, 0, 0];
+  ok(rs[2] >= 3 && rs[2] <= 4 && rs[1] <= -1 && rs[1] >= -2 && !P.patrouille.shift?.schild, `Rammen: Schild ${rs[2]} Voxel ausgefahren und ${-rs[1]} Voxel abgesenkt, sonst eingefahren`);
+  ok(P.rammen.joints.hull[0] >= 8 && P.rammen.joints.hull[0] <= 10, `Rammen: Wanne nach vorn gekippt (hull rx ${P.rammen.joints.hull[0]}°, positiv = Bug tiefer)`);
+  ok(P.pause.shift.lampe?.[2] === -2 && P.pause.shift.lampe?.[1] === -2 && !P.jagd.shift?.lampe, 'Pause: Lichtschlitz und Lichtfeld 2 Voxel in den Kopf versenkt (Licht aus), sonst vorn');
   ok(P.patrouille.cycle && P.jagd.cycle && !P.laerm.cycle && !P.rammen.cycle && !P.pause.cycle, 'Zyklen nur in Patrouille und Jagd');
   ok(P.jagd.cycle.hz > P.patrouille.cycle.hz * 1.8, `Jagd-Zyklus schneller (${P.jagd.cycle.hz} Hz gegen ${P.patrouille.cycle.hz} Hz)`);
   ok(P.jagd.cycle.joints.hipVL.a[0] < P.patrouille.cycle.joints.hipVL.a[0], `Jagd: längere Schritte (Hüftausschlag ${-P.jagd.cycle.joints.hipVL.a[0]}° gegen ${-P.patrouille.cycle.joints.hipVL.a[0]}°)`);
+  ok(-P.jagd.cycle.joints.hipVL.a[0] <= 16, 'Jagd: Hüftausschlag höchstens ±16° (keine Scherenbeine, Tempo kommt aus dem Teleskop)');
   // Diagonale Beinpaare
   const ph = (z, j) => P[z].cycle.joints[j].p;
   ok(['patrouille', 'jagd'].every((z) => ph(z, 'hipVL') === ph(z, 'hipHR') && ph(z, 'hipVR') === ph(z, 'hipHL') && Math.abs(ph(z, 'hipVL') - ph(z, 'hipVR')) === 180), 'Zyklus: diagonale Beinpaare (VL+HR, VR+HL) gegeneinander um 180°');
@@ -111,8 +119,8 @@ console.log('\n== Posen: Zyklen periodisch');
   ok(Math.abs(w0.joints.hipVL[0] + w0.joints.hipHR[0]) < 1e-9 && Math.abs(poseWerte(posen, 'patrouille', 0.25).joints.hipVL[0] + poseWerte(posen, 'patrouille', 0.25).joints.hipVR[0]) < 1e-9, 'Diagonalpaare schwingen gegenphasig (hipVL = -hipVR)');
   ok(w0.shift.footVL[1] !== w5.shift.footVL[1], 'Teleskop-Fuß hebt und senkt sich im Zyklus');
   // Ohne phi liefert poseWerte die Grundwerte (Standbild)
-  eq(poseWerte(posen, 'jagd').shift.hull, [0, -3, 0], 'poseWerte ohne φ: Grundwerte der Pose (hull -3)');
-  eq(poseWerte(posen, 'rammen').shift.schild, [0, 0, 4], 'poseWerte: shift schild [0, 0, 4]');
+  eq(poseWerte(posen, 'jagd').shift.hull, [0, -5, 0], 'poseWerte ohne φ: Grundwerte der Pose (hull -5)');
+  eq(poseWerte(posen, 'rammen').shift.schild, P.rammen.shift.schild, 'poseWerte: shift schild wie in der Pose');
 }
 
 console.log('\n== Kreisregel und Boden (Voxelmitte + 0,707 ≤ 16 Voxel von der Fußabdruck-Mitte; gemessen mit der Posenanwendung)');
@@ -135,12 +143,23 @@ const mass = {};
   }
   for (const l of zeilen) console.log('      ' + l);
   ok(['ruhe', ...ZUSTAENDE].every((z) => mass[z].rMax <= KREIS_MITTE_MAX), `alle Posen (Ruhe, fünf Zustände, 16 Zyklusphasen): Voxel höchstens 1,0 m von der Mitte (größter Wert ${worst.toFixed(2)} Voxel = ${(worst / 16).toFixed(2)} m)`);
-  ok(mass.rammen.rGelenk === 'schild' && mass.rammen.rMax > mass.patrouille.rMax, `Rammen: der Schild ist der äußerste Punkt (${mass.rammen.rMax.toFixed(2)} Voxel), ausgefahren bis an den Kreis, nicht darüber`);
+  const rSchild = Math.max(...posiereSB(rig, posen, pro, 'rammen').punkte.filter((p) => p.j === 'schild').map((p) => Math.hypot(p.x, p.z)));
+  ok(rSchild >= 14.5 && rSchild <= KREIS_MITTE_MAX, `Rammen: der Schild reicht bis an den Kreis (äußerster Schildvoxel ${rSchild.toFixed(2)} von ${KREIS_MITTE_MAX.toFixed(2)} Voxel), nicht darüber`);
+  // Breite: die Maschine soll gut doppelt so breit wie die Spielfigur wirken (Skizze 2 m; hier mindestens 1,7 m in allen Posen)
+  ok(['ruhe', 'laerm', 'rammen', 'jagd', 'patrouille', 'pause'].every((z) => mass[z].breite >= 27), `Silhouette mindestens 27 Voxel = 1,7 m breit (Ruhe ${mass.ruhe.breite} = ${(mass.ruhe.breite / 16).toFixed(2)} m, Pause ${mass.pause.breite.toFixed(1)})`);
+  // Rammen gegen Stehen: mittlere Voxelverschiebung (gleiche Voxel in beiden Posen), Schild tief
+  {
+    const a = posiereSB(rig, posen, pro, 'laerm').punkte, b = posiereSB(rig, posen, pro, 'rammen').punkte;
+    const d = a.reduce((s, p, i) => s + Math.hypot(p.x - b[i].x, p.y - b[i].y, p.z - b[i].z), 0) / a.length;
+    const sy = Math.min(...b.filter((p) => p.j === 'schild').map((p) => p.y - 0.5));
+    console.log(`      Rammen gegen Stehen: mittlere Voxelverschiebung ${d.toFixed(2)} Voxel (${(d / 16 * 100).toFixed(0)} cm), Schildunterkante ${sy.toFixed(2)} Voxel über dem Boden (Stehen: 5)`);
+    ok(d >= 1.5 && sy <= 2, 'Rammen deutlich vom Stehen unterscheidbar: mittlere Voxelverschiebung ≥ 1,5 Voxel, Schildunterkante höchstens 2 Voxel über dem Boden');
+  }
   // Boden: nichts unter dem Boden (Toleranz 0,5 Voxel), Standposen berühren ihn
   ok(['ruhe', ...ZUSTAENDE].every((z) => mass[z].yMin >= -0.5), `kein Voxel unter dem Boden (tiefster Punkt ${Math.min(...['ruhe', ...ZUSTAENDE].map((z) => mass[z].yMin)).toFixed(2)} Voxel)`);
   ok(['ruhe', 'laerm', 'rammen', 'pause'].every((z) => mass[z].yMin <= 0.5), 'Standposen (Ruhe, Lärm, Rammen, Pause) stehen mit den Füßen am Boden (tiefster Punkt höchstens 0,5 über dem Boden)');
   // Höhe und Breite gegen die Designer-Vorgabe (1,4 bis 1,9 m, niedriger als die Figur mit 2,4 m)
-  ok(['ruhe', 'laerm', 'rammen'].every((z) => mass[z].yMax >= 22.4 && mass[z].yMax <= 30.4) && mass.jagd.yMax >= 20, `Höhe 1,4 bis 1,9 m in Ruhe, Lärm, Rammen, in der Jagd mit abgesenkter Wanne mindestens 1,25 m (${['ruhe', 'laerm', 'rammen', 'jagd'].map((z) => (mass[z].yMax / 16).toFixed(2) + ' m').join(', ')}; Spielfigur 2,4 m)`);
+  ok(['ruhe', 'laerm', 'rammen'].every((z) => mass[z].yMax >= 22.4 && mass[z].yMax <= 30.4) && mass.jagd.yMax >= 18.9, `Höhe 1,4 bis 1,9 m in Ruhe, Lärm, Rammen, in der Jagd mit abgesenkter Wanne mindestens 1,18 m (${['ruhe', 'laerm', 'rammen', 'jagd'].map((z) => (mass[z].yMax / 16).toFixed(2) + ' m').join(', ')}; Spielfigur 2,4 m)`);
   ok(mass.pause.yMax < mass.jagd.yMax && mass.jagd.yMax < mass.patrouille.yMax, `Höhenfolge Pause ${mass.pause.yMax.toFixed(1)} < Jagd ${mass.jagd.yMax.toFixed(1)} < Patrouille ${mass.patrouille.yMax.toFixed(1)}`);
   // Mutationsprobe: Schild 8 statt 4 Voxel ausgefahren verletzt die Regel
   const mut = structuredClone(posen); mut.poses.rammen.shift.schild = [0, 0, 8];
@@ -148,6 +167,12 @@ const mass = {};
   ok(r > KREIS_MITTE_MAX, `Mutationsprobe: Schild 8 Voxel ausgefahren → Abstand ${r.toFixed(2)} > ${KREIS_MITTE_MAX.toFixed(2)}: Regel schlägt an`);
   const mut2 = structuredClone(posen); mut2.poses.jagd.cycle.joints.hipVL.a = [-60, 0, 0];
   ok(PHASEN.some((ph) => messeSB(posiereSB(rig, mut2, pro, 'jagd', ph).punkte).rMax > KREIS_MITTE_MAX), 'Mutationsprobe: Hüftausschlag 60° in der Jagd → Regel schlägt an (Zyklusphasen werden mitgemessen)');
+  const mut3 = structuredClone(posen); for (const k of ['hipVL', 'hipVR', 'hipHL', 'hipHR']) mut3.poses.patrouille.cycle.joints[k].a = [-16, 0, 0];
+  ok(PHASEN.some((ph) => messeSB(posiereSB(rig, mut3, pro, 'patrouille', ph).punkte).rMax > KREIS_MITTE_MAX), 'Mutationsprobe: Hüftausschlag 16° in der Patrouille (statt 11°) → Regel schlägt an: die breite Beinstellung lässt nur kleine Schritte zu');
+  const mut4 = structuredClone(posen); for (const [k, w] of Object.entries(mut4.poses.pause.joints)) if (/^(hip|knee)/.test(k)) mut4.poses.pause.joints[k] = w.map((x) => x * 2.8);
+  ok(messeSB(posiereSB(rig, mut4, pro, 'pause').punkte).rMax > KREIS_MITTE_MAX, 'Mutationsprobe: Pause mit dem alten Spreizwinkel (28° statt 10°) → Regel schlägt an');
+  const mut5 = structuredClone(posen); mut5.poses.rammen.joints.hipHL = [15, 0, 0]; mut5.poses.rammen.joints.hipHR = [15, 0, 0];
+  ok(messeSB(posiereSB(rig, mut5, pro, 'rammen').punkte).rMax > KREIS_MITTE_MAX, 'Mutationsprobe: Rammen mit Hinterbeinen +15° (statt 0°) → Regel schlägt an (Fuß hinten verlässt den Kreis)');
 }
 
 console.log('\n== Posen verschieden (Formhash je Pose)');

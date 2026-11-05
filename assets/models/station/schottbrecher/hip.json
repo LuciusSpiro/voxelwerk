@@ -28,7 +28,7 @@
       "name": "Hüftlager",
       "op": "box",
       "at": [
-        6,
+        8,
         13,
         "zc - 1.5"
       ],
@@ -44,7 +44,7 @@
       "name": "Oberschenkel unten",
       "op": "box",
       "at": [
-        6,
+        9,
         14,
         "zc - 1.5"
       ],
@@ -60,7 +60,7 @@
       "name": "Oberschenkel oben",
       "op": "box",
       "at": [
-        7,
+        11,
         17,
         "zc - 1.5"
       ],
@@ -74,18 +74,17 @@
     {
       "jitter": false,
       "name": "Kolben am Oberschenkel",
-      "op": "line",
-      "from": [
-        6.5,
+      "op": "box",
+      "at": [
+        12,
         17,
-        "zc + 2 * sg"
+        "zc + 2 * sg - 0.5"
       ],
-      "to": [
-        8,
-        21,
-        "zc + 2 * sg"
+      "size": [
+        1,
+        4,
+        1
       ],
-      "r": 0.5,
       "color": "kolben"
     }
   ],

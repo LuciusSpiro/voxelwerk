@@ -1,6 +1,6 @@
 {
   "id": "station/schottbrecher/hull",
-  "name": "Schottbrecher: Wanne (Panzerstahl, massiv, flache Farben für das Dreiecksbudget)",
+  "name": "Schottbrecher: Wanne (Panzerstahl, 16 Voxel breit, massiv; flache Farben für das Dreiecksbudget)",
   "tier": "detail",
   "palette": "schottbrecher",
   "tags": [
@@ -14,14 +14,14 @@
       "name": "Wanne",
       "op": "box",
       "at": [
-        -6,
-        11,
-        -12
+        -8,
+        12,
+        -10
       ],
       "size": [
-        12,
-        7,
-        17
+        16,
+        6,
+        15
       ],
       "color": "panzer"
     },
@@ -31,14 +31,14 @@
       "op": "box",
       "mode": "carve",
       "at": [
-        5,
-        11,
-        -12
+        7,
+        12,
+        -10
       ],
       "size": [
         1,
         1,
-        17
+        15
       ]
     },
     {
@@ -47,14 +47,14 @@
       "op": "box",
       "mode": "carve",
       "at": [
-        -6,
-        11,
-        -12
+        -8,
+        12,
+        -10
       ],
       "size": [
         1,
         1,
-        17
+        15
       ]
     },
     {
@@ -63,12 +63,12 @@
       "op": "box",
       "mode": "carve",
       "at": [
-        -6,
-        11,
+        -8,
+        12,
         4
       ],
       "size": [
-        12,
+        16,
         1,
         1
       ]
@@ -78,58 +78,90 @@
       "name": "Deckplatte",
       "op": "box",
       "at": [
-        -5,
+        -7,
         18,
-        -11
+        -9
       ],
       "size": [
-        10,
+        14,
         1,
-        16
+        14
       ],
       "color": "panzer_light"
     },
     {
       "jitter": false,
-      "name": "Nieten Deckplatte links",
+      "name": "Deckplattenrand vorn",
       "op": "box",
       "mode": "paint",
       "at": [
-        -4,
+        -7,
         18,
-        -10
+        4
+      ],
+      "size": [
+        14,
+        1,
+        1
+      ],
+      "color": "panzer_dark"
+    },
+    {
+      "jitter": false,
+      "name": "Deckplattenrand hinten",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -7,
+        18,
+        -9
+      ],
+      "size": [
+        14,
+        1,
+        1
+      ],
+      "color": "panzer_dark"
+    },
+    {
+      "jitter": false,
+      "name": "Deckplattenrand links",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        6,
+        18,
+        -9
       ],
       "size": [
         1,
         1,
-        1
+        14
       ],
-      "color": "niete",
-      "repeat": {
-        "count": 2,
-        "step": [
-          3,
-          0,
-          0
-        ]
-      }
+      "color": "panzer_dark"
+    },
+    {
+      "jitter": false,
+      "name": "Deckplattenrand rechts",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -7,
+        18,
+        -9
+      ],
+      "size": [
+        1,
+        1,
+        14
+      ],
+      "color": "panzer_dark"
     },
     {
       "jitter": false,
       "name": "Nieten Deckplatte rechts",
       "op": "box",
       "mode": "paint",
-      "at": [
-        0,
-        18,
-        -10
-      ],
-      "size": [
-        1,
-        1,
-        1
-      ],
-      "color": "niete",
       "repeat": {
         "count": 2,
         "step": [
@@ -137,24 +169,24 @@
           0,
           0
         ]
-      }
+      },
+      "at": [
+        -5,
+        18,
+        -7
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
     },
     {
       "jitter": false,
-      "name": "Nieten Deckplatte 2 links",
+      "name": "Nieten Deckplatte links",
       "op": "box",
       "mode": "paint",
-      "at": [
-        -4,
-        18,
-        -6
-      ],
-      "size": [
-        1,
-        1,
-        1
-      ],
-      "color": "niete",
       "repeat": {
         "count": 2,
         "step": [
@@ -162,24 +194,24 @@
           0,
           0
         ]
-      }
+      },
+      "at": [
+        1,
+        18,
+        -7
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
     },
     {
       "jitter": false,
       "name": "Nieten Deckplatte 2 rechts",
       "op": "box",
       "mode": "paint",
-      "at": [
-        0,
-        18,
-        -6
-      ],
-      "size": [
-        1,
-        1,
-        1
-      ],
-      "color": "niete",
       "repeat": {
         "count": 2,
         "step": [
@@ -187,19 +219,55 @@
           0,
           0
         ]
-      }
+      },
+      "at": [
+        -5,
+        18,
+        -3
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
+    },
+    {
+      "jitter": false,
+      "name": "Nieten Deckplatte 2 links",
+      "op": "box",
+      "mode": "paint",
+      "repeat": {
+        "count": 2,
+        "step": [
+          3,
+          0,
+          0
+        ]
+      },
+      "at": [
+        1,
+        18,
+        -3
+      ],
+      "size": [
+        1,
+        1,
+        1
+      ],
+      "color": "niete"
     },
     {
       "jitter": false,
       "name": "Gegengewicht hinten",
       "op": "box",
       "at": [
-        -5,
+        -7,
         12,
-        -13
+        -11
       ],
       "size": [
-        10,
+        14,
         5,
         1
       ],
@@ -209,17 +277,6 @@
       "jitter": false,
       "name": "Hydraulikstreben hinten links",
       "op": "box",
-      "at": [
-        -4,
-        12,
-        -14
-      ],
-      "size": [
-        1,
-        5,
-        1
-      ],
-      "color": "hydraulik",
       "repeat": {
         "count": 2,
         "step": [
@@ -227,23 +284,23 @@
           0,
           0
         ]
-      }
+      },
+      "at": [
+        -4,
+        12,
+        -12
+      ],
+      "size": [
+        1,
+        5,
+        1
+      ],
+      "color": "hydraulik"
     },
     {
       "jitter": false,
       "name": "Hydraulikstreben hinten rechts",
       "op": "box",
-      "at": [
-        0,
-        12,
-        -14
-      ],
-      "size": [
-        1,
-        5,
-        1
-      ],
-      "color": "hydraulik",
       "repeat": {
         "count": 2,
         "step": [
@@ -251,7 +308,18 @@
           0,
           0
         ]
-      }
+      },
+      "at": [
+        0,
+        12,
+        -12
+      ],
+      "size": [
+        1,
+        5,
+        1
+      ],
+      "color": "hydraulik"
     },
     {
       "jitter": false,
@@ -259,14 +327,14 @@
       "op": "box",
       "mode": "paint",
       "at": [
-        5,
+        7,
         14,
-        -10
+        -8
       ],
       "size": [
         1,
         1,
-        14
+        12
       ],
       "color": "panzer_dark"
     },
@@ -276,14 +344,14 @@
       "op": "box",
       "mode": "paint",
       "at": [
-        -6,
+        -8,
         14,
-        -10
+        -8
       ],
       "size": [
         1,
         1,
-        14
+        12
       ],
       "color": "panzer_dark"
     },

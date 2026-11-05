@@ -1,6 +1,6 @@
 {
   "id": "station/schottbrecher/lampe",
-  "name": "Schottbrecher: Lichtschlitz (weiß, leuchtet). Eigenes Gelenk, damit der Client ihn ausblenden kann.",
+  "name": "Schottbrecher: Lichtschlitz (4×2, Front) und Lichtfeld (2×1, Dach des Sensorkopfes), weiß, leuchten. Eigenes Gelenk, damit der Client beides gemeinsam ausblenden kann.",
   "tier": "detail",
   "palette": "schottbrecher",
   "tags": [
@@ -21,6 +21,22 @@
       "size": [
         4,
         2,
+        1
+      ],
+      "color": "licht"
+    },
+    {
+      "jitter": false,
+      "name": "Lichtfeld oben",
+      "op": "box",
+      "at": [
+        -1,
+        23,
+        2
+      ],
+      "size": [
+        2,
+        1,
         1
       ],
       "color": "licht"

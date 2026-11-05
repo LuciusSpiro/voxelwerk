@@ -59,6 +59,22 @@
     },
     {
       "jitter": false,
+      "name": "Aussparung Lichtfeld (Dach)",
+      "op": "box",
+      "mode": "carve",
+      "at": [
+        -1,
+        23,
+        2
+      ],
+      "size": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "jitter": false,
       "name": "Blendkante oben",
       "op": "box",
       "at": [

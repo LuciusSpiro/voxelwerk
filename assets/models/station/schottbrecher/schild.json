@@ -1,6 +1,6 @@
 {
   "id": "station/schottbrecher/schild",
-  "name": "Schottbrecher: Rammschild (gebogen; ausgefahren folgt die Front dem Kreis von 1 m Radius) mit Kolbenstangen",
+  "name": "Schottbrecher: Rammschild (Pflugform: Mitte gerade, nach hinten abgewinkelte Seitenflügel; ausgefahren folgt die Front dem Kreis von 1 m Radius) mit Kolbenstangen",
   "tier": "detail",
   "palette": "schottbrecher",
   "tags": [
@@ -39,7 +39,7 @@
     },
     {
       "jitter": false,
-      "name": "Schildband x 5..7",
+      "name": "Flügel x 5..7",
       "op": "box",
       "at": [
         5,
@@ -55,7 +55,7 @@
     },
     {
       "jitter": false,
-      "name": "Schildband x -8..-6",
+      "name": "Flügel x -8..-6",
       "op": "box",
       "at": [
         -8,
@@ -71,7 +71,7 @@
     },
     {
       "jitter": false,
-      "name": "Schildband x 8..9",
+      "name": "Flügel x 8..9",
       "op": "box",
       "at": [
         8,
@@ -87,7 +87,7 @@
     },
     {
       "jitter": false,
-      "name": "Schildband x -10..-9",
+      "name": "Flügel x -10..-9",
       "op": "box",
       "at": [
         -10,
@@ -103,18 +103,67 @@
     },
     {
       "jitter": false,
+      "name": "Flügelspitze x 10..11",
+      "op": "box",
+      "at": [
+        10,
+        5,
+        "ausfahrt * -1 + 9"
+      ],
+      "size": [
+        2,
+        14,
+        1
+      ],
+      "color": "schild"
+    },
+    {
+      "jitter": false,
+      "name": "Flügelspitze x -12..-11",
+      "op": "box",
+      "at": [
+        -12,
+        5,
+        "ausfahrt * -1 + 9"
+      ],
+      "size": [
+        2,
+        14,
+        1
+      ],
+      "color": "schild"
+    },
+    {
+      "jitter": false,
       "name": "Schneide unten",
       "op": "box",
       "mode": "paint",
       "at": [
-        -10,
+        -12,
         5,
-        "ausfahrt * -1 + 10"
+        "ausfahrt * -1 + 9"
       ],
       "size": [
-        20,
+        24,
         1,
-        5
+        6
+      ],
+      "color": "panzer_dark"
+    },
+    {
+      "jitter": false,
+      "name": "Oberkante dunkel",
+      "op": "box",
+      "mode": "paint",
+      "at": [
+        -12,
+        18,
+        "ausfahrt * -1 + 9"
+      ],
+      "size": [
+        24,
+        1,
+        6
       ],
       "color": "panzer_dark"
     },
@@ -223,29 +272,33 @@
     {
       "jitter": false,
       "name": "Kolbenstange links",
-      "op": "cyl",
-      "axis": "z",
+      "op": "box",
       "at": [
-        3.5,
-        13.5,
+        3,
+        13,
         3
       ],
-      "r": 1.1,
-      "h": 7,
+      "size": [
+        2,
+        2,
+        7
+      ],
       "color": "kolben"
     },
     {
       "jitter": false,
       "name": "Kolbenstange rechts",
-      "op": "cyl",
-      "axis": "z",
+      "op": "box",
       "at": [
-        -3.5,
-        13.5,
+        -5,
+        13,
         3
       ],
-      "r": 1.1,
-      "h": 7,
+      "size": [
+        2,
+        2,
+        7
+      ],
       "color": "kolben"
     }
   ],
