@@ -313,12 +313,12 @@ function pruefeDiag(lib2, id, art) {
   // Gleichheit zu Paket 2: Fingerabdruck aller Kacheln ohne diag (Art 0 und 1 × 16 conn × Seeds 0, 7 × 3 Paletten) gegen den Stand von 9d40838
   let h = 2166136261, n = 0;
   for (const pal of ['biom_wiesenwald', 'biom_wueste', 'biom_vulkan']) for (const art of [0, 1]) for (let conn = 0; conn < 16; conn++) for (const seed of [0, 7]) {
-    const s = messe(lib, FLUID, { art, conn, seed }, pal).hash;
+    const s = messe(lib, FLUID, { art, conn, seed }, pal).form;   // nur die Form (Voxelpositionen): Palettenänderungen dürfen die Gleichheit nicht brechen
     for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
     n++;
   }
-  const BASIS = 'a6a34910';
-  ok(n === 192 && (h >>> 0).toString(16) === BASIS, `Fluid ohne diag (Wasser, Lava): ${n} Kacheln byteweise wie in Paket 2 (Fingerabdruck ${(h >>> 0).toString(16)}, erwartet ${BASIS})`);
+  const BASIS = 'b9cf42ed';   // Formhash des Stands von Paket 2 (9d40838), gemessen mit gleichem Verfahren
+  ok(n === 192 && (h >>> 0).toString(16) === BASIS, `Fluid ohne diag (Wasser, Lava): ${n} Kacheln in der Form (Voxelpositionen) wie in Paket 2 (Formhash ${(h >>> 0).toString(16)}, erwartet ${BASIS})`);
   let gl = true;
   for (const art of [0, 1]) for (let conn = 0; conn < 16; conn++) if (messe(lib, FLUID, { art, conn, seed: 3, diag: 0 }).hash !== messe(lib, FLUID, { art, conn, seed: 3 }).hash) gl = false;
   ok(gl, 'diag 0 ausdrücklich gesetzt = Standard (gleiche Kachel)');

@@ -51,9 +51,10 @@ export function messe(lib, id, params = {}, palette) {
   const vox = [];
   for (const v of b.grid.values()) { if (v.e > 0) emit++; vox.push(`${v.x},${v.y},${v.z}`); }
   vox.sort();
-  for (const k of vox) for (let i = 0; i < k.length; i++) { h ^= k.charCodeAt(i); h = Math.imul(h, 16777619); }
+  let g = 2166136261;   // Formhash: nur die Voxelpositionen, unabhängig von Palette und Farben
+  for (const k of vox) for (let i = 0; i < k.length; i++) { h ^= k.charCodeAt(i); h = Math.imul(h, 16777619); g ^= k.charCodeAt(i); g = Math.imul(g, 16777619); }
   for (const v of b.grid.values()) { h ^= v.c; h = Math.imul(h, 16777619); h ^= v.x * 31 + v.y * 17 + v.z * 7; h = Math.imul(h, 16777619); }
-  return { tris: 2 * (b.mesh.lit.quads + b.mesh.emit.quads), voxels: b.grid.size, min, max, emit, hash: (h >>> 0).toString(16), keys: new Set(vox), grid: b.grid, built: b };
+  return { tris: 2 * (b.mesh.lit.quads + b.mesh.emit.quads), voxels: b.grid.size, min, max, emit, hash: (h >>> 0).toString(16), form: (g >>> 0).toString(16), keys: new Set(vox), grid: b.grid, built: b };
 }
 
 /** Footprint 1 × 1 um den Pivot: kein Voxel außerhalb von ±0,5 m (x, z). */
