@@ -552,7 +552,7 @@ Lava ist `art 1` mit `biom_vulkan` (dort leuchtet `fluid`), Wasser `art 0` mit W
 
 **Fluid-Kachel:** Anker = Lauffläche (y 0). Das Becken liegt im Modell: Körper von −1 m bis −0,25 m (Wasser, Lava), an Seiten **ohne** Nachbar gleicher Klasse eine Uferkante in zwei Stufen
 (2 Voxel breit, Oberkante −6 cm und −19 cm; Wasser Gras- und Bodenton, Lava Boden und Boden dunkel), an Seiten **mit** Nachbar nahtlos (`conn` N1 O2 S4 W8 wie bei den Kit-Teilen).
-Treibsand: 12,5 cm eingesunken, schräge Streifen (2 Voxel breit, Periode 8 Voxel diagonal, Boden- und Grasdunkelton), kein Ufer, `conn`, `diag` und `seed` ohne Wirkung; das Muster setzt sich über Kachelränder nahtlos fort (kein Ring um die Kachelmitte).
+Treibsand: 12,5 cm eingesunken, schräge Streifen (2 Voxel breit, Periode 8 Voxel in x und z, Boden- und Grasdunkelton), kein Ufer, `conn`, `diag` und `seed` ohne Wirkung; das Muster setzt sich über Kachelränder nahtlos fort (kein Ring um die Kachelmitte).
 `diag` (optional, Bit je Ecke NO1 SO2 SW4 NW8: dort ist kein Fluid) schließt eine Innenecke, wo beide Nachbarn der Ecke Fluid sind und nur die Diagonale nicht: Außenpfosten und innerer Winkel der Uferstufen. Ohne `diag` ist die Kachel byteweise wie in Paket 2.
 **Das Terrain unter der Kachel muss mindestens 1 m tiefer liegen** (Zelle `h − 1` oder tiefer), sonst verdeckt der Terrainwürfel das Becken; im Prüfbild steht die Zelle mit `h: 0` und das Modell bei `y: 1`.
 
@@ -566,12 +566,18 @@ Rezepte unter `assets/models/biom/wueste/`, Palette `biom_wueste`, alle aus achs
 
 | ID | Parameter | Maß | Spielregel | Dreiecke (gemessen, Budget) |
 |---|---|---|---|---|
-| `biom/wueste/dornbusch` | `seed` (Gestalt = seed % 3: 0 Besen, 1 Gestrüpp aus gekreuzten Balken, 2 Zickzack-Akazie) | 1,1 bis 1,4 m | Sichtschleier, ohne Kollision, Teppich darunter | 662 (800) |
+| `biom/wueste/dornbusch` | `seed` (Gestalt = seed % 3: 0 Besen mit Kandelaberarmen, 1 Gestrüpp aus Zickzackarmen, 2 Schirm-Akazie; Längen und Höhe je Seed) | 1,06 bis 1,31 m | Sichtschleier: ohne Kollision, sperrt die Sicht, keine Deckung, Teppich darunter | 556 bis 786 je Seed (350 bis 800) |
 | `biom/wueste/kaktus` | `seed` (0 zwei Arme, 1 dicker Stamm mit einem Arm, 2 schlanker Kandelaber) | 2,06 bis 2,19 m | fest und hoch (wie Baum): Kollision, Deckung, sperrt Sicht | 526 (700) |
 | `biom/wueste/schichtstein` | `hoch` 0/1, `seed` (0 Schichtturm, 1 Pilzfels, 2 schiefer Stapel) | halb 0,75 m, voll 2,06 m | Kollision ganze Kachel, Deckung halb/voll | halb 496 (500), voll 850 (900) |
 
-Farbe: Der Dornbusch nutzt nur `soil_dark` und `rock` (eine Stufe dunkler als der Boden, kein Grün). Der Kaktus nutzt `plant`/`plant_dark` (Rippen), nichts heller als der Boden, dunkler als jeder Stein (kein `flower`, keine Blüte). Der Schichtstein trägt Bänder aus `stone_dark` (unten), `stone` und `stone_light` (nur in der Mitte), die oberste Platte nie hell (keine helle Kappe, kein heller Sockel).
-Der Treibsand ist ruhig: schräge Streifen mit 3 L* Unterschied zum Sand, im Feld eine Fläche; die Oase ist Wasser (`art 0`) mit `biom_wueste`, Uferkanten in Sand- und Bodenton, `diag` an Innenecken. Palmen entfallen.
+Dornbusch (Sichtschleier, liest nie als Festes): Stämme und Äste nur 1 Voxel stark (kein Klotz über 2 × 2), über 90 % Luft in der Hüllbox (Vorgabe mindestens 60 %), die Silhouette geht nach oben auf; Äste in `soil_dark` (heller als der Kaktus, dunkler als der Boden), dazu einzelne 1-Voxel-Dornen und Triebspitzen in `plant_dark` (trockenes Olivgrün), damit er als Pflanze liest. Keine `rock*`-Rolle (das ist die Stufe „fest und hoch“). Mindestens 350 Dreiecke je Seed, damit auch jeder Seed als Sichtblock lesbar bleibt.
+Farbe: Wertleiter fest und hoch (Kaktus, Stein) am dunkelsten, der Dornbusch heller als das Feste und dunkler als der Boden (`soil_dark`, kein Fels). Der Kaktus nutzt `plant`/`plant_dark` (Rippen), nichts heller als der Boden, dunkler als jeder Stein (kein `flower`, keine Blüte). Der Schichtstein trägt Bänder aus `stone_dark` (unten), `stone` und `stone_light` (nur in der Mitte), die oberste Platte nie hell (keine helle Kappe, kein heller Sockel).
+Der Treibsand ist ruhig: schräge Streifen (2 Voxel breit, Periode 8 Voxel in x und z: Streifen, wo (X + Z) mod 8 < 2), 3 L* Unterschied zum Sand, im Feld eine Fläche; die Oase ist Wasser (`art 0`) mit `biom_wueste`, Uferkanten in Sand- und Bodenton, `diag` an Innenecken. Palmen entfallen.
+
+Fallen für die Spielseite (GEL-01):
+- `deko.js` streut mit Versatz bis ±0,25 m, Bewuchs ist bis 0,94 m breit.
+- `away.js` `floorOffset` senkt Assets unter 0,6 m Höhe mit `opts.floor` um ihre Höhe ab (Bewuchs mit 0,19 m würde im Boden verschwinden).
+- Unter einer Fluid-Kachel darf keine Geländezelle auf Laufhöhe liegen.
 
 ### Vulkan (VOX-02 Paket 4)
 
