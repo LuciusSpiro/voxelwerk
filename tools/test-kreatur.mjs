@@ -21,7 +21,7 @@ for (const id of [IDS.rudel, IDS.marken]) await lib.load('models', id);
 
 const POSEN = [0, 1, 2, 3], FELL = [0, 1, 2, 3, 4, 5], BEIN = [0, 1], LADUNG = [0, 1, 2, 3];
 const BUDGET = { tris: 2300, voxel: 700, markenTris: 300 };
-const GLUT = 0xFFBA9C;                              // (255,186,156), Leuchtfarbe der Marken (Vorgabe Designer)
+const GLUT = 0xFF9A78;                              // (255,154,120), Leuchtfarbe der Marken (MON-02 Nacharbeit: ohne Bloom vom Knochen getrennt)
 const FUNKTION = { mint: 0x7FE0C2, eisblau: 0xA9D6E5, bernstein: 0xFFC66B, rot: 0xFF6B5E, reinrot: 0xFF4830 };   // Funktionsfarben des Spiels
 const FARB_ABSTAND = 45;                            // RGB-Abstand (Euklid) mindestens
 const rgb = (c) => [(c >> 16) & 255, (c >> 8) & 255, c & 255];
@@ -174,7 +174,7 @@ function pruefeMarken(ids) {
     }
     const leuchtend = m.vox.filter((v) => v.e > 0);
     if (leuchtend.length !== 4 * p.ladung) f.push(`${l}: ${leuchtend.length} leuchtende Voxel, erwartet ${4 * p.ladung}`);
-    if (leuchtend.some((v) => v.c !== an.c || v.c !== GLUT)) f.push(`${l}: Leuchtfarbe nicht (255,186,156)`);
+    if (leuchtend.some((v) => v.c !== an.c || v.c !== GLUT)) f.push(`${l}: Leuchtfarbe nicht (255,154,120)`);
     const aus = m.vox.filter((v) => v.e === 0);
     if (aus.length !== 12 - 4 * p.ladung) f.push(`${l}: ${aus.length} dunkle Voxel, erwartet ${12 - 4 * p.ladung}`);
     // welche Marken leuchten: die ersten `ladung` von hinten
@@ -298,7 +298,7 @@ const bl = pruefeBlick(IDS); ok(leer(bl), `Blick +z: heller Block vorn, Nase vor
 const bu = pruefeBudget(IDS); ok(leer(bu), `Budget: hoechstens ${bu.maxV} Voxel (Grenze ${BUDGET.voxel}), ${bu.maxT} Dreiecke Koerper + Marken (Grenze ${BUDGET.tris}), Marken ${bu.maxMarken} (Grenze ${BUDGET.markenTris})${bu.fehler.length ? ': ' + kurz(bu.fehler) : ''}`);
 const ko = pruefeKontrast(IDS); ok(leer(ko), `Graustufen-Kontrast Block vorn gegen Rumpf hinten: kleinster Faktor ${ko.minFaktor.toFixed(2)} (verlangt 2), dunkelstes Knochenvoxel gegen hellstes Fell ${ko.minEinzel.toFixed(2)} (alle 48 Kombinationen)${ko.fehler.length ? ': ' + kurz(ko.fehler) : ''}`);
 const fe = pruefeFell(IDS); ok(leer(fe), `Fellvarianten: 6 Toene, Luminanz hoechstens ${(fe.abw * 100).toFixed(1)} % und Graustufen ${(fe.abwLuma * 100).toFixed(1)} % vom Mittel (erlaubt 8 %), gleiche Form${fe.fehler.length ? ': ' + kurz(fe.fehler) : ''}`);
-const ma = pruefeMarken(IDS); ok(leer(ma), `Marken: 3 Marken 2 x 2 mit 2 Voxeln Abstand, Ladung 0 bis 3 zaehlt genau (4 leuchtende Voxel je Stufe, Leuchtfarbe 255,186,156), sitzen auf dem Ruecken, nichts darueber (16 Faelle)${ma.length ? ': ' + kurz(ma) : ''}`);
+const ma = pruefeMarken(IDS); ok(leer(ma), `Marken: 3 Marken 2 x 2 mit 2 Voxeln Abstand, Ladung 0 bis 3 zaehlt genau (4 leuchtende Voxel je Stufe, Leuchtfarbe 255,154,120), sitzen auf dem Ruecken, nichts darueber (16 Faelle)${ma.length ? ': ' + kurz(ma) : ''}`);
 const si = pruefeSicht(IDS); ok(leer(si.fehler), `Marken von vorn sichtbar: ab ${SICHT.flach} Grad Blickhoehe jede Marke frei, waagerecht die vorderste frei; leuchtende Voxel von vorn bei Ladung 1, 2, 3 = ${[1, 2, 3].map((l) => si.zahlen['0/' + l]).join(', ')} (Pose steh), in allen Posen wachsend${si.fehler.length ? ': ' + kurz(si.fehler) : ''}`);
 const po = pruefePosen(IDS); ok(leer(po), `Posen unterscheidbar: vier Formhashes (${Object.values(po.h).join(', ')}), Kopf und Ruecken sinken, Rammen gestreckt, zwei Beinphasen, Marken folgen${po.fehler.length ? ': ' + kurz(po.fehler) : ''}`);
 const de = await pruefeDeterminismus(IDS); ok(leer(de), `Determinismus: gleiche Parameter gleiche Voxel (auch frisch geladen), Seed ohne Wirkung${de.length ? ': ' + kurz(de) : ''}`);

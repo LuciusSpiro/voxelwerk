@@ -62,12 +62,15 @@ console.log('\n== Lichtquelle (Marker lampe)');
   ok(a[2] > 0.8 && a[1] < 0 && a[1] > -0.6, 'Kegelachse zeigt nach vorn und leicht nach unten');
   ok(rig.joints.lampe.at[2] >= 5 && rig.joints.lampe.at[0] === 0, 'Lampe sitzt mittig an der Front des Sensorkopfes');
   const v = pro.lampe, schlitz = v.filter((x) => x.y < 23), feld = v.filter((x) => x.y >= 23);
-  ok(v.length === 10 && v.every((x) => x.e > 0), 'Teil lampe: 10 Voxel (Schlitz 4×2 und Lichtfeld 2×1), alle leuchtend (emit)');
+  ok(v.length === 12 && v.every((x) => x.e > 0), 'Teil lampe: 12 Voxel (Schlitz 6×1 an der Front, Lichtstreifen 6×1 im Dach), alle leuchtend (emit)');
+  // MON-02 Nacharbeit M3: ein Schlitz, kein Quadrat (Designer: Lichtfeld und Fenster lasen sich als Nase/Bildschirm): 1 Voxel hoch über die volle Sensorbreite
+  const sBreite = Math.max(...pro.sensor.map((x) => x.x)) - Math.min(...pro.sensor.map((x) => x.x)) + 1;
+  ok(schlitz.length === sBreite && new Set(schlitz.map((x) => x.y)).size === 1 && new Set(schlitz.map((x) => x.z)).size === 1 && feld.length === sBreite && new Set(feld.map((x) => x.z)).size === 1, `Lichtschlitz und Lichtstreifen: je 1 Voxel hoch (bzw. tief) über die volle Sensorbreite (${sBreite} Voxel), kein Quadrat`);
   const c = schlitz.reduce((s, x) => [s[0] + x.x + 0.5, s[1] + x.y + 0.5, s[2] + x.z + 0.5], [0, 0, 0]).map((x) => x / schlitz.length);
-  ok(schlitz.length === 8 && Math.abs(c[0] - rig.joints.lampe.at[0]) < 0.6 && Math.abs(c[1] - rig.joints.lampe.at[1]) < 0.6, `Schlitz-Mitte (${c.map((x) => x.toFixed(1))}) liegt am Gelenk lampe`);
+  ok(schlitz.length === 6 && Math.abs(c[0] - rig.joints.lampe.at[0]) < 0.6 && Math.abs(c[1] - rig.joints.lampe.at[1]) < 0.6, `Schlitz-Mitte (${c.map((x) => x.toFixed(1))}) liegt am Gelenk lampe`);
   // Lichtfeld oben auf dem Sensorkopf: 2×1 Voxel, bündig im Dach (höchste Voxelebene des Kopfes), also aus 57° von allen Seiten sichtbar
   const kopfMaxY = Math.max(...pro.sensor.map((x) => x.y), ...feld.map((x) => x.y));
-  ok(feld.length === 2 && feld.every((x) => x.y === kopfMaxY) && new Set(feld.map((x) => x.z)).size === 1 && Math.abs(feld[0].x - feld[1].x) === 1, 'Lichtfeld: 2×1 Voxel in der obersten Ebene des Sensorkopfes (Dach), Teil des Gelenks lampe');
+  ok(feld.length === 6 && feld.every((x) => x.y === kopfMaxY) && new Set(feld.map((x) => x.z)).size === 1, 'Lichtstreifen: 6×1 Voxel in der obersten Ebene des Sensorkopfes (Dach), Teil des Gelenks lampe');
   ok(pro.sensor.every((x) => !feld.some((f) => f.x === x.x && f.y === x.y && f.z === x.z)), 'Dach des Sensorkopfes ist an den Feldzellen ausgespart (keine überlagerten Voxel, kein Z-Fighting)');
   ok(Object.entries(pro).filter(([j]) => j !== 'lampe').every(([, vs]) => vs.every((x) => !(x.e > 0))), 'nur der Lichtschlitz leuchtet');
 }
@@ -86,12 +89,15 @@ console.log('\n== Posen: Gültigkeit');
     for (const b of ['VL', 'VR', 'HL', 'HR']) { const y = (w.shift['foot' + b] || [0, 0, 0])[1]; fMin = Math.min(fMin, y); fMax = Math.max(fMax, y); }
     const s = (w.shift.schild || [0, 0, 0])[2]; sMin = Math.min(sMin, s); sMax = Math.max(sMax, s);
   }
-  ok(fMin >= -1.5 && fMax <= 9, `Teleskop foot*.shift y in [-1,5 .. 9] (Stange bleibt in der Hülse und unter der Kniekappe; negativ = ausgefahren): ${fMin.toFixed(2)} bis ${fMax.toFixed(2)}`);
+  ok(fMin >= -1.5 && fMax <= 11, `Teleskop foot*.shift y in [-1,5 .. 11] (Stange bleibt in der Hülse und unter der Kniekappe; negativ = ausgefahren): ${fMin.toFixed(2)} bis ${fMax.toFixed(2)}`);
   ok(sMin >= 0 && sMax <= 4, `Schild ausfahren schild.shift z in [0, 4] (4 = Kreisrand): ${sMin} bis ${sMax}`);
   // Inhalt der Zustände
   const hullY = (z) => (P[z].shift?.hull || [0, 0, 0])[1];
   ok(hullY('patrouille') === 0 && hullY('jagd') <= -5 && hullY('pause') < hullY('jagd'), `Wanne: patrouille ${hullY('patrouille')}, jagd ${hullY('jagd')} (mindestens 5 tiefer), pause ${hullY('pause')} (Pause fast am Boden)`);
   ok(['VL', 'VR', 'HL', 'HR'].every((b) => P.jagd.shift['foot' + b][1] === -hullY('jagd') && P.jagd.cycle.shift['foot' + b].c[1] - P.jagd.cycle.shift['foot' + b].a[1] === -hullY('jagd')), 'Jagd: Teleskope ziehen so weit ein, wie die Wanne sinkt (Sohle berührt den Boden im Zyklustiefpunkt)');
+  // MON-02 Nacharbeit M4: die Pause liegt mit der Wanne fast am Boden (vorher hull -6 = 6 Voxel unter der Ruhelage, jetzt mindestens 10)
+  ok(hullY('pause') <= hullY('patrouille') - 10 && hullY('pause') <= hullY('jagd') - 5, `Pause: Wanne ${-hullY('pause')} Voxel gegen die Ruhelage abgesenkt (mindestens 10), ${hullY('jagd') - hullY('pause')} tiefer als in der Jagd`);
+  ok(Math.min(...posiereSB(rig, posen, pro, 'pause').punkte.filter((p) => p.j === 'hull').map((p) => p.y - 0.5)) <= 1.5, 'Pause: Wannenunterkante höchstens 1,5 Voxel über dem Boden (liegt fast auf)');
   ok(P.laerm.joints.horchL[2] < -60 && P.laerm.joints.horchR[2] > 60 && !P.patrouille.joints?.horchL, 'Lärm: Horchplatten hoch (links z < -60, rechts z > 60), sonst flach');
   const rs = P.rammen.shift.schild || [0, 0, 0];
   ok(rs[2] >= 3 && rs[2] <= 4 && rs[1] <= -1 && rs[1] >= -2 && !P.patrouille.shift?.schild, `Rammen: Schild ${rs[2]} Voxel ausgefahren und ${-rs[1]} Voxel abgesenkt, sonst eingefahren`);
