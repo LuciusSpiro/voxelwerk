@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "check": "node tools/check.js",
-    "test": "node tools/test-kern.mjs && node tools/test-cha.mjs && node tools/test-biom.mjs && node tools/test-biom-props.mjs && node tools/test-biom-props-wueste.mjs && node tools/test-biom-props-vulkan.mjs && node tools/test-kreatur.mjs && node tools/test-schottbrecher.mjs",
+    "test": "node tools/test-kern.mjs && node tools/test-cha.mjs && node tools/test-biom.mjs && node tools/test-biom-props.mjs && node tools/test-biom-props-wueste.mjs && node tools/test-biom-props-vulkan.mjs && node tools/test-kreatur.mjs && node tools/test-schottbrecher.mjs && node tools/test-schwarm.mjs",
     "shots": "node tools/shots.cjs",
     "sprites": "node tools/sprites.mjs"
   },

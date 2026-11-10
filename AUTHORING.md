@@ -612,6 +612,25 @@ Ordner `assets/models/kreatur/`, Palette `kreatur`, Stufe `detail`, Footprint 1 
 - **Palette:** `kreatur` erbt von `base`, kein Mint, Eisblau, Bernstein oder reines Rot (Funktionsfarben des Spiels). Sie gehört nicht zu den Kulturpaletten der Gegenprobe in `tools/test-biom.mjs`.
 - **Prüfung:** `node tools/test-kreatur.mjs` (Teil von `npm test`): Footprint, Kreisregel bei acht Drehungen, Blick, Budget, Graustufen-Kontrast (Block gegen Rumpf mindestens Faktor 2), Fellvarianten, Marken (Zahl, Abstand, Ladung zählt genau), Marken von vorn sichtbar, Posen unterscheidbar, Determinismus, Funktionsfarben, 20 Mutationsproben. Prüfbilder: Szenen `kreatur-rudeltier-blatt` (8 Blickrichtungen, 4 Posen, 4 Ladungen, 6 Fellfarben), `-rudel-wueste`, `-rudel-wiese`, `-rudel-vulkan` (Rudel von 6 neben der Spielfigur), `-einzel`, `-posen`, `-ladung` (Ladung 0 bis 3 nebeneinander; Kameras `spiel`, `flach` 20°, `niedrig`, `schraeg`, `oben`); Spielgröße 32 px je Kachel: Fenster 480 × 270 mit `cam=spiel`.
 
+### Schwarm (`kreatur/schwarmling`, `koenigin`, MON-03 Paket E, Richtung C Myzel)
+
+Gleiche Regeln wie beim Rudeltier (Palette `kreatur`, Stufe `detail`, `jitter` 0, starr ohne Rig, Blick +z, Anker 0,0,0 = Mitte unten, Spielregeln legt das Spiel fest). Der Client reicht an den Körper `pose`, `fell`, `beinphase` und an das zweite Teilmodell `ladung`, `pose`; alle Modelle deklarieren diese Parameter, auch wo sie ohne Wirkung bleiben.
+
+| ID | Parameter | Maß | Voxel / Dreiecke (gemessen, Budget) |
+|---|---|---|---|
+| `kreatur/schwarmling` | `pose` 0 steh, 1 aufladen (wie steh, 1 Voxel tiefer), 2 hocke (Pause, Kappe fast am Boden), 3 biss (Kappe 1 Voxel nach vorn, Beine enger); `beinphase` 0/1 (Diagonalgang); `fell` nur 0 | Kappe 8 × 8 Voxel (0,5 m), Höhe 6 / 5 / 4 / 5 Voxel | 104–112 Voxel, 282–306 Dreiecke (340) |
+| `kreatur/schwarmling_sporen` | `pose` (wie am Körper), `ladung` ohne Wirkung | 5 leuchtende Einzelvoxel auf der Kappe (oben, je zwei vorn und hinten) | 5 Voxel, 60 Dreiecke (80) |
+| `kreatur/koenigin` | `pose`, `fell`, `beinphase` ohne Wirkung (sie steht im Spiel immer im Modus `steht`, also Pose 2) | Footprint 2 × 2, Kappe 32 Voxel (2 m) breit, Stiel 22 Voxel, Höhe 31 Voxel (1,9 m); Wurzelfuß und neun Wurzeln mit Gabel auf dem Boden (Myzel-Ansatz); Kreisregel 16 Voxel | 5 741 Voxel, 4 266 Dreiecke (4 600) |
+| `kreatur/koenigin_sporen` | `pose`, `ladung` ohne Wirkung | 18 Sporenpunkte (Mitte, Ring bei 6 und 11 Voxeln) | 18 Voxel, 216 Dreiecke (400) |
+| `kreatur/schwarm_fleck` | `gross` 0 Schwarmling (8 Voxel, 2 hoch), 1 Königin (Kappenrest, Stielstumpf, dunkle Wurzelreste, 29 Voxel breit, 4 hoch) | **Zerfall:** flacher dunkler Fleck, Licht aus, Bodenoptik ohne Kollision | 56 / 939 Voxel, 104 / 884 Dreiecke (1 000) |
+| `kreatur/myzel_faden` | – | flaches Bodenstück 1 Voxel hoch, 16 Voxel lang (z), zwei Abzweige; Kulisse ohne Kollision, der Client darf es als Spur streuen oder drehen | 25 Voxel, 116 Dreiecke (200) |
+
+- **Farben** (Rollen in `kreatur`): `kappe` `#B8A47C` (Grau 165, 2,9 × heller als der Höhlenboden `soil_dark`), `lamelle` (unterste Kappenlage, dunkler), `stiel` (Beine, Stiel), `myzel` (Wurzeln, Faden), `spore_an` `#D8F060` mit `emit` 1,6 (Lime; weder Bernstein noch das Orange der Rudeltier-Marken), `fleck`/`fleck_rand` (dunkel). Nur die Sporen leuchten.
+- **Sporen sind ein eigenes Teilmodell** mit gleichem Anker (wie die Rudeltier-Marken): beide Modelle mit denselben `at`/`rot`/`pose` platzieren, immer mitzeichnen. Die Sporenvoxel sitzen 1 Voxel über der Kappenoberfläche (Körper ohne Löcher).
+- **Familie:** Königin = dieselbe Form (Kappe auf Stiel statt Stummelbeinen), Kappenbreite 4 ×, Höhe 5,2 × des Schwarmlings.
+- **Preisfrage Dreiecke:** Das Ziel unter 150 Dreiecken ist nicht erreichbar: die Netzflächen werden durch das AO geteilt, die vier Einzelbeine kosten allein etwa 100 Dreiecke (Messung: ohne Beine 188, mit 290–306). Bei 20 instanzierten Schwarmlingen sind das etwa 7 000 Dreiecke.
+- **Prüfung:** `node tools/test-schwarm.mjs` (Teil von `npm test`): Fußabdruck, Kreisregel bei acht Drehungen (1 × 1 und 2 × 2), Budget, Aufbau (aus einem Stück, Sporen sitzen auf der Kappe, Wurzeln), Familie, Posen, Graustufen gegen den Boden, flacher Fleck und Faden, Determinismus, Farben, 22 Mutationsproben. Prüfszenen: `kreatur-schwarm-blatt` (alle Posen, Fleck, Königin, Kameras `spiel`, `nah`, `koenigin`, `oben`), `kreatur-schwarm-nest` (Königin, 14 Schwarmlinge, 4 Flecke, Fadenstücke, Spielfigur); Stimmung `hoehle_dunkel`.
+
 ## Szenen (`assets/scenes`)
 
 ```json
