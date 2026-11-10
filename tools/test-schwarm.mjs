@@ -27,7 +27,7 @@ for (const m of MODELLE) await lib.load('models', IDS[m]);
 const POSEN = [0, 1, 2, 3], BEIN = [0, 1];
 // Budget: das Ziel des Designers (unter ca. 120 Voxel) gilt fuer Schwarmling + Sporen; die Dreiecke liegen wegen der AO-Teilung
 // der Netzflaechen (vier Einzelbeine, Stufenkuppel) bei etwa 300 + 60, nicht unter 150 (siehe AUTHORING.md, Abschnitt Schwarm)
-const BUDGET = { sVoxel: 120, sTris: 340, ssTris: 80, kTris: 4600, ksTris: 400, fTris: 1000, faTris: 200, kVoxel: 6500 };
+const BUDGET = { sVoxel: 120, sTris: 340, ssTris: 80, kTris: 4300, ksTris: 400, fTris: 1000, faTris: 200, kVoxel: 6500 };
 const FUNKTION = { mint: 0x7FE0C2, eisblau: 0xA9D6E5, bernstein: 0xFFC66B, rot: 0xFF6B5E, reinrot: 0xFF4830 };   // Funktionsfarben des Spiels
 const RUDEL_MARKE = 0xFF9A78;                       // Leuchtfarbe der Rudeltier-Marken: der Schwarm muss sich davon unterscheiden
 const FARB_ABSTAND = 45;                            // RGB-Abstand (Euklid) mindestens
