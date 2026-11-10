@@ -1,0 +1,139 @@
+{
+ "id": "lad01-ladeplatz",
+ "name": "LAD-01 F2 Ladeplatz: alle Darstellungen (leer, kiste, sprengkiste, fass / waffenkiste, erzbrocken, schrott, kiste_med, bett)",
+ "palette": "lerche_rom",
+ "mood": "ship_interior",
+ "terrain": {
+  "palette": "lerche_rom",
+  "depth": 1,
+  "legend": {
+   ".": {
+    "h": 0,
+    "top": "metal_dark"
+   }
+  },
+  "rows": [
+   ".........",
+   ".........",
+   ".........",
+   ".........",
+   "........."
+  ]
+ },
+ "place": [
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    1,
+    1.2
+   ],
+   "params": {
+    "darstellung": "leer"
+   }
+  },
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    2.6,
+    1.2
+   ],
+   "params": {
+    "darstellung": "kiste"
+   }
+  },
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    4.2,
+    1.2
+   ],
+   "params": {
+    "darstellung": "sprengkiste"
+   }
+  },
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    5.800000000000001,
+    1.2
+   ],
+   "params": {
+    "darstellung": "fass"
+   }
+  },
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    7.4,
+    1.2
+   ],
+   "params": {
+    "darstellung": "waffenkiste"
+   }
+  },
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    1,
+    2.9
+   ],
+   "params": {
+    "darstellung": "erzbrocken"
+   }
+  },
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    2.6,
+    2.9
+   ],
+   "params": {
+    "darstellung": "schrott"
+   }
+  },
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    4.2,
+    2.9
+   ],
+   "params": {
+    "darstellung": "kiste_med"
+   }
+  },
+  {
+   "model": "lerche/furn/ladeplatz",
+   "at": [
+    5.800000000000001,
+    2.9
+   ],
+   "params": {
+    "darstellung": "bett"
+   }
+  }
+ ],
+ "cameras": {
+  "spiel": {
+   "target": [
+    4.2,
+    0.4,
+    2
+   ],
+   "dist": 8.5,
+   "elev": 50,
+   "az": 0,
+   "fov": 30
+  },
+  "schraeg": {
+   "target": [
+    4.2,
+    0.4,
+    2
+   ],
+   "dist": 8.5,
+   "elev": 40,
+   "az": 25,
+   "fov": 30
+  }
+ }
+}
